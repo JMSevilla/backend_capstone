@@ -1,0 +1,717 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="local_dbbmModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="code_verifications">
+          <Key>
+            <PropertyRef Name="codeID" />
+          </Key>
+          <Property Name="codeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="vcode" Type="varchar" MaxLength="100" />
+          <Property Name="isdone" Type="char" MaxLength="1" />
+          <Property Name="sendattempts" Type="char" MaxLength="1" />
+          <Property Name="g_email" Type="varchar" MaxLength="255" />
+          <Property Name="validatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="excelStorage">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tname" Type="varchar" MaxLength="100" />
+          <Property Name="turl" Type="varchar(max)" />
+          <Property Name="createdAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="locations">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="municipality" Type="varchar" MaxLength="100" />
+          <Property Name="province" Type="varchar" MaxLength="100" />
+          <Property Name="createdAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="product_inventory">
+          <Key>
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="productID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productCode" Type="varchar(max)" />
+          <Property Name="productName" Type="varchar" MaxLength="255" />
+          <Property Name="product_quantity" Type="int" />
+          <Property Name="product_price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="product_total" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="product_status" Type="char" MaxLength="1" />
+          <Property Name="product_creator" Type="varchar" MaxLength="100" />
+          <Property Name="product_supplier" Type="varchar" MaxLength="100" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="productimgurl" Type="varchar(max)" />
+          <Property Name="product_category" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="puchase_orders">
+          <Key>
+            <PropertyRef Name="poid" />
+          </Key>
+          <Property Name="poid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ponumber" Type="varchar" MaxLength="255" />
+          <Property Name="pname" Type="varchar" MaxLength="255" />
+          <Property Name="pquantity" Type="int" />
+          <Property Name="pprice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="ptotal" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="pcreator" Type="varchar" MaxLength="100" />
+          <Property Name="psupplier" Type="varchar" MaxLength="100" />
+          <Property Name="createdAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sessionScan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="sessionID" Type="int" />
+          <Property Name="email" Type="varchar" MaxLength="255" />
+          <Property Name="isused" Type="char" MaxLength="1" />
+          <Property Name="createdAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="supplier">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="supplierIdentificationCode" Type="varchar(max)" />
+          <Property Name="supplierfirstname" Type="varchar" MaxLength="100" />
+          <Property Name="supplierlastname" Type="varchar" MaxLength="100" />
+          <Property Name="supplierprimaryaddress" Type="text" />
+          <Property Name="suppliersecondaryaddress" Type="text" />
+          <Property Name="suppliernumber" Type="varchar" MaxLength="100" />
+          <Property Name="supplieremail" Type="varchar" MaxLength="255" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="supplierimgurl" Type="varchar(max)" />
+          <Property Name="isstatus" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="tbcategory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoryname" Type="varchar" MaxLength="100" />
+          <Property Name="createdAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbexceltest">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fname" Type="varchar" MaxLength="100" />
+          <Property Name="lname" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tbposettings">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="enablePO" Type="char" MaxLength="1" />
+          <Property Name="enablePOInventory" Type="char" MaxLength="1" />
+          <Property Name="enableListview" Type="char" MaxLength="1" />
+          <Property Name="viewentry" Type="char" MaxLength="1" />
+          <Property Name="updatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="user_google_allow">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="g_email" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="100" />
+          <Property Name="lastname" Type="varchar" MaxLength="100" />
+          <Property Name="municipality" Type="varchar" MaxLength="100" />
+          <Property Name="province" Type="varchar" MaxLength="100" />
+          <Property Name="address" Type="text" />
+          <Property Name="company_name" Type="varchar" MaxLength="100" />
+          <Property Name="address_type" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="255" />
+          <Property Name="password" Type="varchar(max)" />
+          <Property Name="mobile_no" Type="int" />
+          <Property Name="istype" Type="char" MaxLength="1" />
+          <Property Name="isverified" Type="char" MaxLength="1" />
+          <Property Name="isstatus" Type="char" MaxLength="1" />
+          <Property Name="is_google_verified" Type="char" MaxLength="1" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="imageurl" Type="varchar(max)" />
+          <Property Name="isarchive" Type="char" MaxLength="1" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="supplier_find_duplicate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="supplierIdentificationCode" Type="varchar(max)" />
+          <Property Name="supplierfirstname" Type="varchar" MaxLength="100" />
+          <Property Name="supplierlastname" Type="varchar" MaxLength="100" />
+          <Property Name="supplierprimaryaddress" Type="text" />
+          <Property Name="suppliersecondaryaddress" Type="text" />
+          <Property Name="suppliernumber" Type="varchar" MaxLength="100" />
+          <Property Name="supplieremail" Type="varchar" MaxLength="255" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="supplierimgurl" Type="varchar(max)" />
+          <Property Name="isstatus" Type="char" MaxLength="1" />
+          <Property Name="Expr1" Type="varchar(max)" />
+        </EntityType>
+        <Function Name="stored_supplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="sfname" Type="varchar" Mode="In" />
+          <Parameter Name="slname" Type="varchar" Mode="In" />
+          <Parameter Name="sprimary" Type="text" Mode="In" />
+          <Parameter Name="ssecondary" Type="text" Mode="In" />
+          <Parameter Name="snumber" Type="varchar" Mode="In" />
+          <Parameter Name="semail" Type="varchar" Mode="In" />
+          <Parameter Name="simg" Type="varchar(max)" Mode="In" />
+          <Parameter Name="isstatus" Type="char" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+        </Function>
+        <Function Name="stored_user_registration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="firstname" Type="varchar" Mode="In" />
+          <Parameter Name="lastname" Type="varchar" Mode="In" />
+          <Parameter Name="municipality" Type="varchar" Mode="In" />
+          <Parameter Name="province" Type="varchar" Mode="In" />
+          <Parameter Name="address" Type="text" Mode="In" />
+          <Parameter Name="companyname" Type="varchar" Mode="In" />
+          <Parameter Name="address_type" Type="varchar" Mode="In" />
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar(max)" Mode="In" />
+          <Parameter Name="mobileno" Type="int" Mode="In" />
+          <Parameter Name="istype" Type="char" Mode="In" />
+          <Parameter Name="isverified" Type="char" Mode="In" />
+          <Parameter Name="isstatus" Type="char" Mode="In" />
+          <Parameter Name="isgoogleverified" Type="char" Mode="In" />
+          <Parameter Name="state_action" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="update_product_inventory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="productid" Type="int" Mode="In" />
+          <Parameter Name="productname" Type="varchar" Mode="In" />
+          <Parameter Name="productquantity" Type="int" Mode="In" />
+          <Parameter Name="productprice" Type="decimal" Mode="In" />
+          <Parameter Name="producttotal" Type="decimal" Mode="In" />
+          <Parameter Name="productsupplier" Type="varchar" Mode="In" />
+          <Parameter Name="productimg" Type="varchar(max)" Mode="In" />
+          <Parameter Name="productcategory" Type="varchar" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+        </Function>
+        <Function Name="update_product_status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="prodid" Type="int" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+        </Function>
+        <Function Name="update_sendAttempts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="code" Type="varchar" Mode="In" />
+          <Parameter Name="action" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="update_session_stats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="action" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="update_settings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="state" Type="int" Mode="In" />
+          <Parameter Name="enablePO" Type="char" Mode="In" />
+          <Parameter Name="enablepoinventry" Type="char" Mode="In" />
+          <Parameter Name="enablelistview" Type="char" Mode="In" />
+          <Parameter Name="viewentry" Type="char" Mode="In" />
+        </Function>
+        <Function Name="user_status_updater" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="action" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="local_dbbmModelStoreContainer">
+          <EntitySet Name="code_verifications" EntityType="Self.code_verifications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="excelStorage" EntityType="Self.excelStorage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="locations" EntityType="Self.locations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product_inventory" EntityType="Self.product_inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="puchase_orders" EntityType="Self.puchase_orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sessionScan" EntityType="Self.sessionScan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbcategory" EntityType="Self.tbcategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbexceltest" EntityType="Self.tbexceltest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbposettings" EntityType="Self.tbposettings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_google_allow" EntityType="Self.user_google_allow" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="supplier_find_duplicate" EntityType="Self.supplier_find_duplicate" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [supplier_find_duplicate].[id] AS [id], 
+    [supplier_find_duplicate].[supplierIdentificationCode] AS [supplierIdentificationCode], 
+    [supplier_find_duplicate].[supplierfirstname] AS [supplierfirstname], 
+    [supplier_find_duplicate].[supplierlastname] AS [supplierlastname], 
+    [supplier_find_duplicate].[supplierprimaryaddress] AS [supplierprimaryaddress], 
+    [supplier_find_duplicate].[suppliersecondaryaddress] AS [suppliersecondaryaddress], 
+    [supplier_find_duplicate].[suppliernumber] AS [suppliernumber], 
+    [supplier_find_duplicate].[supplieremail] AS [supplieremail], 
+    [supplier_find_duplicate].[createdAt] AS [createdAt], 
+    [supplier_find_duplicate].[supplierimgurl] AS [supplierimgurl], 
+    [supplier_find_duplicate].[isstatus] AS [isstatus], 
+    [supplier_find_duplicate].[Expr1] AS [Expr1]
+    FROM [dbo].[supplier_find_duplicate] AS [supplier_find_duplicate]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="local_dbbmModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="location">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="municipality" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="province" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="local_dbbmEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="locations" EntityType="Self.location" />
+          <EntitySet Name="users" EntityType="local_dbbmModel.user" />
+          <FunctionImport Name="stored_user_registration">
+            <Parameter Name="firstname" Mode="In" Type="String" />
+            <Parameter Name="lastname" Mode="In" Type="String" />
+            <Parameter Name="municipality" Mode="In" Type="String" />
+            <Parameter Name="province" Mode="In" Type="String" />
+            <Parameter Name="address" Mode="In" Type="String" />
+            <Parameter Name="companyname" Mode="In" Type="String" />
+            <Parameter Name="address_type" Mode="In" Type="String" />
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="mobileno" Mode="In" Type="Int32" />
+            <Parameter Name="istype" Mode="In" Type="String" />
+            <Parameter Name="isverified" Mode="In" Type="String" />
+            <Parameter Name="isstatus" Mode="In" Type="String" />
+            <Parameter Name="isgoogleverified" Mode="In" Type="String" />
+            <Parameter Name="state_action" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="code_verifications" EntityType="local_dbbmModel.code_verifications" />
+          <FunctionImport Name="update_sendAttempts">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="code" Mode="In" Type="String" />
+            <Parameter Name="action" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="user_google_allow" EntityType="local_dbbmModel.user_google_allow" />
+          <EntitySet Name="sessionScans" EntityType="local_dbbmModel.sessionScan" />
+          <FunctionImport Name="update_session_stats">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="action" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="user_status_updater">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="update_product_inventory">
+            <Parameter Name="productid" Mode="In" Type="Int32" />
+            <Parameter Name="productname" Mode="In" Type="String" />
+            <Parameter Name="productquantity" Mode="In" Type="Int32" />
+            <Parameter Name="productprice" Mode="In" Type="Decimal" />
+            <Parameter Name="producttotal" Mode="In" Type="Decimal" />
+            <Parameter Name="productsupplier" Mode="In" Type="String" />
+            <Parameter Name="productimg" Mode="In" Type="String" />
+            <Parameter Name="productcategory" Mode="In" Type="String" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tbexceltests" EntityType="local_dbbmModel.tbexceltest" />
+          <EntitySet Name="excelStorages" EntityType="local_dbbmModel.excelStorage" />
+          <FunctionImport Name="update_product_status">
+            <Parameter Name="prodid" Mode="In" Type="Int32" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="product_inventory" EntityType="local_dbbmModel.product_inventory" />
+          <EntitySet Name="suppliers" EntityType="local_dbbmModel.supplier" />
+          <FunctionImport Name="stored_supplier">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="sfname" Mode="In" Type="String" />
+            <Parameter Name="slname" Mode="In" Type="String" />
+            <Parameter Name="sprimary" Mode="In" Type="String" />
+            <Parameter Name="ssecondary" Mode="In" Type="String" />
+            <Parameter Name="snumber" Mode="In" Type="String" />
+            <Parameter Name="semail" Mode="In" Type="String" />
+            <Parameter Name="simg" Mode="In" Type="String" />
+            <Parameter Name="isstatus" Mode="In" Type="String" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="supplier_find_duplicate" EntityType="local_dbbmModel.supplier_find_duplicate" />
+          <EntitySet Name="tbcategories" EntityType="local_dbbmModel.tbcategory" />
+          <EntitySet Name="tbposettings" EntityType="local_dbbmModel.tbposetting" />
+          <FunctionImport Name="update_settings">
+            <Parameter Name="state" Mode="In" Type="Int32" />
+            <Parameter Name="enablePO" Mode="In" Type="String" />
+            <Parameter Name="enablepoinventry" Mode="In" Type="String" />
+            <Parameter Name="enablelistview" Mode="In" Type="String" />
+            <Parameter Name="viewentry" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="puchase_orders" EntityType="local_dbbmModel.puchase_orders" />
+        </EntityContainer>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="lastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="municipality" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="province" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="company_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="address_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="mobile_no" Type="Int32" />
+          <Property Name="istype" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="isverified" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="isstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="is_google_verified" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="imageurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="isarchive" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="code_verifications">
+          <Key>
+            <PropertyRef Name="codeID" />
+          </Key>
+          <Property Name="codeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="vcode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="isdone" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="sendattempts" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="g_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="validatedAt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="user_google_allow">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="g_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="sessionScan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="sessionID" Type="Int32" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="isused" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbexceltest">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="fname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="lname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="excelStorage">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="turl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="product_inventory">
+          <Key>
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="productID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="productName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="product_quantity" Type="Int32" />
+          <Property Name="product_price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="product_total" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="product_status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="product_creator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="product_supplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="productimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="product_category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="supplier">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="supplierIdentificationCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="supplierfirstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="supplierlastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="supplierprimaryaddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="suppliersecondaryaddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="suppliernumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="supplieremail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="supplierimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="isstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="supplier_find_duplicate">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="supplierIdentificationCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="supplierfirstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="supplierlastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="supplierprimaryaddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="suppliersecondaryaddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="suppliernumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="supplieremail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="supplierimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="isstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Expr1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbcategory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="categoryname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="tbposetting">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="enablePO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="enablePOInventory" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="enableListview" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="viewentry" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="updatedAt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="puchase_orders">
+          <Key>
+            <PropertyRef Name="poid" />
+          </Key>
+          <Property Name="poid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ponumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pquantity" Type="Int32" />
+          <Property Name="pprice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ptotal" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="pcreator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="psupplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="local_dbbmModelStoreContainer" CdmEntityContainer="local_dbbmEntities">
+          <EntitySetMapping Name="locations">
+            <EntityTypeMapping TypeName="local_dbbmModel.location">
+              <MappingFragment StoreEntitySet="locations">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="municipality" ColumnName="municipality" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="local_dbbmModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="isarchive" ColumnName="isarchive" />
+                <ScalarProperty Name="imageurl" ColumnName="imageurl" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="is_google_verified" ColumnName="is_google_verified" />
+                <ScalarProperty Name="isstatus" ColumnName="isstatus" />
+                <ScalarProperty Name="isverified" ColumnName="isverified" />
+                <ScalarProperty Name="istype" ColumnName="istype" />
+                <ScalarProperty Name="mobile_no" ColumnName="mobile_no" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="address_type" ColumnName="address_type" />
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="municipality" ColumnName="municipality" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="stored_user_registration" FunctionName="local_dbbmModel.Store.stored_user_registration" />
+          <EntitySetMapping Name="code_verifications">
+            <EntityTypeMapping TypeName="local_dbbmModel.code_verifications">
+              <MappingFragment StoreEntitySet="code_verifications">
+                <ScalarProperty Name="validatedAt" ColumnName="validatedAt" />
+                <ScalarProperty Name="g_email" ColumnName="g_email" />
+                <ScalarProperty Name="sendattempts" ColumnName="sendattempts" />
+                <ScalarProperty Name="isdone" ColumnName="isdone" />
+                <ScalarProperty Name="vcode" ColumnName="vcode" />
+                <ScalarProperty Name="codeID" ColumnName="codeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="update_sendAttempts" FunctionName="local_dbbmModel.Store.update_sendAttempts" />
+          <EntitySetMapping Name="user_google_allow">
+            <EntityTypeMapping TypeName="local_dbbmModel.user_google_allow">
+              <MappingFragment StoreEntitySet="user_google_allow">
+                <ScalarProperty Name="g_email" ColumnName="g_email" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sessionScans">
+            <EntityTypeMapping TypeName="local_dbbmModel.sessionScan">
+              <MappingFragment StoreEntitySet="sessionScan">
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="isused" ColumnName="isused" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="sessionID" ColumnName="sessionID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="update_session_stats" FunctionName="local_dbbmModel.Store.update_session_stats" />
+          <FunctionImportMapping FunctionImportName="user_status_updater" FunctionName="local_dbbmModel.Store.user_status_updater" />
+          <FunctionImportMapping FunctionImportName="update_product_inventory" FunctionName="local_dbbmModel.Store.update_product_inventory" />
+          <EntitySetMapping Name="tbexceltests">
+            <EntityTypeMapping TypeName="local_dbbmModel.tbexceltest">
+              <MappingFragment StoreEntitySet="tbexceltest">
+                <ScalarProperty Name="lname" ColumnName="lname" />
+                <ScalarProperty Name="fname" ColumnName="fname" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="excelStorages">
+            <EntityTypeMapping TypeName="local_dbbmModel.excelStorage">
+              <MappingFragment StoreEntitySet="excelStorage">
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="turl" ColumnName="turl" />
+                <ScalarProperty Name="tname" ColumnName="tname" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="update_product_status" FunctionName="local_dbbmModel.Store.update_product_status" />
+          <EntitySetMapping Name="product_inventory">
+            <EntityTypeMapping TypeName="local_dbbmModel.product_inventory">
+              <MappingFragment StoreEntitySet="product_inventory">
+                <ScalarProperty Name="product_category" ColumnName="product_category" />
+                <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="product_supplier" ColumnName="product_supplier" />
+                <ScalarProperty Name="product_creator" ColumnName="product_creator" />
+                <ScalarProperty Name="product_status" ColumnName="product_status" />
+                <ScalarProperty Name="product_total" ColumnName="product_total" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="product_quantity" ColumnName="product_quantity" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="productCode" ColumnName="productCode" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="suppliers">
+            <EntityTypeMapping TypeName="local_dbbmModel.supplier">
+              <MappingFragment StoreEntitySet="supplier">
+                <ScalarProperty Name="isstatus" ColumnName="isstatus" />
+                <ScalarProperty Name="supplierimgurl" ColumnName="supplierimgurl" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="supplieremail" ColumnName="supplieremail" />
+                <ScalarProperty Name="suppliernumber" ColumnName="suppliernumber" />
+                <ScalarProperty Name="suppliersecondaryaddress" ColumnName="suppliersecondaryaddress" />
+                <ScalarProperty Name="supplierprimaryaddress" ColumnName="supplierprimaryaddress" />
+                <ScalarProperty Name="supplierlastname" ColumnName="supplierlastname" />
+                <ScalarProperty Name="supplierfirstname" ColumnName="supplierfirstname" />
+                <ScalarProperty Name="supplierIdentificationCode" ColumnName="supplierIdentificationCode" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="stored_supplier" FunctionName="local_dbbmModel.Store.stored_supplier" />
+          <EntitySetMapping Name="supplier_find_duplicate">
+            <EntityTypeMapping TypeName="local_dbbmModel.supplier_find_duplicate">
+              <MappingFragment StoreEntitySet="supplier_find_duplicate">
+                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+                <ScalarProperty Name="isstatus" ColumnName="isstatus" />
+                <ScalarProperty Name="supplierimgurl" ColumnName="supplierimgurl" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="supplieremail" ColumnName="supplieremail" />
+                <ScalarProperty Name="suppliernumber" ColumnName="suppliernumber" />
+                <ScalarProperty Name="suppliersecondaryaddress" ColumnName="suppliersecondaryaddress" />
+                <ScalarProperty Name="supplierprimaryaddress" ColumnName="supplierprimaryaddress" />
+                <ScalarProperty Name="supplierlastname" ColumnName="supplierlastname" />
+                <ScalarProperty Name="supplierfirstname" ColumnName="supplierfirstname" />
+                <ScalarProperty Name="supplierIdentificationCode" ColumnName="supplierIdentificationCode" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbcategories">
+            <EntityTypeMapping TypeName="local_dbbmModel.tbcategory">
+              <MappingFragment StoreEntitySet="tbcategory">
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="categoryname" ColumnName="categoryname" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbposettings">
+            <EntityTypeMapping TypeName="local_dbbmModel.tbposetting">
+              <MappingFragment StoreEntitySet="tbposettings">
+                <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+                <ScalarProperty Name="viewentry" ColumnName="viewentry" />
+                <ScalarProperty Name="enableListview" ColumnName="enableListview" />
+                <ScalarProperty Name="enablePOInventory" ColumnName="enablePOInventory" />
+                <ScalarProperty Name="enablePO" ColumnName="enablePO" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="update_settings" FunctionName="local_dbbmModel.Store.update_settings" />
+          <EntitySetMapping Name="puchase_orders">
+            <EntityTypeMapping TypeName="local_dbbmModel.puchase_orders">
+              <MappingFragment StoreEntitySet="puchase_orders">
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="psupplier" ColumnName="psupplier" />
+                <ScalarProperty Name="pcreator" ColumnName="pcreator" />
+                <ScalarProperty Name="ptotal" ColumnName="ptotal" />
+                <ScalarProperty Name="pprice" ColumnName="pprice" />
+                <ScalarProperty Name="pquantity" ColumnName="pquantity" />
+                <ScalarProperty Name="pname" ColumnName="pname" />
+                <ScalarProperty Name="ponumber" ColumnName="ponumber" />
+                <ScalarProperty Name="poid" ColumnName="poid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

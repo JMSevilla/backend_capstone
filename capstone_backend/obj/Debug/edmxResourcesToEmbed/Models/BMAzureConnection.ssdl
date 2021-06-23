@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="dbbmModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="code_verifications">
+    <Key>
+      <PropertyRef Name="codeID" />
+    </Key>
+    <Property Name="codeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="vcode" Type="varchar" MaxLength="100" />
+    <Property Name="isdone" Type="char" MaxLength="1" />
+    <Property Name="sendattempts" Type="char" MaxLength="1" />
+    <Property Name="g_email" Type="varchar" MaxLength="255" />
+    <Property Name="validatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="excelStorage">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tname" Type="varchar" MaxLength="100" />
+    <Property Name="turl" Type="varchar(max)" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="locations">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="municipality" Type="varchar" MaxLength="100" />
+    <Property Name="province" Type="varchar" MaxLength="100" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="product_inventory">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="productCode" Type="varchar(max)" />
+    <Property Name="productName" Type="varchar" MaxLength="255" />
+    <Property Name="product_quantity" Type="int" />
+    <Property Name="product_price" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="product_total" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="product_status" Type="char" MaxLength="1" />
+    <Property Name="product_creator" Type="varchar" MaxLength="100" />
+    <Property Name="product_supplier" Type="varchar" MaxLength="100" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="productimgurl" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="sessionScan">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sessionID" Type="int" />
+    <Property Name="email" Type="varchar" MaxLength="255" />
+    <Property Name="isused" Type="char" MaxLength="1" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="supplier">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="supplierIdentificationCode" Type="varchar(max)" />
+    <Property Name="supplierfirstname" Type="varchar" MaxLength="100" />
+    <Property Name="supplierlastname" Type="varchar" MaxLength="100" />
+    <Property Name="supplierprimaryaddress" Type="text" />
+    <Property Name="suppliersecondaryaddress" Type="text" />
+    <Property Name="suppliernumber" Type="varchar" MaxLength="100" />
+    <Property Name="supplieremail" Type="varchar" MaxLength="255" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="supplierimgurl" Type="varchar(max)" />
+    <Property Name="isstatus" Type="char" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="tbexceltest">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fname" Type="varchar" MaxLength="100" />
+    <Property Name="lname" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="user_google_allow">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="g_email" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstname" Type="varchar" MaxLength="100" />
+    <Property Name="lastname" Type="varchar" MaxLength="100" />
+    <Property Name="municipality" Type="varchar" MaxLength="100" />
+    <Property Name="province" Type="varchar" MaxLength="100" />
+    <Property Name="address" Type="text" />
+    <Property Name="company_name" Type="varchar" MaxLength="100" />
+    <Property Name="address_type" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="255" />
+    <Property Name="password" Type="varchar(max)" />
+    <Property Name="mobile_no" Type="int" />
+    <Property Name="istype" Type="char" MaxLength="1" />
+    <Property Name="isverified" Type="char" MaxLength="1" />
+    <Property Name="isstatus" Type="char" MaxLength="1" />
+    <Property Name="is_google_verified" Type="char" MaxLength="1" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="imageurl" Type="varchar(max)" />
+    <Property Name="isarchive" Type="char" MaxLength="1" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'dbbm.dbo.supplier_find_duplicate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="supplier_find_duplicate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="supplierIdentificationCode" Type="varchar(max)" />
+    <Property Name="supplierfirstname" Type="varchar" MaxLength="100" />
+    <Property Name="supplierlastname" Type="varchar" MaxLength="100" />
+    <Property Name="supplierprimaryaddress" Type="text" />
+    <Property Name="suppliersecondaryaddress" Type="text" />
+    <Property Name="suppliernumber" Type="varchar" MaxLength="100" />
+    <Property Name="supplieremail" Type="varchar" MaxLength="255" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="supplierimgurl" Type="varchar(max)" />
+    <Property Name="isstatus" Type="char" MaxLength="1" />
+    <Property Name="Expr1" Type="varchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'dbbm.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="database_firewall_rules">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
+    <Property Name="create_date" Type="datetime" Nullable="false" />
+    <Property Name="modify_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Function Name="stored_supplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="sfname" Type="varchar" Mode="In" />
+    <Parameter Name="slname" Type="varchar" Mode="In" />
+    <Parameter Name="sprimary" Type="text" Mode="In" />
+    <Parameter Name="ssecondary" Type="text" Mode="In" />
+    <Parameter Name="snumber" Type="varchar" Mode="In" />
+    <Parameter Name="semail" Type="varchar" Mode="In" />
+    <Parameter Name="simg" Type="varchar(max)" Mode="In" />
+    <Parameter Name="isstatus" Type="char" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="stored_user_registration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="firstname" Type="varchar" Mode="In" />
+    <Parameter Name="lastname" Type="varchar" Mode="In" />
+    <Parameter Name="municipality" Type="varchar" Mode="In" />
+    <Parameter Name="province" Type="varchar" Mode="In" />
+    <Parameter Name="address" Type="text" Mode="In" />
+    <Parameter Name="companyname" Type="varchar" Mode="In" />
+    <Parameter Name="address_type" Type="varchar" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="password" Type="varchar(max)" Mode="In" />
+    <Parameter Name="mobileno" Type="int" Mode="In" />
+    <Parameter Name="istype" Type="char" Mode="In" />
+    <Parameter Name="isverified" Type="char" Mode="In" />
+    <Parameter Name="isstatus" Type="char" Mode="In" />
+    <Parameter Name="isgoogleverified" Type="char" Mode="In" />
+    <Parameter Name="state_action" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="update_product_inventory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="productid" Type="int" Mode="In" />
+    <Parameter Name="productname" Type="varchar" Mode="In" />
+    <Parameter Name="productquantity" Type="int" Mode="In" />
+    <Parameter Name="productprice" Type="decimal" Mode="In" />
+    <Parameter Name="producttotal" Type="decimal" Mode="In" />
+    <Parameter Name="productsupplier" Type="varchar" Mode="In" />
+    <Parameter Name="productimg" Type="varchar(max)" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="update_product_status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="prodid" Type="int" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="update_sendAttempts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="code" Type="varchar" Mode="In" />
+    <Parameter Name="action" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="update_session_stats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="action" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="user_status_updater" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="action" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="dbbmModelStoreContainer">
+    <EntitySet Name="code_verifications" EntityType="Self.code_verifications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="excelStorage" EntityType="Self.excelStorage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="locations" EntityType="Self.locations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="product_inventory" EntityType="Self.product_inventory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sessionScan" EntityType="Self.sessionScan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbexceltest" EntityType="Self.tbexceltest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_google_allow" EntityType="Self.user_google_allow" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="supplier_find_duplicate" EntityType="Self.supplier_find_duplicate" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [supplier_find_duplicate].[id] AS [id], 
+    [supplier_find_duplicate].[supplierIdentificationCode] AS [supplierIdentificationCode], 
+    [supplier_find_duplicate].[supplierfirstname] AS [supplierfirstname], 
+    [supplier_find_duplicate].[supplierlastname] AS [supplierlastname], 
+    [supplier_find_duplicate].[supplierprimaryaddress] AS [supplierprimaryaddress], 
+    [supplier_find_duplicate].[suppliersecondaryaddress] AS [suppliersecondaryaddress], 
+    [supplier_find_duplicate].[suppliernumber] AS [suppliernumber], 
+    [supplier_find_duplicate].[supplieremail] AS [supplieremail], 
+    [supplier_find_duplicate].[createdAt] AS [createdAt], 
+    [supplier_find_duplicate].[supplierimgurl] AS [supplierimgurl], 
+    [supplier_find_duplicate].[isstatus] AS [isstatus], 
+    [supplier_find_duplicate].[Expr1] AS [Expr1]
+    FROM [dbo].[supplier_find_duplicate] AS [supplier_find_duplicate]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
+      <DefiningQuery>SELECT 
+    [database_firewall_rules].[id] AS [id], 
+    [database_firewall_rules].[name] AS [name], 
+    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
+    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
+    [database_firewall_rules].[create_date] AS [create_date], 
+    [database_firewall_rules].[modify_date] AS [modify_date]
+    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

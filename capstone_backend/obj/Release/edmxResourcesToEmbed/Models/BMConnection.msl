@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="local_dbbmModelStoreContainer" CdmEntityContainer="local_dbbmEntities">
+    <EntitySetMapping Name="locations">
+      <EntityTypeMapping TypeName="local_dbbmModel.location">
+        <MappingFragment StoreEntitySet="locations">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="municipality" ColumnName="municipality" />
+          <ScalarProperty Name="province" ColumnName="province" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="local_dbbmModel.user">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="isarchive" ColumnName="isarchive" />
+          <ScalarProperty Name="imageurl" ColumnName="imageurl" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="is_google_verified" ColumnName="is_google_verified" />
+          <ScalarProperty Name="isstatus" ColumnName="isstatus" />
+          <ScalarProperty Name="isverified" ColumnName="isverified" />
+          <ScalarProperty Name="istype" ColumnName="istype" />
+          <ScalarProperty Name="mobile_no" ColumnName="mobile_no" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="address_type" ColumnName="address_type" />
+          <ScalarProperty Name="company_name" ColumnName="company_name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="province" ColumnName="province" />
+          <ScalarProperty Name="municipality" ColumnName="municipality" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="stored_user_registration" FunctionName="local_dbbmModel.Store.stored_user_registration" />
+    <EntitySetMapping Name="code_verifications">
+      <EntityTypeMapping TypeName="local_dbbmModel.code_verifications">
+        <MappingFragment StoreEntitySet="code_verifications">
+          <ScalarProperty Name="validatedAt" ColumnName="validatedAt" />
+          <ScalarProperty Name="g_email" ColumnName="g_email" />
+          <ScalarProperty Name="sendattempts" ColumnName="sendattempts" />
+          <ScalarProperty Name="isdone" ColumnName="isdone" />
+          <ScalarProperty Name="vcode" ColumnName="vcode" />
+          <ScalarProperty Name="codeID" ColumnName="codeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="update_sendAttempts" FunctionName="local_dbbmModel.Store.update_sendAttempts" />
+    <EntitySetMapping Name="user_google_allow">
+      <EntityTypeMapping TypeName="local_dbbmModel.user_google_allow">
+        <MappingFragment StoreEntitySet="user_google_allow">
+          <ScalarProperty Name="g_email" ColumnName="g_email" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sessionScans">
+      <EntityTypeMapping TypeName="local_dbbmModel.sessionScan">
+        <MappingFragment StoreEntitySet="sessionScan">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="isused" ColumnName="isused" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="sessionID" ColumnName="sessionID" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="update_session_stats" FunctionName="local_dbbmModel.Store.update_session_stats" />
+    <FunctionImportMapping FunctionImportName="user_status_updater" FunctionName="local_dbbmModel.Store.user_status_updater" />
+    <FunctionImportMapping FunctionImportName="update_product_inventory" FunctionName="local_dbbmModel.Store.update_product_inventory" />
+    <EntitySetMapping Name="tbexceltests">
+      <EntityTypeMapping TypeName="local_dbbmModel.tbexceltest">
+        <MappingFragment StoreEntitySet="tbexceltest">
+          <ScalarProperty Name="lname" ColumnName="lname" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="excelStorages">
+      <EntityTypeMapping TypeName="local_dbbmModel.excelStorage">
+        <MappingFragment StoreEntitySet="excelStorage">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="turl" ColumnName="turl" />
+          <ScalarProperty Name="tname" ColumnName="tname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="update_product_status" FunctionName="local_dbbmModel.Store.update_product_status" />
+    <EntitySetMapping Name="product_inventory">
+      <EntityTypeMapping TypeName="local_dbbmModel.product_inventory">
+        <MappingFragment StoreEntitySet="product_inventory">
+          <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="product_supplier" ColumnName="product_supplier" />
+          <ScalarProperty Name="product_creator" ColumnName="product_creator" />
+          <ScalarProperty Name="product_status" ColumnName="product_status" />
+          <ScalarProperty Name="product_total" ColumnName="product_total" />
+          <ScalarProperty Name="product_price" ColumnName="product_price" />
+          <ScalarProperty Name="product_quantity" ColumnName="product_quantity" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="productCode" ColumnName="productCode" />
+          <ScalarProperty Name="productID" ColumnName="productID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="suppliers">
+      <EntityTypeMapping TypeName="local_dbbmModel.supplier">
+        <MappingFragment StoreEntitySet="supplier">
+          <ScalarProperty Name="isstatus" ColumnName="isstatus" />
+          <ScalarProperty Name="supplierimgurl" ColumnName="supplierimgurl" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="supplieremail" ColumnName="supplieremail" />
+          <ScalarProperty Name="suppliernumber" ColumnName="suppliernumber" />
+          <ScalarProperty Name="suppliersecondaryaddress" ColumnName="suppliersecondaryaddress" />
+          <ScalarProperty Name="supplierprimaryaddress" ColumnName="supplierprimaryaddress" />
+          <ScalarProperty Name="supplierlastname" ColumnName="supplierlastname" />
+          <ScalarProperty Name="supplierfirstname" ColumnName="supplierfirstname" />
+          <ScalarProperty Name="supplierIdentificationCode" ColumnName="supplierIdentificationCode" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="stored_supplier" FunctionName="local_dbbmModel.Store.stored_supplier" />
+    <EntitySetMapping Name="supplier_find_duplicate">
+      <EntityTypeMapping TypeName="local_dbbmModel.supplier_find_duplicate">
+        <MappingFragment StoreEntitySet="supplier_find_duplicate">
+          <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+          <ScalarProperty Name="isstatus" ColumnName="isstatus" />
+          <ScalarProperty Name="supplierimgurl" ColumnName="supplierimgurl" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="supplieremail" ColumnName="supplieremail" />
+          <ScalarProperty Name="suppliernumber" ColumnName="suppliernumber" />
+          <ScalarProperty Name="suppliersecondaryaddress" ColumnName="suppliersecondaryaddress" />
+          <ScalarProperty Name="supplierprimaryaddress" ColumnName="supplierprimaryaddress" />
+          <ScalarProperty Name="supplierlastname" ColumnName="supplierlastname" />
+          <ScalarProperty Name="supplierfirstname" ColumnName="supplierfirstname" />
+          <ScalarProperty Name="supplierIdentificationCode" ColumnName="supplierIdentificationCode" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

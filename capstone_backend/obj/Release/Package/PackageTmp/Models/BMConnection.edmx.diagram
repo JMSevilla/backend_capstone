@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d5fe119f86464438896b41ce2d20f561" Name="Diagram1">
+        <EntityTypeShape EntityType="local_dbbmModel.location" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="local_dbbmModel.user" Width="1.5" PointX="2.125" PointY="0.5" IsExpanded="true" FillColor="0, 192, 0" />
+        <EntityTypeShape EntityType="local_dbbmModel.code_verifications" Width="1.5" PointX="3.75" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="local_dbbmModel.user_google_allow" Width="1.5" PointX="0.5" PointY="2.5" />
+        <EntityTypeShape EntityType="local_dbbmModel.sessionScan" Width="1.5" PointX="5.375" PointY="0.5" />
+        <EntityTypeShape EntityType="local_dbbmModel.tbexceltest" Width="1.5" PointX="13.25" PointY="0.75" FillColor="Maroon" />
+        <EntityTypeShape EntityType="local_dbbmModel.excelStorage" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="local_dbbmModel.product_inventory" Width="1.5" PointX="3.75" PointY="2.75" FillColor="255, 128, 0" />
+        <EntityTypeShape EntityType="local_dbbmModel.supplier" Width="1.5" PointX="5.375" PointY="2.75" FillColor="0, 192, 0" />
+        <EntityTypeShape EntityType="local_dbbmModel.supplier_find_duplicate" Width="1.5" PointX="3.375" PointY="6.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

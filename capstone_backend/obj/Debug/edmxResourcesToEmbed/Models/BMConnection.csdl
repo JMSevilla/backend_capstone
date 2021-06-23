@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="local_dbbmModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="location">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="municipality" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="province" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="local_dbbmEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="locations" EntityType="Self.location" />
+    <EntitySet Name="users" EntityType="local_dbbmModel.user" />
+    <FunctionImport Name="stored_user_registration">
+      <Parameter Name="firstname" Mode="In" Type="String" />
+      <Parameter Name="lastname" Mode="In" Type="String" />
+      <Parameter Name="municipality" Mode="In" Type="String" />
+      <Parameter Name="province" Mode="In" Type="String" />
+      <Parameter Name="address" Mode="In" Type="String" />
+      <Parameter Name="companyname" Mode="In" Type="String" />
+      <Parameter Name="address_type" Mode="In" Type="String" />
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+      <Parameter Name="mobileno" Mode="In" Type="Int32" />
+      <Parameter Name="istype" Mode="In" Type="String" />
+      <Parameter Name="isverified" Mode="In" Type="String" />
+      <Parameter Name="isstatus" Mode="In" Type="String" />
+      <Parameter Name="isgoogleverified" Mode="In" Type="String" />
+      <Parameter Name="state_action" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="code_verifications" EntityType="local_dbbmModel.code_verifications" />
+    <FunctionImport Name="update_sendAttempts">
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="code" Mode="In" Type="String" />
+      <Parameter Name="action" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="user_google_allow" EntityType="local_dbbmModel.user_google_allow" />
+    <EntitySet Name="sessionScans" EntityType="local_dbbmModel.sessionScan" />
+    <FunctionImport Name="update_session_stats">
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="action" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="user_status_updater">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="action" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="update_product_inventory">
+      <Parameter Name="productid" Mode="In" Type="Int32" />
+      <Parameter Name="productname" Mode="In" Type="String" />
+      <Parameter Name="productquantity" Mode="In" Type="Int32" />
+      <Parameter Name="productprice" Mode="In" Type="Decimal" />
+      <Parameter Name="producttotal" Mode="In" Type="Decimal" />
+      <Parameter Name="productsupplier" Mode="In" Type="String" />
+      <Parameter Name="productimg" Mode="In" Type="String" />
+      <Parameter Name="productcategory" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="tbexceltests" EntityType="local_dbbmModel.tbexceltest" />
+    <EntitySet Name="excelStorages" EntityType="local_dbbmModel.excelStorage" />
+    <FunctionImport Name="update_product_status">
+      <Parameter Name="prodid" Mode="In" Type="Int32" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="product_inventory" EntityType="local_dbbmModel.product_inventory" />
+    <EntitySet Name="suppliers" EntityType="local_dbbmModel.supplier" />
+    <FunctionImport Name="stored_supplier">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="sfname" Mode="In" Type="String" />
+      <Parameter Name="slname" Mode="In" Type="String" />
+      <Parameter Name="sprimary" Mode="In" Type="String" />
+      <Parameter Name="ssecondary" Mode="In" Type="String" />
+      <Parameter Name="snumber" Mode="In" Type="String" />
+      <Parameter Name="semail" Mode="In" Type="String" />
+      <Parameter Name="simg" Mode="In" Type="String" />
+      <Parameter Name="isstatus" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="supplier_find_duplicate" EntityType="local_dbbmModel.supplier_find_duplicate" />
+    <EntitySet Name="tbcategories" EntityType="local_dbbmModel.tbcategory" />
+    <EntitySet Name="tbposettings" EntityType="local_dbbmModel.tbposetting" />
+    <FunctionImport Name="update_settings">
+      <Parameter Name="state" Mode="In" Type="Int32" />
+      <Parameter Name="enablePO" Mode="In" Type="String" />
+      <Parameter Name="enablepoinventry" Mode="In" Type="String" />
+      <Parameter Name="enablelistview" Mode="In" Type="String" />
+      <Parameter Name="viewentry" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="puchase_orders" EntityType="local_dbbmModel.puchase_orders" />
+  </EntityContainer>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="lastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="municipality" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="province" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="company_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="address_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="mobile_no" Type="Int32" />
+    <Property Name="istype" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="isverified" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="isstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="is_google_verified" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="imageurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="isarchive" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="code_verifications">
+    <Key>
+      <PropertyRef Name="codeID" />
+    </Key>
+    <Property Name="codeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="vcode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="isdone" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="sendattempts" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="g_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="validatedAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="user_google_allow">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="g_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="sessionScan">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sessionID" Type="Int32" />
+    <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="isused" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tbexceltest">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="fname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="lname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="excelStorage">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="turl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="product_inventory">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="productName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="product_quantity" Type="Int32" />
+    <Property Name="product_price" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="product_total" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="product_status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="product_creator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="product_supplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="productimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="product_category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="supplier">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="supplierIdentificationCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="supplierfirstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="supplierlastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="supplierprimaryaddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="suppliersecondaryaddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="suppliernumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="supplieremail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="supplierimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="isstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="supplier_find_duplicate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="supplierIdentificationCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="supplierfirstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="supplierlastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="supplierprimaryaddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="suppliersecondaryaddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="suppliernumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="supplieremail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="supplierimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="isstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="Expr1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbcategory">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="categoryname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tbposetting">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="enablePO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="enablePOInventory" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="enableListview" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="viewentry" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="updatedAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="puchase_orders">
+    <Key>
+      <PropertyRef Name="poid" />
+    </Key>
+    <Property Name="poid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ponumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="pname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="pquantity" Type="Int32" />
+    <Property Name="pprice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="ptotal" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="pcreator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="psupplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+</Schema>
