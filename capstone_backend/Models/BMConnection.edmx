@@ -25,6 +25,15 @@
           <Property Name="turl" Type="varchar(max)" />
           <Property Name="createdAt" Type="datetime" />
         </EntityType>
+        <EntityType Name="expiration">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pcode" Type="varchar" MaxLength="100" />
+          <Property Name="expirydate" Type="datetime" />
+          <Property Name="createdAt" Type="datetime" />
+        </EntityType>
         <EntityType Name="locations">
           <Key>
             <PropertyRef Name="id" />
@@ -51,6 +60,19 @@
           <Property Name="productimgurl" Type="varchar(max)" />
           <Property Name="product_category" Type="varchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="productreport">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="problem1" Type="varchar" MaxLength="100" />
+          <Property Name="problem2" Type="varchar" MaxLength="100" />
+          <Property Name="problem3" Type="varchar" MaxLength="100" />
+          <Property Name="problem4" Type="varchar" MaxLength="100" />
+          <Property Name="remarks" Type="varchar" MaxLength="255" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="responsible" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="puchase_orders">
           <Key>
             <PropertyRef Name="poid" />
@@ -64,6 +86,7 @@
           <Property Name="pcreator" Type="varchar" MaxLength="100" />
           <Property Name="psupplier" Type="varchar" MaxLength="100" />
           <Property Name="createdAt" Type="datetime" />
+          <Property Name="status" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="sessionScan">
           <Key>
@@ -106,6 +129,16 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="fname" Type="varchar" MaxLength="100" />
           <Property Name="lname" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tbinventsettings">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="enableinventform" Type="char" MaxLength="1" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="enablesupplier" Type="char" MaxLength="1" />
+          <Property Name="enableexpiration" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="tbposettings">
           <Key>
@@ -167,6 +200,26 @@ warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not h
           <Property Name="isstatus" Type="char" MaxLength="1" />
           <Property Name="Expr1" Type="varchar(max)" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="warning_expiration_10_days">
+          <Key>
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="productID" Type="int" Nullable="false" />
+          <Property Name="productCode" Type="varchar(max)" />
+          <Property Name="productName" Type="varchar" MaxLength="255" />
+          <Property Name="product_quantity" Type="int" />
+          <Property Name="product_price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="product_total" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="product_status" Type="char" MaxLength="1" />
+          <Property Name="product_creator" Type="varchar" MaxLength="100" />
+          <Property Name="product_supplier" Type="varchar" MaxLength="100" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="productimgurl" Type="varchar(max)" />
+          <Property Name="product_category" Type="varchar" MaxLength="100" />
+          <Property Name="Expr1" Type="datetime" />
+        </EntityType>
         <Function Name="stored_supplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="sfname" Type="varchar" Mode="In" />
@@ -177,6 +230,10 @@ warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not h
           <Parameter Name="semail" Type="varchar" Mode="In" />
           <Parameter Name="simg" Type="varchar(max)" Mode="In" />
           <Parameter Name="isstatus" Type="char" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+        </Function>
+        <Function Name="stored_update_purchase_status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="state" Type="int" Mode="In" />
         </Function>
         <Function Name="stored_user_registration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -195,6 +252,16 @@ warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not h
           <Parameter Name="isstatus" Type="char" Mode="In" />
           <Parameter Name="isgoogleverified" Type="char" Mode="In" />
           <Parameter Name="state_action" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="stored_view_expiration_date" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="state" Type="int" Mode="In" />
+          <Parameter Name="pcode" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="update_invent_settings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="state" Type="int" Mode="In" />
+          <Parameter Name="inventorysetting" Type="char" Mode="In" />
+          <Parameter Name="inventorysupplier" Type="char" Mode="In" />
+          <Parameter Name="inventexpiration" Type="char" Mode="In" />
         </Function>
         <Function Name="update_product_inventory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="productid" Type="int" Mode="In" />
@@ -234,13 +301,16 @@ warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not h
         <EntityContainer Name="local_dbbmModelStoreContainer">
           <EntitySet Name="code_verifications" EntityType="Self.code_verifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="excelStorage" EntityType="Self.excelStorage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="expiration" EntityType="Self.expiration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="locations" EntityType="Self.locations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product_inventory" EntityType="Self.product_inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="productreport" EntityType="Self.productreport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="puchase_orders" EntityType="Self.puchase_orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sessionScan" EntityType="Self.sessionScan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbcategory" EntityType="Self.tbcategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbexceltest" EntityType="Self.tbexceltest" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbinventsettings" EntityType="Self.tbinventsettings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbposettings" EntityType="Self.tbposettings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_google_allow" EntityType="Self.user_google_allow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
@@ -259,6 +329,23 @@ warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not h
     [supplier_find_duplicate].[isstatus] AS [isstatus], 
     [supplier_find_duplicate].[Expr1] AS [Expr1]
     FROM [dbo].[supplier_find_duplicate] AS [supplier_find_duplicate]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="warning_expiration_10_days" EntityType="Self.warning_expiration_10_days" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [warning_expiration_10_days].[productID] AS [productID], 
+    [warning_expiration_10_days].[productCode] AS [productCode], 
+    [warning_expiration_10_days].[productName] AS [productName], 
+    [warning_expiration_10_days].[product_quantity] AS [product_quantity], 
+    [warning_expiration_10_days].[product_price] AS [product_price], 
+    [warning_expiration_10_days].[product_total] AS [product_total], 
+    [warning_expiration_10_days].[product_status] AS [product_status], 
+    [warning_expiration_10_days].[product_creator] AS [product_creator], 
+    [warning_expiration_10_days].[product_supplier] AS [product_supplier], 
+    [warning_expiration_10_days].[createdAt] AS [createdAt], 
+    [warning_expiration_10_days].[productimgurl] AS [productimgurl], 
+    [warning_expiration_10_days].[product_category] AS [product_category], 
+    [warning_expiration_10_days].[Expr1] AS [Expr1]
+    FROM [dbo].[warning_expiration_10_days] AS [warning_expiration_10_days]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -352,6 +439,24 @@ warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not h
             <Parameter Name="viewentry" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="puchase_orders" EntityType="local_dbbmModel.puchase_orders" />
+          <EntitySet Name="tbinventsettings" EntityType="local_dbbmModel.tbinventsetting" />
+          <FunctionImport Name="update_invent_settings">
+            <Parameter Name="state" Mode="In" Type="Int32" />
+            <Parameter Name="inventorysetting" Mode="In" Type="String" />
+            <Parameter Name="inventorysupplier" Mode="In" Type="String" />
+            <Parameter Name="inventexpiration" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="expirations" EntityType="local_dbbmModel.expiration" />
+          <FunctionImport Name="stored_update_purchase_status">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="stored_view_expiration_date" ReturnType="Collection(local_dbbmModel.stored_view_expiration_date_Result)">
+            <Parameter Name="state" Mode="In" Type="Int32" />
+            <Parameter Name="pcode" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="warning_expiration_10_days" EntityType="local_dbbmModel.warning_expiration_10_days" />
+          <EntitySet Name="productreports" EntityType="local_dbbmModel.productreport" />
         </EntityContainer>
         <EntityType Name="user">
           <Key>
@@ -503,6 +608,72 @@ warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not h
           <Property Name="pcreator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="psupplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbinventsetting">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="enableinventform" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="enablesupplier" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="enableexpiration" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="expiration">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pcode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="expirydate" Type="DateTime" Precision="3" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <ComplexType Name="stored_view_expiration_date_Result">
+          <Property Type="DateTime" Name="expirydate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="productID" Nullable="false" />
+          <Property Type="String" Name="productCode" Nullable="true" />
+          <Property Type="String" Name="productName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="product_quantity" Nullable="true" />
+          <Property Type="Decimal" Name="product_price" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="product_total" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="product_status" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="product_creator" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="product_supplier" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="createdAt" Nullable="true" Precision="23" />
+          <Property Type="String" Name="productimgurl" Nullable="true" />
+          <Property Type="String" Name="product_category" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <EntityType Name="warning_expiration_10_days">
+          <Key>
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="productID" Type="Int32" Nullable="false" />
+          <Property Name="productCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="productName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="product_quantity" Type="Int32" />
+          <Property Name="product_price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="product_total" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="product_status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="product_creator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="product_supplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="productimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="product_category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Expr1" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="productreport">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="problem1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="problem2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="problem3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="problem4" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="responsible" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -679,6 +850,7 @@ warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not h
           <EntitySetMapping Name="puchase_orders">
             <EntityTypeMapping TypeName="local_dbbmModel.puchase_orders">
               <MappingFragment StoreEntitySet="puchase_orders">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="createdAt" ColumnName="createdAt" />
                 <ScalarProperty Name="psupplier" ColumnName="psupplier" />
                 <ScalarProperty Name="pcreator" ColumnName="pcreator" />
@@ -688,6 +860,81 @@ warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not h
                 <ScalarProperty Name="pname" ColumnName="pname" />
                 <ScalarProperty Name="ponumber" ColumnName="ponumber" />
                 <ScalarProperty Name="poid" ColumnName="poid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbinventsettings">
+            <EntityTypeMapping TypeName="local_dbbmModel.tbinventsetting">
+              <MappingFragment StoreEntitySet="tbinventsettings">
+                <ScalarProperty Name="enableexpiration" ColumnName="enableexpiration" />
+                <ScalarProperty Name="enablesupplier" ColumnName="enablesupplier" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="enableinventform" ColumnName="enableinventform" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="update_invent_settings" FunctionName="local_dbbmModel.Store.update_invent_settings" />
+          <EntitySetMapping Name="expirations">
+            <EntityTypeMapping TypeName="local_dbbmModel.expiration">
+              <MappingFragment StoreEntitySet="expiration">
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="expirydate" ColumnName="expirydate" />
+                <ScalarProperty Name="pcode" ColumnName="pcode" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="stored_update_purchase_status" FunctionName="local_dbbmModel.Store.stored_update_purchase_status" />
+          <FunctionImportMapping FunctionImportName="stored_view_expiration_date" FunctionName="local_dbbmModel.Store.stored_view_expiration_date">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="local_dbbmModel.stored_view_expiration_date_Result">
+                <ScalarProperty Name="expirydate" ColumnName="expirydate" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="productCode" ColumnName="productCode" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="product_quantity" ColumnName="product_quantity" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="product_total" ColumnName="product_total" />
+                <ScalarProperty Name="product_status" ColumnName="product_status" />
+                <ScalarProperty Name="product_creator" ColumnName="product_creator" />
+                <ScalarProperty Name="product_supplier" ColumnName="product_supplier" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
+                <ScalarProperty Name="product_category" ColumnName="product_category" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="warning_expiration_10_days">
+            <EntityTypeMapping TypeName="local_dbbmModel.warning_expiration_10_days">
+              <MappingFragment StoreEntitySet="warning_expiration_10_days">
+                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+                <ScalarProperty Name="product_category" ColumnName="product_category" />
+                <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="product_supplier" ColumnName="product_supplier" />
+                <ScalarProperty Name="product_creator" ColumnName="product_creator" />
+                <ScalarProperty Name="product_status" ColumnName="product_status" />
+                <ScalarProperty Name="product_total" ColumnName="product_total" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="product_quantity" ColumnName="product_quantity" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="productCode" ColumnName="productCode" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productreports">
+            <EntityTypeMapping TypeName="local_dbbmModel.productreport">
+              <MappingFragment StoreEntitySet="productreport">
+                <ScalarProperty Name="responsible" ColumnName="responsible" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="problem4" ColumnName="problem4" />
+                <ScalarProperty Name="problem3" ColumnName="problem3" />
+                <ScalarProperty Name="problem2" ColumnName="problem2" />
+                <ScalarProperty Name="problem1" ColumnName="problem1" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -170,6 +170,7 @@
     <EntitySetMapping Name="puchase_orders">
       <EntityTypeMapping TypeName="local_dbbmModel.puchase_orders">
         <MappingFragment StoreEntitySet="puchase_orders">
+          <ScalarProperty Name="status" ColumnName="status" />
           <ScalarProperty Name="createdAt" ColumnName="createdAt" />
           <ScalarProperty Name="psupplier" ColumnName="psupplier" />
           <ScalarProperty Name="pcreator" ColumnName="pcreator" />
@@ -179,6 +180,81 @@
           <ScalarProperty Name="pname" ColumnName="pname" />
           <ScalarProperty Name="ponumber" ColumnName="ponumber" />
           <ScalarProperty Name="poid" ColumnName="poid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbinventsettings">
+      <EntityTypeMapping TypeName="local_dbbmModel.tbinventsetting">
+        <MappingFragment StoreEntitySet="tbinventsettings">
+          <ScalarProperty Name="enableexpiration" ColumnName="enableexpiration" />
+          <ScalarProperty Name="enablesupplier" ColumnName="enablesupplier" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="enableinventform" ColumnName="enableinventform" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="update_invent_settings" FunctionName="local_dbbmModel.Store.update_invent_settings" />
+    <EntitySetMapping Name="expirations">
+      <EntityTypeMapping TypeName="local_dbbmModel.expiration">
+        <MappingFragment StoreEntitySet="expiration">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="expirydate" ColumnName="expirydate" />
+          <ScalarProperty Name="pcode" ColumnName="pcode" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="stored_update_purchase_status" FunctionName="local_dbbmModel.Store.stored_update_purchase_status" />
+    <FunctionImportMapping FunctionImportName="stored_view_expiration_date" FunctionName="local_dbbmModel.Store.stored_view_expiration_date">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="local_dbbmModel.stored_view_expiration_date_Result">
+          <ScalarProperty Name="expirydate" ColumnName="expirydate" />
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="productCode" ColumnName="productCode" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="product_quantity" ColumnName="product_quantity" />
+          <ScalarProperty Name="product_price" ColumnName="product_price" />
+          <ScalarProperty Name="product_total" ColumnName="product_total" />
+          <ScalarProperty Name="product_status" ColumnName="product_status" />
+          <ScalarProperty Name="product_creator" ColumnName="product_creator" />
+          <ScalarProperty Name="product_supplier" ColumnName="product_supplier" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
+          <ScalarProperty Name="product_category" ColumnName="product_category" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="warning_expiration_10_days">
+      <EntityTypeMapping TypeName="local_dbbmModel.warning_expiration_10_days">
+        <MappingFragment StoreEntitySet="warning_expiration_10_days">
+          <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+          <ScalarProperty Name="product_category" ColumnName="product_category" />
+          <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="product_supplier" ColumnName="product_supplier" />
+          <ScalarProperty Name="product_creator" ColumnName="product_creator" />
+          <ScalarProperty Name="product_status" ColumnName="product_status" />
+          <ScalarProperty Name="product_total" ColumnName="product_total" />
+          <ScalarProperty Name="product_price" ColumnName="product_price" />
+          <ScalarProperty Name="product_quantity" ColumnName="product_quantity" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="productCode" ColumnName="productCode" />
+          <ScalarProperty Name="productID" ColumnName="productID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productreports">
+      <EntityTypeMapping TypeName="local_dbbmModel.productreport">
+        <MappingFragment StoreEntitySet="productreport">
+          <ScalarProperty Name="responsible" ColumnName="responsible" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="problem4" ColumnName="problem4" />
+          <ScalarProperty Name="problem3" ColumnName="problem3" />
+          <ScalarProperty Name="problem2" ColumnName="problem2" />
+          <ScalarProperty Name="problem1" ColumnName="problem1" />
+          <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

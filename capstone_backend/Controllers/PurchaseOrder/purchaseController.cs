@@ -37,7 +37,7 @@ namespace capstone_backend.Controllers.PurchaseOrder
             {
                 using(core = new local_dbbmEntities())
                 {
-                    var obj = core.puchase_orders.ToList();
+                    var obj = core.puchase_orders.Where(x => x.status == "0").ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
                 }
             }

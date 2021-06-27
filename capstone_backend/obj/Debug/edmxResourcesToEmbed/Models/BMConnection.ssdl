@@ -20,6 +20,15 @@
     <Property Name="turl" Type="varchar(max)" />
     <Property Name="createdAt" Type="datetime" />
   </EntityType>
+  <EntityType Name="expiration">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="pcode" Type="varchar" MaxLength="100" />
+    <Property Name="expirydate" Type="datetime" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
   <EntityType Name="locations">
     <Key>
       <PropertyRef Name="id" />
@@ -46,6 +55,19 @@
     <Property Name="productimgurl" Type="varchar(max)" />
     <Property Name="product_category" Type="varchar" MaxLength="100" />
   </EntityType>
+  <EntityType Name="productreport">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="problem1" Type="varchar" MaxLength="100" />
+    <Property Name="problem2" Type="varchar" MaxLength="100" />
+    <Property Name="problem3" Type="varchar" MaxLength="100" />
+    <Property Name="problem4" Type="varchar" MaxLength="100" />
+    <Property Name="remarks" Type="varchar" MaxLength="255" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="responsible" Type="varchar" MaxLength="100" />
+  </EntityType>
   <EntityType Name="puchase_orders">
     <Key>
       <PropertyRef Name="poid" />
@@ -59,6 +81,7 @@
     <Property Name="pcreator" Type="varchar" MaxLength="100" />
     <Property Name="psupplier" Type="varchar" MaxLength="100" />
     <Property Name="createdAt" Type="datetime" />
+    <Property Name="status" Type="char" MaxLength="1" />
   </EntityType>
   <EntityType Name="sessionScan">
     <Key>
@@ -101,6 +124,16 @@
     <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="fname" Type="varchar" MaxLength="100" />
     <Property Name="lname" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="tbinventsettings">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="enableinventform" Type="char" MaxLength="1" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="enablesupplier" Type="char" MaxLength="1" />
+    <Property Name="enableexpiration" Type="char" MaxLength="1" />
   </EntityType>
   <EntityType Name="tbposettings">
     <Key>
@@ -162,6 +195,26 @@ warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not h
     <Property Name="isstatus" Type="char" MaxLength="1" />
     <Property Name="Expr1" Type="varchar(max)" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="warning_expiration_10_days">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="int" Nullable="false" />
+    <Property Name="productCode" Type="varchar(max)" />
+    <Property Name="productName" Type="varchar" MaxLength="255" />
+    <Property Name="product_quantity" Type="int" />
+    <Property Name="product_price" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="product_total" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="product_status" Type="char" MaxLength="1" />
+    <Property Name="product_creator" Type="varchar" MaxLength="100" />
+    <Property Name="product_supplier" Type="varchar" MaxLength="100" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="productimgurl" Type="varchar(max)" />
+    <Property Name="product_category" Type="varchar" MaxLength="100" />
+    <Property Name="Expr1" Type="datetime" />
+  </EntityType>
   <Function Name="stored_supplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="sfname" Type="varchar" Mode="In" />
@@ -172,6 +225,10 @@ warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not h
     <Parameter Name="semail" Type="varchar" Mode="In" />
     <Parameter Name="simg" Type="varchar(max)" Mode="In" />
     <Parameter Name="isstatus" Type="char" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="stored_update_purchase_status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="state" Type="int" Mode="In" />
   </Function>
   <Function Name="stored_user_registration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -190,6 +247,16 @@ warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not h
     <Parameter Name="isstatus" Type="char" Mode="In" />
     <Parameter Name="isgoogleverified" Type="char" Mode="In" />
     <Parameter Name="state_action" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="stored_view_expiration_date" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="state" Type="int" Mode="In" />
+    <Parameter Name="pcode" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="update_invent_settings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="state" Type="int" Mode="In" />
+    <Parameter Name="inventorysetting" Type="char" Mode="In" />
+    <Parameter Name="inventorysupplier" Type="char" Mode="In" />
+    <Parameter Name="inventexpiration" Type="char" Mode="In" />
   </Function>
   <Function Name="update_product_inventory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="productid" Type="int" Mode="In" />
@@ -229,13 +296,16 @@ warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not h
   <EntityContainer Name="local_dbbmModelStoreContainer">
     <EntitySet Name="code_verifications" EntityType="Self.code_verifications" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="excelStorage" EntityType="Self.excelStorage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="expiration" EntityType="Self.expiration" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="locations" EntityType="Self.locations" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="product_inventory" EntityType="Self.product_inventory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="productreport" EntityType="Self.productreport" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="puchase_orders" EntityType="Self.puchase_orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sessionScan" EntityType="Self.sessionScan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbcategory" EntityType="Self.tbcategory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbexceltest" EntityType="Self.tbexceltest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbinventsettings" EntityType="Self.tbinventsettings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbposettings" EntityType="Self.tbposettings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_google_allow" EntityType="Self.user_google_allow" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
@@ -254,6 +324,23 @@ warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not h
     [supplier_find_duplicate].[isstatus] AS [isstatus], 
     [supplier_find_duplicate].[Expr1] AS [Expr1]
     FROM [dbo].[supplier_find_duplicate] AS [supplier_find_duplicate]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="warning_expiration_10_days" EntityType="Self.warning_expiration_10_days" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [warning_expiration_10_days].[productID] AS [productID], 
+    [warning_expiration_10_days].[productCode] AS [productCode], 
+    [warning_expiration_10_days].[productName] AS [productName], 
+    [warning_expiration_10_days].[product_quantity] AS [product_quantity], 
+    [warning_expiration_10_days].[product_price] AS [product_price], 
+    [warning_expiration_10_days].[product_total] AS [product_total], 
+    [warning_expiration_10_days].[product_status] AS [product_status], 
+    [warning_expiration_10_days].[product_creator] AS [product_creator], 
+    [warning_expiration_10_days].[product_supplier] AS [product_supplier], 
+    [warning_expiration_10_days].[createdAt] AS [createdAt], 
+    [warning_expiration_10_days].[productimgurl] AS [productimgurl], 
+    [warning_expiration_10_days].[product_category] AS [product_category], 
+    [warning_expiration_10_days].[Expr1] AS [Expr1]
+    FROM [dbo].[warning_expiration_10_days] AS [warning_expiration_10_days]</DefiningQuery>
     </EntitySet>
   </EntityContainer>
 </Schema>

@@ -67,6 +67,67 @@ namespace capstone_backend.Controllers.Settings
                 throw;
             }
         }
+        [Route("update-inventory-settings"), HttpPost]
+        public HttpResponseMessage updateinventsettings(string enableinvent, string enablesupplier, string enableexpiration)
+        {
+            try
+            {
+                using(core = new local_dbbmEntities())
+                {
+                    if(core.tbinventsettings.Any(x => x.enableinventform == enableinvent))
+                    {
+                        core.update_invent_settings(1, enableinvent, enablesupplier, enableexpiration);
+                        return Request.CreateResponse(HttpStatusCode.OK, "success update invent");
+                    }
+                    else
+                    {
+                        if(core.tbinventsettings.Any(x => x.enableinventform == "1"))
+                        {
+                            core.update_invent_settings(1, enableinvent, enablesupplier, enableexpiration);
+                            return Request.CreateResponse(HttpStatusCode.OK, "success update invent");
+                        }
+                        else if(core.tbinventsettings.Any(x => x.enableinventform == "0"))
+                        {
+                            core.update_invent_settings(1, enableinvent, enablesupplier, enableexpiration);
+                            return Request.CreateResponse(HttpStatusCode.OK, "success update invent");
+                        }
+                        else
+                        {
+                            tbinventsetting invent = new tbinventsetting();
+                            invent.enableinventform = enableinvent;
+                            invent.enablesupplier = enablesupplier;
+                            invent.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
+                            invent.enableexpiration = enableexpiration;
+                            core.tbinventsettings.Add(invent);
+                            core.SaveChanges();
+                            return Request.CreateResponse(HttpStatusCode.OK, "success update invent");
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("get-inventory-settings"), HttpGet]
+        public HttpResponseMessage getsettingsforinvent()
+        {
+            try
+            {
+                using(core = new local_dbbmEntities())
+                {
+                    var obj = core.tbinventsettings.ToList();
+                    return Request.CreateResponse(HttpStatusCode.OK, obj);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         [Route("get-po-settings"), HttpGet]
         public HttpResponseMessage getsettingsforpo()
         {

@@ -87,6 +87,24 @@
       <Parameter Name="viewentry" Mode="In" Type="String" />
     </FunctionImport>
     <EntitySet Name="puchase_orders" EntityType="local_dbbmModel.puchase_orders" />
+    <EntitySet Name="tbinventsettings" EntityType="local_dbbmModel.tbinventsetting" />
+    <FunctionImport Name="update_invent_settings">
+      <Parameter Name="state" Mode="In" Type="Int32" />
+      <Parameter Name="inventorysetting" Mode="In" Type="String" />
+      <Parameter Name="inventorysupplier" Mode="In" Type="String" />
+      <Parameter Name="inventexpiration" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="expirations" EntityType="local_dbbmModel.expiration" />
+    <FunctionImport Name="stored_update_purchase_status">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stored_view_expiration_date" ReturnType="Collection(local_dbbmModel.stored_view_expiration_date_Result)">
+      <Parameter Name="state" Mode="In" Type="Int32" />
+      <Parameter Name="pcode" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="warning_expiration_10_days" EntityType="local_dbbmModel.warning_expiration_10_days" />
+    <EntitySet Name="productreports" EntityType="local_dbbmModel.productreport" />
   </EntityContainer>
   <EntityType Name="user">
     <Key>
@@ -238,5 +256,71 @@
     <Property Name="pcreator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="psupplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbinventsetting">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="enableinventform" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="enablesupplier" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="enableexpiration" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="expiration">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pcode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="expirydate" Type="DateTime" Precision="3" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <ComplexType Name="stored_view_expiration_date_Result">
+    <Property Type="DateTime" Name="expirydate" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="productID" Nullable="false" />
+    <Property Type="String" Name="productCode" Nullable="true" />
+    <Property Type="String" Name="productName" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="product_quantity" Nullable="true" />
+    <Property Type="Decimal" Name="product_price" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="product_total" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="String" Name="product_status" Nullable="true" MaxLength="1" />
+    <Property Type="String" Name="product_creator" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="product_supplier" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="createdAt" Nullable="true" Precision="23" />
+    <Property Type="String" Name="productimgurl" Nullable="true" />
+    <Property Type="String" Name="product_category" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <EntityType Name="warning_expiration_10_days">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="productCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="productName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="product_quantity" Type="Int32" />
+    <Property Name="product_price" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="product_total" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="product_status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="product_creator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="product_supplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="productimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="product_category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Expr1" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="productreport">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="problem1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="problem2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="problem3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="problem4" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="responsible" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

@@ -176,7 +176,8 @@ namespace capstone_backend.Controllers.ProductInventory
                         string.IsNullOrEmpty(httprequest.Form["productQuantity"])
                         || string.IsNullOrEmpty(httprequest.Form["productPrice"])
                         || string.IsNullOrEmpty(httprequest.Form["productcategory"])
-                        || string.IsNullOrEmpty(httprequest.Form["productImageUrl"]))
+                        || string.IsNullOrEmpty(httprequest.Form["productImageUrl"])
+                        || string.IsNullOrEmpty(httprequest.Form["productexpiration"]))
                     {
                         return Request.CreateResponse(HttpStatusCode.OK, "empty");
                     }
@@ -195,6 +196,12 @@ namespace capstone_backend.Controllers.ProductInventory
                         prod.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                         prod.product_category = httprequest.Form["productcategory"];
                         core.product_inventory.Add(prod);
+                        core.SaveChanges();
+
+                        expiration expire = new expiration();
+                        expire.pcode = httprequest.Form["productCode"];
+                        expire.expirydate = Convert.ToDateTime(httprequest.Form["productexpiration"]);
+                        core.expirations.Add(expire);
                         core.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK, "success product inventory");
                     }

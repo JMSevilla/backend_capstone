@@ -12,17 +12,15 @@ namespace capstone_backend.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class puchase_orders
+    public partial class productreport
     {
-        public int poid { get; set; }
-        public string ponumber { get; set; }
-        public string pname { get; set; }
-        public Nullable<int> pquantity { get; set; }
-        public Nullable<decimal> pprice { get; set; }
-        public Nullable<decimal> ptotal { get; set; }
-        public string pcreator { get; set; }
-        public string psupplier { get; set; }
+        public int id { get; set; }
+        public string problem1 { get; set; }
+        public string problem2 { get; set; }
+        public string problem3 { get; set; }
+        public string problem4 { get; set; }
+        public string remarks { get; set; }
         public Nullable<System.DateTime> createdAt { get; set; }
-        public string status { get; set; }
+        public string responsible { get; set; }
     }
 }

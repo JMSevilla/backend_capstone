@@ -14,10 +14,14 @@
         <EntityTypeShape EntityType="local_dbbmModel.excelStorage" Width="1.5" PointX="0.5" PointY="4" />
         <EntityTypeShape EntityType="local_dbbmModel.product_inventory" Width="1.5" PointX="3.75" PointY="2.75" FillColor="255, 128, 0" />
         <EntityTypeShape EntityType="local_dbbmModel.supplier" Width="1.5" PointX="5.375" PointY="2.75" FillColor="0, 192, 0" />
-        <EntityTypeShape EntityType="local_dbbmModel.supplier_find_duplicate" Width="1.5" PointX="7" PointY="3.125" />
+        <EntityTypeShape EntityType="local_dbbmModel.supplier_find_duplicate" Width="1.5" PointX="7" PointY="0.5" />
         <EntityTypeShape EntityType="local_dbbmModel.tbcategory" Width="1.5" PointX="5.375" PointY="6" />
-        <EntityTypeShape EntityType="local_dbbmModel.tbposetting" Width="1.5" PointX="7.375" PointY="0.75" />
+        <EntityTypeShape EntityType="local_dbbmModel.tbposetting" Width="1.5" PointX="13.25" PointY="5.125" />
         <EntityTypeShape EntityType="local_dbbmModel.puchase_orders" Width="1.5" PointX="2.125" PointY="5.125" />
+        <EntityTypeShape EntityType="local_dbbmModel.tbinventsetting" Width="1.5" PointX="13.25" PointY="3.375" />
+        <EntityTypeShape EntityType="local_dbbmModel.expiration" Width="1.5" PointX="3.75" PointY="6.125" />
+        <EntityTypeShape EntityType="local_dbbmModel.warning_expiration_10_days" Width="1.5" PointX="7" PointY="3.875" FillColor="192, 0, 192" />
+        <EntityTypeShape EntityType="local_dbbmModel.productreport" Width="1.5" PointX="10.125" PointY="0.5" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -175,11 +175,14 @@
     <Compile Include="Controllers\AddingController.cs" />
     <Compile Include="Controllers\Categories\productcategoryController.cs" />
     <Compile Include="Controllers\excelTemplate\excelController.cs" />
+    <Compile Include="Controllers\ExpirationProduct\productExpirationController.cs" />
+    <Compile Include="Controllers\ExpirationProduct\p_inventory_view_expirationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryAI\InventoryAIController.cs" />
     <Compile Include="Controllers\locations\locationController.cs" />
     <Compile Include="Controllers\ProductInventory\InventoryActivationController.cs" />
     <Compile Include="Controllers\ProductInventory\productInventoryController.cs" />
+    <Compile Include="Controllers\productReport\ProductReportController.cs" />
     <Compile Include="Controllers\purchaseOrders\purchaseorderController.cs" />
     <Compile Include="Controllers\PurchaseOrder\purchaseController.cs" />
     <Compile Include="Controllers\Settings\SystemSettingsController.cs" />
@@ -233,6 +236,9 @@
     <Compile Include="Models\excelStorage.cs">
       <DependentUpon>BMConnection.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\expiration.cs">
+      <DependentUpon>BMConnection.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\InsertClass.cs" />
     <Compile Include="Models\LocalServerConnection.Context.cs">
       <AutoGen>True</AutoGen>
@@ -252,6 +258,9 @@
     <Compile Include="Models\location.cs">
       <DependentUpon>BMConnection.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\productreport.cs">
+      <DependentUpon>BMConnection.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\product_inventory.cs">
       <DependentUpon>BMConnection.tt</DependentUpon>
     </Compile>
@@ -259,6 +268,9 @@
       <DependentUpon>BMConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sessionScan.cs">
+      <DependentUpon>BMConnection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stored_view_expiration_date_Result.cs">
       <DependentUpon>BMConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\supplier.cs">
@@ -276,6 +288,9 @@
     <Compile Include="Models\tbinformation.cs">
       <DependentUpon>LocalServerConnection.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbinventsetting.cs">
+      <DependentUpon>BMConnection.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\tbposetting.cs">
       <DependentUpon>BMConnection.tt</DependentUpon>
     </Compile>
@@ -286,6 +301,9 @@
     <Compile Include="Models\user_google_allow.cs">
       <DependentUpon>BMConnection.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\warning_expiration_10_days.cs">
+      <DependentUpon>BMConnection.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -294,6 +312,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="emailcontent\emailtemplate.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
