@@ -93,6 +93,23 @@
     <Property Name="isused" Type="char" MaxLength="1" />
     <Property Name="createdAt" Type="datetime" />
   </EntityType>
+  <EntityType Name="stock_on_hand">
+    <Key>
+      <PropertyRef Name="stockID" />
+    </Key>
+    <Property Name="stockID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="stockNumber" Type="varchar(max)" />
+    <Property Name="productname" Type="varchar" MaxLength="255" />
+    <Property Name="productquantity" Type="int" />
+    <Property Name="productprice" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="productstatus" Type="char" MaxLength="1" />
+    <Property Name="productcreator" Type="varchar" MaxLength="50" />
+    <Property Name="productsupplier" Type="varchar" MaxLength="100" />
+    <Property Name="productimgurl" Type="varchar(max)" />
+    <Property Name="productcategory" Type="varchar" MaxLength="100" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="product_total" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
   <EntityType Name="supplier">
     <Key>
       <PropertyRef Name="id" />
@@ -215,6 +232,21 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
     <Property Name="product_category" Type="varchar" MaxLength="100" />
     <Property Name="Expr1" Type="datetime" />
   </EntityType>
+  <Function Name="find_duplicates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sid" Type="varchar(max)" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="quantity_decrease_manager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="quantity" Type="int" Mode="In" />
+    <Parameter Name="pcode" Type="varchar" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="quantity_refill_increase_manager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="quantity" Type="int" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
   <Function Name="stored_supplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="sfname" Type="varchar" Mode="In" />
@@ -267,6 +299,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
     <Parameter Name="productsupplier" Type="varchar" Mode="In" />
     <Parameter Name="productimg" Type="varchar(max)" Mode="In" />
     <Parameter Name="productcategory" Type="varchar" Mode="In" />
+    <Parameter Name="pcode" Type="varchar" Mode="In" />
     <Parameter Name="state" Type="int" Mode="In" />
   </Function>
   <Function Name="update_product_status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -302,6 +335,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
     <EntitySet Name="productreport" EntityType="Self.productreport" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="puchase_orders" EntityType="Self.puchase_orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sessionScan" EntityType="Self.sessionScan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="stock_on_hand" EntityType="Self.stock_on_hand" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbcategory" EntityType="Self.tbcategory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbexceltest" EntityType="Self.tbexceltest" Schema="dbo" store:Type="Tables" />

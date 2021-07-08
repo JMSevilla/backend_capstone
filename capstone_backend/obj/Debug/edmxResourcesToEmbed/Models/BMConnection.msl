@@ -258,5 +258,43 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="stock_on_hand">
+      <EntityTypeMapping TypeName="local_dbbmModel.stock_on_hand">
+        <MappingFragment StoreEntitySet="stock_on_hand">
+          <ScalarProperty Name="product_total" ColumnName="product_total" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="productcategory" ColumnName="productcategory" />
+          <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
+          <ScalarProperty Name="productsupplier" ColumnName="productsupplier" />
+          <ScalarProperty Name="productcreator" ColumnName="productcreator" />
+          <ScalarProperty Name="productstatus" ColumnName="productstatus" />
+          <ScalarProperty Name="productprice" ColumnName="productprice" />
+          <ScalarProperty Name="productquantity" ColumnName="productquantity" />
+          <ScalarProperty Name="productname" ColumnName="productname" />
+          <ScalarProperty Name="stockNumber" ColumnName="stockNumber" />
+          <ScalarProperty Name="stockID" ColumnName="stockID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="quantity_decrease_manager" FunctionName="local_dbbmModel.Store.quantity_decrease_manager" />
+    <FunctionImportMapping FunctionImportName="quantity_refill_increase_manager" FunctionName="local_dbbmModel.Store.quantity_refill_increase_manager" />
+    <FunctionImportMapping FunctionImportName="find_duplicates" FunctionName="local_dbbmModel.Store.find_duplicates">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="local_dbbmModel.find_duplicates_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="supplierIdentificationCode" ColumnName="supplierIdentificationCode" />
+          <ScalarProperty Name="supplierfirstname" ColumnName="supplierfirstname" />
+          <ScalarProperty Name="supplierlastname" ColumnName="supplierlastname" />
+          <ScalarProperty Name="supplierprimaryaddress" ColumnName="supplierprimaryaddress" />
+          <ScalarProperty Name="suppliersecondaryaddress" ColumnName="suppliersecondaryaddress" />
+          <ScalarProperty Name="suppliernumber" ColumnName="suppliernumber" />
+          <ScalarProperty Name="supplieremail" ColumnName="supplieremail" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="supplierimgurl" ColumnName="supplierimgurl" />
+          <ScalarProperty Name="isstatus" ColumnName="isstatus" />
+          <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
   </EntityContainerMapping>
 </Mapping>

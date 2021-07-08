@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\JM Sevilla\source\repos\capstone_backend\capstone_backend\Models\BMAzureConnection.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\devop\source\repos\backend_capstone\capstone_backend\Models\BMAzureConnection.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

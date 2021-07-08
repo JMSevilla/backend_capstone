@@ -54,6 +54,7 @@
       <Parameter Name="productsupplier" Mode="In" Type="String" />
       <Parameter Name="productimg" Mode="In" Type="String" />
       <Parameter Name="productcategory" Mode="In" Type="String" />
+      <Parameter Name="pcode" Mode="In" Type="String" />
       <Parameter Name="state" Mode="In" Type="Int32" />
     </FunctionImport>
     <EntitySet Name="tbexceltests" EntityType="local_dbbmModel.tbexceltest" />
@@ -105,6 +106,22 @@
     </FunctionImport>
     <EntitySet Name="warning_expiration_10_days" EntityType="local_dbbmModel.warning_expiration_10_days" />
     <EntitySet Name="productreports" EntityType="local_dbbmModel.productreport" />
+    <EntitySet Name="stock_on_hand" EntityType="local_dbbmModel.stock_on_hand" />
+    <FunctionImport Name="quantity_decrease_manager">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="quantity" Mode="In" Type="Int32" />
+      <Parameter Name="pcode" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="quantity_refill_increase_manager">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="quantity" Mode="In" Type="Int32" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="find_duplicates" ReturnType="Collection(local_dbbmModel.find_duplicates_Result)">
+      <Parameter Name="sid" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
   </EntityContainer>
   <EntityType Name="user">
     <Key>
@@ -323,4 +340,35 @@
     <Property Name="createdAt" Type="DateTime" Precision="3" />
     <Property Name="responsible" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
   </EntityType>
+  <EntityType Name="stock_on_hand">
+    <Key>
+      <PropertyRef Name="stockID" />
+    </Key>
+    <Property Name="stockID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="stockNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="productname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="productquantity" Type="Int32" />
+    <Property Name="productprice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="productstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="productcreator" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="productsupplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="productimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="productcategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="product_total" Type="Decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <ComplexType Name="find_duplicates_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="supplierIdentificationCode" Nullable="true" />
+    <Property Type="String" Name="supplierfirstname" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="supplierlastname" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="supplierprimaryaddress" Nullable="true" MaxLength="Max" />
+    <Property Type="String" Name="suppliersecondaryaddress" Nullable="true" MaxLength="Max" />
+    <Property Type="String" Name="suppliernumber" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="supplieremail" Nullable="true" MaxLength="255" />
+    <Property Type="DateTime" Name="createdAt" Nullable="true" Precision="23" />
+    <Property Type="String" Name="supplierimgurl" Nullable="true" />
+    <Property Type="String" Name="isstatus" Nullable="true" MaxLength="1" />
+    <Property Type="String" Name="Expr1" Nullable="true" />
+  </ComplexType>
 </Schema>

@@ -38,6 +38,13 @@ namespace capstone_backend.Models
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<supplier_find_duplicate> supplier_find_duplicate { get; set; }
         public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
+        public virtual DbSet<expiration> expirations { get; set; }
+        public virtual DbSet<productreport> productreports { get; set; }
+        public virtual DbSet<puchase_orders> puchase_orders { get; set; }
+        public virtual DbSet<tbcategory> tbcategories { get; set; }
+        public virtual DbSet<tbinventsetting> tbinventsettings { get; set; }
+        public virtual DbSet<tbposetting> tbposettings { get; set; }
+        public virtual DbSet<warning_expiration_10_days> warning_expiration_10_days { get; set; }
     
         public virtual int stored_supplier(Nullable<int> id, string sfname, string slname, string sprimary, string ssecondary, string snumber, string semail, string simg, string isstatus, Nullable<int> state)
         {
@@ -240,6 +247,65 @@ namespace capstone_backend.Models
                 new ObjectParameter("action", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_status_updater", idParameter, actionParameter);
+        }
+    
+        public virtual int stored_update_purchase_status(Nullable<int> id, Nullable<int> state)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("stored_update_purchase_status", idParameter, stateParameter);
+        }
+    
+        public virtual int update_invent_settings(Nullable<int> state, string inventorysetting, string inventorysupplier, string inventexpiration)
+        {
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            var inventorysettingParameter = inventorysetting != null ?
+                new ObjectParameter("inventorysetting", inventorysetting) :
+                new ObjectParameter("inventorysetting", typeof(string));
+    
+            var inventorysupplierParameter = inventorysupplier != null ?
+                new ObjectParameter("inventorysupplier", inventorysupplier) :
+                new ObjectParameter("inventorysupplier", typeof(string));
+    
+            var inventexpirationParameter = inventexpiration != null ?
+                new ObjectParameter("inventexpiration", inventexpiration) :
+                new ObjectParameter("inventexpiration", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_invent_settings", stateParameter, inventorysettingParameter, inventorysupplierParameter, inventexpirationParameter);
+        }
+    
+        public virtual int update_settings(Nullable<int> state, string enablePO, string enablepoinventry, string enablelistview, string viewentry)
+        {
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            var enablePOParameter = enablePO != null ?
+                new ObjectParameter("enablePO", enablePO) :
+                new ObjectParameter("enablePO", typeof(string));
+    
+            var enablepoinventryParameter = enablepoinventry != null ?
+                new ObjectParameter("enablepoinventry", enablepoinventry) :
+                new ObjectParameter("enablepoinventry", typeof(string));
+    
+            var enablelistviewParameter = enablelistview != null ?
+                new ObjectParameter("enablelistview", enablelistview) :
+                new ObjectParameter("enablelistview", typeof(string));
+    
+            var viewentryParameter = viewentry != null ?
+                new ObjectParameter("viewentry", viewentry) :
+                new ObjectParameter("viewentry", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_settings", stateParameter, enablePOParameter, enablepoinventryParameter, enablelistviewParameter, viewentryParameter);
         }
     }
 }

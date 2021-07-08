@@ -49,6 +49,10 @@ namespace capstone_backend.Controllers.productReport
             {
 
                 string FilePath = "C:\\Users\\devop\\source\\repos\\backend_capstone\\capstone_backend\\emailcontent\\emailtemplate.html";
+                if(FilePath == null || FilePath == "" || FilePath == "undefined")
+                {
+                    FilePath = "Z:\\emailtemplate.html";
+                }
                 StreamReader str = new StreamReader(FilePath);
                 string MailText = str.ReadToEnd();
                 str.Close();

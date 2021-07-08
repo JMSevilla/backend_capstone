@@ -186,6 +186,8 @@
     <Compile Include="Controllers\purchaseOrders\purchaseorderController.cs" />
     <Compile Include="Controllers\PurchaseOrder\purchaseController.cs" />
     <Compile Include="Controllers\Settings\SystemSettingsController.cs" />
+    <Compile Include="Controllers\Stock_on_hand\pullProductController.cs" />
+    <Compile Include="Controllers\Stock_on_hand\sortingController.cs" />
     <Compile Include="Controllers\suppliermanagement\supplierController.cs" />
     <Compile Include="Controllers\testexcelcontroller\testinglangController.cs" />
     <Compile Include="Controllers\Users\CSRFRegistrationController.cs" />
@@ -230,6 +232,7 @@
       <DependentUpon>BMConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CredentialsAuth.cs" />
+    <Compile Include="Models\DatabaseManager.cs" />
     <Compile Include="Models\database_firewall_rules.cs">
       <DependentUpon>BMAzureConnection.tt</DependentUpon>
     </Compile>
@@ -237,6 +240,9 @@
       <DependentUpon>BMConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\expiration.cs">
+      <DependentUpon>BMConnection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\find_duplicates_Result.cs">
       <DependentUpon>BMConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\InsertClass.cs" />
@@ -268,6 +274,9 @@
       <DependentUpon>BMConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sessionScan.cs">
+      <DependentUpon>BMConnection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\stock_on_hand.cs">
       <DependentUpon>BMConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\stored_view_expiration_date_Result.cs">
@@ -412,6 +421,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

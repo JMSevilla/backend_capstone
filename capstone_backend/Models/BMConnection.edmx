@@ -98,6 +98,23 @@
           <Property Name="isused" Type="char" MaxLength="1" />
           <Property Name="createdAt" Type="datetime" />
         </EntityType>
+        <EntityType Name="stock_on_hand">
+          <Key>
+            <PropertyRef Name="stockID" />
+          </Key>
+          <Property Name="stockID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stockNumber" Type="varchar(max)" />
+          <Property Name="productname" Type="varchar" MaxLength="255" />
+          <Property Name="productquantity" Type="int" />
+          <Property Name="productprice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="productstatus" Type="char" MaxLength="1" />
+          <Property Name="productcreator" Type="varchar" MaxLength="50" />
+          <Property Name="productsupplier" Type="varchar" MaxLength="100" />
+          <Property Name="productimgurl" Type="varchar(max)" />
+          <Property Name="productcategory" Type="varchar" MaxLength="100" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="product_total" Type="decimal" Precision="18" Scale="0" />
+        </EntityType>
         <EntityType Name="supplier">
           <Key>
             <PropertyRef Name="id" />
@@ -220,6 +237,21 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Name="product_category" Type="varchar" MaxLength="100" />
           <Property Name="Expr1" Type="datetime" />
         </EntityType>
+        <Function Name="find_duplicates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sid" Type="varchar(max)" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+        </Function>
+        <Function Name="quantity_decrease_manager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="quantity" Type="int" Mode="In" />
+          <Parameter Name="pcode" Type="varchar" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+        </Function>
+        <Function Name="quantity_refill_increase_manager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="quantity" Type="int" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+        </Function>
         <Function Name="stored_supplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="sfname" Type="varchar" Mode="In" />
@@ -272,6 +304,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Parameter Name="productsupplier" Type="varchar" Mode="In" />
           <Parameter Name="productimg" Type="varchar(max)" Mode="In" />
           <Parameter Name="productcategory" Type="varchar" Mode="In" />
+          <Parameter Name="pcode" Type="varchar" Mode="In" />
           <Parameter Name="state" Type="int" Mode="In" />
         </Function>
         <Function Name="update_product_status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -307,6 +340,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <EntitySet Name="productreport" EntityType="Self.productreport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="puchase_orders" EntityType="Self.puchase_orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sessionScan" EntityType="Self.sessionScan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="stock_on_hand" EntityType="Self.stock_on_hand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbcategory" EntityType="Self.tbcategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbexceltest" EntityType="Self.tbexceltest" Schema="dbo" store:Type="Tables" />
@@ -406,6 +440,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
             <Parameter Name="productsupplier" Mode="In" Type="String" />
             <Parameter Name="productimg" Mode="In" Type="String" />
             <Parameter Name="productcategory" Mode="In" Type="String" />
+            <Parameter Name="pcode" Mode="In" Type="String" />
             <Parameter Name="state" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="tbexceltests" EntityType="local_dbbmModel.tbexceltest" />
@@ -457,6 +492,22 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           </FunctionImport>
           <EntitySet Name="warning_expiration_10_days" EntityType="local_dbbmModel.warning_expiration_10_days" />
           <EntitySet Name="productreports" EntityType="local_dbbmModel.productreport" />
+          <EntitySet Name="stock_on_hand" EntityType="local_dbbmModel.stock_on_hand" />
+          <FunctionImport Name="quantity_decrease_manager">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="quantity" Mode="In" Type="Int32" />
+            <Parameter Name="pcode" Mode="In" Type="String" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="quantity_refill_increase_manager">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="quantity" Mode="In" Type="Int32" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="find_duplicates" ReturnType="Collection(local_dbbmModel.find_duplicates_Result)">
+            <Parameter Name="sid" Mode="In" Type="String" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="user">
           <Key>
@@ -675,6 +726,37 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Name="createdAt" Type="DateTime" Precision="3" />
           <Property Name="responsible" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="stock_on_hand">
+          <Key>
+            <PropertyRef Name="stockID" />
+          </Key>
+          <Property Name="stockID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stockNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="productname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="productquantity" Type="Int32" />
+          <Property Name="productprice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="productstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="productcreator" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="productsupplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="productimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="productcategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="product_total" Type="Decimal" Precision="18" Scale="0" />
+        </EntityType>
+        <ComplexType Name="find_duplicates_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="supplierIdentificationCode" Nullable="true" />
+          <Property Type="String" Name="supplierfirstname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="supplierlastname" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="supplierprimaryaddress" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="suppliersecondaryaddress" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="suppliernumber" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="supplieremail" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="createdAt" Nullable="true" Precision="23" />
+          <Property Type="String" Name="supplierimgurl" Nullable="true" />
+          <Property Type="String" Name="isstatus" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="Expr1" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -938,6 +1020,44 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="stock_on_hand">
+            <EntityTypeMapping TypeName="local_dbbmModel.stock_on_hand">
+              <MappingFragment StoreEntitySet="stock_on_hand">
+                <ScalarProperty Name="product_total" ColumnName="product_total" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="productcategory" ColumnName="productcategory" />
+                <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
+                <ScalarProperty Name="productsupplier" ColumnName="productsupplier" />
+                <ScalarProperty Name="productcreator" ColumnName="productcreator" />
+                <ScalarProperty Name="productstatus" ColumnName="productstatus" />
+                <ScalarProperty Name="productprice" ColumnName="productprice" />
+                <ScalarProperty Name="productquantity" ColumnName="productquantity" />
+                <ScalarProperty Name="productname" ColumnName="productname" />
+                <ScalarProperty Name="stockNumber" ColumnName="stockNumber" />
+                <ScalarProperty Name="stockID" ColumnName="stockID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="quantity_decrease_manager" FunctionName="local_dbbmModel.Store.quantity_decrease_manager" />
+          <FunctionImportMapping FunctionImportName="quantity_refill_increase_manager" FunctionName="local_dbbmModel.Store.quantity_refill_increase_manager" />
+          <FunctionImportMapping FunctionImportName="find_duplicates" FunctionName="local_dbbmModel.Store.find_duplicates">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="local_dbbmModel.find_duplicates_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="supplierIdentificationCode" ColumnName="supplierIdentificationCode" />
+                <ScalarProperty Name="supplierfirstname" ColumnName="supplierfirstname" />
+                <ScalarProperty Name="supplierlastname" ColumnName="supplierlastname" />
+                <ScalarProperty Name="supplierprimaryaddress" ColumnName="supplierprimaryaddress" />
+                <ScalarProperty Name="suppliersecondaryaddress" ColumnName="suppliersecondaryaddress" />
+                <ScalarProperty Name="suppliernumber" ColumnName="suppliernumber" />
+                <ScalarProperty Name="supplieremail" ColumnName="supplieremail" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="supplierimgurl" ColumnName="supplierimgurl" />
+                <ScalarProperty Name="isstatus" ColumnName="isstatus" />
+                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

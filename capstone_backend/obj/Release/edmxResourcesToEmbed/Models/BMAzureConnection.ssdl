@@ -196,26 +196,6 @@ warning 6002: The table/view 'dbbm.dbo.supplier_find_duplicate' does not have a 
     <Property Name="Expr1" Type="varchar(max)" />
   </EntityType>
   <!--Errors Found During Generation:
-warning 6002: The table/view 'dbbm.dbo.warning_expiration_10_days' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-  <EntityType Name="warning_expiration_10_days">
-    <Key>
-      <PropertyRef Name="productID" />
-    </Key>
-    <Property Name="productID" Type="int" Nullable="false" />
-    <Property Name="productCode" Type="varchar(max)" />
-    <Property Name="productName" Type="varchar" MaxLength="255" />
-    <Property Name="product_quantity" Type="int" />
-    <Property Name="product_price" Type="decimal" Precision="18" Scale="0" />
-    <Property Name="product_total" Type="decimal" Precision="18" Scale="0" />
-    <Property Name="product_status" Type="char" MaxLength="1" />
-    <Property Name="product_creator" Type="varchar" MaxLength="100" />
-    <Property Name="product_supplier" Type="varchar" MaxLength="100" />
-    <Property Name="createdAt" Type="datetime" />
-    <Property Name="productimgurl" Type="varchar(max)" />
-    <Property Name="product_category" Type="varchar" MaxLength="100" />
-    <Property Name="Expr1" Type="datetime" />
-  </EntityType>
-  <!--Errors Found During Generation:
 warning 6002: The table/view 'dbbm.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="database_firewall_rules">
     <Key>
@@ -337,23 +317,6 @@ warning 6002: The table/view 'dbbm.sys.database_firewall_rules' does not have a 
     [supplier_find_duplicate].[isstatus] AS [isstatus], 
     [supplier_find_duplicate].[Expr1] AS [Expr1]
     FROM [dbo].[supplier_find_duplicate] AS [supplier_find_duplicate]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="warning_expiration_10_days" EntityType="Self.warning_expiration_10_days" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [warning_expiration_10_days].[productID] AS [productID], 
-    [warning_expiration_10_days].[productCode] AS [productCode], 
-    [warning_expiration_10_days].[productName] AS [productName], 
-    [warning_expiration_10_days].[product_quantity] AS [product_quantity], 
-    [warning_expiration_10_days].[product_price] AS [product_price], 
-    [warning_expiration_10_days].[product_total] AS [product_total], 
-    [warning_expiration_10_days].[product_status] AS [product_status], 
-    [warning_expiration_10_days].[product_creator] AS [product_creator], 
-    [warning_expiration_10_days].[product_supplier] AS [product_supplier], 
-    [warning_expiration_10_days].[createdAt] AS [createdAt], 
-    [warning_expiration_10_days].[productimgurl] AS [productimgurl], 
-    [warning_expiration_10_days].[product_category] AS [product_category], 
-    [warning_expiration_10_days].[Expr1] AS [Expr1]
-    FROM [dbo].[warning_expiration_10_days] AS [warning_expiration_10_days]</DefiningQuery>
     </EntitySet>
     <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
       <DefiningQuery>SELECT 

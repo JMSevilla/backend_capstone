@@ -58,7 +58,7 @@ namespace capstone_backend.Controllers.suppliermanagement
             {
                 using(core = new local_dbbmEntities())
                 {
-                    var obj = core.suppliers.ToList();
+                    var obj = core.suppliers.Where(x => x.isstatus == "0").ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
                 }
             }

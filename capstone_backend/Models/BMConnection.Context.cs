@@ -44,6 +44,7 @@ namespace capstone_backend.Models
         public virtual DbSet<expiration> expirations { get; set; }
         public virtual DbSet<warning_expiration_10_days> warning_expiration_10_days { get; set; }
         public virtual DbSet<productreport> productreports { get; set; }
+        public virtual DbSet<stock_on_hand> stock_on_hand { get; set; }
     
         public virtual int stored_user_registration(string firstname, string lastname, string municipality, string province, string address, string companyname, string address_type, string email, string password, Nullable<int> mobileno, string istype, string isverified, string isstatus, string isgoogleverified, string state_action)
         {
@@ -153,7 +154,7 @@ namespace capstone_backend.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_status_updater", idParameter, actionParameter);
         }
     
-        public virtual int update_product_inventory(Nullable<int> productid, string productname, Nullable<int> productquantity, Nullable<decimal> productprice, Nullable<decimal> producttotal, string productsupplier, string productimg, string productcategory, Nullable<int> state)
+        public virtual int update_product_inventory(Nullable<int> productid, string productname, Nullable<int> productquantity, Nullable<decimal> productprice, Nullable<decimal> producttotal, string productsupplier, string productimg, string productcategory, string pcode, Nullable<int> state)
         {
             var productidParameter = productid.HasValue ?
                 new ObjectParameter("productid", productid) :
@@ -187,11 +188,15 @@ namespace capstone_backend.Models
                 new ObjectParameter("productcategory", productcategory) :
                 new ObjectParameter("productcategory", typeof(string));
     
+            var pcodeParameter = pcode != null ?
+                new ObjectParameter("pcode", pcode) :
+                new ObjectParameter("pcode", typeof(string));
+    
             var stateParameter = state.HasValue ?
                 new ObjectParameter("state", state) :
                 new ObjectParameter("state", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_product_inventory", productidParameter, productnameParameter, productquantityParameter, productpriceParameter, producttotalParameter, productsupplierParameter, productimgParameter, productcategoryParameter, stateParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_product_inventory", productidParameter, productnameParameter, productquantityParameter, productpriceParameter, producttotalParameter, productsupplierParameter, productimgParameter, productcategoryParameter, pcodeParameter, stateParameter);
         }
     
         public virtual int update_product_status(Nullable<int> prodid, Nullable<int> state)
@@ -322,6 +327,57 @@ namespace capstone_backend.Models
                 new ObjectParameter("pcode", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<stored_view_expiration_date_Result>("stored_view_expiration_date", stateParameter, pcodeParameter);
+        }
+    
+        public virtual int quantity_decrease_manager(Nullable<int> id, Nullable<int> quantity, string pcode, Nullable<int> state)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var quantityParameter = quantity.HasValue ?
+                new ObjectParameter("quantity", quantity) :
+                new ObjectParameter("quantity", typeof(int));
+    
+            var pcodeParameter = pcode != null ?
+                new ObjectParameter("pcode", pcode) :
+                new ObjectParameter("pcode", typeof(string));
+    
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("quantity_decrease_manager", idParameter, quantityParameter, pcodeParameter, stateParameter);
+        }
+    
+        public virtual int quantity_refill_increase_manager(Nullable<int> id, Nullable<int> quantity, Nullable<int> state)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var quantityParameter = quantity.HasValue ?
+                new ObjectParameter("quantity", quantity) :
+                new ObjectParameter("quantity", typeof(int));
+    
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("quantity_refill_increase_manager", idParameter, quantityParameter, stateParameter);
+        }
+    
+        public virtual ObjectResult<find_duplicates_Result> find_duplicates(string sid, Nullable<int> state)
+        {
+            var sidParameter = sid != null ?
+                new ObjectParameter("sid", sid) :
+                new ObjectParameter("sid", typeof(string));
+    
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<find_duplicates_Result>("find_duplicates", sidParameter, stateParameter);
         }
     }
 }
