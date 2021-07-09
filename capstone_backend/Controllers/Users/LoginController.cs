@@ -25,116 +25,117 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-               if(core != null)
+                using (core = new local_dbbmEntities())
                 {
-                    using (core = new local_dbbmEntities())
+                    var checkemail = core.user_google_allow.Any(x => x.g_email == email);
+                    var getusertype = core.users.Where(x => x.email == email).FirstOrDefault();
+                    if (checkemail)
                     {
-                        var checkemail = core.user_google_allow.Any(x => x.g_email == email);
-                        var getusertype = core.users.Where(x => x.email == email).FirstOrDefault();
-                        if (checkemail)
+                        if (getusertype.istype == "1")
                         {
-                            if (getusertype.istype == "1")
-                            {
-                                var obj = core.users.Where(x => x.email == email);
-                                resp.bundle = obj.Select(y => new {
-                                    y.firstname,
-                                    y.lastname,
-                                    y.email,
-                                    y.id,
-                                    y.istype
-                                }).ToList();
-                                resp.response_message = "proceed login admin";
-                                return Request.CreateResponse(HttpStatusCode.OK, resp);
-                            }
-                            else
-                            {
-                                if (getusertype.isverified == "1")
-                                {
-                                    if (getusertype.isstatus == "1")
-                                    {
-                                        var obj = core.users.Where(x => x.email == email);
-                                        resp.bundle = obj.Select(y => new {
-                                            y.firstname,
-                                            y.lastname,
-                                            y.email,
-                                            y.id,
-                                            y.istype
-                                        }).ToList();
-                                        resp.response_message = "proceed login customer";
-                                        return Request.CreateResponse(HttpStatusCode.OK, resp);
-                                    }
-                                    else
-                                    {
-                                        return Request.CreateResponse(HttpStatusCode.OK, "disable");
-                                    }
-                                }
-                                else
-                                {
-                                    return Request.CreateResponse(HttpStatusCode.OK, "not verified");
-                                }
-                            }
+                            var obj = core.users.Where(x => x.email == email);
+                            resp.bundle = obj.Select(y => new {
+                                y.firstname,
+                                y.lastname,
+                                y.email,
+                                y.id,
+                                y.istype
+                            }).ToList();
+                            resp.response_message = "proceed login admin";
+                            return Request.CreateResponse(HttpStatusCode.OK, resp);
                         }
                         else
                         {
-                            return Request.CreateResponse(HttpStatusCode.OK, "email not exists");
-                        }
-                    }
-                }
-                else
-                {
-                    using (core1 = new dbbmEntities())
-                    {
-                        var checkemail = core1.user_google_allow.Any(x => x.g_email == email);
-                        var getusertype = core1.users.Where(x => x.email == email).FirstOrDefault();
-                        if (checkemail)
-                        {
-                            if (getusertype.istype == "1")
+                            if (getusertype.isverified == "1")
                             {
-                                var obj = core1.users.Where(x => x.email == email);
-                                resp.bundle = obj.Select(y => new {
-                                    y.firstname,
-                                    y.lastname,
-                                    y.email,
-                                    y.id,
-                                    y.istype
-                                }).ToList();
-                                resp.response_message = "proceed login admin";
-                                return Request.CreateResponse(HttpStatusCode.OK, resp);
-                            }
-                            else
-                            {
-                                if (getusertype.isverified == "1")
+                                if (getusertype.isstatus == "1")
                                 {
-                                    if (getusertype.isstatus == "1")
-                                    {
-                                        var obj = core1.users.Where(x => x.email == email);
-                                        resp.bundle = obj.Select(y => new {
-                                            y.firstname,
-                                            y.lastname,
-                                            y.email,
-                                            y.id,
-                                            y.istype
-                                        }).ToList();
-                                        resp.response_message = "proceed login customer";
-                                        return Request.CreateResponse(HttpStatusCode.OK, resp);
-                                    }
-                                    else
-                                    {
-                                        return Request.CreateResponse(HttpStatusCode.OK, "disable");
-                                    }
+                                    var obj = core.users.Where(x => x.email == email);
+                                    resp.bundle = obj.Select(y => new {
+                                        y.firstname,
+                                        y.lastname,
+                                        y.email,
+                                        y.id,
+                                        y.istype
+                                    }).ToList();
+                                    resp.response_message = "proceed login customer";
+                                    return Request.CreateResponse(HttpStatusCode.OK, resp);
                                 }
                                 else
                                 {
-                                    return Request.CreateResponse(HttpStatusCode.OK, "not verified");
+                                    return Request.CreateResponse(HttpStatusCode.OK, "disable");
                                 }
                             }
-                        }
-                        else
-                        {
-                            return Request.CreateResponse(HttpStatusCode.OK, "email not exists");
+                            else
+                            {
+                                return Request.CreateResponse(HttpStatusCode.OK, "not verified");
+                            }
                         }
                     }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, "email not exists");
+                    }
                 }
+                //if(core != null)
+                // {
+
+                // }
+                // else
+                // {
+                //     using (core1 = new dbbmEntities())
+                //     {
+                //         var checkemail = core1.user_google_allow.Any(x => x.g_email == email);
+                //         var getusertype = core1.users.Where(x => x.email == email).FirstOrDefault();
+                //         if (checkemail)
+                //         {
+                //             if (getusertype.istype == "1")
+                //             {
+                //                 var obj = core1.users.Where(x => x.email == email);
+                //                 resp.bundle = obj.Select(y => new {
+                //                     y.firstname,
+                //                     y.lastname,
+                //                     y.email,
+                //                     y.id,
+                //                     y.istype
+                //                 }).ToList();
+                //                 resp.response_message = "proceed login admin";
+                //                 return Request.CreateResponse(HttpStatusCode.OK, resp);
+                //             }
+                //             else
+                //             {
+                //                 if (getusertype.isverified == "1")
+                //                 {
+                //                     if (getusertype.isstatus == "1")
+                //                     {
+                //                         var obj = core1.users.Where(x => x.email == email);
+                //                         resp.bundle = obj.Select(y => new {
+                //                             y.firstname,
+                //                             y.lastname,
+                //                             y.email,
+                //                             y.id,
+                //                             y.istype
+                //                         }).ToList();
+                //                         resp.response_message = "proceed login customer";
+                //                         return Request.CreateResponse(HttpStatusCode.OK, resp);
+                //                     }
+                //                     else
+                //                     {
+                //                         return Request.CreateResponse(HttpStatusCode.OK, "disable");
+                //                     }
+                //                 }
+                //                 else
+                //                 {
+                //                     return Request.CreateResponse(HttpStatusCode.OK, "not verified");
+                //                 }
+                //             }
+                //         }
+                //         else
+                //         {
+                //             return Request.CreateResponse(HttpStatusCode.OK, "email not exists");
+                //         }
+                //     }
+                // }
             }
             catch (Exception)
             {
@@ -147,54 +148,55 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-               if(core != null)
+                using (core = new local_dbbmEntities())
                 {
-                    using (core = new local_dbbmEntities())
+                    var check = core.sessionScans.Any(x => x.email == email);
+                    if (check)
                     {
-                        var check = core.sessionScans.Any(x => x.email == email);
-                        if (check)
-                        {
-                            //update isused equal to 1
-                            core.update_session_stats(email, "update_session");
-                            return Request.CreateResponse(HttpStatusCode.OK, "update session");
-                        }
-                        else
-                        {
-                            sessionScan ses = new sessionScan();
-                            ses.email = email;
-                            ses.sessionID = sessionid;
-                            ses.isused = "1";
-                            ses.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
-                            core.sessionScans.Add(ses);
-                            core.SaveChanges();
-                            return Request.CreateResponse(HttpStatusCode.OK, "session added");
-                        }
+                        //update isused equal to 1
+                        core.update_session_stats(email, "update_session");
+                        return Request.CreateResponse(HttpStatusCode.OK, "update session");
+                    }
+                    else
+                    {
+                        sessionScan ses = new sessionScan();
+                        ses.email = email;
+                        ses.sessionID = sessionid;
+                        ses.isused = "1";
+                        ses.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
+                        core.sessionScans.Add(ses);
+                        core.SaveChanges();
+                        return Request.CreateResponse(HttpStatusCode.OK, "session added");
                     }
                 }
-                else
-                {
-                    using (core1 = new dbbmEntities())
-                    {
-                        var check = core1.sessionScans.Any(x => x.email == email);
-                        if (check)
-                        {
-                            //update isused equal to 1
-                            core1.update_session_stats(email, "update_session");
-                            return Request.CreateResponse(HttpStatusCode.OK, "update session");
-                        }
-                        else
-                        {
-                            sessionScan ses = new sessionScan();
-                            ses.email = email;
-                            ses.sessionID = sessionid;
-                            ses.isused = "1";
-                            ses.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
-                            core.sessionScans.Add(ses);
-                            core.SaveChanges();
-                            return Request.CreateResponse(HttpStatusCode.OK, "session added");
-                        }
-                    }
-                }
+                //if (core != null)
+                //{
+                    
+                //}
+                //else
+                //{
+                //    //using (core1 = new dbbmEntities())
+                //    //{
+                //    //    var check = core1.sessionScans.Any(x => x.email == email);
+                //    //    if (check)
+                //    //    {
+                //    //        //update isused equal to 1
+                //    //        core1.update_session_stats(email, "update_session");
+                //    //        return Request.CreateResponse(HttpStatusCode.OK, "update session");
+                //    //    }
+                //    //    else
+                //    //    {
+                //    //        sessionScan ses = new sessionScan();
+                //    //        ses.email = email;
+                //    //        ses.sessionID = sessionid;
+                //    //        ses.isused = "1";
+                //    //        ses.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
+                //    //        core.sessionScans.Add(ses);
+                //    //        core.SaveChanges();
+                //    //        return Request.CreateResponse(HttpStatusCode.OK, "session added");
+                //    //    }
+                //    //}
+                //}
             }
             catch (Exception)
             {
@@ -342,140 +344,141 @@ namespace capstone_backend.Controllers.Users
             try
             {
                 var httprequest = HttpContext.Current.Request;
-               if(core != null)
+                using (core = new local_dbbmEntities())
                 {
-                    using (core = new local_dbbmEntities())
+                    res.email = httprequest.Form["email"];
+                    string pwd = secure.Encrypt(httprequest.Form["password"]);
+                    string encrypted = string.Empty;
+                    string istype;
+                    string isstatus;
+                    var c1 = core.users.Any(x => x.email == res.email);
+                    var c2 = core.users.Where(x => x.email == res.email).FirstOrDefault();
+                    if (string.IsNullOrEmpty(res.email) || string.IsNullOrEmpty(pwd))
                     {
-                        res.email = httprequest.Form["email"];
-                        string pwd = secure.Encrypt(httprequest.Form["password"]);
-                        string encrypted = string.Empty;
-                        string istype;
-                        string isstatus;
-                        var c1 = core.users.Any(x => x.email == res.email);
-                        var c2 = core.users.Where(x => x.email == res.email).FirstOrDefault();
-                        if (string.IsNullOrEmpty(res.email) || string.IsNullOrEmpty(pwd))
+                        res.message = "empty";
+                        return Request.CreateResponse(HttpStatusCode.OK, res);
+                    }
+                    else
+                    {
+                        if (c1)
                         {
-                            res.message = "empty";
-                            return Request.CreateResponse(HttpStatusCode.OK, res);
-                        }
-                        else
-                        {
-                            if (c1)
+                            encrypted = c2 == null ? "" : c2.password;
+                            istype = c2.istype;
+                            isstatus = c2.isstatus;
+                            string decryptoriginal = secure.Decrypt(pwd);
+                            string decryptrequest = secure.Decrypt(encrypted);
+                            if (decryptrequest == decryptoriginal)
                             {
-                                encrypted = c2 == null ? "" : c2.password;
-                                istype = c2.istype;
-                                isstatus = c2.isstatus;
-                                string decryptoriginal = secure.Decrypt(pwd);
-                                string decryptrequest = secure.Decrypt(encrypted);
-                                if (decryptrequest == decryptoriginal)
+                                if (isstatus == "1")
                                 {
-                                    if (isstatus == "1")
+                                    if (istype == "1")
                                     {
-                                        if (istype == "1")
-                                        {
-                                            //admin
+                                        //admin
 
-                                            var fetchy = core.users.Where(x => x.email == res.email).Select(t => new
-                                            {
-                                                t.id,
-                                                t.firstname,
-                                                t.lastname,
-                                                t.istype
-                                            }).ToList();
-                                            res.databulk = fetchy.FirstOrDefault();
-                                            res.message = "SUCCESS";
-                                            return Request.CreateResponse(HttpStatusCode.OK, res);
-                                        }
-                                        else
+                                        var fetchy = core.users.Where(x => x.email == res.email).Select(t => new
                                         {
-                                            //customer
-                                        }
-                                        return Request.CreateResponse(HttpStatusCode.OK);
+                                            t.id,
+                                            t.firstname,
+                                            t.lastname,
+                                            t.istype
+                                        }).ToList();
+                                        res.databulk = fetchy.FirstOrDefault();
+                                        res.message = "SUCCESS";
+                                        return Request.CreateResponse(HttpStatusCode.OK, res);
                                     }
                                     else
                                     {
-                                        return Request.CreateResponse(HttpStatusCode.OK, "disabled");
+                                        //customer
                                     }
+                                    return Request.CreateResponse(HttpStatusCode.OK);
                                 }
                                 else
                                 {
-                                    return Request.CreateResponse(HttpStatusCode.OK, "invalid");
+                                    return Request.CreateResponse(HttpStatusCode.OK, "disabled");
                                 }
                             }
                             else
                             {
-                                return Request.CreateResponse(HttpStatusCode.OK, "not found");
+                                return Request.CreateResponse(HttpStatusCode.OK, "invalid");
                             }
-                        }
-                    }
-                }
-                else
-                {
-                    using (core1 = new dbbmEntities())
-                    {
-                        res.email = httprequest.Form["email"];
-                        string pwd = secure.Encrypt(httprequest.Form["password"]);
-                        string encrypted = string.Empty;
-                        string istype;
-                        string isstatus;
-                        var c1 = core1.users.Any(x => x.email == res.email);
-                        var c2 = core1.users.Where(x => x.email == res.email).FirstOrDefault();
-                        if (string.IsNullOrEmpty(res.email) || string.IsNullOrEmpty(pwd))
-                        {
-                            res.message = "empty";
-                            return Request.CreateResponse(HttpStatusCode.OK, res);
                         }
                         else
                         {
-                            if (c1)
-                            {
-                                encrypted = c2 == null ? "" : c2.password;
-                                istype = c2.istype;
-                                isstatus = c2.isstatus;
-                                string decryptoriginal = secure.Decrypt(pwd);
-                                string decryptrequest = secure.Decrypt(encrypted);
-                                if (decryptrequest == decryptoriginal)
-                                {
-                                    if (isstatus == "1")
-                                    {
-                                        if (istype == "1")
-                                        {
-                                            //admin
-
-                                            var fetchy = core1.users.Where(x => x.email == res.email).Select(t => new
-                                            {
-                                                t.id,
-                                                t.firstname,
-                                                t.lastname,
-                                                t.istype
-                                            }).ToList();
-                                            res.databulk = fetchy.FirstOrDefault();
-                                            res.message = "SUCCESS";
-                                            return Request.CreateResponse(HttpStatusCode.OK, res);
-                                        }
-                                        else
-                                        {
-                                            //customer
-                                        }
-                                        return Request.CreateResponse(HttpStatusCode.OK);
-                                    }
-                                    else
-                                    {
-                                        return Request.CreateResponse(HttpStatusCode.OK, "disabled");
-                                    }
-                                }
-                                else
-                                {
-                                    return Request.CreateResponse(HttpStatusCode.OK, "invalid");
-                                }
-                            }
-                            else
-                            {
-                                return Request.CreateResponse(HttpStatusCode.OK, "not found");
-                            }
+                            return Request.CreateResponse(HttpStatusCode.OK, "not found");
                         }
                     }
                 }
+                //if(core != null)
+                // {
+
+                // }
+                // else
+                // {
+                //     using (core1 = new dbbmEntities())
+                //     {
+                //         res.email = httprequest.Form["email"];
+                //         string pwd = secure.Encrypt(httprequest.Form["password"]);
+                //         string encrypted = string.Empty;
+                //         string istype;
+                //         string isstatus;
+                //         var c1 = core1.users.Any(x => x.email == res.email);
+                //         var c2 = core1.users.Where(x => x.email == res.email).FirstOrDefault();
+                //         if (string.IsNullOrEmpty(res.email) || string.IsNullOrEmpty(pwd))
+                //         {
+                //             res.message = "empty";
+                //             return Request.CreateResponse(HttpStatusCode.OK, res);
+                //         }
+                //         else
+                //         {
+                //             if (c1)
+                //             {
+                //                 encrypted = c2 == null ? "" : c2.password;
+                //                 istype = c2.istype;
+                //                 isstatus = c2.isstatus;
+                //                 string decryptoriginal = secure.Decrypt(pwd);
+                //                 string decryptrequest = secure.Decrypt(encrypted);
+                //                 if (decryptrequest == decryptoriginal)
+                //                 {
+                //                     if (isstatus == "1")
+                //                     {
+                //                         if (istype == "1")
+                //                         {
+                //                             admin
+
+                //                             var fetchy = core1.users.Where(x => x.email == res.email).Select(t => new
+                //                             {
+                //                                 t.id,
+                //                                 t.firstname,
+                //                                 t.lastname,
+                //                                 t.istype
+                //                             }).ToList();
+                //                             res.databulk = fetchy.FirstOrDefault();
+                //                             res.message = "SUCCESS";
+                //                             return Request.CreateResponse(HttpStatusCode.OK, res);
+                //                         }
+                //                         else
+                //                         {
+                //                             customer
+                //                         }
+                //                         return Request.CreateResponse(HttpStatusCode.OK);
+                //                     }
+                //                     else
+                //                     {
+                //                         return Request.CreateResponse(HttpStatusCode.OK, "disabled");
+                //                     }
+                //                 }
+                //                 else
+                //                 {
+                //                     return Request.CreateResponse(HttpStatusCode.OK, "invalid");
+                //                 }
+                //             }
+                //             else
+                //             {
+                //                 return Request.CreateResponse(HttpStatusCode.OK, "not found");
+                //             }
+                //         }
+                //     }
+                //}
 
             }
             catch (Exception)

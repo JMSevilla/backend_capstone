@@ -128,6 +128,25 @@ namespace capstone_backend.Controllers.purchaseOrders
                 throw;
             }
         }
+        [Route("remove-po"), HttpPost]
+        public IHttpActionResult removepurchase(string ponum)
+        {
+            try
+            {
+                using(core = new local_dbbmEntities())
+                {
+                    var obj = core.puchase_orders.Where(x => x.ponumber == ponum).FirstOrDefault();
+                    core.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
+                    core.SaveChanges();
+                    return Ok("Success delete");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         [Route("get-supplier-image"), HttpGet]
         public HttpResponseMessage getimage(string supplier)
         {
