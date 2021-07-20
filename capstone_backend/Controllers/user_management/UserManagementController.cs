@@ -38,6 +38,32 @@ namespace capstone_backend.Controllers.user_management
                 throw;
             }
         }
+        [Route("remove-permanent-user"), HttpPost]
+        public HttpResponseMessage removepermanent(int id)
+        {
+            try
+            {
+                if(id <= 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, "invalid id");
+                }
+                else
+                {
+                    using(core = new local_dbbmEntities())
+                    {
+                        var remover = core.users.Where(x => x.id == id).FirstOrDefault();
+                        core.Entry(remover).State = System.Data.Entity.EntityState.Deleted;
+                        core.SaveChanges();
+                        return Request.CreateResponse(HttpStatusCode.OK, "success delete");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         [Route("update-user-status"), HttpPost]
         public HttpResponseMessage userstatusupdated(int id, string indicator)
         {

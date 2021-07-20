@@ -10,9 +10,8 @@
 namespace capstone_backend.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class product_inventory
+    public partial class sproc_get_products_fromInventory_via_code_Result
     {
         public int productID { get; set; }
         public string productCode { get; set; }

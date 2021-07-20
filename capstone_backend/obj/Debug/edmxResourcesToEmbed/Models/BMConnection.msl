@@ -94,6 +94,7 @@
     <EntitySetMapping Name="product_inventory">
       <EntityTypeMapping TypeName="local_dbbmModel.product_inventory">
         <MappingFragment StoreEntitySet="product_inventory">
+          <ScalarProperty Name="expirationprod" ColumnName="expirationprod" />
           <ScalarProperty Name="product_category" ColumnName="product_category" />
           <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
           <ScalarProperty Name="createdAt" ColumnName="createdAt" />
@@ -261,6 +262,7 @@
     <EntitySetMapping Name="stock_on_hand">
       <EntityTypeMapping TypeName="local_dbbmModel.stock_on_hand">
         <MappingFragment StoreEntitySet="stock_on_hand">
+          <ScalarProperty Name="expirationprod" ColumnName="expirationprod" />
           <ScalarProperty Name="product_total" ColumnName="product_total" />
           <ScalarProperty Name="createdAt" ColumnName="createdAt" />
           <ScalarProperty Name="productcategory" ColumnName="productcategory" />
@@ -296,5 +298,99 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <EntitySetMapping Name="product_finalization">
+      <EntityTypeMapping TypeName="local_dbbmModel.product_finalization">
+        <MappingFragment StoreEntitySet="product_finalization">
+          <ScalarProperty Name="prodimg" ColumnName="prodimg" />
+          <ScalarProperty Name="productCode" ColumnName="productCode" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="prodstatus" ColumnName="prodstatus" />
+          <ScalarProperty Name="prodtotal" ColumnName="prodtotal" />
+          <ScalarProperty Name="prodcategory" ColumnName="prodcategory" />
+          <ScalarProperty Name="prodprice" ColumnName="prodprice" />
+          <ScalarProperty Name="prodquantity" ColumnName="prodquantity" />
+          <ScalarProperty Name="prodname" ColumnName="prodname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="selectedraws">
+      <EntityTypeMapping TypeName="local_dbbmModel.selectedraw">
+        <MappingFragment StoreEntitySet="selectedraw">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="prodcode" ColumnName="prodcode" />
+          <ScalarProperty Name="prodname" ColumnName="prodname" />
+          <ScalarProperty Name="prodimg" ColumnName="prodimg" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="deductquantityfinal" FunctionName="local_dbbmModel.Store.deductquantityfinal" />
+    <FunctionImportMapping FunctionImportName="clearselectedraw" FunctionName="local_dbbmModel.Store.clearselectedraw" />
+    <FunctionImportMapping FunctionImportName="product_finalization_activator" FunctionName="local_dbbmModel.Store.product_finalization_activator" />
+    <EntitySetMapping Name="product_finalization_raw">
+      <EntityTypeMapping TypeName="local_dbbmModel.product_finalization_raw">
+        <MappingFragment StoreEntitySet="product_finalization_raw">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="productInventoryCode" ColumnName="productInventoryCode" />
+          <ScalarProperty Name="productCreatedCode" ColumnName="productCreatedCode" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sproc_get_products_fromInventory_via_code" FunctionName="local_dbbmModel.Store.sproc_get_products_fromInventory_via_code">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="local_dbbmModel.sproc_get_products_fromInventory_via_code_Result">
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="productCode" ColumnName="productCode" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="product_quantity" ColumnName="product_quantity" />
+          <ScalarProperty Name="product_price" ColumnName="product_price" />
+          <ScalarProperty Name="product_total" ColumnName="product_total" />
+          <ScalarProperty Name="product_status" ColumnName="product_status" />
+          <ScalarProperty Name="product_creator" ColumnName="product_creator" />
+          <ScalarProperty Name="product_supplier" ColumnName="product_supplier" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
+          <ScalarProperty Name="product_category" ColumnName="product_category" />
+          <ScalarProperty Name="expirationprod" ColumnName="expirationprod" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ascend_quantity" FunctionName="local_dbbmModel.Store.ascend_quantity" />
+    <EntitySetMapping Name="forgotpassword_identifier">
+      <EntityTypeMapping TypeName="local_dbbmModel.forgotpassword_identifier">
+        <MappingFragment StoreEntitySet="forgotpassword_identifier">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="isdone" ColumnName="isdone" />
+          <ScalarProperty Name="forgotcode" ColumnName="forgotcode" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sproc_update_isdone_forgotpassword" FunctionName="local_dbbmModel.Store.sproc_update_isdone_forgotpassword" />
+    <FunctionImportMapping FunctionImportName="change_password_changer" FunctionName="local_dbbmModel.Store.change_password_changer" />
+    <EntitySetMapping Name="login_history">
+      <EntityTypeMapping TypeName="local_dbbmModel.login_history">
+        <MappingFragment StoreEntitySet="login_history">
+          <ScalarProperty Name="logindate" ColumnName="logindate" />
+          <ScalarProperty Name="message" ColumnName="message" />
+          <ScalarProperty Name="loggedinstatus" ColumnName="loggedinstatus" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="activity_log">
+      <EntityTypeMapping TypeName="local_dbbmModel.activity_log">
+        <MappingFragment StoreEntitySet="activity_log">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="activityCode" ColumnName="activityCode" />
+          <ScalarProperty Name="activtystatus" ColumnName="activtystatus" />
+          <ScalarProperty Name="activitymessage" ColumnName="activitymessage" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

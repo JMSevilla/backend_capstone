@@ -44,7 +44,7 @@ namespace capstone_backend.Controllers.ExpirationProduct
                         {
 
                             //code below is for exact date expiration
-                            DateTime curdate = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
+                            DateTime curdate = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd"));
                             var obj1 = core1.expirations.Any(x => x.expirydate <= curdate);
                             if (obj1)
                             {

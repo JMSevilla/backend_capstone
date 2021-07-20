@@ -45,6 +45,12 @@ namespace capstone_backend.Models
         public virtual DbSet<warning_expiration_10_days> warning_expiration_10_days { get; set; }
         public virtual DbSet<productreport> productreports { get; set; }
         public virtual DbSet<stock_on_hand> stock_on_hand { get; set; }
+        public virtual DbSet<product_finalization> product_finalization { get; set; }
+        public virtual DbSet<selectedraw> selectedraws { get; set; }
+        public virtual DbSet<product_finalization_raw> product_finalization_raw { get; set; }
+        public virtual DbSet<forgotpassword_identifier> forgotpassword_identifier { get; set; }
+        public virtual DbSet<login_history> login_history { get; set; }
+        public virtual DbSet<activity_log> activity_log { get; set; }
     
         public virtual int stored_user_registration(string firstname, string lastname, string municipality, string province, string address, string companyname, string address_type, string email, string password, Nullable<int> mobileno, string istype, string isverified, string isstatus, string isgoogleverified, string state_action)
         {
@@ -378,6 +384,105 @@ namespace capstone_backend.Models
                 new ObjectParameter("state", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<find_duplicates_Result>("find_duplicates", sidParameter, stateParameter);
+        }
+    
+        public virtual int deductquantityfinal(string pcode, Nullable<int> quantity, Nullable<int> state)
+        {
+            var pcodeParameter = pcode != null ?
+                new ObjectParameter("pcode", pcode) :
+                new ObjectParameter("pcode", typeof(string));
+    
+            var quantityParameter = quantity.HasValue ?
+                new ObjectParameter("quantity", quantity) :
+                new ObjectParameter("quantity", typeof(int));
+    
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("deductquantityfinal", pcodeParameter, quantityParameter, stateParameter);
+        }
+    
+        public virtual int clearselectedraw(Nullable<int> state)
+        {
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("clearselectedraw", stateParameter);
+        }
+    
+        public virtual int product_finalization_activator(Nullable<int> id, Nullable<int> state)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("product_finalization_activator", idParameter, stateParameter);
+        }
+    
+        public virtual ObjectResult<sproc_get_products_fromInventory_via_code_Result> sproc_get_products_fromInventory_via_code(Nullable<int> state, string code)
+        {
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            var codeParameter = code != null ?
+                new ObjectParameter("code", code) :
+                new ObjectParameter("code", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sproc_get_products_fromInventory_via_code_Result>("sproc_get_products_fromInventory_via_code", stateParameter, codeParameter);
+        }
+    
+        public virtual int ascend_quantity(string pcode, Nullable<int> quantity, Nullable<int> state)
+        {
+            var pcodeParameter = pcode != null ?
+                new ObjectParameter("pcode", pcode) :
+                new ObjectParameter("pcode", typeof(string));
+    
+            var quantityParameter = quantity.HasValue ?
+                new ObjectParameter("quantity", quantity) :
+                new ObjectParameter("quantity", typeof(int));
+    
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ascend_quantity", pcodeParameter, quantityParameter, stateParameter);
+        }
+    
+        public virtual int sproc_update_isdone_forgotpassword(string forgotcode, Nullable<int> state)
+        {
+            var forgotcodeParameter = forgotcode != null ?
+                new ObjectParameter("forgotcode", forgotcode) :
+                new ObjectParameter("forgotcode", typeof(string));
+    
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sproc_update_isdone_forgotpassword", forgotcodeParameter, stateParameter);
+        }
+    
+        public virtual int change_password_changer(string email, string password, Nullable<int> state)
+        {
+            var emailParameter = email != null ?
+                new ObjectParameter("email", email) :
+                new ObjectParameter("email", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("change_password_changer", emailParameter, passwordParameter, stateParameter);
         }
     }
 }

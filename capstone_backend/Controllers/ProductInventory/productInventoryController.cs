@@ -53,26 +53,15 @@ namespace capstone_backend.Controllers.ProductInventory
         }
         //end fetch all stocks
         [Route("fetchinginventory-filter-by-bool"), HttpGet]
-        public HttpResponseMessage getproductsbyfilter(bool filter)
+        public HttpResponseMessage getproductsbyfilter()
         {
             try
             {
                 using (core = new local_dbbmEntities())
                 {
-                    if(filter == true)
-                    {
-                        var prodobj = core.product_inventory
-                       .Where(x => x.product_status == "1").ToList()
-                       .OrderByDescending(y => y.productID);
-                        return Request.CreateResponse(HttpStatusCode.OK, prodobj);
-                    }
-                    else
-                    {
-                        var prodobj = core.product_inventory
-                       .Where(x => x.product_status == "0").ToList()
-                       .OrderByDescending(y => y.productID);
-                        return Request.CreateResponse(HttpStatusCode.OK, prodobj);
-                    }
+                    var prodobj = core.product_inventory.ToList()
+                      .OrderByDescending(y => y.productID);
+                    return Request.CreateResponse(HttpStatusCode.OK, prodobj);
                 }
             }
             catch (Exception)
@@ -193,7 +182,6 @@ namespace capstone_backend.Controllers.ProductInventory
                     if (string.IsNullOrEmpty(httprequest.Form["productCode"]) ||
                         string.IsNullOrEmpty(httprequest.Form["productName"]) ||
                         string.IsNullOrEmpty(httprequest.Form["productQuantity"])
-                        || string.IsNullOrEmpty(httprequest.Form["productPrice"])
                         || string.IsNullOrEmpty(httprequest.Form["productcategory"])
                         || string.IsNullOrEmpty(httprequest.Form["productImageUrl"])
                         || string.IsNullOrEmpty(httprequest.Form["productexpiration"]))
@@ -209,10 +197,10 @@ namespace capstone_backend.Controllers.ProductInventory
                             stock.productname = httprequest.Form["productName"];
                             stock.stockNumber = httprequest.Form["productCode"];
                             stock.productquantity = Convert.ToInt32(httprequest.Form["productQuantity"]);
-                            stock.productprice = Convert.ToDecimal(httprequest.Form["productPrice"]);
+                            stock.productprice = 0;
                             stock.productsupplier = httprequest.Form["productSupplier"];
                             stock.productimgurl = httprequest.Form["productImageUrl"];
-                            stock.product_total = Convert.ToInt32(httprequest.Form["productPrice"]) * Convert.ToInt32(httprequest.Form["productQuantity"]);
+                            stock.product_total = 0;
                             stock.productcreator = "Administrator";
                             stock.productstatus = "1";
                             stock.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
@@ -233,10 +221,10 @@ namespace capstone_backend.Controllers.ProductInventory
                             prod.productName = httprequest.Form["productName"];
                             prod.productCode = httprequest.Form["productCode"];
                             prod.product_quantity = Convert.ToInt32(httprequest.Form["productQuantity"]);
-                            prod.product_price = Convert.ToDecimal(httprequest.Form["productPrice"]);
+                            prod.product_price = 0;
                             prod.product_supplier = httprequest.Form["productSupplier"];
                             prod.productimgurl = httprequest.Form["productImageUrl"];
-                            prod.product_total = Convert.ToInt32(httprequest.Form["productPrice"]) * Convert.ToInt32(httprequest.Form["productQuantity"]);
+                            prod.product_total = 0;
                             prod.product_creator = httprequest.Form["isadmin"];
                             prod.product_status = httprequest.Form["isstatus"];
                             prod.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
@@ -326,7 +314,7 @@ namespace capstone_backend.Controllers.ProductInventory
                         {
                             core.update_product_inventory
                             (Convert.ToInt32(httprequest.Form["modifyPID"]), httprequest.Form["modifyproductname"],
-                            Convert.ToInt32(httprequest.Form["modifyproductquantity"]), Convert.ToDecimal(httprequest.Form["modifyproductprice"]),
+                            Convert.ToInt32(httprequest.Form["modifyproductquantity"]), 0,
                             Convert.ToInt32(httprequest.Form["modifyproductprice"]) * Convert.ToInt32(httprequest.Form["modifyproductquantity"]),
                             httprequest.Form["modifyproductsupplier"], httprequest.Form["modifyproductimageurl"], httprequest.Form["modifycategory"], httprequest.Form["pcode"], 2);
                             
@@ -337,7 +325,7 @@ namespace capstone_backend.Controllers.ProductInventory
                         {
                             core.update_product_inventory
                             (Convert.ToInt32(httprequest.Form["modifyPID"]), httprequest.Form["modifyproductname"],
-                            Convert.ToInt32(httprequest.Form["modifyproductquantity"]), Convert.ToDecimal(httprequest.Form["modifyproductprice"]),
+                            Convert.ToInt32(httprequest.Form["modifyproductquantity"]), 0,
                             Convert.ToInt32(httprequest.Form["modifyproductprice"]) * Convert.ToInt32(httprequest.Form["modifyproductquantity"]),
                             httprequest.Form["modifyproductsupplier"], httprequest.Form["modifyproductimageurl"], httprequest.Form["modifycategory"], null, 1);
                             return Request.CreateResponse

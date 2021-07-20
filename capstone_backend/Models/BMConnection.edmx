@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="local_dbbmModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="activity_log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="activitymessage" Type="text" />
+          <Property Name="activtystatus" Type="varchar(max)" />
+          <Property Name="activityCode" Type="varchar(max)" />
+          <Property Name="createdAt" Type="datetime" />
+        </EntityType>
         <EntityType Name="code_verifications">
           <Key>
             <PropertyRef Name="codeID" />
@@ -34,6 +44,15 @@
           <Property Name="expirydate" Type="datetime" />
           <Property Name="createdAt" Type="datetime" />
         </EntityType>
+        <EntityType Name="forgotpassword_identifier">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="forgotcode" Type="varchar(max)" />
+          <Property Name="isdone" Type="char" MaxLength="1" />
+          <Property Name="createdAt" Type="datetime" />
+        </EntityType>
         <EntityType Name="locations">
           <Key>
             <PropertyRef Name="id" />
@@ -41,6 +60,40 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="municipality" Type="varchar" MaxLength="100" />
           <Property Name="province" Type="varchar" MaxLength="100" />
+          <Property Name="createdAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="login_history">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="loggedinstatus" Type="char" MaxLength="1" />
+          <Property Name="message" Type="text" />
+          <Property Name="logindate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="product_finalization">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="prodname" Type="varchar" MaxLength="100" />
+          <Property Name="prodquantity" Type="int" />
+          <Property Name="prodprice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="prodcategory" Type="varchar" MaxLength="100" />
+          <Property Name="prodtotal" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="prodstatus" Type="char" MaxLength="1" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="productCode" Type="varchar" MaxLength="255" />
+          <Property Name="prodimg" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="product_finalization_raw">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productCreatedCode" Type="varchar(max)" />
+          <Property Name="productInventoryCode" Type="varchar(max)" />
           <Property Name="createdAt" Type="datetime" />
         </EntityType>
         <EntityType Name="product_inventory">
@@ -59,6 +112,7 @@
           <Property Name="createdAt" Type="datetime" />
           <Property Name="productimgurl" Type="varchar(max)" />
           <Property Name="product_category" Type="varchar" MaxLength="100" />
+          <Property Name="expirationprod" Type="datetime" />
         </EntityType>
         <EntityType Name="productreport">
           <Key>
@@ -88,6 +142,16 @@
           <Property Name="createdAt" Type="datetime" />
           <Property Name="status" Type="char" MaxLength="1" />
         </EntityType>
+        <EntityType Name="selectedraw">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="prodimg" Type="varchar(max)" />
+          <Property Name="prodname" Type="varchar" MaxLength="100" />
+          <Property Name="prodcode" Type="varchar" MaxLength="255" />
+          <Property Name="createdAt" Type="datetime" />
+        </EntityType>
         <EntityType Name="sessionScan">
           <Key>
             <PropertyRef Name="id" />
@@ -114,6 +178,7 @@
           <Property Name="productcategory" Type="varchar" MaxLength="100" />
           <Property Name="createdAt" Type="datetime" />
           <Property Name="product_total" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="expirationprod" Type="datetime" />
         </EntityType>
         <EntityType Name="supplier">
           <Key>
@@ -237,8 +302,30 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Name="product_category" Type="varchar" MaxLength="100" />
           <Property Name="Expr1" Type="datetime" />
         </EntityType>
+        <Function Name="ascend_quantity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pcode" Type="varchar(max)" Mode="In" />
+          <Parameter Name="quantity" Type="int" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+        </Function>
+        <Function Name="change_password_changer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="email" Type="varchar" Mode="In" />
+          <Parameter Name="password" Type="varchar" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+        </Function>
+        <Function Name="clearselectedraw" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="state" Type="int" Mode="In" />
+        </Function>
+        <Function Name="deductquantityfinal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pcode" Type="varchar(max)" Mode="In" />
+          <Parameter Name="quantity" Type="int" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+        </Function>
         <Function Name="find_duplicates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="sid" Type="varchar(max)" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+        </Function>
+        <Function Name="product_finalization_activator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="state" Type="int" Mode="In" />
         </Function>
         <Function Name="quantity_decrease_manager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -250,6 +337,14 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
         <Function Name="quantity_refill_increase_manager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="quantity" Type="int" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sproc_get_products_fromInventory_via_code" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="state" Type="int" Mode="In" />
+          <Parameter Name="code" Type="varchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sproc_update_isdone_forgotpassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="forgotcode" Type="varchar(max)" Mode="In" />
           <Parameter Name="state" Type="int" Mode="In" />
         </Function>
         <Function Name="stored_supplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -332,13 +427,19 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Parameter Name="action" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="local_dbbmModelStoreContainer">
+          <EntitySet Name="activity_log" EntityType="Self.activity_log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="code_verifications" EntityType="Self.code_verifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="excelStorage" EntityType="Self.excelStorage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="expiration" EntityType="Self.expiration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="forgotpassword_identifier" EntityType="Self.forgotpassword_identifier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="locations" EntityType="Self.locations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="login_history" EntityType="Self.login_history" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product_finalization" EntityType="Self.product_finalization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product_finalization_raw" EntityType="Self.product_finalization_raw" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product_inventory" EntityType="Self.product_inventory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="productreport" EntityType="Self.productreport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="puchase_orders" EntityType="Self.puchase_orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="selectedraw" EntityType="Self.selectedraw" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sessionScan" EntityType="Self.sessionScan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="stock_on_hand" EntityType="Self.stock_on_hand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
@@ -508,6 +609,42 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
             <Parameter Name="sid" Mode="In" Type="String" />
             <Parameter Name="state" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="product_finalization" EntityType="local_dbbmModel.product_finalization" />
+          <EntitySet Name="selectedraws" EntityType="local_dbbmModel.selectedraw" />
+          <FunctionImport Name="deductquantityfinal">
+            <Parameter Name="pcode" Mode="In" Type="String" />
+            <Parameter Name="quantity" Mode="In" Type="Int32" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="clearselectedraw">
+          <Parameter Name="state" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="product_finalization_activator">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="product_finalization_raw" EntityType="local_dbbmModel.product_finalization_raw" />
+          <FunctionImport Name="sproc_get_products_fromInventory_via_code" ReturnType="Collection(local_dbbmModel.sproc_get_products_fromInventory_via_code_Result)">
+            <Parameter Name="state" Mode="In" Type="Int32" />
+            <Parameter Name="code" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ascend_quantity">
+            <Parameter Name="pcode" Mode="In" Type="String" />
+            <Parameter Name="quantity" Mode="In" Type="Int32" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="forgotpassword_identifier" EntityType="local_dbbmModel.forgotpassword_identifier" />
+          <FunctionImport Name="sproc_update_isdone_forgotpassword">
+            <Parameter Name="forgotcode" Mode="In" Type="String" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="change_password_changer">
+            <Parameter Name="email" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="login_history" EntityType="local_dbbmModel.login_history" />
+          <EntitySet Name="activity_log" EntityType="local_dbbmModel.activity_log" />
         </EntityContainer>
         <EntityType Name="user">
           <Key>
@@ -593,6 +730,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Name="createdAt" Type="DateTime" Precision="3" />
           <Property Name="productimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="product_category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="expirationprod" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="supplier">
           <Key>
@@ -742,6 +880,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Name="productcategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="createdAt" Type="DateTime" Precision="3" />
           <Property Name="product_total" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="expirationprod" Type="DateTime" Precision="3" />
         </EntityType>
         <ComplexType Name="find_duplicates_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -757,6 +896,84 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Type="String" Name="isstatus" Nullable="true" MaxLength="1" />
           <Property Type="String" Name="Expr1" Nullable="true" />
         </ComplexType>
+        <EntityType Name="product_finalization">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="prodname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="prodquantity" Type="Int32" />
+          <Property Name="prodprice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="prodcategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="prodtotal" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="prodstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="productCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="prodimg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="selectedraw">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="prodimg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="prodname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="prodcode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="product_finalization_raw">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productCreatedCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="productInventoryCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <ComplexType Name="sproc_get_products_fromInventory_via_code_Result">
+          <Property Type="Int32" Name="productID" Nullable="false" />
+          <Property Type="String" Name="productCode" Nullable="true" />
+          <Property Type="String" Name="productName" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="product_quantity" Nullable="true" />
+          <Property Type="Decimal" Name="product_price" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="Decimal" Name="product_total" Nullable="true" Precision="18" Scale="0" />
+          <Property Type="String" Name="product_status" Nullable="true" MaxLength="1" />
+          <Property Type="String" Name="product_creator" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="product_supplier" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="createdAt" Nullable="true" Precision="23" />
+          <Property Type="String" Name="productimgurl" Nullable="true" />
+          <Property Type="String" Name="product_category" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="expirationprod" Nullable="true" Precision="23" />
+        </ComplexType>
+        <EntityType Name="forgotpassword_identifier">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="forgotcode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="isdone" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="login_history">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="loggedinstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="logindate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="activity_log">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="activitymessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="activtystatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="activityCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -856,6 +1073,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <EntitySetMapping Name="product_inventory">
             <EntityTypeMapping TypeName="local_dbbmModel.product_inventory">
               <MappingFragment StoreEntitySet="product_inventory">
+                <ScalarProperty Name="expirationprod" ColumnName="expirationprod" />
                 <ScalarProperty Name="product_category" ColumnName="product_category" />
                 <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
                 <ScalarProperty Name="createdAt" ColumnName="createdAt" />
@@ -1023,6 +1241,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <EntitySetMapping Name="stock_on_hand">
             <EntityTypeMapping TypeName="local_dbbmModel.stock_on_hand">
               <MappingFragment StoreEntitySet="stock_on_hand">
+                <ScalarProperty Name="expirationprod" ColumnName="expirationprod" />
                 <ScalarProperty Name="product_total" ColumnName="product_total" />
                 <ScalarProperty Name="createdAt" ColumnName="createdAt" />
                 <ScalarProperty Name="productcategory" ColumnName="productcategory" />
@@ -1058,6 +1277,100 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="product_finalization">
+            <EntityTypeMapping TypeName="local_dbbmModel.product_finalization">
+              <MappingFragment StoreEntitySet="product_finalization">
+                <ScalarProperty Name="prodimg" ColumnName="prodimg" />
+                <ScalarProperty Name="productCode" ColumnName="productCode" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="prodstatus" ColumnName="prodstatus" />
+                <ScalarProperty Name="prodtotal" ColumnName="prodtotal" />
+                <ScalarProperty Name="prodcategory" ColumnName="prodcategory" />
+                <ScalarProperty Name="prodprice" ColumnName="prodprice" />
+                <ScalarProperty Name="prodquantity" ColumnName="prodquantity" />
+                <ScalarProperty Name="prodname" ColumnName="prodname" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="selectedraws">
+            <EntityTypeMapping TypeName="local_dbbmModel.selectedraw">
+              <MappingFragment StoreEntitySet="selectedraw">
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="prodcode" ColumnName="prodcode" />
+                <ScalarProperty Name="prodname" ColumnName="prodname" />
+                <ScalarProperty Name="prodimg" ColumnName="prodimg" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="deductquantityfinal" FunctionName="local_dbbmModel.Store.deductquantityfinal" />
+          <FunctionImportMapping FunctionImportName="clearselectedraw" FunctionName="local_dbbmModel.Store.clearselectedraw" />
+          <FunctionImportMapping FunctionImportName="product_finalization_activator" FunctionName="local_dbbmModel.Store.product_finalization_activator" />
+          <EntitySetMapping Name="product_finalization_raw">
+            <EntityTypeMapping TypeName="local_dbbmModel.product_finalization_raw">
+              <MappingFragment StoreEntitySet="product_finalization_raw">
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="productInventoryCode" ColumnName="productInventoryCode" />
+                <ScalarProperty Name="productCreatedCode" ColumnName="productCreatedCode" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sproc_get_products_fromInventory_via_code" FunctionName="local_dbbmModel.Store.sproc_get_products_fromInventory_via_code">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="local_dbbmModel.sproc_get_products_fromInventory_via_code_Result">
+                <ScalarProperty Name="productID" ColumnName="productID" />
+                <ScalarProperty Name="productCode" ColumnName="productCode" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="product_quantity" ColumnName="product_quantity" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="product_total" ColumnName="product_total" />
+                <ScalarProperty Name="product_status" ColumnName="product_status" />
+                <ScalarProperty Name="product_creator" ColumnName="product_creator" />
+                <ScalarProperty Name="product_supplier" ColumnName="product_supplier" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
+                <ScalarProperty Name="product_category" ColumnName="product_category" />
+                <ScalarProperty Name="expirationprod" ColumnName="expirationprod" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ascend_quantity" FunctionName="local_dbbmModel.Store.ascend_quantity" />
+          <EntitySetMapping Name="forgotpassword_identifier">
+            <EntityTypeMapping TypeName="local_dbbmModel.forgotpassword_identifier">
+              <MappingFragment StoreEntitySet="forgotpassword_identifier">
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="isdone" ColumnName="isdone" />
+                <ScalarProperty Name="forgotcode" ColumnName="forgotcode" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sproc_update_isdone_forgotpassword" FunctionName="local_dbbmModel.Store.sproc_update_isdone_forgotpassword" />
+          <FunctionImportMapping FunctionImportName="change_password_changer" FunctionName="local_dbbmModel.Store.change_password_changer" />
+          <EntitySetMapping Name="login_history">
+            <EntityTypeMapping TypeName="local_dbbmModel.login_history">
+              <MappingFragment StoreEntitySet="login_history">
+                <ScalarProperty Name="logindate" ColumnName="logindate" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="loggedinstatus" ColumnName="loggedinstatus" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="activity_log">
+            <EntityTypeMapping TypeName="local_dbbmModel.activity_log">
+              <MappingFragment StoreEntitySet="activity_log">
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="activityCode" ColumnName="activityCode" />
+                <ScalarProperty Name="activtystatus" ColumnName="activtystatus" />
+                <ScalarProperty Name="activitymessage" ColumnName="activitymessage" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
