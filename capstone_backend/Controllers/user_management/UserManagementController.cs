@@ -15,21 +15,53 @@ namespace capstone_backend.Controllers.user_management
         class Response
         {
             public string message { get; set; }
+            public object bulk { get; set; }
         }
+        Response resp = new Response();
         [Route("getall-users"), HttpGet]
-        public HttpResponseMessage getAll()
+        public HttpResponseMessage getAll(string email)
         {
             try
             {
                 using(core = new local_dbbmEntities())
                 {
-                    var objs = core.users
-                        .Select(x => new
+                    if(core.users.Any(x => x.email == email))
                     {
-                        x.firstname, x.lastname, x.id, x.email,
-                        x.istype, x.isstatus, x.isverified, x.createdAt, x.isarchive
-                    }).ToList();
-                    return Request.CreateResponse(HttpStatusCode.OK, objs);
+                        var objs = core.users.Where(x => x.isarchive == "0" && x.email != email)
+                        .Select(x => new
+                        {
+                            x.firstname,
+                            x.lastname,
+                            x.id,
+                            x.email,
+                            x.istype,
+                            x.isstatus,
+                            x.isverified,
+                            x.createdAt,
+                            x.isarchive
+                        }).ToList();
+                        resp.bulk = objs;
+                        resp.message = "disregard current user";
+                        return Request.CreateResponse(HttpStatusCode.OK, resp);
+                    }
+                    else
+                    {
+                        var objs = core.users.Where(x => x.isarchive == "0")
+                        .Select(x => new
+                        {
+                            x.firstname,
+                            x.lastname,
+                            x.id,
+                            x.email,
+                            x.istype,
+                            x.isstatus,
+                            x.isverified,
+                            x.createdAt,
+                            x.isarchive
+                        }).ToList();
+                        return Request.CreateResponse(HttpStatusCode.OK, objs);
+                    }
+                    
                 }
             }
             catch (Exception)

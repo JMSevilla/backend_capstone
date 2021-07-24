@@ -39,7 +39,6 @@ namespace capstone_backend.Models
         public virtual DbSet<supplier_find_duplicate> supplier_find_duplicate { get; set; }
         public virtual DbSet<tbcategory> tbcategories { get; set; }
         public virtual DbSet<tbposetting> tbposettings { get; set; }
-        public virtual DbSet<puchase_orders> puchase_orders { get; set; }
         public virtual DbSet<tbinventsetting> tbinventsettings { get; set; }
         public virtual DbSet<expiration> expirations { get; set; }
         public virtual DbSet<warning_expiration_10_days> warning_expiration_10_days { get; set; }
@@ -51,6 +50,9 @@ namespace capstone_backend.Models
         public virtual DbSet<forgotpassword_identifier> forgotpassword_identifier { get; set; }
         public virtual DbSet<login_history> login_history { get; set; }
         public virtual DbSet<activity_log> activity_log { get; set; }
+        public virtual DbSet<puchase_orders> puchase_orders { get; set; }
+        public virtual DbSet<archive_users> archive_users { get; set; }
+        public virtual DbSet<tbtesting> tbtestings { get; set; }
     
         public virtual int stored_user_registration(string firstname, string lastname, string municipality, string province, string address, string companyname, string address_type, string email, string password, Nullable<int> mobileno, string istype, string isverified, string isstatus, string isgoogleverified, string state_action)
         {
@@ -160,51 +162,6 @@ namespace capstone_backend.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_status_updater", idParameter, actionParameter);
         }
     
-        public virtual int update_product_inventory(Nullable<int> productid, string productname, Nullable<int> productquantity, Nullable<decimal> productprice, Nullable<decimal> producttotal, string productsupplier, string productimg, string productcategory, string pcode, Nullable<int> state)
-        {
-            var productidParameter = productid.HasValue ?
-                new ObjectParameter("productid", productid) :
-                new ObjectParameter("productid", typeof(int));
-    
-            var productnameParameter = productname != null ?
-                new ObjectParameter("productname", productname) :
-                new ObjectParameter("productname", typeof(string));
-    
-            var productquantityParameter = productquantity.HasValue ?
-                new ObjectParameter("productquantity", productquantity) :
-                new ObjectParameter("productquantity", typeof(int));
-    
-            var productpriceParameter = productprice.HasValue ?
-                new ObjectParameter("productprice", productprice) :
-                new ObjectParameter("productprice", typeof(decimal));
-    
-            var producttotalParameter = producttotal.HasValue ?
-                new ObjectParameter("producttotal", producttotal) :
-                new ObjectParameter("producttotal", typeof(decimal));
-    
-            var productsupplierParameter = productsupplier != null ?
-                new ObjectParameter("productsupplier", productsupplier) :
-                new ObjectParameter("productsupplier", typeof(string));
-    
-            var productimgParameter = productimg != null ?
-                new ObjectParameter("productimg", productimg) :
-                new ObjectParameter("productimg", typeof(string));
-    
-            var productcategoryParameter = productcategory != null ?
-                new ObjectParameter("productcategory", productcategory) :
-                new ObjectParameter("productcategory", typeof(string));
-    
-            var pcodeParameter = pcode != null ?
-                new ObjectParameter("pcode", pcode) :
-                new ObjectParameter("pcode", typeof(string));
-    
-            var stateParameter = state.HasValue ?
-                new ObjectParameter("state", state) :
-                new ObjectParameter("state", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_product_inventory", productidParameter, productnameParameter, productquantityParameter, productpriceParameter, producttotalParameter, productsupplierParameter, productimgParameter, productcategoryParameter, pcodeParameter, stateParameter);
-        }
-    
         public virtual int update_product_status(Nullable<int> prodid, Nullable<int> state)
         {
             var prodidParameter = prodid.HasValue ?
@@ -307,19 +264,6 @@ namespace capstone_backend.Models
                 new ObjectParameter("inventexpiration", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_invent_settings", stateParameter, inventorysettingParameter, inventorysupplierParameter, inventexpirationParameter);
-        }
-    
-        public virtual int stored_update_purchase_status(Nullable<int> id, Nullable<int> state)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            var stateParameter = state.HasValue ?
-                new ObjectParameter("state", state) :
-                new ObjectParameter("state", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("stored_update_purchase_status", idParameter, stateParameter);
         }
     
         public virtual ObjectResult<stored_view_expiration_date_Result> stored_view_expiration_date(Nullable<int> state, string pcode)
@@ -483,6 +427,64 @@ namespace capstone_backend.Models
                 new ObjectParameter("state", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("change_password_changer", emailParameter, passwordParameter, stateParameter);
+        }
+    
+        public virtual int update_product_inventory(Nullable<int> productid, string productname, Nullable<int> productquantity, Nullable<decimal> productprice, Nullable<decimal> producttotal, string productsupplier, string productimg, string productcategory, string pcode, Nullable<int> state)
+        {
+            var productidParameter = productid.HasValue ?
+                new ObjectParameter("productid", productid) :
+                new ObjectParameter("productid", typeof(int));
+    
+            var productnameParameter = productname != null ?
+                new ObjectParameter("productname", productname) :
+                new ObjectParameter("productname", typeof(string));
+    
+            var productquantityParameter = productquantity.HasValue ?
+                new ObjectParameter("productquantity", productquantity) :
+                new ObjectParameter("productquantity", typeof(int));
+    
+            var productpriceParameter = productprice.HasValue ?
+                new ObjectParameter("productprice", productprice) :
+                new ObjectParameter("productprice", typeof(decimal));
+    
+            var producttotalParameter = producttotal.HasValue ?
+                new ObjectParameter("producttotal", producttotal) :
+                new ObjectParameter("producttotal", typeof(decimal));
+    
+            var productsupplierParameter = productsupplier != null ?
+                new ObjectParameter("productsupplier", productsupplier) :
+                new ObjectParameter("productsupplier", typeof(string));
+    
+            var productimgParameter = productimg != null ?
+                new ObjectParameter("productimg", productimg) :
+                new ObjectParameter("productimg", typeof(string));
+    
+            var productcategoryParameter = productcategory != null ?
+                new ObjectParameter("productcategory", productcategory) :
+                new ObjectParameter("productcategory", typeof(string));
+    
+            var pcodeParameter = pcode != null ?
+                new ObjectParameter("pcode", pcode) :
+                new ObjectParameter("pcode", typeof(string));
+    
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_product_inventory", productidParameter, productnameParameter, productquantityParameter, productpriceParameter, producttotalParameter, productsupplierParameter, productimgParameter, productcategoryParameter, pcodeParameter, stateParameter);
+        }
+    
+        public virtual int stored_update_purchase_status(Nullable<int> id, Nullable<int> state)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("stored_update_purchase_status", idParameter, stateParameter);
         }
     }
 }

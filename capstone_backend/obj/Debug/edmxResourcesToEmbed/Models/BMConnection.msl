@@ -70,7 +70,6 @@
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="update_session_stats" FunctionName="local_dbbmModel.Store.update_session_stats" />
     <FunctionImportMapping FunctionImportName="user_status_updater" FunctionName="local_dbbmModel.Store.user_status_updater" />
-    <FunctionImportMapping FunctionImportName="update_product_inventory" FunctionName="local_dbbmModel.Store.update_product_inventory" />
     <EntitySetMapping Name="tbexceltests">
       <EntityTypeMapping TypeName="local_dbbmModel.tbexceltest">
         <MappingFragment StoreEntitySet="tbexceltest">
@@ -168,22 +167,6 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="update_settings" FunctionName="local_dbbmModel.Store.update_settings" />
-    <EntitySetMapping Name="puchase_orders">
-      <EntityTypeMapping TypeName="local_dbbmModel.puchase_orders">
-        <MappingFragment StoreEntitySet="puchase_orders">
-          <ScalarProperty Name="status" ColumnName="status" />
-          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
-          <ScalarProperty Name="psupplier" ColumnName="psupplier" />
-          <ScalarProperty Name="pcreator" ColumnName="pcreator" />
-          <ScalarProperty Name="ptotal" ColumnName="ptotal" />
-          <ScalarProperty Name="pprice" ColumnName="pprice" />
-          <ScalarProperty Name="pquantity" ColumnName="pquantity" />
-          <ScalarProperty Name="pname" ColumnName="pname" />
-          <ScalarProperty Name="ponumber" ColumnName="ponumber" />
-          <ScalarProperty Name="poid" ColumnName="poid" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="tbinventsettings">
       <EntityTypeMapping TypeName="local_dbbmModel.tbinventsetting">
         <MappingFragment StoreEntitySet="tbinventsettings">
@@ -206,7 +189,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="stored_update_purchase_status" FunctionName="local_dbbmModel.Store.stored_update_purchase_status" />
     <FunctionImportMapping FunctionImportName="stored_view_expiration_date" FunctionName="local_dbbmModel.Store.stored_view_expiration_date">
       <ResultMapping>
         <ComplexTypeMapping TypeName="local_dbbmModel.stored_view_expiration_date_Result">
@@ -248,6 +230,7 @@
     <EntitySetMapping Name="productreports">
       <EntityTypeMapping TypeName="local_dbbmModel.productreport">
         <MappingFragment StoreEntitySet="productreport">
+          <ScalarProperty Name="ponumber" ColumnName="ponumber" />
           <ScalarProperty Name="responsible" ColumnName="responsible" />
           <ScalarProperty Name="createdAt" ColumnName="createdAt" />
           <ScalarProperty Name="remarks" ColumnName="remarks" />
@@ -388,6 +371,48 @@
           <ScalarProperty Name="activityCode" ColumnName="activityCode" />
           <ScalarProperty Name="activtystatus" ColumnName="activtystatus" />
           <ScalarProperty Name="activitymessage" ColumnName="activitymessage" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="update_product_inventory" FunctionName="local_dbbmModel.Store.update_product_inventory" />
+    <EntitySetMapping Name="puchase_orders">
+      <EntityTypeMapping TypeName="local_dbbmModel.puchase_orders">
+        <MappingFragment StoreEntitySet="puchase_orders">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="psupplier" ColumnName="psupplier" />
+          <ScalarProperty Name="pcreator" ColumnName="pcreator" />
+          <ScalarProperty Name="ptotal" ColumnName="ptotal" />
+          <ScalarProperty Name="pprice" ColumnName="pprice" />
+          <ScalarProperty Name="pquantity" ColumnName="pquantity" />
+          <ScalarProperty Name="pname" ColumnName="pname" />
+          <ScalarProperty Name="ponumber" ColumnName="ponumber" />
+          <ScalarProperty Name="poid" ColumnName="poid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="archive_users">
+      <EntityTypeMapping TypeName="local_dbbmModel.archive_users">
+        <MappingFragment StoreEntitySet="archive_users">
+          <ScalarProperty Name="client_id" ColumnName="client_id" />
+          <ScalarProperty Name="archiveCreated" ColumnName="archiveCreated" />
+          <ScalarProperty Name="archiveusermessage" ColumnName="archiveusermessage" />
+          <ScalarProperty Name="usertype" ColumnName="usertype" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="archiveID" ColumnName="archiveID" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="stored_update_purchase_status" FunctionName="local_dbbmModel.Store.stored_update_purchase_status" />
+    <EntitySetMapping Name="tbtestings">
+      <EntityTypeMapping TypeName="local_dbbmModel.tbtesting">
+        <MappingFragment StoreEntitySet="tbtesting">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

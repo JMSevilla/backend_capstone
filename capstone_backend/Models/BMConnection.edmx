@@ -15,6 +15,19 @@
           <Property Name="activityCode" Type="varchar(max)" />
           <Property Name="createdAt" Type="datetime" />
         </EntityType>
+        <EntityType Name="archive_users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="archiveID" Type="varchar(max)" />
+          <Property Name="firstname" Type="varchar" MaxLength="100" />
+          <Property Name="lastname" Type="varchar" MaxLength="100" />
+          <Property Name="usertype" Type="char" MaxLength="1" />
+          <Property Name="archiveusermessage" Type="text" />
+          <Property Name="archiveCreated" Type="datetime" />
+          <Property Name="client_id" Type="int" />
+        </EntityType>
         <EntityType Name="code_verifications">
           <Key>
             <PropertyRef Name="codeID" />
@@ -126,6 +139,7 @@
           <Property Name="remarks" Type="varchar" MaxLength="255" />
           <Property Name="createdAt" Type="datetime" />
           <Property Name="responsible" Type="varchar" MaxLength="100" />
+          <Property Name="ponumber" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="puchase_orders">
           <Key>
@@ -232,6 +246,15 @@
           <Property Name="enableListview" Type="char" MaxLength="1" />
           <Property Name="viewentry" Type="char" MaxLength="1" />
           <Property Name="updatedAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbtesting">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="100" />
+          <Property Name="lastname" Type="varchar" MaxLength="100" />
+          <Property Name="createdAt" Type="datetime" />
         </EntityType>
         <EntityType Name="user_google_allow">
           <Key>
@@ -428,6 +451,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
         </Function>
         <EntityContainer Name="local_dbbmModelStoreContainer">
           <EntitySet Name="activity_log" EntityType="Self.activity_log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="archive_users" EntityType="Self.archive_users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="code_verifications" EntityType="Self.code_verifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="excelStorage" EntityType="Self.excelStorage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="expiration" EntityType="Self.expiration" Schema="dbo" store:Type="Tables" />
@@ -447,6 +471,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <EntitySet Name="tbexceltest" EntityType="Self.tbexceltest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbinventsettings" EntityType="Self.tbinventsettings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbposettings" EntityType="Self.tbposettings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbtesting" EntityType="Self.tbtesting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_google_allow" EntityType="Self.user_google_allow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="supplier_find_duplicate" EntityType="Self.supplier_find_duplicate" store:Type="Views" store:Schema="dbo">
@@ -532,18 +557,6 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="action" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="update_product_inventory">
-            <Parameter Name="productid" Mode="In" Type="Int32" />
-            <Parameter Name="productname" Mode="In" Type="String" />
-            <Parameter Name="productquantity" Mode="In" Type="Int32" />
-            <Parameter Name="productprice" Mode="In" Type="Decimal" />
-            <Parameter Name="producttotal" Mode="In" Type="Decimal" />
-            <Parameter Name="productsupplier" Mode="In" Type="String" />
-            <Parameter Name="productimg" Mode="In" Type="String" />
-            <Parameter Name="productcategory" Mode="In" Type="String" />
-            <Parameter Name="pcode" Mode="In" Type="String" />
-            <Parameter Name="state" Mode="In" Type="Int32" />
-          </FunctionImport>
           <EntitySet Name="tbexceltests" EntityType="local_dbbmModel.tbexceltest" />
           <EntitySet Name="excelStorages" EntityType="local_dbbmModel.excelStorage" />
           <FunctionImport Name="update_product_status">
@@ -574,7 +587,6 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
             <Parameter Name="enablelistview" Mode="In" Type="String" />
             <Parameter Name="viewentry" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="puchase_orders" EntityType="local_dbbmModel.puchase_orders" />
           <EntitySet Name="tbinventsettings" EntityType="local_dbbmModel.tbinventsetting" />
           <FunctionImport Name="update_invent_settings">
             <Parameter Name="state" Mode="In" Type="Int32" />
@@ -583,10 +595,6 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
             <Parameter Name="inventexpiration" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="expirations" EntityType="local_dbbmModel.expiration" />
-          <FunctionImport Name="stored_update_purchase_status">
-            <Parameter Name="id" Mode="In" Type="Int32" />
-            <Parameter Name="state" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="stored_view_expiration_date" ReturnType="Collection(local_dbbmModel.stored_view_expiration_date_Result)">
             <Parameter Name="state" Mode="In" Type="Int32" />
             <Parameter Name="pcode" Mode="In" Type="String" />
@@ -645,6 +653,25 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           </FunctionImport>
           <EntitySet Name="login_history" EntityType="local_dbbmModel.login_history" />
           <EntitySet Name="activity_log" EntityType="local_dbbmModel.activity_log" />
+          <FunctionImport Name="update_product_inventory">
+            <Parameter Name="productid" Mode="In" Type="Int32" />
+            <Parameter Name="productname" Mode="In" Type="String" />
+            <Parameter Name="productquantity" Mode="In" Type="Int32" />
+            <Parameter Name="productprice" Mode="In" Type="Decimal" />
+            <Parameter Name="producttotal" Mode="In" Type="Decimal" />
+            <Parameter Name="productsupplier" Mode="In" Type="String" />
+            <Parameter Name="productimg" Mode="In" Type="String" />
+            <Parameter Name="productcategory" Mode="In" Type="String" />
+            <Parameter Name="pcode" Mode="In" Type="String" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="puchase_orders" EntityType="local_dbbmModel.puchase_orders" />
+          <EntitySet Name="archive_users" EntityType="local_dbbmModel.archive_users" />
+          <FunctionImport Name="stored_update_purchase_status">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="state" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="tbtestings" EntityType="local_dbbmModel.tbtesting" />
         </EntityContainer>
         <EntityType Name="user">
           <Key>
@@ -784,21 +811,6 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Name="viewentry" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="updatedAt" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="puchase_orders">
-          <Key>
-            <PropertyRef Name="poid" />
-          </Key>
-          <Property Name="poid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ponumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="pname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="pquantity" Type="Int32" />
-          <Property Name="pprice" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="ptotal" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="pcreator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="psupplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="createdAt" Type="DateTime" Precision="3" />
-          <Property Name="status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-        </EntityType>
         <EntityType Name="tbinventsetting">
           <Key>
             <PropertyRef Name="id" />
@@ -863,6 +875,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Name="remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="createdAt" Type="DateTime" Precision="3" />
           <Property Name="responsible" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ponumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="stock_on_hand">
           <Key>
@@ -974,6 +987,43 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Name="activityCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="createdAt" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="puchase_orders">
+          <Key>
+            <PropertyRef Name="poid" />
+          </Key>
+          <Property Name="poid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ponumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="pquantity" Type="Int32" />
+          <Property Name="pprice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="ptotal" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="pcreator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="psupplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="archive_users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="archiveID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="lastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="usertype" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="archiveusermessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="archiveCreated" Type="DateTime" Precision="3" />
+          <Property Name="client_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbtesting">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="lastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1049,7 +1099,6 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="update_session_stats" FunctionName="local_dbbmModel.Store.update_session_stats" />
           <FunctionImportMapping FunctionImportName="user_status_updater" FunctionName="local_dbbmModel.Store.user_status_updater" />
-          <FunctionImportMapping FunctionImportName="update_product_inventory" FunctionName="local_dbbmModel.Store.update_product_inventory" />
           <EntitySetMapping Name="tbexceltests">
             <EntityTypeMapping TypeName="local_dbbmModel.tbexceltest">
               <MappingFragment StoreEntitySet="tbexceltest">
@@ -1147,22 +1196,6 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="update_settings" FunctionName="local_dbbmModel.Store.update_settings" />
-          <EntitySetMapping Name="puchase_orders">
-            <EntityTypeMapping TypeName="local_dbbmModel.puchase_orders">
-              <MappingFragment StoreEntitySet="puchase_orders">
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
-                <ScalarProperty Name="psupplier" ColumnName="psupplier" />
-                <ScalarProperty Name="pcreator" ColumnName="pcreator" />
-                <ScalarProperty Name="ptotal" ColumnName="ptotal" />
-                <ScalarProperty Name="pprice" ColumnName="pprice" />
-                <ScalarProperty Name="pquantity" ColumnName="pquantity" />
-                <ScalarProperty Name="pname" ColumnName="pname" />
-                <ScalarProperty Name="ponumber" ColumnName="ponumber" />
-                <ScalarProperty Name="poid" ColumnName="poid" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tbinventsettings">
             <EntityTypeMapping TypeName="local_dbbmModel.tbinventsetting">
               <MappingFragment StoreEntitySet="tbinventsettings">
@@ -1185,7 +1218,6 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="stored_update_purchase_status" FunctionName="local_dbbmModel.Store.stored_update_purchase_status" />
           <FunctionImportMapping FunctionImportName="stored_view_expiration_date" FunctionName="local_dbbmModel.Store.stored_view_expiration_date">
             <ResultMapping>
               <ComplexTypeMapping TypeName="local_dbbmModel.stored_view_expiration_date_Result">
@@ -1227,6 +1259,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <EntitySetMapping Name="productreports">
             <EntityTypeMapping TypeName="local_dbbmModel.productreport">
               <MappingFragment StoreEntitySet="productreport">
+                <ScalarProperty Name="ponumber" ColumnName="ponumber" />
                 <ScalarProperty Name="responsible" ColumnName="responsible" />
                 <ScalarProperty Name="createdAt" ColumnName="createdAt" />
                 <ScalarProperty Name="remarks" ColumnName="remarks" />
@@ -1367,6 +1400,48 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
                 <ScalarProperty Name="activityCode" ColumnName="activityCode" />
                 <ScalarProperty Name="activtystatus" ColumnName="activtystatus" />
                 <ScalarProperty Name="activitymessage" ColumnName="activitymessage" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="update_product_inventory" FunctionName="local_dbbmModel.Store.update_product_inventory" />
+          <EntitySetMapping Name="puchase_orders">
+            <EntityTypeMapping TypeName="local_dbbmModel.puchase_orders">
+              <MappingFragment StoreEntitySet="puchase_orders">
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="psupplier" ColumnName="psupplier" />
+                <ScalarProperty Name="pcreator" ColumnName="pcreator" />
+                <ScalarProperty Name="ptotal" ColumnName="ptotal" />
+                <ScalarProperty Name="pprice" ColumnName="pprice" />
+                <ScalarProperty Name="pquantity" ColumnName="pquantity" />
+                <ScalarProperty Name="pname" ColumnName="pname" />
+                <ScalarProperty Name="ponumber" ColumnName="ponumber" />
+                <ScalarProperty Name="poid" ColumnName="poid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="archive_users">
+            <EntityTypeMapping TypeName="local_dbbmModel.archive_users">
+              <MappingFragment StoreEntitySet="archive_users">
+                <ScalarProperty Name="client_id" ColumnName="client_id" />
+                <ScalarProperty Name="archiveCreated" ColumnName="archiveCreated" />
+                <ScalarProperty Name="archiveusermessage" ColumnName="archiveusermessage" />
+                <ScalarProperty Name="usertype" ColumnName="usertype" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="archiveID" ColumnName="archiveID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="stored_update_purchase_status" FunctionName="local_dbbmModel.Store.stored_update_purchase_status" />
+          <EntitySetMapping Name="tbtestings">
+            <EntityTypeMapping TypeName="local_dbbmModel.tbtesting">
+              <MappingFragment StoreEntitySet="tbtesting">
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="lastname" ColumnName="lastname" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -12,16 +12,11 @@ namespace capstone_backend.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class productreport
+    public partial class tbtesting
     {
         public int id { get; set; }
-        public string problem1 { get; set; }
-        public string problem2 { get; set; }
-        public string problem3 { get; set; }
-        public string problem4 { get; set; }
-        public string remarks { get; set; }
+        public string firstname { get; set; }
+        public string lastname { get; set; }
         public Nullable<System.DateTime> createdAt { get; set; }
-        public string responsible { get; set; }
-        public string ponumber { get; set; }
     }
 }

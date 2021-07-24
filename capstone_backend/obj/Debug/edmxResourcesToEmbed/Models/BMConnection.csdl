@@ -45,18 +45,6 @@
       <Parameter Name="id" Mode="In" Type="Int32" />
       <Parameter Name="action" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="update_product_inventory">
-      <Parameter Name="productid" Mode="In" Type="Int32" />
-      <Parameter Name="productname" Mode="In" Type="String" />
-      <Parameter Name="productquantity" Mode="In" Type="Int32" />
-      <Parameter Name="productprice" Mode="In" Type="Decimal" />
-      <Parameter Name="producttotal" Mode="In" Type="Decimal" />
-      <Parameter Name="productsupplier" Mode="In" Type="String" />
-      <Parameter Name="productimg" Mode="In" Type="String" />
-      <Parameter Name="productcategory" Mode="In" Type="String" />
-      <Parameter Name="pcode" Mode="In" Type="String" />
-      <Parameter Name="state" Mode="In" Type="Int32" />
-    </FunctionImport>
     <EntitySet Name="tbexceltests" EntityType="local_dbbmModel.tbexceltest" />
     <EntitySet Name="excelStorages" EntityType="local_dbbmModel.excelStorage" />
     <FunctionImport Name="update_product_status">
@@ -87,7 +75,6 @@
       <Parameter Name="enablelistview" Mode="In" Type="String" />
       <Parameter Name="viewentry" Mode="In" Type="String" />
     </FunctionImport>
-    <EntitySet Name="puchase_orders" EntityType="local_dbbmModel.puchase_orders" />
     <EntitySet Name="tbinventsettings" EntityType="local_dbbmModel.tbinventsetting" />
     <FunctionImport Name="update_invent_settings">
       <Parameter Name="state" Mode="In" Type="Int32" />
@@ -96,10 +83,6 @@
       <Parameter Name="inventexpiration" Mode="In" Type="String" />
     </FunctionImport>
     <EntitySet Name="expirations" EntityType="local_dbbmModel.expiration" />
-    <FunctionImport Name="stored_update_purchase_status">
-      <Parameter Name="id" Mode="In" Type="Int32" />
-      <Parameter Name="state" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="stored_view_expiration_date" ReturnType="Collection(local_dbbmModel.stored_view_expiration_date_Result)">
       <Parameter Name="state" Mode="In" Type="Int32" />
       <Parameter Name="pcode" Mode="In" Type="String" />
@@ -158,6 +141,25 @@
     </FunctionImport>
     <EntitySet Name="login_history" EntityType="local_dbbmModel.login_history" />
     <EntitySet Name="activity_log" EntityType="local_dbbmModel.activity_log" />
+    <FunctionImport Name="update_product_inventory">
+      <Parameter Name="productid" Mode="In" Type="Int32" />
+      <Parameter Name="productname" Mode="In" Type="String" />
+      <Parameter Name="productquantity" Mode="In" Type="Int32" />
+      <Parameter Name="productprice" Mode="In" Type="Decimal" />
+      <Parameter Name="producttotal" Mode="In" Type="Decimal" />
+      <Parameter Name="productsupplier" Mode="In" Type="String" />
+      <Parameter Name="productimg" Mode="In" Type="String" />
+      <Parameter Name="productcategory" Mode="In" Type="String" />
+      <Parameter Name="pcode" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="puchase_orders" EntityType="local_dbbmModel.puchase_orders" />
+    <EntitySet Name="archive_users" EntityType="local_dbbmModel.archive_users" />
+    <FunctionImport Name="stored_update_purchase_status">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="tbtestings" EntityType="local_dbbmModel.tbtesting" />
   </EntityContainer>
   <EntityType Name="user">
     <Key>
@@ -297,21 +299,6 @@
     <Property Name="viewentry" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
     <Property Name="updatedAt" Type="DateTime" Precision="3" />
   </EntityType>
-  <EntityType Name="puchase_orders">
-    <Key>
-      <PropertyRef Name="poid" />
-    </Key>
-    <Property Name="poid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="ponumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="pname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="pquantity" Type="Int32" />
-    <Property Name="pprice" Type="Decimal" Precision="18" Scale="0" />
-    <Property Name="ptotal" Type="Decimal" Precision="18" Scale="0" />
-    <Property Name="pcreator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="psupplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="createdAt" Type="DateTime" Precision="3" />
-    <Property Name="status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-  </EntityType>
   <EntityType Name="tbinventsetting">
     <Key>
       <PropertyRef Name="id" />
@@ -376,6 +363,7 @@
     <Property Name="remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="createdAt" Type="DateTime" Precision="3" />
     <Property Name="responsible" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ponumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="stock_on_hand">
     <Key>
@@ -485,6 +473,43 @@
     <Property Name="activitymessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="activtystatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="activityCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="puchase_orders">
+    <Key>
+      <PropertyRef Name="poid" />
+    </Key>
+    <Property Name="poid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ponumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="pname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="pquantity" Type="Int32" />
+    <Property Name="pprice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="ptotal" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="pcreator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="psupplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="archive_users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="archiveID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="lastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="usertype" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="archiveusermessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="archiveCreated" Type="DateTime" Precision="3" />
+    <Property Name="client_id" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tbtesting">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="lastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="createdAt" Type="DateTime" Precision="3" />
   </EntityType>
 </Schema>

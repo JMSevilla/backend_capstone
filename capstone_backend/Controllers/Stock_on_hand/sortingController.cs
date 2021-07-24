@@ -27,13 +27,12 @@ namespace capstone_backend.Controllers.Stock_on_hand
                     if(valbool == true)
                     {
                         DateTime curdate = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd"));
-                        var obj1 = core.expirations.Any(x => x.expirydate <= curdate);
+                        var obj1 = core.stock_on_hand.Any(x => x.expirationprod <= curdate);
                         if (obj1)
                         {
                             //exist expiration
-                            var obj2 = core.expirations.Where(x => x.expirydate <= curdate).FirstOrDefault().pcode;
-                            var obj = core.stock_on_hand.Where(x => x.stockNumber == obj2).ToList();
-                            datamanage.bulk = obj;
+                            var obj2 = core.stock_on_hand.Where(x => x.expirationprod <= curdate).ToList();
+                            datamanage.bulk = obj2;
                             datamanage.msg = "1";
                             return Request.CreateResponse(HttpStatusCode.OK, datamanage);
                         }

@@ -13,7 +13,7 @@ namespace capstone_backend.Controllers.Stock_on_hand
     {
         private local_dbbmEntities core;
         [Route("sync-data-to-product-inventory"), HttpPost]
-        public HttpResponseMessage syncdata(int id, string pname, string pcode, int pquantity, decimal pprice, string supplier, string category)
+        public HttpResponseMessage syncdata(int id, string pname, string pcode, int pquantity, decimal pprice, string supplier, string category, DateTime expiration)
         {
             try
             {
@@ -53,6 +53,7 @@ namespace capstone_backend.Controllers.Stock_on_hand
                             prod.product_status = "0";
                             prod.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                             prod.product_category = category;
+                            prod.expirationprod = expiration;
                             core.product_inventory.Add(prod);
                             core.SaveChanges();
 

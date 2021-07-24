@@ -15,7 +15,7 @@ namespace capstone_backend.Controllers.productReport
     {
         private local_dbbmEntities core;
         [Route("product-report"), HttpPost]
-        public HttpResponseMessage reportproblem(int id, string supplieremail, string productname, string problem1, string problem2, string problem3, string problem4, string remarks, string supplier)
+        public HttpResponseMessage reportproblem(int id, string supplieremail, string productname, string problem1, string problem2, string problem3, string problem4, string remarks, string supplier, string ponumber)
         {
             try
             {
@@ -28,6 +28,7 @@ namespace capstone_backend.Controllers.productReport
                     report.problem4 = problem4;
                     report.remarks = remarks;
                     report.responsible = supplier;
+                    report.ponumber = ponumber;
                     report.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                     core.productreports.Add(report);
                     core.SaveChanges();
@@ -43,16 +44,73 @@ namespace capstone_backend.Controllers.productReport
                 throw;
             }
         }
+        [Route("get-all-returns-order"), HttpGet]
+        public HttpResponseMessage getreturnsorder()
+        {
+            try
+            {
+                using(core = new local_dbbmEntities())
+                {
+                    var obj = core.productreports.ToList();
+                    return Request.CreateResponse
+                        (HttpStatusCode.OK, obj);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateErrorResponse
+                    (HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+        [Route("remove-returns-order"), HttpPost]
+        public HttpResponseMessage removereturns(int id)
+        {
+            if(id <= 0)
+            {
+                return Request.CreateResponse
+                    (HttpStatusCode.OK, "invalid id");
+            }
+            else
+            {
+                using(core = new local_dbbmEntities())
+                {
+                    var remover = core.productreports
+                        .Where(x => x.id == id).FirstOrDefault();
+                    core.Entry(remover).State
+                        = System.Data.Entity.EntityState.Deleted;
+                    core.SaveChanges();
+                    return Request.CreateResponse
+                        (HttpStatusCode.OK, "success");
+                }
+            }
+        }
+        [Route("get-product-by-ponumber"), HttpGet]
+        public HttpResponseMessage getprodByPO(string ponumber)
+        {
+            try
+            {
+                using(core = new local_dbbmEntities())
+                {
+                    var obj = core.puchase_orders
+                        .Where(x => x.ponumber == ponumber).ToList();
+                    return Request.CreateResponse(HttpStatusCode.OK, obj);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateErrorResponse
+                    (HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
         public async Task sendEmail(string problem1, string problem2, string problem3, string problem4, string remarks, string supplier, string supplieremail, string productname)
         {
             try
             {
 
-                string FilePath = "C:\\Users\\devop\\source\\repos\\backend_capstone\\capstone_backend\\emailcontent\\emailtemplate.html";
-                if(FilePath == null || FilePath == "" || FilePath == "undefined")
-                {
-                    FilePath = "Z:\\emailtemplate.html";
-                }
+                string FilePath = "C:\\Users\\JM Sevilla\\source\\repos\\backend_capstone\\capstone_backend\\emailcontent\\emailtemplate.html";
+                
                 StreamReader str = new StreamReader(FilePath);
                 string MailText = str.ReadToEnd();
                 str.Close();

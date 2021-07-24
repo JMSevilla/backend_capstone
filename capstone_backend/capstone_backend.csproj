@@ -173,6 +173,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AddingController.cs" />
+    <Compile Include="Controllers\APIForTesting\testinginsertController.cs" />
     <Compile Include="Controllers\Categories\productcategoryController.cs" />
     <Compile Include="Controllers\excelTemplate\excelController.cs" />
     <Compile Include="Controllers\ExpirationProduct\productExpirationController.cs" />
@@ -192,6 +193,7 @@
     <Compile Include="Controllers\Stock_on_hand\sortingController.cs" />
     <Compile Include="Controllers\suppliermanagement\supplierController.cs" />
     <Compile Include="Controllers\SystemHistory\ActivityLogController.cs" />
+    <Compile Include="Controllers\SystemHistory\archiveusersController.cs" />
     <Compile Include="Controllers\SystemHistory\loginHistoryController.cs" />
     <Compile Include="Controllers\testexcelcontroller\testinglangController.cs" />
     <Compile Include="Controllers\Users\CSRFRegistrationController.cs" />
@@ -204,6 +206,10 @@
     <Compile Include="Interfaces\dataInterface.cs" />
     <Compile Include="Models\ActivityLogClass.cs" />
     <Compile Include="Models\activity_log.cs">
+      <DependentUpon>BMConnection.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\archiveUsersClass.cs" />
+    <Compile Include="Models\archive_users.cs">
       <DependentUpon>BMConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BMAzureConnection.Context.cs">
@@ -330,6 +336,9 @@
     <Compile Include="Models\tbposetting.cs">
       <DependentUpon>BMConnection.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\tbtesting.cs">
+      <DependentUpon>BMConnection.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\user.cs">
       <DependentUpon>BMConnection.tt</DependentUpon>
     </Compile>
@@ -448,7 +457,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

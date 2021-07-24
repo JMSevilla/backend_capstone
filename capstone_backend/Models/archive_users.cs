@@ -12,16 +12,15 @@ namespace capstone_backend.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class productreport
+    public partial class archive_users
     {
         public int id { get; set; }
-        public string problem1 { get; set; }
-        public string problem2 { get; set; }
-        public string problem3 { get; set; }
-        public string problem4 { get; set; }
-        public string remarks { get; set; }
-        public Nullable<System.DateTime> createdAt { get; set; }
-        public string responsible { get; set; }
-        public string ponumber { get; set; }
+        public string archiveID { get; set; }
+        public string firstname { get; set; }
+        public string lastname { get; set; }
+        public string usertype { get; set; }
+        public string archiveusermessage { get; set; }
+        public Nullable<System.DateTime> archiveCreated { get; set; }
+        public Nullable<int> client_id { get; set; }
     }
 }

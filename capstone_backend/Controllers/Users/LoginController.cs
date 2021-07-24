@@ -351,7 +351,7 @@ namespace capstone_backend.Controllers.Users
                     string encrypted = string.Empty;
                     string istype;
                     string isstatus;
-                    var c1 = core.users.Any(x => x.email == res.email);
+                    var c1 = core.users.Any(x => x.email == res.email && x.isarchive != "1");
                     var c2 = core.users.Where(x => x.email == res.email).FirstOrDefault();
                     if (string.IsNullOrEmpty(res.email) || string.IsNullOrEmpty(pwd))
                     {

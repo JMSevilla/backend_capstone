@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web;
 using capstone_backend.Models;
 namespace capstone_backend.Controllers.Categories
 {
@@ -44,6 +45,41 @@ namespace capstone_backend.Controllers.Categories
             {
 
                 throw;
+            }
+        }
+      
+        [Route("update-category-name"), HttpPut]
+        public HttpResponseMessage editcategory(int id)
+        {
+            try
+            {
+                if(id <= 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, "invalid id");
+                }
+                else
+                {
+                    using(core = new local_dbbmEntities())
+                    {
+                        var obj = core.tbcategories.Where(x => x.id == id).FirstOrDefault();
+                        if (obj != null)
+                        {
+                            var http = HttpContext.Current.Request;
+                            obj.categoryname = http.Form["categ"];
+                            core.SaveChanges();
+                            return Request.CreateResponse(HttpStatusCode.OK, "success update");
+                        }
+                        else
+                        {
+                            return Request.CreateErrorResponse(HttpStatusCode.NotFound, "invalid id not found");
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ex.Message);
             }
         }
         [Route("get-list-category"), HttpGet]
