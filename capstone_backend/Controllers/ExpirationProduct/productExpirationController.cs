@@ -10,56 +10,26 @@ namespace capstone_backend.Controllers.ExpirationProduct
     [RoutePrefix("api/expired-notif")]
     public class productExpirationController : ApiController
     {
-        private local_dbbmEntities core; //localhost
-        private dbbmEntities core1; //azure cloud computing
+        //private dbbmEntities core; //localhost
+        private burgerdbEntities core; //azure cloud computing
         [Route("product-expired"), HttpGet]
         public HttpResponseMessage getexpired()
         {
             try
             {
-                using (core = new local_dbbmEntities()) //localhost
+                using (core = new burgerdbEntities()) //localhost
                 {
-                    if (core != null)
+                    DateTime curdate = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd"));
+                    var obj1 = core.product_inventory.Any(x => x.expirationprod <= curdate);
+                    if (obj1)
                     {
-                        //code below is for exact date expiration
-                        DateTime curdate = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd"));
-                        var obj1 = core.expirations.Any(x => x.expirydate <= curdate);
-                        if (obj1)
-                        {
-                            //exist expiration
-                            var obj2 = core.expirations.Where(x => x.expirydate <= curdate).FirstOrDefault().pcode;
-                            var obj = core.product_inventory.Where(x => x.productCode == obj2).ToList();
-                            return Request.CreateResponse(HttpStatusCode.OK, obj);
-                        }
-                        else
-                        {
-                            return Request.CreateResponse(HttpStatusCode.OK, "not exist expiry");
-                        }
-                        //var obj = core.product_inventory.Where(x => x.productCode == obj1).ToList();
+                        //exist expiration
+                        var obj2 = core.product_inventory.Where(x => x.expirationprod <= curdate).ToList();
+                        return Request.CreateResponse(HttpStatusCode.OK, obj2);
                     }
-
                     else
                     {
-                        using (core1 = new dbbmEntities()) //cloud
-                        {
-
-                            //code below is for exact date expiration
-                            DateTime curdate = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd"));
-                            var obj1 = core1.expirations.Any(x => x.expirydate <= curdate);
-                            if (obj1)
-                            {
-                                //exist expiration
-                                var obj2 = core1.expirations.Where(x => x.expirydate <= curdate).FirstOrDefault().pcode;
-                                var obj = core1.product_inventory.Where(x => x.productCode == obj2).ToList();
-                                return Request.CreateResponse(HttpStatusCode.OK, obj);
-                            }
-                            else
-                            {
-                                return Request.CreateResponse(HttpStatusCode.OK, "not exist expiry");
-                            }
-                            //var obj = core.product_inventory.Where(x => x.productCode == obj1).ToList();
-
-                        }
+                        return Request.CreateResponse(HttpStatusCode.OK, "not exist expiry");
                     }
                 }
                
@@ -85,7 +55,7 @@ namespace capstone_backend.Controllers.ExpirationProduct
         {
             try
             {
-                using (core = new local_dbbmEntities())
+                using (core = new burgerdbEntities())
                 {
                     if (core != null)
                     {
@@ -96,9 +66,9 @@ namespace capstone_backend.Controllers.ExpirationProduct
                     }
                     else
                     {
-                        using (core1 = new dbbmEntities())
+                        using (core = new burgerdbEntities())
                         {
-                            var obj = core1.warning_expiration_10_days.ToList();
+                            var obj = core.warning_expiration_10_days.ToList();
                             respo.respObj = obj;
                             respo.message = "will expire after 10 days";
                             return Request.CreateResponse(HttpStatusCode.OK, respo);

@@ -58,7 +58,19 @@
     <Reference Include="ExcelDataReader.DataSet, Version=3.6.0.0, Culture=neutral, PublicKeyToken=93517dbe6a4012fa, processorArchitecture=MSIL">
       <HintPath>..\packages\ExcelDataReader.DataSet.3.6.0\lib\net35\ExcelDataReader.DataSet.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.Base, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.Base.2.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Configuration.ConfigurationBuilders.UserSecrets, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.2.0.0\lib\Net471\Microsoft.Configuration.ConfigurationBuilders.UserSecrets.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="SendGrid, Version=9.24.1.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendGrid.9.24.1\lib\net452\SendGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="StarkbankEcdsa, Version=1.0.0.0, Culture=neutral, PublicKeyToken=b2e6337a5d77bfbc, processorArchitecture=MSIL">
+      <HintPath>..\packages\starkbank-ecdsa.1.3.1\lib\net452\StarkbankEcdsa.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -173,6 +185,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AddingController.cs" />
+    <Compile Include="Controllers\APIForTesting\testinginsertController.cs" />
     <Compile Include="Controllers\Categories\productcategoryController.cs" />
     <Compile Include="Controllers\excelTemplate\excelController.cs" />
     <Compile Include="Controllers\ExpirationProduct\productExpirationController.cs" />
@@ -188,14 +201,17 @@
     <Compile Include="Controllers\purchaseOrders\purchaseorderController.cs" />
     <Compile Include="Controllers\PurchaseOrder\purchaseController.cs" />
     <Compile Include="Controllers\Settings\SystemSettingsController.cs" />
+    <Compile Include="Controllers\Stock_on_hand\categoryByFilterStocksController.cs" />
     <Compile Include="Controllers\Stock_on_hand\pullProductController.cs" />
     <Compile Include="Controllers\Stock_on_hand\sortingController.cs" />
     <Compile Include="Controllers\suppliermanagement\supplierController.cs" />
     <Compile Include="Controllers\SystemHistory\ActivityLogController.cs" />
+    <Compile Include="Controllers\SystemHistory\archiveusersController.cs" />
     <Compile Include="Controllers\SystemHistory\loginHistoryController.cs" />
     <Compile Include="Controllers\testexcelcontroller\testinglangController.cs" />
     <Compile Include="Controllers\Users\CSRFRegistrationController.cs" />
     <Compile Include="Controllers\Users\LoginController.cs" />
+    <Compile Include="Controllers\Users\profileController.cs" />
     <Compile Include="Controllers\user_management\UserManagementController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -204,22 +220,26 @@
     <Compile Include="Interfaces\dataInterface.cs" />
     <Compile Include="Models\ActivityLogClass.cs" />
     <Compile Include="Models\activity_log.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BMAzureConnection.Context.cs">
+    <Compile Include="Models\archiveUsersClass.cs" />
+    <Compile Include="Models\archive_users.cs">
+      <DependentUpon>bmcloud.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\bmcloud.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BMAzureConnection.Context.tt</DependentUpon>
+      <DependentUpon>bmcloud.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BMAzureConnection.cs">
+    <Compile Include="Models\bmcloud.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BMAzureConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BMAzureConnection.Designer.cs">
+    <Compile Include="Models\bmcloud.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BMAzureConnection.edmx</DependentUpon>
+      <DependentUpon>bmcloud.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\BMConnection.Context.cs">
       <AutoGen>True</AutoGen>
@@ -237,24 +257,21 @@
       <DependentUpon>BMConnection.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\code_verifications.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CredentialsAuth.cs" />
     <Compile Include="Models\DatabaseManager.cs" />
-    <Compile Include="Models\database_firewall_rules.cs">
-      <DependentUpon>BMAzureConnection.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\excelStorage.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\expiration.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\find_duplicates_Result.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\forgotpassword_identifier.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\InsertClass.cs" />
     <Compile Include="Models\LocalServerConnection.Context.cs">
@@ -273,72 +290,78 @@
       <DependentUpon>LocalServerConnection.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\location.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\loghistoryClass.cs" />
     <Compile Include="Models\login_history.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\productreport.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\product_finalization.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\product_finalization_raw.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\product_inventory.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\puchase_orders.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\selectedraw.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sessionScan.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sproc_get_products_fromInventory_via_code_Result.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\stock_on_hand.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\stored_view_expiration_date_Result.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\supplier.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\supplier_find_duplicate.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbcategory.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbcategoryfinal.cs">
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbexceltest.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbinformation.cs">
       <DependentUpon>LocalServerConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbinventsetting.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbposetting.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tbtesting.cs">
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user_data_management.cs" />
     <Compile Include="Models\user_google_allow.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\warning_expiration_10_days.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmcloud.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -352,15 +375,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\BMAzureConnection.Context.tt">
+    <Content Include="Models\bmcloud.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BMAzureConnection.edmx</DependentUpon>
-      <LastGenOutput>BMAzureConnection.Context.cs</LastGenOutput>
+      <DependentUpon>bmcloud.edmx</DependentUpon>
+      <LastGenOutput>bmcloud.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\BMAzureConnection.tt">
+    <Content Include="Models\bmcloud.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BMAzureConnection.edmx</DependentUpon>
-      <LastGenOutput>BMAzureConnection.cs</LastGenOutput>
+      <DependentUpon>bmcloud.edmx</DependentUpon>
+      <LastGenOutput>bmcloud.cs</LastGenOutput>
     </Content>
     <Content Include="Models\BMConnection.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -417,13 +440,14 @@
     <Content Include="Models\BMConnection.edmx.diagram">
       <DependentUpon>BMConnection.edmx</DependentUpon>
     </Content>
-    <EntityDeploy Include="Models\BMAzureConnection.edmx">
+    <EntityDeploy Include="Models\bmcloud.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BMAzureConnection.Designer.cs</LastGenOutput>
+      <LastGenOutput>bmcloud.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\BMAzureConnection.edmx.diagram">
-      <DependentUpon>BMAzureConnection.edmx</DependentUpon>
+    <Content Include="Models\bmcloud.edmx.diagram">
+      <DependentUpon>bmcloud.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\backendcapstone20210728232640 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\capstonebackend20210621232104 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -448,7 +472,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

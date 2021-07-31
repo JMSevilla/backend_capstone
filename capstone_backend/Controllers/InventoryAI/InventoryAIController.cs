@@ -15,7 +15,8 @@ namespace capstone_backend.Controllers.InventoryAI
     [RoutePrefix("api/inventory-ai")]
     public class InventoryAIController : ApiController
     {
-        private local_dbbmEntities core;
+        //private local_dbbmEntities core;
+        private burgerdbEntities core;
         //private dbbmEntities core;
         [Route("artificial-intel-auto-compute"), HttpPost]
         public HttpResponseMessage aicompute(bool valbool)
@@ -27,7 +28,7 @@ namespace capstone_backend.Controllers.InventoryAI
                 IExcelDataReader reader = null;
                 HttpPostedFile inputFile = null;
                 Stream FileStream = null;
-                using(core = new local_dbbmEntities())
+                using(core = new burgerdbEntities())
                 {
                    if(valbool == true)
                     {
@@ -54,6 +55,8 @@ namespace capstone_backend.Controllers.InventoryAI
                                 if (dsexcel != null && dsexcel.Tables.Count > 0)
                                 {
                                     DataTable inventorytable = dsexcel.Tables[0];
+                                    DataRow row = inventorytable.Rows[0];
+                                    inventorytable.Rows.Remove(row);
                                     for (int i = 0; i < inventorytable.Rows.Count; i++)
                                     {
                                         stock_on_hand aistocks = new stock_on_hand();
@@ -174,7 +177,7 @@ namespace capstone_backend.Controllers.InventoryAI
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new burgerdbEntities())
                 {
                     var obj = core.excelStorages.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);

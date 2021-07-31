@@ -7,19 +7,23 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web.Http;
 using capstone_backend.Models;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+
 namespace capstone_backend.Controllers.ForgotPassword
 {
     [RoutePrefix("api/forgot-password")]
     public class forgotPasswordController : ApiController
     {
         APISecurity secure = new APISecurity();
-        private local_dbbmEntities core;
+        //private local_dbbmEntities core;
+        private burgerdbEntities core;
         [Route("email-finder"), HttpPost]
         public HttpResponseMessage email_finder(string email)
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new burgerdbEntities())
                 {
                     if(core.users.Any(x => x.email == email))
                     {
@@ -42,25 +46,45 @@ namespace capstone_backend.Controllers.ForgotPassword
         {
             try
             {
-                var message = new MailMessage();
-                message.To.Add(new MailAddress("Burger Mania" + "<" + email.ToString() + ">"));
-                message.From = new MailAddress("Account Verification <devopsbyte60@gmail.com>");
-                message.Subject = "Verification Code";
-                message.Body += "<center>";
-                message.Body += "<img src='https://cdn.dribbble.com/users/879147/screenshots/3630290/forgot_password.jpg?compress=1&resize=800x600' alt='No image' style='width: 50%; height: auto;' />'";
-                message.Body += "<h1>This is your verification code : " + vcode.ToString() + "</h1>";
-                message.Body += "</center>";
-                message.IsBodyHtml = true;
-                using (var smtp = new SmtpClient())
-                {
-                    await smtp.SendMailAsync(message);
-                    await Task.FromResult(0);
-                }
+                //var message = new MailMessage();
+                //message.To.Add(new MailAddress("Burger Mania" + "<" + email.ToString() + ">"));
+                //message.From = new MailAddress("Account Verification <devopsbyte60@gmail.com>");
+                //message.Subject = "Verification Code";
+                //message.Body += "<center>";
+                //message.Body += "<img src='https://cdn.dribbble.com/users/879147/screenshots/3630290/forgot_password.jpg?compress=1&resize=800x600' alt='No image' style='width: 50%; height: auto;' />'";
+                //message.Body += "<h1>This is your verification code : " + vcode.ToString() + "</h1>";
+                //message.Body += "</center>";
+                //message.IsBodyHtml = true;
+                //using (var smtp = new SmtpClient())
+                //{
+                //    smtp.UseDefaultCredentials = false;
+                //    smtp.Credentials = new System.Net.NetworkCredential("devopsbyte60@gmail.com", "09663147803miguel");
+                //    await smtp.SendMailAsync(message);
+                //    await Task.FromResult(0);
+                //}
+                var htmlContent = "";
+                var apikey = "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";
+                var client = new SendGridClient(apikey);
+                var from = new EmailAddress("devopsbyte60@gmail.com", "Account Verification");
+                var to = new EmailAddress(email.ToString(), "Burger Mania");
+                var subject = "Verification Code";
+                var plainTextContent = "easy shit";
+                htmlContent += "<center>";
+                htmlContent += "<img src='https://cdn.dribbble.com/users/879147/screenshots/3630290/forgot_password.jpg?compress=1&resize=800x600' alt='No image' style='width: 50%; height: auto;' />'";
+                htmlContent += "<h1>This is your verification code : " + vcode.ToString() + "</h1>";
+                htmlContent += "</center>";
+                var msg = MailHelper.CreateSingleEmail(
+                    from,
+                    to,
+                    subject,
+                    plainTextContent,
+                    htmlContent
+                    );
+                await client.SendEmailAsync(msg);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                Console.WriteLine(ex.Message);
             }
         }
         [Route("add-forgot-history"), HttpPost]
@@ -68,7 +92,7 @@ namespace capstone_backend.Controllers.ForgotPassword
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new burgerdbEntities())
                 {
                     forgotpassword_identifier forgot = new forgotpassword_identifier();
                     forgot.forgotcode = vcode;
@@ -90,7 +114,7 @@ namespace capstone_backend.Controllers.ForgotPassword
         {
             try
             {
-                using (core = new local_dbbmEntities())
+                using (core = new burgerdbEntities())
                 {
                     if (core.forgotpassword_identifier.Any(x => x.forgotcode == vcode && x.isdone == "0"))
                     {
@@ -115,7 +139,7 @@ namespace capstone_backend.Controllers.ForgotPassword
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new burgerdbEntities())
                 {
                     core.change_password_changer(email, secure.Encrypt(password), 1);
                     return Request.CreateResponse(HttpStatusCode.OK, "success change");

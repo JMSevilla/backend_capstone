@@ -10,6 +10,19 @@
     <Property Name="activityCode" Type="varchar(max)" />
     <Property Name="createdAt" Type="datetime" />
   </EntityType>
+  <EntityType Name="archive_users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="archiveID" Type="varchar(max)" />
+    <Property Name="firstname" Type="varchar" MaxLength="100" />
+    <Property Name="lastname" Type="varchar" MaxLength="100" />
+    <Property Name="usertype" Type="char" MaxLength="1" />
+    <Property Name="archiveusermessage" Type="text" />
+    <Property Name="archiveCreated" Type="datetime" />
+    <Property Name="client_id" Type="int" />
+  </EntityType>
   <EntityType Name="code_verifications">
     <Key>
       <PropertyRef Name="codeID" />
@@ -121,6 +134,7 @@
     <Property Name="remarks" Type="varchar" MaxLength="255" />
     <Property Name="createdAt" Type="datetime" />
     <Property Name="responsible" Type="varchar" MaxLength="100" />
+    <Property Name="ponumber" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="puchase_orders">
     <Key>
@@ -199,6 +213,14 @@
     <Property Name="categoryname" Type="varchar" MaxLength="100" />
     <Property Name="createdAt" Type="datetime" />
   </EntityType>
+  <EntityType Name="tbcategoryfinal">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="categoryname" Type="varchar" MaxLength="100" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
   <EntityType Name="tbexceltest">
     <Key>
       <PropertyRef Name="id" />
@@ -227,6 +249,15 @@
     <Property Name="enableListview" Type="char" MaxLength="1" />
     <Property Name="viewentry" Type="char" MaxLength="1" />
     <Property Name="updatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbtesting">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstname" Type="varchar" MaxLength="100" />
+    <Property Name="lastname" Type="varchar" MaxLength="100" />
+    <Property Name="createdAt" Type="datetime" />
   </EntityType>
   <EntityType Name="user_google_allow">
     <Key>
@@ -423,6 +454,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
   </Function>
   <EntityContainer Name="local_dbbmModelStoreContainer">
     <EntitySet Name="activity_log" EntityType="Self.activity_log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="archive_users" EntityType="Self.archive_users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="code_verifications" EntityType="Self.code_verifications" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="excelStorage" EntityType="Self.excelStorage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="expiration" EntityType="Self.expiration" Schema="dbo" store:Type="Tables" />
@@ -439,9 +471,11 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
     <EntitySet Name="stock_on_hand" EntityType="Self.stock_on_hand" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbcategory" EntityType="Self.tbcategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbcategoryfinal" EntityType="Self.tbcategoryfinal" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbexceltest" EntityType="Self.tbexceltest" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbinventsettings" EntityType="Self.tbinventsettings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbposettings" EntityType="Self.tbposettings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbtesting" EntityType="Self.tbtesting" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_google_allow" EntityType="Self.user_google_allow" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="supplier_find_duplicate" EntityType="Self.supplier_find_duplicate" store:Type="Views" store:Schema="dbo">

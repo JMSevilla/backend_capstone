@@ -11,7 +11,8 @@ namespace capstone_backend.Controllers.SystemHistory
     [RoutePrefix("api/activity-log-management")]
     public class ActivityLogController : ApiController
     {
-        private local_dbbmEntities core;
+        //private burgerdbEntities core;
+        private burgerdbEntities core;
         ActivityLogClass activity = new ActivityLogClass();
         class Response
         {
@@ -28,7 +29,7 @@ namespace capstone_backend.Controllers.SystemHistory
                 activity.activitystatus = http.Form["status"];
                 activity.activitycode = http.Form["code"];
                 activity.createdat = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
-                using(core = new local_dbbmEntities())
+                using(core = new burgerdbEntities())
                 {
                     activity_log act = new activity_log();
                     act.activitymessage = activity.activitymessage;
@@ -52,9 +53,9 @@ namespace capstone_backend.Controllers.SystemHistory
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new burgerdbEntities())
                 {
-                    var obj = core.activity_log.ToList();
+                    var obj = core.activity_log.Where(x => x.activtystatus == "User Management").ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
                 }
             }
@@ -62,6 +63,123 @@ namespace capstone_backend.Controllers.SystemHistory
             {
 
                 throw;
+            }
+        }
+        [Route("get-all-product-activation-logs"), HttpGet]
+        public HttpResponseMessage productactivationlogs()
+        {
+            try
+            {
+                using(core = new burgerdbEntities())
+                {
+                    var obj = core.activity_log.Where
+                        (x => x.activtystatus == "Product Inventory Activation")
+                        .ToList();
+                    return Request.CreateResponse
+                        (HttpStatusCode.OK, obj);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateErrorResponse
+                    (HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+        [Route("remove-activity-log-user-management"), HttpPost]
+        public HttpResponseMessage removeactivitylogusermanagement(int id)
+        {
+            try
+            {
+                if(id <= 0)
+                {
+                    resp.message = "invalid id";
+                    return Request.CreateResponse
+                        (HttpStatusCode.OK, resp);
+                }
+                else
+                {
+                    using(core = new burgerdbEntities())
+                    {
+                        var remover =
+                            core.activity_log.Where(x => x.id == id)
+                            .FirstOrDefault();
+                        core.Entry(remover).State
+                            = System.Data.Entity.EntityState.Deleted;
+                        core.SaveChanges();
+                        resp.message = "success";
+                        return Request.CreateResponse
+                            (HttpStatusCode.OK, resp);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse
+                    (HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+        [Route("remove-product-activation-logs"), HttpPost]
+        public HttpResponseMessage prodlogsremoving(int id)
+        {
+            try
+            {
+                if(id <= 0)
+                {
+                    resp.message = "invalid id";
+                    return Request.CreateResponse(HttpStatusCode.OK, resp);
+                }
+                else
+                {
+                    using(core = new burgerdbEntities())
+                    {
+                        var remover =
+                            core.activity_log.Where
+                            (x => x.id == id).FirstOrDefault();
+                        core.Entry(remover).State
+                            = System.Data.Entity.EntityState.Deleted;
+                        core.SaveChanges();
+                        resp.message = "success";
+                        return Request.CreateResponse
+                            (HttpStatusCode.OK, resp);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateErrorResponse
+                    (HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+        [Route("add-activity-log-activation-products"), HttpPost]
+        public HttpResponseMessage activitylog_activation_products()
+        {
+            try
+            {
+                var http = HttpContext.Current.Request;
+                activity.activitymessage = http.Form["message"];
+                activity.activitystatus = http.Form["status"];
+                activity.activitycode = http.Form["code"];
+                activity.createdat = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
+                using (core = new burgerdbEntities())
+                {
+                    activity_log act = new activity_log();
+                    act.activitymessage = activity.activitymessage;
+                    act.activtystatus = activity.activitystatus;
+                    act.activityCode = activity.activitycode;
+                    act.createdAt = activity.createdat;
+                    core.activity_log.Add(act);
+                    core.SaveChanges();
+                    resp.message = "success";
+                    return Request.CreateResponse(HttpStatusCode.OK, resp);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateErrorResponse
+                    (HttpStatusCode.BadRequest, ex.Message);
             }
         }
     }

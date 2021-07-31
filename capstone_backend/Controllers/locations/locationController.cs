@@ -11,14 +11,15 @@ namespace capstone_backend.Controllers.locations
     public class locationController : ApiController
     {
         //connection
-        private local_dbbmEntities core;
+        //private burgerdbEntities core;
+        private burgerdbEntities core;
         //get all municipalities
         [Route("municipalities"), HttpGet]
         public HttpResponseMessage getmunicipality()
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new burgerdbEntities())
                 {
                     var obj = core.locations.Select(x => new
                     {
@@ -40,7 +41,7 @@ namespace capstone_backend.Controllers.locations
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new burgerdbEntities())
                 {
                     var obj = core.locations.Where(x => x.municipality == municipality)
                         .Select(y => new

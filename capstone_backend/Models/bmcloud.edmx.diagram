@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1762c421e4084280a7945da72b63cf2a" Name="Diagram1" >
+        <EntityTypeShape EntityType="burgerdbModel.activity_log" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="burgerdbModel.archive_users" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="burgerdbModel.code_verifications" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="burgerdbModel.excelStorage" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="burgerdbModel.expiration" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="burgerdbModel.location" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="burgerdbModel.login_history" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="burgerdbModel.product_finalization" Width="1.5" PointX="4.75" PointY="6.75" />
+        <EntityTypeShape EntityType="burgerdbModel.product_finalization_raw" Width="1.5" PointX="6.75" PointY="6.75" />
+        <EntityTypeShape EntityType="burgerdbModel.product_inventory" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="burgerdbModel.productreport" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="burgerdbModel.puchase_orders" Width="1.5" PointX="8.75" PointY="4.75" />
+        <EntityTypeShape EntityType="burgerdbModel.selectedraw" Width="1.5" PointX="8.75" PointY="8.75" />
+        <EntityTypeShape EntityType="burgerdbModel.sessionScan" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="burgerdbModel.stock_on_hand" Width="1.5" PointX="2.75" PointY="10.75" />
+        <EntityTypeShape EntityType="burgerdbModel.supplier" Width="1.5" PointX="10.75" PointY="3.75" />
+        <EntityTypeShape EntityType="burgerdbModel.tbcategory" Width="1.5" PointX="4.75" PointY="10.75" />
+        <EntityTypeShape EntityType="burgerdbModel.tbexceltest" Width="1.5" PointX="10.75" PointY="7.75" />
+        <EntityTypeShape EntityType="burgerdbModel.tbinventsetting" Width="1.5" PointX="10.75" PointY="10.75" />
+        <EntityTypeShape EntityType="burgerdbModel.tbposetting" Width="1.5" PointX="6.75" PointY="11.75" />
+        <EntityTypeShape EntityType="burgerdbModel.tbtesting" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="burgerdbModel.user_google_allow" Width="1.5" PointX="12.75" PointY="3.75" />
+        <EntityTypeShape EntityType="burgerdbModel.user" Width="1.5" PointX="12.75" PointY="6.75" />
+        <EntityTypeShape EntityType="burgerdbModel.supplier_find_duplicate" Width="1.5" PointX="12.75" PointY="12.75" />
+        <EntityTypeShape EntityType="burgerdbModel.warning_expiration_10_days" Width="1.5" PointX="8.75" PointY="13.75" />
+        <EntityTypeShape EntityType="burgerdbModel.forgotpassword_identifier" Width="1.5" PointX="5.375" PointY="14.75" />
+        <EntityTypeShape EntityType="burgerdbModel.tbcategoryfinal" Width="1.5" PointX="15.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

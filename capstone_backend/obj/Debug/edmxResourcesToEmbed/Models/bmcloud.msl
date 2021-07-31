@@ -1,0 +1,430 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="burgerdbModelStoreContainer" CdmEntityContainer="burgerdbEntities">
+    <EntitySetMapping Name="activity_log">
+      <EntityTypeMapping TypeName="burgerdbModel.activity_log">
+        <MappingFragment StoreEntitySet="activity_log">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="activityCode" ColumnName="activityCode" />
+          <ScalarProperty Name="activtystatus" ColumnName="activtystatus" />
+          <ScalarProperty Name="activitymessage" ColumnName="activitymessage" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="archive_users">
+      <EntityTypeMapping TypeName="burgerdbModel.archive_users">
+        <MappingFragment StoreEntitySet="archive_users">
+          <ScalarProperty Name="client_id" ColumnName="client_id" />
+          <ScalarProperty Name="archiveCreated" ColumnName="archiveCreated" />
+          <ScalarProperty Name="archiveusermessage" ColumnName="archiveusermessage" />
+          <ScalarProperty Name="usertype" ColumnName="usertype" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="archiveID" ColumnName="archiveID" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="code_verifications">
+      <EntityTypeMapping TypeName="burgerdbModel.code_verifications">
+        <MappingFragment StoreEntitySet="code_verifications">
+          <ScalarProperty Name="validatedAt" ColumnName="validatedAt" />
+          <ScalarProperty Name="g_email" ColumnName="g_email" />
+          <ScalarProperty Name="sendattempts" ColumnName="sendattempts" />
+          <ScalarProperty Name="isdone" ColumnName="isdone" />
+          <ScalarProperty Name="vcode" ColumnName="vcode" />
+          <ScalarProperty Name="codeID" ColumnName="codeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="excelStorages">
+      <EntityTypeMapping TypeName="burgerdbModel.excelStorage">
+        <MappingFragment StoreEntitySet="excelStorage">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="turl" ColumnName="turl" />
+          <ScalarProperty Name="tname" ColumnName="tname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="expirations">
+      <EntityTypeMapping TypeName="burgerdbModel.expiration">
+        <MappingFragment StoreEntitySet="expiration">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="expirydate" ColumnName="expirydate" />
+          <ScalarProperty Name="pcode" ColumnName="pcode" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="locations">
+      <EntityTypeMapping TypeName="burgerdbModel.location">
+        <MappingFragment StoreEntitySet="locations">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="province" ColumnName="province" />
+          <ScalarProperty Name="municipality" ColumnName="municipality" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="login_history">
+      <EntityTypeMapping TypeName="burgerdbModel.login_history">
+        <MappingFragment StoreEntitySet="login_history">
+          <ScalarProperty Name="logindate" ColumnName="logindate" />
+          <ScalarProperty Name="message" ColumnName="message" />
+          <ScalarProperty Name="loggedinstatus" ColumnName="loggedinstatus" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="product_finalization">
+      <EntityTypeMapping TypeName="burgerdbModel.product_finalization">
+        <MappingFragment StoreEntitySet="product_finalization">
+          <ScalarProperty Name="prodimg" ColumnName="prodimg" />
+          <ScalarProperty Name="productCode" ColumnName="productCode" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="prodstatus" ColumnName="prodstatus" />
+          <ScalarProperty Name="prodtotal" ColumnName="prodtotal" />
+          <ScalarProperty Name="prodcategory" ColumnName="prodcategory" />
+          <ScalarProperty Name="prodprice" ColumnName="prodprice" />
+          <ScalarProperty Name="prodquantity" ColumnName="prodquantity" />
+          <ScalarProperty Name="prodname" ColumnName="prodname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="product_finalization_raw">
+      <EntityTypeMapping TypeName="burgerdbModel.product_finalization_raw">
+        <MappingFragment StoreEntitySet="product_finalization_raw">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="productInventoryCode" ColumnName="productInventoryCode" />
+          <ScalarProperty Name="productCreatedCode" ColumnName="productCreatedCode" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="product_inventory">
+      <EntityTypeMapping TypeName="burgerdbModel.product_inventory">
+        <MappingFragment StoreEntitySet="product_inventory">
+          <ScalarProperty Name="expirationprod" ColumnName="expirationprod" />
+          <ScalarProperty Name="product_category" ColumnName="product_category" />
+          <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="product_supplier" ColumnName="product_supplier" />
+          <ScalarProperty Name="product_creator" ColumnName="product_creator" />
+          <ScalarProperty Name="product_status" ColumnName="product_status" />
+          <ScalarProperty Name="product_total" ColumnName="product_total" />
+          <ScalarProperty Name="product_price" ColumnName="product_price" />
+          <ScalarProperty Name="product_quantity" ColumnName="product_quantity" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="productCode" ColumnName="productCode" />
+          <ScalarProperty Name="productID" ColumnName="productID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productreports">
+      <EntityTypeMapping TypeName="burgerdbModel.productreport">
+        <MappingFragment StoreEntitySet="productreport">
+          <ScalarProperty Name="ponumber" ColumnName="ponumber" />
+          <ScalarProperty Name="responsible" ColumnName="responsible" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="problem4" ColumnName="problem4" />
+          <ScalarProperty Name="problem3" ColumnName="problem3" />
+          <ScalarProperty Name="problem2" ColumnName="problem2" />
+          <ScalarProperty Name="problem1" ColumnName="problem1" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="puchase_orders">
+      <EntityTypeMapping TypeName="burgerdbModel.puchase_orders">
+        <MappingFragment StoreEntitySet="puchase_orders">
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="psupplier" ColumnName="psupplier" />
+          <ScalarProperty Name="pcreator" ColumnName="pcreator" />
+          <ScalarProperty Name="ptotal" ColumnName="ptotal" />
+          <ScalarProperty Name="pprice" ColumnName="pprice" />
+          <ScalarProperty Name="pquantity" ColumnName="pquantity" />
+          <ScalarProperty Name="pname" ColumnName="pname" />
+          <ScalarProperty Name="ponumber" ColumnName="ponumber" />
+          <ScalarProperty Name="poid" ColumnName="poid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="selectedraws">
+      <EntityTypeMapping TypeName="burgerdbModel.selectedraw">
+        <MappingFragment StoreEntitySet="selectedraw">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="prodcode" ColumnName="prodcode" />
+          <ScalarProperty Name="prodname" ColumnName="prodname" />
+          <ScalarProperty Name="prodimg" ColumnName="prodimg" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sessionScans">
+      <EntityTypeMapping TypeName="burgerdbModel.sessionScan">
+        <MappingFragment StoreEntitySet="sessionScan">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="isused" ColumnName="isused" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="sessionID" ColumnName="sessionID" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="stock_on_hand">
+      <EntityTypeMapping TypeName="burgerdbModel.stock_on_hand">
+        <MappingFragment StoreEntitySet="stock_on_hand">
+          <ScalarProperty Name="expirationprod" ColumnName="expirationprod" />
+          <ScalarProperty Name="product_total" ColumnName="product_total" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="productcategory" ColumnName="productcategory" />
+          <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
+          <ScalarProperty Name="productsupplier" ColumnName="productsupplier" />
+          <ScalarProperty Name="productcreator" ColumnName="productcreator" />
+          <ScalarProperty Name="productstatus" ColumnName="productstatus" />
+          <ScalarProperty Name="productprice" ColumnName="productprice" />
+          <ScalarProperty Name="productquantity" ColumnName="productquantity" />
+          <ScalarProperty Name="productname" ColumnName="productname" />
+          <ScalarProperty Name="stockNumber" ColumnName="stockNumber" />
+          <ScalarProperty Name="stockID" ColumnName="stockID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="suppliers">
+      <EntityTypeMapping TypeName="burgerdbModel.supplier">
+        <MappingFragment StoreEntitySet="supplier">
+          <ScalarProperty Name="isstatus" ColumnName="isstatus" />
+          <ScalarProperty Name="supplierimgurl" ColumnName="supplierimgurl" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="supplieremail" ColumnName="supplieremail" />
+          <ScalarProperty Name="suppliernumber" ColumnName="suppliernumber" />
+          <ScalarProperty Name="suppliersecondaryaddress" ColumnName="suppliersecondaryaddress" />
+          <ScalarProperty Name="supplierprimaryaddress" ColumnName="supplierprimaryaddress" />
+          <ScalarProperty Name="supplierlastname" ColumnName="supplierlastname" />
+          <ScalarProperty Name="supplierfirstname" ColumnName="supplierfirstname" />
+          <ScalarProperty Name="supplierIdentificationCode" ColumnName="supplierIdentificationCode" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbcategories">
+      <EntityTypeMapping TypeName="burgerdbModel.tbcategory">
+        <MappingFragment StoreEntitySet="tbcategory">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="categoryname" ColumnName="categoryname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbexceltests">
+      <EntityTypeMapping TypeName="burgerdbModel.tbexceltest">
+        <MappingFragment StoreEntitySet="tbexceltest">
+          <ScalarProperty Name="lname" ColumnName="lname" />
+          <ScalarProperty Name="fname" ColumnName="fname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbinventsettings">
+      <EntityTypeMapping TypeName="burgerdbModel.tbinventsetting">
+        <MappingFragment StoreEntitySet="tbinventsettings">
+          <ScalarProperty Name="enableexpiration" ColumnName="enableexpiration" />
+          <ScalarProperty Name="enablesupplier" ColumnName="enablesupplier" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="enableinventform" ColumnName="enableinventform" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbposettings">
+      <EntityTypeMapping TypeName="burgerdbModel.tbposetting">
+        <MappingFragment StoreEntitySet="tbposettings">
+          <ScalarProperty Name="updatedAt" ColumnName="updatedAt" />
+          <ScalarProperty Name="viewentry" ColumnName="viewentry" />
+          <ScalarProperty Name="enableListview" ColumnName="enableListview" />
+          <ScalarProperty Name="enablePOInventory" ColumnName="enablePOInventory" />
+          <ScalarProperty Name="enablePO" ColumnName="enablePO" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbtestings">
+      <EntityTypeMapping TypeName="burgerdbModel.tbtesting">
+        <MappingFragment StoreEntitySet="tbtesting">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_google_allow">
+      <EntityTypeMapping TypeName="burgerdbModel.user_google_allow">
+        <MappingFragment StoreEntitySet="user_google_allow">
+          <ScalarProperty Name="g_email" ColumnName="g_email" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="burgerdbModel.user">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="isarchive" ColumnName="isarchive" />
+          <ScalarProperty Name="imageurl" ColumnName="imageurl" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="is_google_verified" ColumnName="is_google_verified" />
+          <ScalarProperty Name="isstatus" ColumnName="isstatus" />
+          <ScalarProperty Name="isverified" ColumnName="isverified" />
+          <ScalarProperty Name="istype" ColumnName="istype" />
+          <ScalarProperty Name="mobile_no" ColumnName="mobile_no" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="address_type" ColumnName="address_type" />
+          <ScalarProperty Name="company_name" ColumnName="company_name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="province" ColumnName="province" />
+          <ScalarProperty Name="municipality" ColumnName="municipality" />
+          <ScalarProperty Name="lastname" ColumnName="lastname" />
+          <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="supplier_find_duplicate">
+      <EntityTypeMapping TypeName="burgerdbModel.supplier_find_duplicate">
+        <MappingFragment StoreEntitySet="supplier_find_duplicate">
+          <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+          <ScalarProperty Name="isstatus" ColumnName="isstatus" />
+          <ScalarProperty Name="supplierimgurl" ColumnName="supplierimgurl" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="supplieremail" ColumnName="supplieremail" />
+          <ScalarProperty Name="suppliernumber" ColumnName="suppliernumber" />
+          <ScalarProperty Name="suppliersecondaryaddress" ColumnName="suppliersecondaryaddress" />
+          <ScalarProperty Name="supplierprimaryaddress" ColumnName="supplierprimaryaddress" />
+          <ScalarProperty Name="supplierlastname" ColumnName="supplierlastname" />
+          <ScalarProperty Name="supplierfirstname" ColumnName="supplierfirstname" />
+          <ScalarProperty Name="supplierIdentificationCode" ColumnName="supplierIdentificationCode" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="warning_expiration_10_days">
+      <EntityTypeMapping TypeName="burgerdbModel.warning_expiration_10_days">
+        <MappingFragment StoreEntitySet="warning_expiration_10_days">
+          <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+          <ScalarProperty Name="product_category" ColumnName="product_category" />
+          <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="product_supplier" ColumnName="product_supplier" />
+          <ScalarProperty Name="product_creator" ColumnName="product_creator" />
+          <ScalarProperty Name="product_status" ColumnName="product_status" />
+          <ScalarProperty Name="product_total" ColumnName="product_total" />
+          <ScalarProperty Name="product_price" ColumnName="product_price" />
+          <ScalarProperty Name="product_quantity" ColumnName="product_quantity" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="productCode" ColumnName="productCode" />
+          <ScalarProperty Name="productID" ColumnName="productID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ascend_quantity" FunctionName="burgerdbModel.Store.ascend_quantity" />
+    <FunctionImportMapping FunctionImportName="change_password_changer" FunctionName="burgerdbModel.Store.change_password_changer" />
+    <FunctionImportMapping FunctionImportName="clearselectedraw" FunctionName="burgerdbModel.Store.clearselectedraw" />
+    <FunctionImportMapping FunctionImportName="deductquantityfinal" FunctionName="burgerdbModel.Store.deductquantityfinal" />
+    <FunctionImportMapping FunctionImportName="find_duplicates" FunctionName="burgerdbModel.Store.find_duplicates">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="burgerdbModel.find_duplicates_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="supplierIdentificationCode" ColumnName="supplierIdentificationCode" />
+          <ScalarProperty Name="supplierfirstname" ColumnName="supplierfirstname" />
+          <ScalarProperty Name="supplierlastname" ColumnName="supplierlastname" />
+          <ScalarProperty Name="supplierprimaryaddress" ColumnName="supplierprimaryaddress" />
+          <ScalarProperty Name="suppliersecondaryaddress" ColumnName="suppliersecondaryaddress" />
+          <ScalarProperty Name="suppliernumber" ColumnName="suppliernumber" />
+          <ScalarProperty Name="supplieremail" ColumnName="supplieremail" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="supplierimgurl" ColumnName="supplierimgurl" />
+          <ScalarProperty Name="isstatus" ColumnName="isstatus" />
+          <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="product_finalization_activator" FunctionName="burgerdbModel.Store.product_finalization_activator" />
+    <FunctionImportMapping FunctionImportName="quantity_decrease_manager" FunctionName="burgerdbModel.Store.quantity_decrease_manager" />
+    <FunctionImportMapping FunctionImportName="quantity_refill_increase_manager" FunctionName="burgerdbModel.Store.quantity_refill_increase_manager" />
+    <FunctionImportMapping FunctionImportName="sproc_get_products_fromInventory_via_code" FunctionName="burgerdbModel.Store.sproc_get_products_fromInventory_via_code">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="burgerdbModel.sproc_get_products_fromInventory_via_code_Result">
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="productCode" ColumnName="productCode" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="product_quantity" ColumnName="product_quantity" />
+          <ScalarProperty Name="product_price" ColumnName="product_price" />
+          <ScalarProperty Name="product_total" ColumnName="product_total" />
+          <ScalarProperty Name="product_status" ColumnName="product_status" />
+          <ScalarProperty Name="product_creator" ColumnName="product_creator" />
+          <ScalarProperty Name="product_supplier" ColumnName="product_supplier" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
+          <ScalarProperty Name="product_category" ColumnName="product_category" />
+          <ScalarProperty Name="expirationprod" ColumnName="expirationprod" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sproc_update_isdone_forgotpassword" FunctionName="burgerdbModel.Store.sproc_update_isdone_forgotpassword" />
+    <FunctionImportMapping FunctionImportName="stored_supplier" FunctionName="burgerdbModel.Store.stored_supplier" />
+    <FunctionImportMapping FunctionImportName="stored_update_purchase_status" FunctionName="burgerdbModel.Store.stored_update_purchase_status" />
+    <FunctionImportMapping FunctionImportName="stored_view_expiration_date" FunctionName="burgerdbModel.Store.stored_view_expiration_date">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="burgerdbModel.stored_view_expiration_date_Result">
+          <ScalarProperty Name="expirydate" ColumnName="expirydate" />
+          <ScalarProperty Name="productID" ColumnName="productID" />
+          <ScalarProperty Name="productCode" ColumnName="productCode" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="product_quantity" ColumnName="product_quantity" />
+          <ScalarProperty Name="product_price" ColumnName="product_price" />
+          <ScalarProperty Name="product_total" ColumnName="product_total" />
+          <ScalarProperty Name="product_status" ColumnName="product_status" />
+          <ScalarProperty Name="product_creator" ColumnName="product_creator" />
+          <ScalarProperty Name="product_supplier" ColumnName="product_supplier" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
+          <ScalarProperty Name="product_category" ColumnName="product_category" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="update_invent_settings" FunctionName="burgerdbModel.Store.update_invent_settings" />
+    <FunctionImportMapping FunctionImportName="update_product_inventory" FunctionName="burgerdbModel.Store.update_product_inventory" />
+    <FunctionImportMapping FunctionImportName="update_product_status" FunctionName="burgerdbModel.Store.update_product_status" />
+    <FunctionImportMapping FunctionImportName="update_sendAttempts" FunctionName="burgerdbModel.Store.update_sendAttempts" />
+    <FunctionImportMapping FunctionImportName="update_session_stats" FunctionName="burgerdbModel.Store.update_session_stats" />
+    <FunctionImportMapping FunctionImportName="update_settings" FunctionName="burgerdbModel.Store.update_settings" />
+    <FunctionImportMapping FunctionImportName="user_status_updater" FunctionName="burgerdbModel.Store.user_status_updater" />
+    <EntitySetMapping Name="forgotpassword_identifier">
+      <EntityTypeMapping TypeName="burgerdbModel.forgotpassword_identifier">
+        <MappingFragment StoreEntitySet="forgotpassword_identifier">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="isdone" ColumnName="isdone" />
+          <ScalarProperty Name="forgotcode" ColumnName="forgotcode" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="stored_user_registration" FunctionName="burgerdbModel.Store.stored_user_registration" />
+    <EntitySetMapping Name="tbcategoryfinals">
+      <EntityTypeMapping TypeName="burgerdbModel.tbcategoryfinal">
+        <MappingFragment StoreEntitySet="tbcategoryfinal">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="categoryname" ColumnName="categoryname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

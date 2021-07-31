@@ -11,16 +11,17 @@ namespace capstone_backend.Controllers.ProductInventory
     [RoutePrefix("api/product-inventory")]
     public class productInventoryController : ApiController
     {
-        private local_dbbmEntities core;
+        //private burgerdbEntities core;
+        private burgerdbEntities core;
         [Route("fetchinginventory"), HttpGet]
         public HttpResponseMessage getAllproducts()
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new burgerdbEntities())
                 {
                     var prodobj = core.product_inventory
-                       .Where(x => x.product_status == "0").ToList()
+                       .Where(x => x.product_status == "1").ToList()
                        .OrderByDescending(y => y.productID);
                     return Request.CreateResponse(HttpStatusCode.OK, prodobj);
 
@@ -38,7 +39,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new burgerdbEntities())
                 {
                     var obj = core.stock_on_hand
                         .ToList();
@@ -57,7 +58,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using (core = new local_dbbmEntities())
+                using (core = new burgerdbEntities())
                 {
                     var prodobj = core.product_inventory.ToList()
                       .OrderByDescending(y => y.productID);
@@ -76,7 +77,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new burgerdbEntities())
                 {
                     var obj = (from filterdata in core.product_inventory
                                where (filterdata.createdAt >= fromdate && filterdata.createdAt <= to)
@@ -108,7 +109,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new burgerdbEntities())
                 {
                     var httprequest = HttpContext.Current.Request;
                     string code = httprequest.Form["code"];
@@ -177,14 +178,13 @@ namespace capstone_backend.Controllers.ProductInventory
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using (core = new local_dbbmEntities())
+                using (core = new burgerdbEntities())
                 {
                     if (string.IsNullOrEmpty(httprequest.Form["productCode"]) ||
                         string.IsNullOrEmpty(httprequest.Form["productName"]) ||
                         string.IsNullOrEmpty(httprequest.Form["productQuantity"])
                         || string.IsNullOrEmpty(httprequest.Form["productcategory"])
-                        || string.IsNullOrEmpty(httprequest.Form["productImageUrl"])
-                        || string.IsNullOrEmpty(httprequest.Form["productexpiration"]))
+                        || string.IsNullOrEmpty(httprequest.Form["productImageUrl"]))
                     {
                         return Request.CreateResponse(HttpStatusCode.OK, "empty");
                     }
@@ -193,51 +193,85 @@ namespace capstone_backend.Controllers.ProductInventory
                         string syncing = httprequest.Form["productsync"];
                         if(syncing == "1")
                         {
-                            stock_on_hand stock = new stock_on_hand();
-                            stock.productname = httprequest.Form["productName"];
-                            stock.stockNumber = httprequest.Form["productCode"];
-                            stock.productquantity = Convert.ToInt32(httprequest.Form["productQuantity"]);
-                            stock.productprice = 0;
-                            stock.productsupplier = httprequest.Form["productSupplier"];
-                            stock.productimgurl = httprequest.Form["productImageUrl"];
-                            stock.product_total = 0;
-                            stock.productcreator = "Administrator";
-                            stock.productstatus = "1";
-                            stock.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
-                            stock.productcategory = httprequest.Form["productcategory"];
-                            core.stock_on_hand.Add(stock);
-                            core.SaveChanges();
-
-                            expiration expire = new expiration();
-                            expire.pcode = httprequest.Form["productCode"];
-                            expire.expirydate = Convert.ToDateTime(httprequest.Form["productexpiration"]);
-                            core.expirations.Add(expire);
-                            core.SaveChanges();
-                            return Request.CreateResponse(HttpStatusCode.OK, "success product inventory");
+                            if (!string.IsNullOrEmpty(httprequest.Form["productexpiration"]))
+                            {
+                                stock_on_hand stock = new stock_on_hand();
+                                stock.productname = httprequest.Form["productName"];
+                                stock.stockNumber = httprequest.Form["productCode"];
+                                stock.productquantity = Convert.ToInt32(httprequest.Form["productQuantity"]);
+                                stock.productprice = 0;
+                                stock.productsupplier = httprequest.Form["productSupplier"];
+                                stock.productimgurl = httprequest.Form["productImageUrl"];
+                                stock.product_total = 0;
+                                stock.productcreator = "Administrator";
+                                stock.productstatus = "1";
+                                stock.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
+                                stock.productcategory = httprequest.Form["productcategory"];
+                                stock.expirationprod = Convert.ToDateTime(httprequest.Form["productexpiration"]);
+                                core.stock_on_hand.Add(stock);
+                                core.SaveChanges();
+                                return Request.CreateResponse(HttpStatusCode.OK, "success product inventory");
+                            }
+                            else
+                            {
+                                stock_on_hand stock = new stock_on_hand();
+                                stock.productname = httprequest.Form["productName"];
+                                stock.stockNumber = httprequest.Form["productCode"];
+                                stock.productquantity = Convert.ToInt32(httprequest.Form["productQuantity"]);
+                                stock.productprice = 0;
+                                stock.productsupplier = httprequest.Form["productSupplier"];
+                                stock.productimgurl = httprequest.Form["productImageUrl"];
+                                stock.product_total = 0;
+                                stock.productcreator = "Administrator";
+                                stock.productstatus = "1";
+                                stock.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
+                                stock.productcategory = httprequest.Form["productcategory"];
+                                core.stock_on_hand.Add(stock);
+                                core.SaveChanges();
+                                return Request.CreateResponse(HttpStatusCode.OK, "success product inventory");
+                            }
+                            
                         }
                         else
                         {
-                            product_inventory prod = new product_inventory();
-                            prod.productName = httprequest.Form["productName"];
-                            prod.productCode = httprequest.Form["productCode"];
-                            prod.product_quantity = Convert.ToInt32(httprequest.Form["productQuantity"]);
-                            prod.product_price = 0;
-                            prod.product_supplier = httprequest.Form["productSupplier"];
-                            prod.productimgurl = httprequest.Form["productImageUrl"];
-                            prod.product_total = 0;
-                            prod.product_creator = httprequest.Form["isadmin"];
-                            prod.product_status = httprequest.Form["isstatus"];
-                            prod.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
-                            prod.product_category = httprequest.Form["productcategory"];
-                            core.product_inventory.Add(prod);
-                            core.SaveChanges();
-
-                            expiration expire = new expiration();
-                            expire.pcode = httprequest.Form["productCode"];
-                            expire.expirydate = Convert.ToDateTime(httprequest.Form["productexpiration"]);
-                            core.expirations.Add(expire);
-                            core.SaveChanges();
-                            return Request.CreateResponse(HttpStatusCode.OK, "success product inventory");
+                            if (!string.IsNullOrEmpty(httprequest.Form["productexpiration"]))
+                            {
+                                product_inventory prod = new product_inventory();
+                                prod.productName = httprequest.Form["productName"];
+                                prod.productCode = httprequest.Form["productCode"];
+                                prod.product_quantity = Convert.ToInt32(httprequest.Form["productQuantity"]);
+                                prod.product_price = 0;
+                                prod.product_supplier = httprequest.Form["productSupplier"];
+                                prod.productimgurl = httprequest.Form["productImageUrl"];
+                                prod.product_total = 0;
+                                prod.product_creator = httprequest.Form["isadmin"];
+                                prod.product_status = httprequest.Form["isstatus"];
+                                prod.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
+                                prod.product_category = httprequest.Form["productcategory"];
+                                prod.expirationprod = Convert.ToDateTime(httprequest.Form["productexpiration"]);
+                                core.product_inventory.Add(prod);
+                                core.SaveChanges();
+                                return Request.CreateResponse(HttpStatusCode.OK, "success product inventory");
+                            }
+                            else
+                            {
+                                product_inventory prod = new product_inventory();
+                                prod.productName = httprequest.Form["productName"];
+                                prod.productCode = httprequest.Form["productCode"];
+                                prod.product_quantity = Convert.ToInt32(httprequest.Form["productQuantity"]);
+                                prod.product_price = 0;
+                                prod.product_supplier = httprequest.Form["productSupplier"];
+                                prod.productimgurl = httprequest.Form["productImageUrl"];
+                                prod.product_total = 0;
+                                prod.product_creator = httprequest.Form["isadmin"];
+                                prod.product_status = httprequest.Form["isstatus"];
+                                prod.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
+                                prod.product_category = httprequest.Form["productcategory"];
+                                core.product_inventory.Add(prod);
+                                core.SaveChanges();
+                                return Request.CreateResponse(HttpStatusCode.OK, "success product inventory");
+                            }
+                                
                         }
                     }
                 }
@@ -253,7 +287,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new burgerdbEntities())
                 {
                     var check = core.stock_on_hand.Any(x => x.stockNumber == pcode);
                     if (check)
@@ -299,7 +333,7 @@ namespace capstone_backend.Controllers.ProductInventory
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using(core = new local_dbbmEntities())
+                using(core = new burgerdbEntities())
                 {
                     
                     if(string.IsNullOrEmpty(httprequest.Form["modifyproductname"]) || string.IsNullOrEmpty(httprequest.Form["modifyproductimageurl"])
@@ -316,7 +350,7 @@ namespace capstone_backend.Controllers.ProductInventory
                             (Convert.ToInt32(httprequest.Form["modifyPID"]), httprequest.Form["modifyproductname"],
                             Convert.ToInt32(httprequest.Form["modifyproductquantity"]), 0,
                             Convert.ToInt32(httprequest.Form["modifyproductprice"]) * Convert.ToInt32(httprequest.Form["modifyproductquantity"]),
-                            httprequest.Form["modifyproductsupplier"], httprequest.Form["modifyproductimageurl"], httprequest.Form["modifycategory"], httprequest.Form["pcode"], 2);
+                            httprequest.Form["modifyproductsupplier"], httprequest.Form["modifyproductimageurl"], httprequest.Form["modifycategory"], httprequest.Form["pcode"], Convert.ToDateTime(httprequest.Form["expireddate"]), 2);
                             
                             return Request.CreateResponse
                                 (HttpStatusCode.OK, "success modify");
@@ -327,7 +361,7 @@ namespace capstone_backend.Controllers.ProductInventory
                             (Convert.ToInt32(httprequest.Form["modifyPID"]), httprequest.Form["modifyproductname"],
                             Convert.ToInt32(httprequest.Form["modifyproductquantity"]), 0,
                             Convert.ToInt32(httprequest.Form["modifyproductprice"]) * Convert.ToInt32(httprequest.Form["modifyproductquantity"]),
-                            httprequest.Form["modifyproductsupplier"], httprequest.Form["modifyproductimageurl"], httprequest.Form["modifycategory"], null, 1);
+                            httprequest.Form["modifyproductsupplier"], httprequest.Form["modifyproductimageurl"], httprequest.Form["modifycategory"], null, Convert.ToDateTime(httprequest.Form["expireddate"]), 1);
                             return Request.CreateResponse
                                 (HttpStatusCode.OK, "success modify");
                         }
@@ -345,7 +379,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new burgerdbEntities())
                 {
                     if(core.stock_on_hand.Any(x => x.stockNumber == pcode))
                     {

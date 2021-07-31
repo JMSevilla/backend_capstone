@@ -13,13 +13,14 @@ namespace capstone_backend.Controllers.productReport
     [RoutePrefix("api/report-problem")]
     public class ProductReportController : ApiController
     {
-        private local_dbbmEntities core;
+        //private burgerdbEntities core;
+        private burgerdbEntities core;
         [Route("product-report"), HttpPost]
-        public HttpResponseMessage reportproblem(int id, string supplieremail, string productname, string problem1, string problem2, string problem3, string problem4, string remarks, string supplier)
+        public HttpResponseMessage reportproblem(int id, string supplieremail, string productname, string problem1, string problem2, string problem3, string problem4, string remarks, string supplier, string ponumber)
         {
             try
             {
-                using (core = new local_dbbmEntities())
+                using (core = new burgerdbEntities())
                 {
                     productreport report = new productreport();
                     report.problem1 = problem1;
@@ -28,6 +29,7 @@ namespace capstone_backend.Controllers.productReport
                     report.problem4 = problem4;
                     report.remarks = remarks;
                     report.responsible = supplier;
+                    report.ponumber = ponumber;
                     report.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                     core.productreports.Add(report);
                     core.SaveChanges();
@@ -43,67 +45,145 @@ namespace capstone_backend.Controllers.productReport
                 throw;
             }
         }
+        [Route("get-all-returns-order"), HttpGet]
+        public HttpResponseMessage getreturnsorder()
+        {
+            try
+            {
+                using(core = new burgerdbEntities())
+                {
+                    var obj = core.productreports.ToList();
+                    return Request.CreateResponse
+                        (HttpStatusCode.OK, obj);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateErrorResponse
+                    (HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+        [Route("remove-returns-order"), HttpPost]
+        public HttpResponseMessage removereturns(int id)
+        {
+            if(id <= 0)
+            {
+                return Request.CreateResponse
+                    (HttpStatusCode.OK, "invalid id");
+            }
+            else
+            {
+                using(core = new burgerdbEntities())
+                {
+                    var remover = core.productreports
+                        .Where(x => x.id == id).FirstOrDefault();
+                    core.Entry(remover).State
+                        = System.Data.Entity.EntityState.Deleted;
+                    core.SaveChanges();
+                    return Request.CreateResponse
+                        (HttpStatusCode.OK, "success");
+                }
+            }
+        }
+        [Route("get-product-by-ponumber"), HttpGet]
+        public HttpResponseMessage getprodByPO(string ponumber)
+        {
+            try
+            {
+                using(core = new burgerdbEntities())
+                {
+                    var obj = core.puchase_orders
+                        .Where(x => x.ponumber == ponumber).ToList();
+                    return Request.CreateResponse(HttpStatusCode.OK, obj);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return Request.CreateErrorResponse
+                    (HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
         public async Task sendEmail(string problem1, string problem2, string problem3, string problem4, string remarks, string supplier, string supplieremail, string productname)
         {
             try
             {
 
-                string FilePath = "C:\\Users\\devop\\source\\repos\\backend_capstone\\capstone_backend\\emailcontent\\emailtemplate.html";
-                if(FilePath == null || FilePath == "" || FilePath == "undefined")
-                {
-                    FilePath = "Z:\\emailtemplate.html";
-                }
-                StreamReader str = new StreamReader(FilePath);
-                string MailText = str.ReadToEnd();
-                str.Close();
                 if (problem1 == "undefined")
                 {
-                    MailText = MailText.Replace("[problem1]", "");
-                    MailText = MailText.Replace("[problem2]", problem2);
-                    MailText = MailText.Replace("[problem3]", problem3);
-                    MailText = MailText.Replace("[problem4]", problem4);
+                    problem1 = "";
                 }
-                else if (problem2 == "undefined") {
-                    MailText = MailText.Replace("[problem1]", problem1);
-                    MailText = MailText.Replace("[problem2]", "");
-                    MailText = MailText.Replace("[problem3]", problem3);
-                    MailText = MailText.Replace("[problem4]", problem4);
+                 if (problem2 == "undefined") {
+                    problem2 = "";
                 }
-                else if (problem3 == "undefined")
+                 if (problem3 == "undefined")
                 {
-                    MailText = MailText.Replace("[problem1]", problem1);
-                    MailText = MailText.Replace("[problem2]", problem2);
-                    MailText = MailText.Replace("[problem3]", "");
-                    MailText = MailText.Replace("[problem4]", problem4);
+                    problem3 = "";
                 }
-                else if (problem4 == "undefined")
+                 if (problem4 == "undefined")
                 {
-                    MailText = MailText.Replace("[problem1]", problem1);
-                    MailText = MailText.Replace("[problem2]", problem2);
-                    MailText = MailText.Replace("[problem3]", problem3);
-                    MailText = MailText.Replace("[problem4]", "");
+                    problem4 = "";
+
                 }
-                else
-                {
-                    MailText = MailText.Replace("[problem1]", problem1);
-                    MailText = MailText.Replace("[problem2]", problem2);
-                    MailText = MailText.Replace("[problem3]", problem3);
-                    MailText = MailText.Replace("[problem4]", problem4);
-                    MailText = MailText.Replace("[remarks]", remarks);
-                }
-                MailText = MailText.Replace("[ProductName]", productname);
-                MailText = MailText.Replace("[DateCreated]", System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                 var message = new MailMessage();
-                message.To.Add(new MailAddress(supplier.ToString() + "<" + supplieremail.ToString() + ">"));
+                message.To.Add(new MailAddress("Burger Mania" + "<" + supplieremail.ToString() + ">"));
                 message.From = new MailAddress("Product Return <devopsbyte60@gmail.com>");
                 message.Subject = "Burger Mania Product Return";
-                message.Body = MailText;
+                message.Body += "<!DOCTYPE html>" +
+                    "<html>" +
+                    "<head>" +
+                    "<style>" +
+                    "table {" +
+                    "font-family: arial, sans-serif;" +
+                    "border-collapse: collapse;" +
+                    "width: 100%;" +
+                    "}" +
+                    "td, th {" +
+                    "border: 1px solid #dddddd;" +
+                    "text-align: left;" +
+                    "padding: 8px;}" +
+                    "tr:nth-child(even) {background-color: #dddddd;}" +
+                    ".button {border: none;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;margin: 4px 2px;cursor: pointer;}" +
+                    ".button2 {background-color: #008CBA;}" +
+                    "</style>" +
+                    "</head>";
+                message.Body += "<body>";
+                message.Body += "<center>";
+                message.Body += "<img src='https://cdn.dribbble.com/users/879147/screenshots/3630290/forgot_password.jpg?compress=1&resize=800x600' alt='No image' style='width: 50%; height: auto;' />'";
+                message.Body += "<h1>Product Returns</h1>";
+                message.Body += "<table>" +
+                    "<tr>" +
+                    "<th>Product Name</th>" +
+                    "<th>Issue 1</th>" +
+                    "<th>Issue 2</th>" +
+                    "<th>Issue 3</th>" +
+                    "<th>Issue 4</th>" +
+                    "<th>Remarks</th>" +
+                    "<th>Responsible</th>" +
+                    "<th>Created</th>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td>" + productname.ToString() + "</td>" +
+                    "<td>" + problem1.ToString() + "</td>" +
+                    "<td>" + problem2.ToString() + "</td>" +
+                    "<td>" + problem3.ToString() + "</td>" +
+                    "<td>" + problem4.ToString() + "</td>" +
+                    "<td>" + remarks.ToString() + "</td>" +
+                    "<td>" + supplier.ToString() + "</td>" +
+                    "<td>" + System.DateTime.Now.ToString("yyyy/MM/dd h:m:s") + "</td>" +
+                    "</table>";
+                message.Body += "</center>";
+                message.Body += "</body>";
+                message.Body += "</html>";
                 message.IsBodyHtml = true;
                 using (var smtp = new SmtpClient())
                 {
                     await smtp.SendMailAsync(message);
                     await Task.FromResult(0);
                 }
+
+
             }
             catch (Exception)
             {

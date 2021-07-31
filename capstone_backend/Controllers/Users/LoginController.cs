@@ -11,8 +11,9 @@ namespace capstone_backend.Controllers.Users
     [RoutePrefix("api/csrf-login")]
     public class LoginController : ApiController
     {
-        private local_dbbmEntities core;
-        private dbbmEntities core1;
+        //private burgerdbEntities core;
+        private burgerdbEntities core;
+        //private dbbmEntities core1;
         APISecurity secure = new APISecurity();
         class Response
         {
@@ -25,7 +26,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-                using (core = new local_dbbmEntities())
+                using (core = new burgerdbEntities())
                 {
                     var checkemail = core.user_google_allow.Any(x => x.g_email == email);
                     var getusertype = core.users.Where(x => x.email == email).FirstOrDefault();
@@ -148,7 +149,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-                using (core = new local_dbbmEntities())
+                using (core = new burgerdbEntities())
                 {
                     var check = core.sessionScans.Any(x => x.email == email);
                     if (check)
@@ -210,7 +211,7 @@ namespace capstone_backend.Controllers.Users
             try
             {
 
-                using (core = new local_dbbmEntities())
+                using (core = new burgerdbEntities())
                 {
                     if (core != null)
                     {
@@ -252,12 +253,12 @@ namespace capstone_backend.Controllers.Users
                     }
                     else
                     {
-                        using (core1 = new dbbmEntities())
+                        using (core = new burgerdbEntities())
                         {
-                            var session = core1.sessionScans.Any(x => x.email == email && x.isused == "1");
+                            var session = core.sessionScans.Any(x => x.email == email && x.isused == "1");
                             if (session)
                             {
-                                var userProfile = core1.users.Where(y => y.email == email);
+                                var userProfile = core.users.Where(y => y.email == email);
                                 if (userProfile.FirstOrDefault().istype == "1")
                                 {
                                     if (userProfile.FirstOrDefault().isstatus == "1")
@@ -307,7 +308,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-               using(core = new local_dbbmEntities())
+               using(core = new burgerdbEntities())
                 {
                     if(core != null)
                     {
@@ -316,9 +317,9 @@ namespace capstone_backend.Controllers.Users
                     }
                     else
                     {
-                        using (core1 = new dbbmEntities())
+                        using (core = new burgerdbEntities())
                         {
-                            core1.update_session_stats(email, "logout_session");
+                            core.update_session_stats(email, "logout_session");
                             return Request.CreateResponse(HttpStatusCode.OK, "logout");
                         }
                     }
@@ -344,14 +345,14 @@ namespace capstone_backend.Controllers.Users
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using (core = new local_dbbmEntities())
+                using (core = new burgerdbEntities())
                 {
                     res.email = httprequest.Form["email"];
                     string pwd = secure.Encrypt(httprequest.Form["password"]);
                     string encrypted = string.Empty;
                     string istype;
                     string isstatus;
-                    var c1 = core.users.Any(x => x.email == res.email);
+                    var c1 = core.users.Any(x => x.email == res.email && x.isarchive != "1");
                     var c2 = core.users.Where(x => x.email == res.email).FirstOrDefault();
                     if (string.IsNullOrEmpty(res.email) || string.IsNullOrEmpty(pwd))
                     {

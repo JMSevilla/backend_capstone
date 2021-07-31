@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -20,7 +21,8 @@ namespace capstone_backend
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             GlobalConfiguration.Configuration.MessageHandlers.Add(new CORSHandler());
-            //GlobalConfiguration.Configuration.MessageHandlers.Add(new ApplicationAuthenticationHandler());
+            GlobalConfiguration.Configuration.MessageHandlers.Add(new ApplicationAuthenticationHandler());
+            //System.Threading.Thread.CurrentThread.CurrentCulture = new CultureInfo(Request.UserLanguages[0]);
         }
     }
 }

@@ -22,5 +22,6 @@ namespace capstone_backend.Models
         public string remarks { get; set; }
         public Nullable<System.DateTime> createdAt { get; set; }
         public string responsible { get; set; }
+        public string ponumber { get; set; }
     }
 }
