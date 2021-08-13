@@ -63,7 +63,7 @@ namespace capstone_backend.Controllers.ForgotPassword
                 //    await Task.FromResult(0);
                 //}
                 var htmlContent = "";
-                var apikey = "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";
+                var apikey = "SG.pku0MTEQSmu3RNponNoWeQ.uEEDzuT5AmTkIm0YfmoDWYRQENgMVLin3V02p4-c4tY";
                 var client = new SendGridClient(apikey);
                 var from = new EmailAddress("devopsbyte60@gmail.com", "Account Verification");
                 var to = new EmailAddress(email.ToString(), "Burger Mania");
