@@ -15,7 +15,7 @@ namespace capstone_backend.Controllers.Users
     public class CSRFRegistrationController : ApiController
     {
         //connection
-        private local_dbbmEntities core;
+        private local_dbbmEntities1 core;
         class Response
         {
             public string response { get; set; }
@@ -30,9 +30,9 @@ namespace capstone_backend.Controllers.Users
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
-                    local_dbbmEntities coredb = new local_dbbmEntities();
+                    local_dbbmEntities1 coredb = new local_dbbmEntities1();
                     //validate request here in backend
                     if(string.IsNullOrEmpty(httprequest.Form["firstname"]) || string.IsNullOrEmpty(httprequest.Form["lastname"]))
                     {
@@ -104,7 +104,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     
                     core.stored_user_registration(data.firstname = firstname, data.lastname = lastname,
@@ -130,7 +130,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-                using (core = new local_dbbmEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     string Upassword;
                     core.stored_user_registration(data.firstname = firstname, data.lastname = lastname,
@@ -156,7 +156,7 @@ namespace capstone_backend.Controllers.Users
             try
             {
                 var request_receiver = HttpContext.Current.Request;
-                using(local_dbbmEntities coredb = new local_dbbmEntities())
+                using(local_dbbmEntities1 coredb = new local_dbbmEntities1())
                 {
                     var checksend = coredb.code_verifications
                         .Any(y => y.isdone == "1" && y.g_email == email);
@@ -204,7 +204,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     code_verifications coda = new code_verifications();
                     coda.g_email = email;
@@ -254,7 +254,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var check_code = core.code_verifications.Any(x => x.g_email == email && x.vcode == vcode);
                     if (check_code)

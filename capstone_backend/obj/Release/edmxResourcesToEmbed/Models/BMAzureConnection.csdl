@@ -234,6 +234,7 @@
       <Parameter Name="enablelistview" Mode="In" Type="String" />
       <Parameter Name="viewentry" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="warning_expiration_10_days" EntityType="dbbmModel.warning_expiration_10_days" />
   </EntityContainer>
   <EntityType Name="expiration">
     <Key>
@@ -300,5 +301,23 @@
     <Property Name="enableListview" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
     <Property Name="viewentry" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
     <Property Name="updatedAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="warning_expiration_10_days">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="productCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="productName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="product_quantity" Type="Int32" />
+    <Property Name="product_price" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="product_total" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="product_status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="product_creator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="product_supplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="productimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="product_category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Expr1" Type="DateTime" Precision="3" />
   </EntityType>
 </Schema>

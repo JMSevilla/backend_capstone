@@ -11,14 +11,14 @@ namespace capstone_backend.Controllers.suppliermanagement
     [RoutePrefix("api/supplier-management")]
     public class suppliermanagementController : ApiController
     {
-        private local_dbbmEntities core;
+        private local_dbbmEntities1 core;
         [Route("adding-supplier"), HttpPost]
         public HttpResponseMessage addsupplier()
         {
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if(string.IsNullOrEmpty(httprequest.Form["supplierIC"]) || string.IsNullOrEmpty(httprequest.Form["supplierfirstname"])
                         || string.IsNullOrEmpty(httprequest.Form["supplierlastname"]) || string.IsNullOrEmpty(httprequest.Form["supplierprimary"])
@@ -56,7 +56,7 @@ namespace capstone_backend.Controllers.suppliermanagement
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.suppliers.Where(x => x.isstatus == "0").ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -73,7 +73,7 @@ namespace capstone_backend.Controllers.suppliermanagement
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if(id <= 0)
                     {
@@ -97,7 +97,7 @@ namespace capstone_backend.Controllers.suppliermanagement
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                    var obj = core.supplier_find_duplicate.Where(x => x.isstatus == "0").ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -112,7 +112,7 @@ namespace capstone_backend.Controllers.suppliermanagement
         [Route("modification-supplier"), HttpPost]
         public HttpResponseMessage modifysupp()
         {
-            using(core = new local_dbbmEntities())
+            using(core = new local_dbbmEntities1())
             {
                 var data = HttpContext.Current.Request;
                 if(string.IsNullOrEmpty(data.Form["fname"]) || string.IsNullOrEmpty(data.Form["lname"])

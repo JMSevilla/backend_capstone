@@ -206,11 +206,11 @@
     <Compile Include="Interfaces\dataInterface.cs" />
     <Compile Include="Models\ActivityLogClass.cs" />
     <Compile Include="Models\activity_log.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\archiveUsersClass.cs" />
     <Compile Include="Models\archive_users.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BMAzureConnection.Context.cs">
       <AutoGen>True</AutoGen>
@@ -242,8 +242,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BMConnection.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\bmdbbackend.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>bmdbbackend.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\bmdbbackend.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\bmdbbackend.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>bmdbbackend.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\code_verifications.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CredentialsAuth.cs" />
     <Compile Include="Models\DatabaseManager.cs" />
@@ -251,16 +266,16 @@
       <DependentUpon>BMAzureConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\excelStorage.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\expiration.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\find_duplicates_Result.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\forgotpassword_identifier.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\InsertClass.cs" />
     <Compile Include="Models\LocalServerConnection.Context.cs">
@@ -279,75 +294,75 @@
       <DependentUpon>LocalServerConnection.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\location.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\loghistoryClass.cs" />
     <Compile Include="Models\login_history.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\productreport.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\product_finalization.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\product_finalization_raw.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\product_inventory.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\puchase_orders.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\selectedraw.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sessionScan.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sproc_get_products_fromInventory_via_code_Result.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\stock_on_hand.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\stored_view_expiration_date_Result.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\supplier.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\supplier_find_duplicate.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbcategory.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbexceltest.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbinformation.cs">
       <DependentUpon>LocalServerConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbinventsetting.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbposetting.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbtesting.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user_data_management.cs" />
     <Compile Include="Models\user_google_allow.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\warning_expiration_10_days.cs">
-      <DependentUpon>BMConnection.tt</DependentUpon>
+      <DependentUpon>bmdbbackend.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -380,6 +395,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>BMConnection.edmx</DependentUpon>
       <LastGenOutput>BMConnection.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\bmdbbackend.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>bmdbbackend.edmx</DependentUpon>
+      <LastGenOutput>bmdbbackend.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\bmdbbackend.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>bmdbbackend.edmx</DependentUpon>
+      <LastGenOutput>bmdbbackend.cs</LastGenOutput>
     </Content>
     <Content Include="Models\LocalServerConnection.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -433,7 +458,17 @@
     <Content Include="Models\BMAzureConnection.edmx.diagram">
       <DependentUpon>BMAzureConnection.edmx</DependentUpon>
     </Content>
+    <EntityDeploy Include="Models\bmdbbackend.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>bmdbbackend.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\bmdbbackend.edmx.diagram">
+      <DependentUpon>bmdbbackend.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\capstonebackend20210621232104 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\capstonebackend20210816181717 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\capstonebackend20210817141609 - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\capstonebackend20210817141609 - Web Deploy1.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

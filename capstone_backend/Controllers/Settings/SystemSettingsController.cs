@@ -11,13 +11,13 @@ namespace capstone_backend.Controllers.Settings
     [RoutePrefix("api/system-settings")]
     public class SystemSettingsController : ApiController
     {
-        private local_dbbmEntities core;
+        private local_dbbmEntities1 core;
         [Route("check-settings"), HttpPost]
         public HttpResponseMessage checksettings(string enableposettings)
         {
             try
             {
-               using(core = new local_dbbmEntities())
+               using(core = new local_dbbmEntities1())
                 {
                     
                     var httprequest = HttpContext.Current.Request;
@@ -72,7 +72,7 @@ namespace capstone_backend.Controllers.Settings
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if(core.tbinventsettings.Any(x => x.enableinventform == enableinvent))
                     {
@@ -116,7 +116,7 @@ namespace capstone_backend.Controllers.Settings
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.tbinventsettings.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -133,7 +133,7 @@ namespace capstone_backend.Controllers.Settings
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.tbposettings.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);

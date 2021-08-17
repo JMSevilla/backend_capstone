@@ -11,7 +11,7 @@ namespace capstone_backend.Controllers.Users
     [RoutePrefix("api/csrf-login")]
     public class LoginController : ApiController
     {
-        private local_dbbmEntities core;
+        private local_dbbmEntities1 core;
         private dbbmEntities core1;
         APISecurity secure = new APISecurity();
         class Response
@@ -25,7 +25,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-                using (core = new local_dbbmEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     var checkemail = core.user_google_allow.Any(x => x.g_email == email);
                     var getusertype = core.users.Where(x => x.email == email).FirstOrDefault();
@@ -148,7 +148,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-                using (core = new local_dbbmEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     var check = core.sessionScans.Any(x => x.email == email);
                     if (check)
@@ -210,7 +210,7 @@ namespace capstone_backend.Controllers.Users
             try
             {
 
-                using (core = new local_dbbmEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     if (core != null)
                     {
@@ -307,7 +307,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-               using(core = new local_dbbmEntities())
+               using(core = new local_dbbmEntities1())
                 {
                     if(core != null)
                     {
@@ -344,7 +344,7 @@ namespace capstone_backend.Controllers.Users
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using (core = new local_dbbmEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     res.email = httprequest.Form["email"];
                     string pwd = secure.Encrypt(httprequest.Form["password"]);

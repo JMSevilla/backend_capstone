@@ -11,13 +11,13 @@ namespace capstone_backend.Controllers.Categories
     [RoutePrefix("api/product-category-management")]
     public class productcategoryController : ApiController
     {
-        private local_dbbmEntities core;
+        private local_dbbmEntities1 core;
         [Route("add-category"), HttpPost]
         public HttpResponseMessage addcategory(string categoryname)
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {   
                     if (string.IsNullOrWhiteSpace(categoryname))
                     {
@@ -59,7 +59,7 @@ namespace capstone_backend.Controllers.Categories
                 }
                 else
                 {
-                    using(core = new local_dbbmEntities())
+                    using(core = new local_dbbmEntities1())
                     {
                         var obj = core.tbcategories.Where(x => x.id == id).FirstOrDefault();
                         if (obj != null)
@@ -87,7 +87,7 @@ namespace capstone_backend.Controllers.Categories
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.tbcategories.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -104,7 +104,7 @@ namespace capstone_backend.Controllers.Categories
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if(id <= 0)
                     {

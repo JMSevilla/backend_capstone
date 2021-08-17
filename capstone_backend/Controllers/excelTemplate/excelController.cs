@@ -11,12 +11,12 @@ namespace capstone_backend.Controllers.excelTemplate
     [RoutePrefix("api/save-excel")]
     public class excelController : ApiController
     {
-        private local_dbbmEntities core;
+        private local_dbbmEntities1 core;
         [Route("data-save"), HttpPost]
         public HttpResponseMessage saveexcel()
         {
             var httpreq = HttpContext.Current.Request;
-            using (core = new local_dbbmEntities())
+            using (core = new local_dbbmEntities1())
             {
                 excelStorage data = new excelStorage();
                 data.tname = httpreq.Form["templatename"];

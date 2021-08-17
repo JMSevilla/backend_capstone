@@ -10,13 +10,13 @@ namespace capstone_backend.Controllers.ExpirationProduct
     [RoutePrefix("api/product-invetory-view-expired")]
     public class p_inventory_view_expirationController : ApiController
     {
-        private local_dbbmEntities core;
+        private local_dbbmEntities1 core;
         [Route("view-expiration"), HttpGet]
         public HttpResponseMessage viewexpired(string pcode)
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = (from a in core.expirations
                                where a.pcode == pcode

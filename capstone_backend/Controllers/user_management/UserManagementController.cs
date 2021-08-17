@@ -11,7 +11,7 @@ namespace capstone_backend.Controllers.user_management
     [RoutePrefix("api/user-management")]
     public class UserManagementController : ApiController
     {
-        private local_dbbmEntities core;
+        private local_dbbmEntities1 core;
         class Response
         {
             public string message { get; set; }
@@ -23,7 +23,7 @@ namespace capstone_backend.Controllers.user_management
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if(core.users.Any(x => x.email == email))
                     {
@@ -81,7 +81,7 @@ namespace capstone_backend.Controllers.user_management
                 }
                 else
                 {
-                    using(core = new local_dbbmEntities())
+                    using(core = new local_dbbmEntities1())
                     {
                         var remover = core.users.Where(x => x.id == id).FirstOrDefault();
                         core.Entry(remover).State = System.Data.Entity.EntityState.Deleted;
@@ -101,7 +101,7 @@ namespace capstone_backend.Controllers.user_management
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if(id <= 0)
                     {
@@ -133,7 +133,7 @@ namespace capstone_backend.Controllers.user_management
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if (string.IsNullOrEmpty(value))
                     {
@@ -208,7 +208,7 @@ namespace capstone_backend.Controllers.user_management
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if(id <= 0)
                     {
@@ -240,7 +240,7 @@ namespace capstone_backend.Controllers.user_management
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if (indicator <= 0)
                     {
@@ -314,7 +314,7 @@ namespace capstone_backend.Controllers.user_management
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     user tbuser = new user();
                     tbuser.firstname = httprequest.Form["firstname"];
@@ -352,7 +352,7 @@ namespace capstone_backend.Controllers.user_management
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using (core = new local_dbbmEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     user tbuser = new user(); 
                     tbuser.firstname = httprequest.Form["firstname"];

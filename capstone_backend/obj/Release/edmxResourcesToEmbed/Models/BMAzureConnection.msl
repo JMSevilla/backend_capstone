@@ -232,5 +232,24 @@
     <FunctionImportMapping FunctionImportName="stored_update_purchase_status" FunctionName="dbbmModel.Store.stored_update_purchase_status" />
     <FunctionImportMapping FunctionImportName="update_invent_settings" FunctionName="dbbmModel.Store.update_invent_settings" />
     <FunctionImportMapping FunctionImportName="update_settings" FunctionName="dbbmModel.Store.update_settings" />
+    <EntitySetMapping Name="warning_expiration_10_days">
+      <EntityTypeMapping TypeName="dbbmModel.warning_expiration_10_days">
+        <MappingFragment StoreEntitySet="warning_expiration_10_days">
+          <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+          <ScalarProperty Name="product_category" ColumnName="product_category" />
+          <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="product_supplier" ColumnName="product_supplier" />
+          <ScalarProperty Name="product_creator" ColumnName="product_creator" />
+          <ScalarProperty Name="product_status" ColumnName="product_status" />
+          <ScalarProperty Name="product_total" ColumnName="product_total" />
+          <ScalarProperty Name="product_price" ColumnName="product_price" />
+          <ScalarProperty Name="product_quantity" ColumnName="product_quantity" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="productCode" ColumnName="productCode" />
+          <ScalarProperty Name="productID" ColumnName="productID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

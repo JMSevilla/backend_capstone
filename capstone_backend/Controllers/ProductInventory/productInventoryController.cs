@@ -11,13 +11,13 @@ namespace capstone_backend.Controllers.ProductInventory
     [RoutePrefix("api/product-inventory")]
     public class productInventoryController : ApiController
     {
-        private local_dbbmEntities core;
+        private local_dbbmEntities1 core;
         [Route("fetchinginventory"), HttpGet]
         public HttpResponseMessage getAllproducts()
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var prodobj = core.product_inventory
                        .Where(x => x.product_status == "0").ToList()
@@ -38,7 +38,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.stock_on_hand
                         .ToList();
@@ -57,7 +57,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using (core = new local_dbbmEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     var prodobj = core.product_inventory.ToList()
                       .OrderByDescending(y => y.productID);
@@ -76,7 +76,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = (from filterdata in core.product_inventory
                                where (filterdata.createdAt >= fromdate && filterdata.createdAt <= to)
@@ -108,7 +108,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var httprequest = HttpContext.Current.Request;
                     string code = httprequest.Form["code"];
@@ -177,7 +177,7 @@ namespace capstone_backend.Controllers.ProductInventory
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using (core = new local_dbbmEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     if (string.IsNullOrEmpty(httprequest.Form["productCode"]) ||
                         string.IsNullOrEmpty(httprequest.Form["productName"]) ||
@@ -243,7 +243,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var check = core.stock_on_hand.Any(x => x.stockNumber == pcode);
                     if (check)
@@ -289,7 +289,7 @@ namespace capstone_backend.Controllers.ProductInventory
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     
                     if(string.IsNullOrEmpty(httprequest.Form["modifyproductname"]) || string.IsNullOrEmpty(httprequest.Form["modifyproductimageurl"])
@@ -335,7 +335,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if(core.stock_on_hand.Any(x => x.stockNumber == pcode))
                     {

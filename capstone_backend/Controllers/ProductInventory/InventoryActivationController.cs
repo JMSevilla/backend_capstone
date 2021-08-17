@@ -10,13 +10,13 @@ namespace capstone_backend.Controllers.ProductInventory
     [RoutePrefix("api/activation")]
     public class InventoryActivationController : ApiController
     {
-        private local_dbbmEntities core;
+        private local_dbbmEntities1 core;
         [Route("product-activation"), HttpPost]
         public HttpResponseMessage activate(int prodid)
         {
             try
             {
-                using(core = new local_dbbmEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     core.update_product_status(prodid, 1);
                     return Request.CreateResponse(HttpStatusCode.OK, "update success");
@@ -33,7 +33,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using (core = new local_dbbmEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     core.update_product_status(prodid, 0);
                     return Request.CreateResponse(HttpStatusCode.OK, "update success");
