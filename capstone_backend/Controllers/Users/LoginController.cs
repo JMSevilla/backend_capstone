@@ -11,8 +11,8 @@ namespace capstone_backend.Controllers.Users
     [RoutePrefix("api/csrf-login")]
     public class LoginController : ApiController
     {
-        //private burgerdbEntities core;
-        private burgerdbEntities core;
+        //private local_dbbmEntities1 core;
+        private local_dbbmEntities1 core;
         //private dbbmEntities core1;
         APISecurity secure = new APISecurity();
         class Response
@@ -26,7 +26,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     var checkemail = core.user_google_allow.Any(x => x.g_email == email);
                     var getusertype = core.users.Where(x => x.email == email).FirstOrDefault();
@@ -149,7 +149,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     var check = core.sessionScans.Any(x => x.email == email);
                     if (check)
@@ -211,7 +211,7 @@ namespace capstone_backend.Controllers.Users
             try
             {
 
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     if (core != null)
                     {
@@ -253,7 +253,7 @@ namespace capstone_backend.Controllers.Users
                     }
                     else
                     {
-                        using (core = new burgerdbEntities())
+                        using (core = new local_dbbmEntities1())
                         {
                             var session = core.sessionScans.Any(x => x.email == email && x.isused == "1");
                             if (session)
@@ -308,7 +308,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-               using(core = new burgerdbEntities())
+               using(core = new local_dbbmEntities1())
                 {
                     if(core != null)
                     {
@@ -317,7 +317,7 @@ namespace capstone_backend.Controllers.Users
                     }
                     else
                     {
-                        using (core = new burgerdbEntities())
+                        using (core = new local_dbbmEntities1())
                         {
                             core.update_session_stats(email, "logout_session");
                             return Request.CreateResponse(HttpStatusCode.OK, "logout");
@@ -345,7 +345,7 @@ namespace capstone_backend.Controllers.Users
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     res.email = httprequest.Form["email"];
                     string pwd = secure.Encrypt(httprequest.Form["password"]);

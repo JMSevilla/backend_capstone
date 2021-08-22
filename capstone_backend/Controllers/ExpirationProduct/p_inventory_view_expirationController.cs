@@ -11,13 +11,13 @@ namespace capstone_backend.Controllers.ExpirationProduct
     public class p_inventory_view_expirationController : ApiController
     {
         //private local_dbbmEntities core;
-        private burgerdbEntities core;
+        private local_dbbmEntities1 core;
         [Route("view-expiration"), HttpGet]
         public HttpResponseMessage viewexpired(string pcode)
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.product_inventory.Where(x => x.productCode == pcode).FirstOrDefault().expirationprod;
                     if (string.IsNullOrEmpty(Convert.ToString(obj)))

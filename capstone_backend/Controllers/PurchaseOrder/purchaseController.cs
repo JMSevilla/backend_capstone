@@ -11,8 +11,8 @@ namespace capstone_backend.Controllers.PurchaseOrder
     [RoutePrefix("api/purchase-order")]
     public class purchaseController : ApiController
     {
-        //private burgerdbEntities core;
-        private burgerdbEntities core;
+        //private local_dbbmEntities1 core;
+        private local_dbbmEntities1 core;
         [Route("bulk-entry"), HttpPost]
         public HttpResponseMessage bulkentrypurchase()
         {
@@ -36,7 +36,7 @@ namespace capstone_backend.Controllers.PurchaseOrder
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.puchase_orders.Where(x => x.status == "0").ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);

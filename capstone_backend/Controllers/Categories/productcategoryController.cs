@@ -12,14 +12,14 @@ namespace capstone_backend.Controllers.Categories
     public class productcategoryController : ApiController
     {
         //private local_dbbmEntities core;
-        private burgerdbEntities core;
+        private local_dbbmEntities1 core;
         //private local_dbbmEntities db = new local_dbbmEntities();
         [Route("add-category"), HttpPost]
         public HttpResponseMessage addcategory(string categoryname)
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {   
                     if (string.IsNullOrWhiteSpace(categoryname))
                     {
@@ -54,7 +54,7 @@ namespace capstone_backend.Controllers.Categories
         {
             try
             {
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     if (string.IsNullOrWhiteSpace(categoryname))
                     {
@@ -88,7 +88,7 @@ namespace capstone_backend.Controllers.Categories
         {
             try
             {
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     var obj = core.tbcategoryfinals.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -111,7 +111,7 @@ namespace capstone_backend.Controllers.Categories
                 }
                 else
                 {
-                    using (core = new burgerdbEntities())
+                    using (core = new local_dbbmEntities1())
                     {
                         var obj = core.tbcategoryfinals.Where(x => x.id == id).FirstOrDefault();
                         if (obj != null)
@@ -145,7 +145,7 @@ namespace capstone_backend.Controllers.Categories
                 }
                 else
                 {
-                    using(core = new burgerdbEntities())
+                    using(core = new local_dbbmEntities1())
                     {
                         var obj = core.tbcategories.Where(x => x.id == id).FirstOrDefault();
                         if (obj != null)
@@ -173,7 +173,7 @@ namespace capstone_backend.Controllers.Categories
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.tbcategories.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -190,7 +190,7 @@ namespace capstone_backend.Controllers.Categories
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if(id <= 0)
                     {
@@ -216,7 +216,7 @@ namespace capstone_backend.Controllers.Categories
         {   
             try
             {
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     if (id <= 0)
                     {

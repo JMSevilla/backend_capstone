@@ -11,14 +11,14 @@ namespace capstone_backend.Controllers.ProductInventory
     [RoutePrefix("api/product-inventory")]
     public class productInventoryController : ApiController
     {
-        //private burgerdbEntities core;
-        private burgerdbEntities core;
+        //private local_dbbmEntities1 core;
+        private local_dbbmEntities1 core;
         [Route("fetchinginventory"), HttpGet]
         public HttpResponseMessage getAllproducts()
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var prodobj = core.product_inventory
                        .Where(x => x.product_status == "1").ToList()
@@ -39,7 +39,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.stock_on_hand
                         .ToList();
@@ -58,7 +58,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     var prodobj = core.product_inventory.ToList()
                       .OrderByDescending(y => y.productID);
@@ -77,7 +77,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = (from filterdata in core.product_inventory
                                where (filterdata.createdAt >= fromdate && filterdata.createdAt <= to)
@@ -109,7 +109,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var httprequest = HttpContext.Current.Request;
                     string code = httprequest.Form["code"];
@@ -178,7 +178,7 @@ namespace capstone_backend.Controllers.ProductInventory
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     if (string.IsNullOrEmpty(httprequest.Form["productCode"]) ||
                         string.IsNullOrEmpty(httprequest.Form["productName"]) ||
@@ -287,7 +287,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var check = core.stock_on_hand.Any(x => x.stockNumber == pcode);
                     if (check)
@@ -333,7 +333,7 @@ namespace capstone_backend.Controllers.ProductInventory
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     
                     if(string.IsNullOrEmpty(httprequest.Form["modifyproductname"]) || string.IsNullOrEmpty(httprequest.Form["modifyproductimageurl"])
@@ -350,7 +350,7 @@ namespace capstone_backend.Controllers.ProductInventory
                             (Convert.ToInt32(httprequest.Form["modifyPID"]), httprequest.Form["modifyproductname"],
                             Convert.ToInt32(httprequest.Form["modifyproductquantity"]), 0,
                             Convert.ToInt32(httprequest.Form["modifyproductprice"]) * Convert.ToInt32(httprequest.Form["modifyproductquantity"]),
-                            httprequest.Form["modifyproductsupplier"], httprequest.Form["modifyproductimageurl"], httprequest.Form["modifycategory"], httprequest.Form["pcode"], Convert.ToDateTime(httprequest.Form["expireddate"]), 2);
+                            httprequest.Form["modifyproductsupplier"], httprequest.Form["modifyproductimageurl"], httprequest.Form["modifycategory"], httprequest.Form["pcode"] , 2);
                             
                             return Request.CreateResponse
                                 (HttpStatusCode.OK, "success modify");
@@ -361,7 +361,7 @@ namespace capstone_backend.Controllers.ProductInventory
                             (Convert.ToInt32(httprequest.Form["modifyPID"]), httprequest.Form["modifyproductname"],
                             Convert.ToInt32(httprequest.Form["modifyproductquantity"]), 0,
                             Convert.ToInt32(httprequest.Form["modifyproductprice"]) * Convert.ToInt32(httprequest.Form["modifyproductquantity"]),
-                            httprequest.Form["modifyproductsupplier"], httprequest.Form["modifyproductimageurl"], httprequest.Form["modifycategory"], null, Convert.ToDateTime(httprequest.Form["expireddate"]), 1);
+                            httprequest.Form["modifyproductsupplier"], httprequest.Form["modifyproductimageurl"], httprequest.Form["modifycategory"], null, 1);
                             return Request.CreateResponse
                                 (HttpStatusCode.OK, "success modify");
                         }
@@ -379,7 +379,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if(core.stock_on_hand.Any(x => x.stockNumber == pcode))
                     {

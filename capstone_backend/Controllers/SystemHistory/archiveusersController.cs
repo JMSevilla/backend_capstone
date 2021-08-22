@@ -12,8 +12,8 @@ namespace capstone_backend.Controllers.SystemHistory
     public class archiveusersController : ApiController
     {
         archiveUsersClass archive = new archiveUsersClass();
-        //private burgerdbEntities core;
-        private burgerdbEntities core;
+        //private local_dbbmEntities1 core;
+        private local_dbbmEntities1 core;
         class Response
         {
             public string message { get; set; }
@@ -41,7 +41,7 @@ namespace capstone_backend.Controllers.SystemHistory
                 }
                 else
                 {
-                    using(core = new burgerdbEntities())
+                    using(core = new local_dbbmEntities1())
                     {
                         archive_users arr = new archive_users();
                         arr.archiveID = archive.archiveID;
@@ -71,7 +71,7 @@ namespace capstone_backend.Controllers.SystemHistory
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.archive_users.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -97,7 +97,7 @@ namespace capstone_backend.Controllers.SystemHistory
                 }
                 else
                 {
-                    using(core = new burgerdbEntities())
+                    using(core = new local_dbbmEntities1())
                     {
                         core.user_status_updater(clientid, 4);
                         var remover = core.archive_users.Where
