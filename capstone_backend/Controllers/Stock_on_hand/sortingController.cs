@@ -10,8 +10,8 @@ namespace capstone_backend.Controllers.Stock_on_hand
     [RoutePrefix("api/sort-stocks")]
     public class sortingController : ApiController
     {
-        //private burgerdbEntities core;
-        private burgerdbEntities core;
+        //private local_dbbmEntities1 core;
+        private local_dbbmEntities1 core;
         class dataManagement
         {
             public object bulk { get; set; }
@@ -23,7 +23,7 @@ namespace capstone_backend.Controllers.Stock_on_hand
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if(valbool == true)
                     {

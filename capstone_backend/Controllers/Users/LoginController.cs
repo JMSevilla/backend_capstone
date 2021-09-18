@@ -11,8 +11,8 @@ namespace capstone_backend.Controllers.Users
     [RoutePrefix("api/csrf-login")]
     public class LoginController : ApiController
     {
-        //private burgerdbEntities core;
-        private burgerdbEntities core;
+        //private local_dbbmEntities1 core;
+        private local_dbbmEntities1 core;
         //private dbbmEntities core1;
         APISecurity secure = new APISecurity();
         class Response
@@ -26,7 +26,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     var checkemail = core.user_google_allow.Any(x => x.g_email == email);
                     var getusertype = core.users.Where(x => x.email == email).FirstOrDefault();
@@ -149,9 +149,10 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     var check = core.sessionScans.Any(x => x.email == email);
+
                     if (check)
                     {
                         //update isused equal to 1
@@ -211,7 +212,7 @@ namespace capstone_backend.Controllers.Users
             try
             {
 
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     if (core != null)
                     {
@@ -253,7 +254,7 @@ namespace capstone_backend.Controllers.Users
                     }
                     else
                     {
-                        using (core = new burgerdbEntities())
+                        using (core = new local_dbbmEntities1())
                         {
                             var session = core.sessionScans.Any(x => x.email == email && x.isused == "1");
                             if (session)
@@ -308,7 +309,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-               using(core = new burgerdbEntities())
+               using(core = new local_dbbmEntities1())
                 {
                     if(core != null)
                     {
@@ -317,7 +318,7 @@ namespace capstone_backend.Controllers.Users
                     }
                     else
                     {
-                        using (core = new burgerdbEntities())
+                        using (core = new local_dbbmEntities1())
                         {
                             core.update_session_stats(email, "logout_session");
                             return Request.CreateResponse(HttpStatusCode.OK, "logout");
@@ -345,7 +346,7 @@ namespace capstone_backend.Controllers.Users
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     res.email = httprequest.Form["email"];
                     string pwd = secure.Encrypt(httprequest.Form["password"]);
@@ -389,9 +390,18 @@ namespace capstone_backend.Controllers.Users
                                     }
                                     else
                                     {
-                                        //customer
+                                        //cashier
+                                        var cashier = core.users.Where(x => x.email == res.email).Select(t => new
+                                        {
+                                            t.id,
+                                            t.firstname,
+                                            t.lastname,
+                                            t.istype
+                                        }).ToList();
+                                        res.databulk = cashier.FirstOrDefault();
+                                        res.message = "SUCCESS CASHIER";
+                                        return Request.CreateResponse(HttpStatusCode.OK, res);
                                     }
-                                    return Request.CreateResponse(HttpStatusCode.OK);
                                 }
                                 else
                                 {
@@ -409,77 +419,7 @@ namespace capstone_backend.Controllers.Users
                         }
                     }
                 }
-                //if(core != null)
-                // {
-
-                // }
-                // else
-                // {
-                //     using (core1 = new dbbmEntities())
-                //     {
-                //         res.email = httprequest.Form["email"];
-                //         string pwd = secure.Encrypt(httprequest.Form["password"]);
-                //         string encrypted = string.Empty;
-                //         string istype;
-                //         string isstatus;
-                //         var c1 = core1.users.Any(x => x.email == res.email);
-                //         var c2 = core1.users.Where(x => x.email == res.email).FirstOrDefault();
-                //         if (string.IsNullOrEmpty(res.email) || string.IsNullOrEmpty(pwd))
-                //         {
-                //             res.message = "empty";
-                //             return Request.CreateResponse(HttpStatusCode.OK, res);
-                //         }
-                //         else
-                //         {
-                //             if (c1)
-                //             {
-                //                 encrypted = c2 == null ? "" : c2.password;
-                //                 istype = c2.istype;
-                //                 isstatus = c2.isstatus;
-                //                 string decryptoriginal = secure.Decrypt(pwd);
-                //                 string decryptrequest = secure.Decrypt(encrypted);
-                //                 if (decryptrequest == decryptoriginal)
-                //                 {
-                //                     if (isstatus == "1")
-                //                     {
-                //                         if (istype == "1")
-                //                         {
-                //                             admin
-
-                //                             var fetchy = core1.users.Where(x => x.email == res.email).Select(t => new
-                //                             {
-                //                                 t.id,
-                //                                 t.firstname,
-                //                                 t.lastname,
-                //                                 t.istype
-                //                             }).ToList();
-                //                             res.databulk = fetchy.FirstOrDefault();
-                //                             res.message = "SUCCESS";
-                //                             return Request.CreateResponse(HttpStatusCode.OK, res);
-                //                         }
-                //                         else
-                //                         {
-                //                             customer
-                //                         }
-                //                         return Request.CreateResponse(HttpStatusCode.OK);
-                //                     }
-                //                     else
-                //                     {
-                //                         return Request.CreateResponse(HttpStatusCode.OK, "disabled");
-                //                     }
-                //                 }
-                //                 else
-                //                 {
-                //                     return Request.CreateResponse(HttpStatusCode.OK, "invalid");
-                //                 }
-                //             }
-                //             else
-                //             {
-                //                 return Request.CreateResponse(HttpStatusCode.OK, "not found");
-                //             }
-                //         }
-                //     }
-                //}
+                
 
             }
             catch (Exception)

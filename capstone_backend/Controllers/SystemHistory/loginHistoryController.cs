@@ -16,8 +16,8 @@ namespace capstone_backend.Controllers.SystemHistory
         {
             public string message { get; set; }
         }
-        //private burgerdbEntities core;
-        private burgerdbEntities core;
+        //private local_dbbmEntities1 core;
+        private local_dbbmEntities1 core;
         Response resp = new Response();
         [Route("add-login-history"), HttpPost]
         public HttpResponseMessage addhistorylogin()
@@ -36,7 +36,7 @@ namespace capstone_backend.Controllers.SystemHistory
                 }
                 else
                 {
-                    using(core = new burgerdbEntities())
+                    using(core = new local_dbbmEntities1())
                     {
                         login_history login = new login_history();
                         login.email = logs.email;
@@ -73,7 +73,7 @@ namespace capstone_backend.Controllers.SystemHistory
                 }
                 else
                 {
-                    using (core = new burgerdbEntities())
+                    using (core = new local_dbbmEntities1())
                     {
                         login_history login = new login_history();
                         login.email = logs.email;
@@ -98,7 +98,7 @@ namespace capstone_backend.Controllers.SystemHistory
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.login_history.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -115,7 +115,7 @@ namespace capstone_backend.Controllers.SystemHistory
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if(id <= 0)
                     {

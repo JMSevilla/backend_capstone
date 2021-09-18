@@ -17,13 +17,13 @@ namespace capstone_backend.Controllers.ForgotPassword
     {
         APISecurity secure = new APISecurity();
         //private local_dbbmEntities core;
-        private burgerdbEntities core;
+        private local_dbbmEntities1 core;
         [Route("email-finder"), HttpPost]
         public HttpResponseMessage email_finder(string email)
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if(core.users.Any(x => x.email == email))
                     {
@@ -92,7 +92,7 @@ namespace capstone_backend.Controllers.ForgotPassword
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     forgotpassword_identifier forgot = new forgotpassword_identifier();
                     forgot.forgotcode = vcode;
@@ -114,7 +114,7 @@ namespace capstone_backend.Controllers.ForgotPassword
         {
             try
             {
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     if (core.forgotpassword_identifier.Any(x => x.forgotcode == vcode && x.isdone == "0"))
                     {
@@ -139,7 +139,7 @@ namespace capstone_backend.Controllers.ForgotPassword
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     core.change_password_changer(email, secure.Encrypt(password), 1);
                     return Request.CreateResponse(HttpStatusCode.OK, "success change");

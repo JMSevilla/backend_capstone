@@ -15,7 +15,7 @@ namespace capstone_backend.Controllers.Stock_on_hand
     [RoutePrefix("api/filter-stocks")]
     public class categoryByFilterStocksController : ApiController
     {
-        private burgerdbEntities db = new burgerdbEntities();
+        private local_dbbmEntities1 db = new local_dbbmEntities1();
 
         // GET: api/categoryByFilterStocks
         public IQueryable<tbcategory> Gettbcategories()

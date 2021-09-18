@@ -14,13 +14,13 @@ namespace capstone_backend.Controllers.productReport
     public class ProductReportController : ApiController
     {
         //private burgerdbEntities core;
-        private burgerdbEntities core;
+        private local_dbbmEntities1 core;
         [Route("product-report"), HttpPost]
         public HttpResponseMessage reportproblem(int id, string supplieremail, string productname, string problem1, string problem2, string problem3, string problem4, string remarks, string supplier, string ponumber)
         {
             try
             {
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     productreport report = new productreport();
                     report.problem1 = problem1;
@@ -50,7 +50,7 @@ namespace capstone_backend.Controllers.productReport
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.productreports.ToList();
                     return Request.CreateResponse
@@ -74,7 +74,7 @@ namespace capstone_backend.Controllers.productReport
             }
             else
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var remover = core.productreports
                         .Where(x => x.id == id).FirstOrDefault();
@@ -91,7 +91,7 @@ namespace capstone_backend.Controllers.productReport
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.puchase_orders
                         .Where(x => x.ponumber == ponumber).ToList();

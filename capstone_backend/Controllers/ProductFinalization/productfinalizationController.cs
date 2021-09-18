@@ -11,15 +11,15 @@ namespace capstone_backend.Controllers.ProductFinalization
     [RoutePrefix("api/product-finalization")]
     public class productfinalizationController : ApiController
     {
-        //private burgerdbEntities core;
+        //private local_dbbmEntities1 core;
         private local_dbbmEntities db = new local_dbbmEntities();
-        private burgerdbEntities core;
+        private local_dbbmEntities1 core;
         [Route("product-add"), HttpPost]
         public HttpResponseMessage prodadd(string prodname, int prodquantity, string prodcategory, decimal prodprice, string prodcode)
         {
             try
             {
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     var httprequest = HttpContext.Current.Request;
                     if (string.IsNullOrEmpty(prodname) || string.IsNullOrEmpty(Convert.ToString(prodquantity))
@@ -58,7 +58,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.tbcategories.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -75,7 +75,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.product_inventory.Where(x => x.product_quantity != 0 && x.product_status == "1").ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -92,7 +92,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.product_inventory.Where(x => x.product_category == category && x.product_status == "1").ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -110,7 +110,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var httprequest = HttpContext.Current.Request;
                     if(core.selectedraws.Any(x => x.prodcode == pcode))
@@ -142,7 +142,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.selectedraws.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -159,7 +159,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if(id <= 0)
                     {
@@ -185,7 +185,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.selectedraws.Select(x => new
                     {
@@ -205,7 +205,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if(core.product_inventory.Any(x => x.productCode == pcode))
                     {
@@ -230,7 +230,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     core.clearselectedraw(1);
                     return Request.CreateResponse(HttpStatusCode.OK, "clear");
@@ -247,7 +247,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.product_finalization.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -270,7 +270,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if (filter)
                     {
@@ -301,7 +301,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     core.product_finalization_activator(id, 1);
                     return Request.CreateResponse(HttpStatusCode.OK, "success activate");
@@ -318,7 +318,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     core.product_finalization_activator(id, 2);
                     return Request.CreateResponse(HttpStatusCode.OK, "success deactivate");
@@ -335,7 +335,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.product_finalization.Where(x => x.prodstatus == "1").ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -352,7 +352,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     var obj = core.product_finalization.Where(x => x.prodstatus == "0").ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -375,7 +375,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if(id <= 0)
                     {
@@ -413,7 +413,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if(core.product_inventory.Any(x => x.productCode == pcode))
                     {
@@ -438,7 +438,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var remover = core.product_finalization_raw.Where(x => x.productCreatedCode == pcode).FirstOrDefault();
                     core.Entry(remover).State = System.Data.Entity.EntityState.Deleted;
@@ -457,7 +457,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     product_finalization_raw raw = new product_finalization_raw();
                     raw.productCreatedCode = createdpcode;
@@ -485,7 +485,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     codegetter.codegetters = core.product_finalization_raw.Where(x => x.productCreatedCode == pcode).Select(y => new { 
                     y.productInventoryCode
@@ -505,7 +505,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     var obj = (from a in core.product_inventory join b in core.product_finalization_raw on a.productCode equals b.productInventoryCode
                                where b.productInventoryCode == b.productInventoryCode && b.productCreatedCode == inventorycode select new { 

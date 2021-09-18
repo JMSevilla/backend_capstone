@@ -12,13 +12,13 @@ namespace capstone_backend.Controllers.Stock_on_hand
     public class pullProductController : ApiController
     {
         //private burgerdbEntities core;
-        private burgerdbEntities core;
+        private local_dbbmEntities1 core;
         [Route("sync-data-to-product-inventory"), HttpPost]
         public HttpResponseMessage syncdata(int id, string pname, string pcode, int pquantity, decimal pprice, string supplier, string category, string expiration)
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var req = HttpContext.Current.Request;
                     var check = core.product_inventory.Any(x => x.productCode == pcode);
@@ -103,7 +103,7 @@ namespace capstone_backend.Controllers.Stock_on_hand
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var check = core.stock_on_hand.Any(x => x.productquantity <= 0);
                     if (check)
@@ -127,7 +127,7 @@ namespace capstone_backend.Controllers.Stock_on_hand
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.stock_on_hand.Where(x => x.productquantity <= 0).ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -144,7 +144,7 @@ namespace capstone_backend.Controllers.Stock_on_hand
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.stock_on_hand.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -161,7 +161,7 @@ namespace capstone_backend.Controllers.Stock_on_hand
         {
             try
             {
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     if (quantity <= 0 || id <= 0)
                     {
@@ -185,7 +185,7 @@ namespace capstone_backend.Controllers.Stock_on_hand
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     if(id <= 0)
                     {

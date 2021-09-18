@@ -11,8 +11,8 @@ namespace capstone_backend.Controllers.SystemHistory
     [RoutePrefix("api/activity-log-management")]
     public class ActivityLogController : ApiController
     {
-        //private burgerdbEntities core;
-        private burgerdbEntities core;
+        //private local_dbbmEntities1 core;
+        private local_dbbmEntities1 core;
         ActivityLogClass activity = new ActivityLogClass();
         class Response
         {
@@ -29,7 +29,7 @@ namespace capstone_backend.Controllers.SystemHistory
                 activity.activitystatus = http.Form["status"];
                 activity.activitycode = http.Form["code"];
                 activity.createdat = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     activity_log act = new activity_log();
                     act.activitymessage = activity.activitymessage;
@@ -53,7 +53,7 @@ namespace capstone_backend.Controllers.SystemHistory
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.activity_log.Where(x => x.activtystatus == "User Management").ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -70,7 +70,7 @@ namespace capstone_backend.Controllers.SystemHistory
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var obj = core.activity_log.Where
                         (x => x.activtystatus == "Product Inventory Activation")
@@ -99,7 +99,7 @@ namespace capstone_backend.Controllers.SystemHistory
                 }
                 else
                 {
-                    using(core = new burgerdbEntities())
+                    using(core = new local_dbbmEntities1())
                     {
                         var remover =
                             core.activity_log.Where(x => x.id == id)
@@ -131,7 +131,7 @@ namespace capstone_backend.Controllers.SystemHistory
                 }
                 else
                 {
-                    using(core = new burgerdbEntities())
+                    using(core = new local_dbbmEntities1())
                     {
                         var remover =
                             core.activity_log.Where
@@ -162,7 +162,7 @@ namespace capstone_backend.Controllers.SystemHistory
                 activity.activitystatus = http.Form["status"];
                 activity.activitycode = http.Form["code"];
                 activity.createdat = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     activity_log act = new activity_log();
                     act.activitymessage = activity.activitymessage;

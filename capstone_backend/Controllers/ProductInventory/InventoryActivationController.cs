@@ -10,14 +10,14 @@ namespace capstone_backend.Controllers.ProductInventory
     [RoutePrefix("api/activation")]
     public class InventoryActivationController : ApiController
     {
-        //private burgerdbEntities core;
-        private burgerdbEntities core;
+        //private local_dbbmEntities1 core;
+        private local_dbbmEntities1 core;
         [Route("product-activation"), HttpPost]
         public HttpResponseMessage activate(int prodid)
         {
             try
             {
-                using(core = new burgerdbEntities())
+                using(core = new local_dbbmEntities1())
                 {
                     var quantity = core.product_inventory.Where(x => x.productID == prodid).Select(y => new
                     {
@@ -45,7 +45,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using (core = new burgerdbEntities())
+                using (core = new local_dbbmEntities1())
                 {
                     core.update_product_status(prodid, 0);
                     return Request.CreateResponse(HttpStatusCode.OK, "update success");
