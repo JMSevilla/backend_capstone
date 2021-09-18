@@ -11,6 +11,10 @@ namespace capstone_backend.Controllers.user_management
     [RoutePrefix("api/user-management")]
     public class UserManagementController : ApiController
     {
+<<<<<<< HEAD
+=======
+        //private local_dbbmEntities1 core;
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
         private local_dbbmEntities1 core;
         class Response
         {
@@ -19,49 +23,28 @@ namespace capstone_backend.Controllers.user_management
         }
         Response resp = new Response();
         [Route("getall-users"), HttpGet]
-        public HttpResponseMessage getAll(string email)
+        public HttpResponseMessage getAll()
         {
             try
             {
                 using(core = new local_dbbmEntities1())
                 {
-                    if(core.users.Any(x => x.email == email))
-                    {
-                        var objs = core.users.Where(x => x.isarchive == "0" && x.email != email)
-                        .Select(x => new
-                        {
-                            x.firstname,
-                            x.lastname,
-                            x.id,
-                            x.email,
-                            x.istype,
-                            x.isstatus,
-                            x.isverified,
-                            x.createdAt,
-                            x.isarchive
-                        }).ToList();
-                        resp.bulk = objs;
-                        resp.message = "disregard current user";
-                        return Request.CreateResponse(HttpStatusCode.OK, resp);
-                    }
-                    else
-                    {
-                        var objs = core.users.Where(x => x.isarchive == "0")
-                        .Select(x => new
-                        {
-                            x.firstname,
-                            x.lastname,
-                            x.id,
-                            x.email,
-                            x.istype,
-                            x.isstatus,
-                            x.isverified,
-                            x.createdAt,
-                            x.isarchive
-                        }).ToList();
-                        return Request.CreateResponse(HttpStatusCode.OK, objs);
-                    }
-                    
+                    var objs = core.users.Where(x => x.isarchive == "0")
+                       .Select(x => new
+                       {
+                           x.firstname,
+                           x.lastname,
+                           x.id,
+                           x.email,
+                           x.istype,
+                           x.isstatus,
+                           x.isverified,
+                           x.createdAt,
+                           x.isarchive
+                       }).ToList();
+                    resp.bulk = objs;
+                    resp.message = "disregard current user";
+                    return Request.CreateResponse(HttpStatusCode.OK, resp);
                 }
             }
             catch (Exception)
@@ -143,7 +126,7 @@ namespace capstone_backend.Controllers.user_management
                     {
                         if(value == "1") //fetch all admin
                         {
-                            var obj_admin = core.users.Where(y => y.istype == value)
+                            var obj_admin = core.users.Where(y => y.istype == "1")
                                 .Select(x => new
                             {
                                 x.firstname,
@@ -158,10 +141,10 @@ namespace capstone_backend.Controllers.user_management
                             }).Distinct().ToList();
                             return Request.CreateResponse(HttpStatusCode.Accepted, obj_admin);
                         }
-                        else if(value == "2")
+                        else 
                         {
                             //cashiers
-                            var obj_cashier = core.users.Where(y => y.istype == value)
+                            var obj_cashier = core.users.Where(y => y.istype == "0")
                                 .Select(x => new
                                 {
                                     x.firstname,
@@ -176,24 +159,7 @@ namespace capstone_backend.Controllers.user_management
                                 }).Distinct().ToList();
                             return Request.CreateResponse(HttpStatusCode.Accepted, obj_cashier);
                         }
-                        else
-                        {
-                            //customers
-                            var obj_customers = core.users.Where(y => y.istype == value)
-                               .Select(x => new
-                               {
-                                   x.firstname,
-                                   x.lastname,
-                                   x.id,
-                                   x.email,
-                                   x.istype,
-                                   x.isstatus,
-                                   x.isverified,
-                                   x.createdAt,
-                                   x.isarchive
-                               }).Distinct().ToList();
-                            return Request.CreateResponse(HttpStatusCode.Accepted, obj_customers);
-                        }
+                        
                     }
                 }
             }

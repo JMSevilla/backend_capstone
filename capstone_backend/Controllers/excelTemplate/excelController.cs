@@ -11,6 +11,10 @@ namespace capstone_backend.Controllers.excelTemplate
     [RoutePrefix("api/save-excel")]
     public class excelController : ApiController
     {
+<<<<<<< HEAD
+=======
+        //private local_dbbmEntities core;
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
         private local_dbbmEntities1 core;
         [Route("data-save"), HttpPost]
         public HttpResponseMessage saveexcel()

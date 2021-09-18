@@ -11,9 +11,13 @@ namespace capstone_backend.Controllers.Stock_on_hand
     [RoutePrefix("api/pull-request-product")]
     public class pullProductController : ApiController
     {
+<<<<<<< HEAD
+=======
+        //private burgerdbEntities core;
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
         private local_dbbmEntities1 core;
         [Route("sync-data-to-product-inventory"), HttpPost]
-        public HttpResponseMessage syncdata(int id, string pname, string pcode, int pquantity, decimal pprice, string supplier, string category, DateTime expiration)
+        public HttpResponseMessage syncdata(int id, string pname, string pcode, int pquantity, decimal pprice, string supplier, string category, string expiration)
         {
             try
             {
@@ -41,24 +45,52 @@ namespace capstone_backend.Controllers.Stock_on_hand
                         }
                         else
                         {
-                            product_inventory prod = new product_inventory();
-                            prod.productName = pname;
-                            prod.productCode = pcode;
-                            prod.product_quantity = pquantity;
-                            prod.product_price = pprice;
-                            prod.product_supplier = supplier;
-                            prod.productimgurl = req.Form["prodimg"];
-                            prod.product_total = pprice * pquantity;
-                            prod.product_creator = "1";
-                            prod.product_status = "0";
-                            prod.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
-                            prod.product_category = category;
-                            prod.expirationprod = expiration;
-                            core.product_inventory.Add(prod);
-                            core.SaveChanges();
+                            if (string.IsNullOrEmpty(expiration) || expiration == "null" || expiration == null)
+                            {
+                                product_inventory prod = new product_inventory();
+                                prod.productName = pname;
+                                prod.productCode = pcode;
+                                prod.product_quantity = pquantity;
+                                prod.product_price = pprice;
+                                prod.product_supplier = supplier;
+                                prod.productimgurl = req.Form["prodimg"];
+                                prod.product_total = pprice * pquantity;
+                                prod.product_creator = "1";
+                                prod.product_status = "1";
+                                prod.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
+                                prod.product_category = category;
+                                core.product_inventory.Add(prod);
+                                core.SaveChanges();
 
-                            core.quantity_decrease_manager(id, pquantity, null, 1);
-                            return Request.CreateResponse(HttpStatusCode.OK, "pull success");
+                                core.quantity_decrease_manager(id, pquantity, null, 1);
+                                return Request.CreateResponse(HttpStatusCode.OK, "pull success");
+                            }
+                            else
+                            {
+
+                                product_inventory prod = new product_inventory();
+                                prod.productName = pname;
+                                prod.productCode = pcode;
+                                prod.product_quantity = pquantity;
+                                prod.product_price = pprice;
+                                prod.product_supplier = supplier;
+                                prod.productimgurl = req.Form["prodimg"];
+                                prod.product_total = pprice * pquantity;
+                                prod.product_creator = "1";
+                                prod.product_status = "1";
+                                prod.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
+                                prod.product_category = category;
+                                prod.expirationprod = Convert.ToDateTime(expiration);
+                                core.product_inventory.Add(prod);
+                                core.SaveChanges();
+
+                                core.quantity_decrease_manager(id, pquantity, null, 1);
+                                return Request.CreateResponse(HttpStatusCode.OK, "pull success");
+
+
+                                
+                            }
+                            
                         }
                     }
                 }

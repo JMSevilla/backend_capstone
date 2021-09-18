@@ -42,9 +42,7 @@ namespace capstone_backend.Models
         public virtual DbSet<tbinventsetting> tbinventsettings { get; set; }
         public virtual DbSet<expiration> expirations { get; set; }
         public virtual DbSet<warning_expiration_10_days> warning_expiration_10_days { get; set; }
-        public virtual DbSet<productreport> productreports { get; set; }
         public virtual DbSet<stock_on_hand> stock_on_hand { get; set; }
-        public virtual DbSet<product_finalization> product_finalization { get; set; }
         public virtual DbSet<selectedraw> selectedraws { get; set; }
         public virtual DbSet<product_finalization_raw> product_finalization_raw { get; set; }
         public virtual DbSet<forgotpassword_identifier> forgotpassword_identifier { get; set; }
@@ -53,6 +51,9 @@ namespace capstone_backend.Models
         public virtual DbSet<puchase_orders> puchase_orders { get; set; }
         public virtual DbSet<archive_users> archive_users { get; set; }
         public virtual DbSet<tbtesting> tbtestings { get; set; }
+        public virtual DbSet<productreport> productreports { get; set; }
+        public virtual DbSet<product_finalization> product_finalization { get; set; }
+        public virtual DbSet<tbcategoryfinal> tbcategoryfinals { get; set; }
     
         public virtual int stored_user_registration(string firstname, string lastname, string municipality, string province, string address, string companyname, string address_type, string email, string password, Nullable<int> mobileno, string istype, string isverified, string isstatus, string isgoogleverified, string state_action)
         {

@@ -218,6 +218,14 @@
           <Property Name="categoryname" Type="varchar" MaxLength="100" />
           <Property Name="createdAt" Type="datetime" />
         </EntityType>
+        <EntityType Name="tbcategoryfinal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoryname" Type="varchar" MaxLength="100" />
+          <Property Name="createdAt" Type="datetime" />
+        </EntityType>
         <EntityType Name="tbexceltest">
           <Key>
             <PropertyRef Name="id" />
@@ -468,6 +476,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <EntitySet Name="stock_on_hand" EntityType="Self.stock_on_hand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbcategory" EntityType="Self.tbcategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbcategoryfinal" EntityType="Self.tbcategoryfinal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbexceltest" EntityType="Self.tbexceltest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbinventsettings" EntityType="Self.tbinventsettings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbposettings" EntityType="Self.tbposettings" Schema="dbo" store:Type="Tables" />
@@ -600,7 +609,6 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
             <Parameter Name="pcode" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="warning_expiration_10_days" EntityType="local_dbbmModel.warning_expiration_10_days" />
-          <EntitySet Name="productreports" EntityType="local_dbbmModel.productreport" />
           <EntitySet Name="stock_on_hand" EntityType="local_dbbmModel.stock_on_hand" />
           <FunctionImport Name="quantity_decrease_manager">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -617,7 +625,6 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
             <Parameter Name="sid" Mode="In" Type="String" />
             <Parameter Name="state" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="product_finalization" EntityType="local_dbbmModel.product_finalization" />
           <EntitySet Name="selectedraws" EntityType="local_dbbmModel.selectedraw" />
           <FunctionImport Name="deductquantityfinal">
             <Parameter Name="pcode" Mode="In" Type="String" />
@@ -672,6 +679,9 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
             <Parameter Name="state" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="tbtestings" EntityType="local_dbbmModel.tbtesting" />
+          <EntitySet Name="productreports" EntityType="local_dbbmModel.productreport" />
+          <EntitySet Name="product_finalization" EntityType="local_dbbmModel.product_finalization" />
+          <EntitySet Name="tbcategoryfinals" EntityType="local_dbbmModel.tbcategoryfinal" />
         </EntityContainer>
         <EntityType Name="user">
           <Key>
@@ -863,20 +873,6 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Name="product_category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Expr1" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="productreport">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="problem1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="problem2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="problem3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="problem4" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="createdAt" Type="DateTime" Precision="3" />
-          <Property Name="responsible" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ponumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="stock_on_hand">
           <Key>
             <PropertyRef Name="stockID" />
@@ -909,21 +905,6 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Type="String" Name="isstatus" Nullable="true" MaxLength="1" />
           <Property Type="String" Name="Expr1" Nullable="true" />
         </ComplexType>
-        <EntityType Name="product_finalization">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="prodname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="prodquantity" Type="Int32" />
-          <Property Name="prodprice" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="prodcategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="prodtotal" Type="Decimal" Precision="18" Scale="0" />
-          <Property Name="prodstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="createdAt" Type="DateTime" Precision="3" />
-          <Property Name="productCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="prodimg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="selectedraw">
           <Key>
             <PropertyRef Name="id" />
@@ -1022,6 +1003,43 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="lastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="productreport">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="problem1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="problem2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="problem3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="problem4" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="responsible" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ponumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="product_finalization">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="prodname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="prodquantity" Type="Int32" />
+          <Property Name="prodprice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="prodcategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="prodtotal" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="prodstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="productCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="prodimg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbcategoryfinal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="categoryname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="createdAt" Type="DateTime" Precision="3" />
         </EntityType>
       </Schema>
@@ -1256,21 +1274,6 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="productreports">
-            <EntityTypeMapping TypeName="local_dbbmModel.productreport">
-              <MappingFragment StoreEntitySet="productreport">
-                <ScalarProperty Name="ponumber" ColumnName="ponumber" />
-                <ScalarProperty Name="responsible" ColumnName="responsible" />
-                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
-                <ScalarProperty Name="remarks" ColumnName="remarks" />
-                <ScalarProperty Name="problem4" ColumnName="problem4" />
-                <ScalarProperty Name="problem3" ColumnName="problem3" />
-                <ScalarProperty Name="problem2" ColumnName="problem2" />
-                <ScalarProperty Name="problem1" ColumnName="problem1" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="stock_on_hand">
             <EntityTypeMapping TypeName="local_dbbmModel.stock_on_hand">
               <MappingFragment StoreEntitySet="stock_on_hand">
@@ -1310,22 +1313,6 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="product_finalization">
-            <EntityTypeMapping TypeName="local_dbbmModel.product_finalization">
-              <MappingFragment StoreEntitySet="product_finalization">
-                <ScalarProperty Name="prodimg" ColumnName="prodimg" />
-                <ScalarProperty Name="productCode" ColumnName="productCode" />
-                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
-                <ScalarProperty Name="prodstatus" ColumnName="prodstatus" />
-                <ScalarProperty Name="prodtotal" ColumnName="prodtotal" />
-                <ScalarProperty Name="prodcategory" ColumnName="prodcategory" />
-                <ScalarProperty Name="prodprice" ColumnName="prodprice" />
-                <ScalarProperty Name="prodquantity" ColumnName="prodquantity" />
-                <ScalarProperty Name="prodname" ColumnName="prodname" />
-                <ScalarProperty Name="id" ColumnName="id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="selectedraws">
             <EntityTypeMapping TypeName="local_dbbmModel.selectedraw">
               <MappingFragment StoreEntitySet="selectedraw">
@@ -1442,6 +1429,46 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
                 <ScalarProperty Name="createdAt" ColumnName="createdAt" />
                 <ScalarProperty Name="lastname" ColumnName="lastname" />
                 <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productreports">
+            <EntityTypeMapping TypeName="local_dbbmModel.productreport">
+              <MappingFragment StoreEntitySet="productreport">
+                <ScalarProperty Name="ponumber" ColumnName="ponumber" />
+                <ScalarProperty Name="responsible" ColumnName="responsible" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="remarks" ColumnName="remarks" />
+                <ScalarProperty Name="problem4" ColumnName="problem4" />
+                <ScalarProperty Name="problem3" ColumnName="problem3" />
+                <ScalarProperty Name="problem2" ColumnName="problem2" />
+                <ScalarProperty Name="problem1" ColumnName="problem1" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="product_finalization">
+            <EntityTypeMapping TypeName="local_dbbmModel.product_finalization">
+              <MappingFragment StoreEntitySet="product_finalization">
+                <ScalarProperty Name="prodimg" ColumnName="prodimg" />
+                <ScalarProperty Name="productCode" ColumnName="productCode" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="prodstatus" ColumnName="prodstatus" />
+                <ScalarProperty Name="prodtotal" ColumnName="prodtotal" />
+                <ScalarProperty Name="prodcategory" ColumnName="prodcategory" />
+                <ScalarProperty Name="prodprice" ColumnName="prodprice" />
+                <ScalarProperty Name="prodquantity" ColumnName="prodquantity" />
+                <ScalarProperty Name="prodname" ColumnName="prodname" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbcategoryfinals">
+            <EntityTypeMapping TypeName="local_dbbmModel.tbcategoryfinal">
+              <MappingFragment StoreEntitySet="tbcategoryfinal">
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="categoryname" ColumnName="categoryname" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

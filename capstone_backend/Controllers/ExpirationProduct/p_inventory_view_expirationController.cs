@@ -10,6 +10,10 @@ namespace capstone_backend.Controllers.ExpirationProduct
     [RoutePrefix("api/product-invetory-view-expired")]
     public class p_inventory_view_expirationController : ApiController
     {
+<<<<<<< HEAD
+=======
+        //private local_dbbmEntities core;
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
         private local_dbbmEntities1 core;
         [Route("view-expiration"), HttpGet]
         public HttpResponseMessage viewexpired(string pcode)
@@ -18,13 +22,18 @@ namespace capstone_backend.Controllers.ExpirationProduct
             {
                 using(core = new local_dbbmEntities1())
                 {
-                    var obj = (from a in core.expirations
-                               where a.pcode == pcode
-                               select new
-                               {
-                                   a.expirydate
-                               }).ToList();
-                    return Request.CreateResponse(HttpStatusCode.OK, obj);
+                    var obj = core.product_inventory.Where(x => x.productCode == pcode).FirstOrDefault().expirationprod;
+                    if (string.IsNullOrEmpty(Convert.ToString(obj)))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, "no expiration");
+                    }
+                    else
+                    {
+                        var obj1 = core.product_inventory.Where(x => x.productCode == pcode).Select(y => new {
+                        y.expirationprod
+                        }).ToList();
+                        return Request.CreateResponse(HttpStatusCode.OK, obj1);
+                    }
                 }
             }
             catch (Exception)

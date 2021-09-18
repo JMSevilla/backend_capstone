@@ -7,12 +7,19 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web.Http;
 using capstone_backend.Models;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+
 namespace capstone_backend.Controllers.ForgotPassword
 {
     [RoutePrefix("api/forgot-password")]
     public class forgotPasswordController : ApiController
     {
         APISecurity secure = new APISecurity();
+<<<<<<< HEAD
+=======
+        //private local_dbbmEntities core;
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
         private local_dbbmEntities1 core;
         [Route("email-finder"), HttpPost]
         public HttpResponseMessage email_finder(string email)
@@ -42,25 +49,45 @@ namespace capstone_backend.Controllers.ForgotPassword
         {
             try
             {
-                var message = new MailMessage();
-                message.To.Add(new MailAddress("Burger Mania" + "<" + email.ToString() + ">"));
-                message.From = new MailAddress("Account Verification <devopsbyte60@gmail.com>");
-                message.Subject = "Verification Code";
-                message.Body += "<center>";
-                message.Body += "<img src='https://cdn.dribbble.com/users/879147/screenshots/3630290/forgot_password.jpg?compress=1&resize=800x600' alt='No image' style='width: 50%; height: auto;' />'";
-                message.Body += "<h1>This is your verification code : " + vcode.ToString() + "</h1>";
-                message.Body += "</center>";
-                message.IsBodyHtml = true;
-                using (var smtp = new SmtpClient())
-                {
-                    await smtp.SendMailAsync(message);
-                    await Task.FromResult(0);
-                }
+                //var message = new MailMessage();
+                //message.To.Add(new MailAddress("Burger Mania" + "<" + email.ToString() + ">"));
+                //message.From = new MailAddress("Account Verification <devopsbyte60@gmail.com>");
+                //message.Subject = "Verification Code";
+                //message.Body += "<center>";
+                //message.Body += "<img src='https://cdn.dribbble.com/users/879147/screenshots/3630290/forgot_password.jpg?compress=1&resize=800x600' alt='No image' style='width: 50%; height: auto;' />'";
+                //message.Body += "<h1>This is your verification code : " + vcode.ToString() + "</h1>";
+                //message.Body += "</center>";
+                //message.IsBodyHtml = true;
+                //using (var smtp = new SmtpClient())
+                //{
+                //    smtp.UseDefaultCredentials = false;
+                //    smtp.Credentials = new System.Net.NetworkCredential("devopsbyte60@gmail.com", "09663147803miguel");
+                //    await smtp.SendMailAsync(message);
+                //    await Task.FromResult(0);
+                //}
+                var htmlContent = "";
+                var apikey = "SG.pku0MTEQSmu3RNponNoWeQ.uEEDzuT5AmTkIm0YfmoDWYRQENgMVLin3V02p4-c4tY";
+                var client = new SendGridClient(apikey);
+                var from = new EmailAddress("devopsbyte60@gmail.com", "Account Verification");
+                var to = new EmailAddress(email.ToString(), "Burger Mania");
+                var subject = "Verification Code";
+                var plainTextContent = "easy shit";
+                htmlContent += "<center>";
+                htmlContent += "<img src='https://cdn.dribbble.com/users/879147/screenshots/3630290/forgot_password.jpg?compress=1&resize=800x600' alt='No image' style='width: 50%; height: auto;' />'";
+                htmlContent += "<h1>This is your verification code : " + vcode.ToString() + "</h1>";
+                htmlContent += "</center>";
+                var msg = MailHelper.CreateSingleEmail(
+                    from,
+                    to,
+                    subject,
+                    plainTextContent,
+                    htmlContent
+                    );
+                await client.SendEmailAsync(msg);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                Console.WriteLine(ex.Message);
             }
         }
         [Route("add-forgot-history"), HttpPost]

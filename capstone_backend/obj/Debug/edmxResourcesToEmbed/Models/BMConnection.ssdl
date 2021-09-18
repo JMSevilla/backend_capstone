@@ -213,6 +213,14 @@
     <Property Name="categoryname" Type="varchar" MaxLength="100" />
     <Property Name="createdAt" Type="datetime" />
   </EntityType>
+  <EntityType Name="tbcategoryfinal">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="categoryname" Type="varchar" MaxLength="100" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
   <EntityType Name="tbexceltest">
     <Key>
       <PropertyRef Name="id" />
@@ -463,6 +471,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
     <EntitySet Name="stock_on_hand" EntityType="Self.stock_on_hand" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbcategory" EntityType="Self.tbcategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbcategoryfinal" EntityType="Self.tbcategoryfinal" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbexceltest" EntityType="Self.tbexceltest" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbinventsettings" EntityType="Self.tbinventsettings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbposettings" EntityType="Self.tbposettings" Schema="dbo" store:Type="Tables" />

@@ -53,6 +53,10 @@ namespace capstone_backend.Models
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<supplier_find_duplicate> supplier_find_duplicate { get; set; }
         public virtual DbSet<warning_expiration_10_days> warning_expiration_10_days { get; set; }
+<<<<<<< HEAD
+=======
+        public virtual DbSet<tbcategoryfinal> tbcategoryfinals { get; set; }
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
     
         public virtual int ascend_quantity(string pcode, Nullable<int> quantity, Nullable<int> state)
         {

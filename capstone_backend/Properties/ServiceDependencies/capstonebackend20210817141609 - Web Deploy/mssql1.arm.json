@@ -36,7 +36,11 @@
     },
     {
       "type": "Microsoft.Resources/deployments",
+<<<<<<< HEAD
       "name": "[concat(parameters('resourceGroupName'), 'Deployment', uniqueString(concat('capstone_backend_db', subscription().subscriptionId)))]",
+=======
+      "name": "[concat(parameters('resourceGroupName'), 'Deployment', uniqueString(concat('local_dbbm', subscription().subscriptionId)))]",
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
       "resourceGroup": "[parameters('resourceGroupName')]",
       "apiVersion": "2019-10-01",
       "dependsOn": [
@@ -57,6 +61,7 @@
             },
             {
               "sku": {
+<<<<<<< HEAD
                 "name": "Standard",
                 "tier": "Standard",
                 "capacity": 10
@@ -64,6 +69,15 @@
               "kind": "v12.0,user",
               "location": "[parameters('resourceLocation')]",
               "name": "capstone-backenddbserver/capstone_backend_db",
+=======
+                "name": "Basic",
+                "tier": "Basic",
+                "capacity": 5
+              },
+              "kind": "v12.0,user",
+              "location": "[parameters('resourceLocation')]",
+              "name": "capstone-backenddbserver/local_dbbm",
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
               "type": "Microsoft.Sql/servers/databases",
               "apiVersion": "2017-10-01-preview",
               "dependsOn": [

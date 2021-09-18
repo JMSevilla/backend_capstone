@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
+<<<<<<<< HEAD:capstone_backend/obj/Debug/edmxResourcesToEmbed/Models/bmdbbackend.ssdl
 <Schema Namespace="local_dbbmModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+========
+<Schema Namespace="local_dbbmModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+>>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400:capstone_backend/obj/Release/edmxResourcesToEmbed/Models/BMConnection.ssdl
+=======
+<Schema Namespace="local_dbbmModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
   <EntityType Name="activity_log">
     <Key>
       <PropertyRef Name="id" />
@@ -206,6 +214,14 @@
     <Property Name="isstatus" Type="char" MaxLength="1" />
   </EntityType>
   <EntityType Name="tbcategory">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="categoryname" Type="varchar" MaxLength="100" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbcategoryfinal">
     <Key>
       <PropertyRef Name="id" />
     </Key>
@@ -444,7 +460,15 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
     <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="action" Type="int" Mode="In" />
   </Function>
+<<<<<<< HEAD
+<<<<<<<< HEAD:capstone_backend/obj/Debug/edmxResourcesToEmbed/Models/bmdbbackend.ssdl
   <EntityContainer Name="local_dbbmModel1StoreContainer">
+========
+  <EntityContainer Name="local_dbbmModelStoreContainer">
+>>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400:capstone_backend/obj/Release/edmxResourcesToEmbed/Models/BMConnection.ssdl
+=======
+  <EntityContainer Name="local_dbbmModel1StoreContainer">
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
     <EntitySet Name="activity_log" EntityType="Self.activity_log" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="archive_users" EntityType="Self.archive_users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="code_verifications" EntityType="Self.code_verifications" Schema="dbo" store:Type="Tables" />
@@ -463,6 +487,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
     <EntitySet Name="stock_on_hand" EntityType="Self.stock_on_hand" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbcategory" EntityType="Self.tbcategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbcategoryfinal" EntityType="Self.tbcategoryfinal" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbexceltest" EntityType="Self.tbexceltest" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbinventsettings" EntityType="Self.tbinventsettings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbposettings" EntityType="Self.tbposettings" Schema="dbo" store:Type="Tables" />

@@ -227,21 +227,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="productreports">
-      <EntityTypeMapping TypeName="local_dbbmModel.productreport">
-        <MappingFragment StoreEntitySet="productreport">
-          <ScalarProperty Name="ponumber" ColumnName="ponumber" />
-          <ScalarProperty Name="responsible" ColumnName="responsible" />
-          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
-          <ScalarProperty Name="remarks" ColumnName="remarks" />
-          <ScalarProperty Name="problem4" ColumnName="problem4" />
-          <ScalarProperty Name="problem3" ColumnName="problem3" />
-          <ScalarProperty Name="problem2" ColumnName="problem2" />
-          <ScalarProperty Name="problem1" ColumnName="problem1" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="stock_on_hand">
       <EntityTypeMapping TypeName="local_dbbmModel.stock_on_hand">
         <MappingFragment StoreEntitySet="stock_on_hand">
@@ -281,22 +266,6 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <EntitySetMapping Name="product_finalization">
-      <EntityTypeMapping TypeName="local_dbbmModel.product_finalization">
-        <MappingFragment StoreEntitySet="product_finalization">
-          <ScalarProperty Name="prodimg" ColumnName="prodimg" />
-          <ScalarProperty Name="productCode" ColumnName="productCode" />
-          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
-          <ScalarProperty Name="prodstatus" ColumnName="prodstatus" />
-          <ScalarProperty Name="prodtotal" ColumnName="prodtotal" />
-          <ScalarProperty Name="prodcategory" ColumnName="prodcategory" />
-          <ScalarProperty Name="prodprice" ColumnName="prodprice" />
-          <ScalarProperty Name="prodquantity" ColumnName="prodquantity" />
-          <ScalarProperty Name="prodname" ColumnName="prodname" />
-          <ScalarProperty Name="id" ColumnName="id" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="selectedraws">
       <EntityTypeMapping TypeName="local_dbbmModel.selectedraw">
         <MappingFragment StoreEntitySet="selectedraw">
@@ -413,6 +382,46 @@
           <ScalarProperty Name="createdAt" ColumnName="createdAt" />
           <ScalarProperty Name="lastname" ColumnName="lastname" />
           <ScalarProperty Name="firstname" ColumnName="firstname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productreports">
+      <EntityTypeMapping TypeName="local_dbbmModel.productreport">
+        <MappingFragment StoreEntitySet="productreport">
+          <ScalarProperty Name="ponumber" ColumnName="ponumber" />
+          <ScalarProperty Name="responsible" ColumnName="responsible" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="remarks" ColumnName="remarks" />
+          <ScalarProperty Name="problem4" ColumnName="problem4" />
+          <ScalarProperty Name="problem3" ColumnName="problem3" />
+          <ScalarProperty Name="problem2" ColumnName="problem2" />
+          <ScalarProperty Name="problem1" ColumnName="problem1" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="product_finalization">
+      <EntityTypeMapping TypeName="local_dbbmModel.product_finalization">
+        <MappingFragment StoreEntitySet="product_finalization">
+          <ScalarProperty Name="prodimg" ColumnName="prodimg" />
+          <ScalarProperty Name="productCode" ColumnName="productCode" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="prodstatus" ColumnName="prodstatus" />
+          <ScalarProperty Name="prodtotal" ColumnName="prodtotal" />
+          <ScalarProperty Name="prodcategory" ColumnName="prodcategory" />
+          <ScalarProperty Name="prodprice" ColumnName="prodprice" />
+          <ScalarProperty Name="prodquantity" ColumnName="prodquantity" />
+          <ScalarProperty Name="prodname" ColumnName="prodname" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbcategoryfinals">
+      <EntityTypeMapping TypeName="local_dbbmModel.tbcategoryfinal">
+        <MappingFragment StoreEntitySet="tbcategoryfinal">
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="categoryname" ColumnName="categoryname" />
           <ScalarProperty Name="id" ColumnName="id" />
         </MappingFragment>
       </EntityTypeMapping>

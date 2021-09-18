@@ -4,7 +4,11 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
+<<<<<<< HEAD
       <Schema Namespace="local_dbbmModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+=======
+    <Schema Namespace="local_dbbmModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
         <EntityType Name="activity_log">
           <Key>
             <PropertyRef Name="id" />
@@ -218,6 +222,17 @@
           <Property Name="categoryname" Type="varchar" MaxLength="100" />
           <Property Name="createdAt" Type="datetime" />
         </EntityType>
+<<<<<<< HEAD
+=======
+        <EntityType Name="tbcategoryfinal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="categoryname" Type="varchar" MaxLength="100" />
+          <Property Name="createdAt" Type="datetime" />
+        </EntityType>
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
         <EntityType Name="tbexceltest">
           <Key>
             <PropertyRef Name="id" />
@@ -468,6 +483,10 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <EntitySet Name="stock_on_hand" EntityType="Self.stock_on_hand" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbcategory" EntityType="Self.tbcategory" Schema="dbo" store:Type="Tables" />
+<<<<<<< HEAD
+=======
+          <EntitySet Name="tbcategoryfinal" EntityType="Self.tbcategoryfinal" Schema="dbo" store:Type="Tables" />
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
           <EntitySet Name="tbexceltest" EntityType="Self.tbexceltest" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbinventsettings" EntityType="Self.tbinventsettings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbposettings" EntityType="Self.tbposettings" Schema="dbo" store:Type="Tables" />
@@ -508,8 +527,12 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
     FROM [dbo].[warning_expiration_10_days] AS [warning_expiration_10_days]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
+<<<<<<< HEAD
       </Schema>
     </edmx:StorageModels>
+=======
+      </Schema></edmx:StorageModels>
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="local_dbbmModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -867,7 +890,11 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
             <Parameter Name="state" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="clearselectedraw">
+<<<<<<< HEAD
             <Parameter Name="state" Mode="In" Type="Int32" />
+=======
+          <Parameter Name="state" Mode="In" Type="Int32" />
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
           </FunctionImport>
           <FunctionImport Name="deductquantityfinal">
             <Parameter Name="pcode" Mode="In" Type="String" />
@@ -980,6 +1007,10 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="action" Mode="In" Type="Int32" />
           </FunctionImport>
+<<<<<<< HEAD
+=======
+          <EntitySet Name="tbcategoryfinals" EntityType="local_dbbmModel1.tbcategoryfinal" />
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
         </EntityContainer>
         <ComplexType Name="find_duplicates_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -1025,6 +1056,17 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Type="String" Name="productimgurl" Nullable="true" />
           <Property Type="String" Name="product_category" Nullable="true" MaxLength="100" />
         </ComplexType>
+<<<<<<< HEAD
+=======
+        <EntityType Name="tbcategoryfinal">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="categoryname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+        </EntityType>
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1447,6 +1489,18 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <FunctionImportMapping FunctionImportName="update_session_stats" FunctionName="local_dbbmModel1.Store.update_session_stats" />
           <FunctionImportMapping FunctionImportName="update_settings" FunctionName="local_dbbmModel1.Store.update_settings" />
           <FunctionImportMapping FunctionImportName="user_status_updater" FunctionName="local_dbbmModel1.Store.user_status_updater" />
+<<<<<<< HEAD
+=======
+          <EntitySetMapping Name="tbcategoryfinals">
+            <EntityTypeMapping TypeName="local_dbbmModel1.tbcategoryfinal">
+              <MappingFragment StoreEntitySet="tbcategoryfinal">
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="categoryname" ColumnName="categoryname" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

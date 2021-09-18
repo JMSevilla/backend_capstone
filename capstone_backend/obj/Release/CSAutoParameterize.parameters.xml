@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="local_dbbmEntities-Web.config Connection String" description="local_dbbmEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.BMConnection.csdl|res://*/Models.BMConnection.ssdl|res://*/Models.BMConnection.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=localhost;initial catalog=local_dbbm;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\devop\\source\\repos\\backend_capstone\\capstone_backend\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='local_dbbmEntities']/@connectionString" />
+  </parameter>
+  <parameter name="burgerdbEntities-Web.config Connection String" description="burgerdbEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.bmcloud.csdl|res://*/Models.bmcloud.ssdl|res://*/Models.bmcloud.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=bugermania.database.windows.net;initial catalog=burgerdb;persist security info=True;user id=burgeradmin;password=5418873Jm!;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\devop\\source\\repos\\backend_capstone\\capstone_backend\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='burgerdbEntities']/@connectionString" />
+  </parameter>
+  <parameter name="local_dbbmEntities1-Web.config Connection String" description="local_dbbmEntities1 Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.bmdbbackend.csdl|res://*/Models.bmdbbackend.ssdl|res://*/Models.bmdbbackend.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=capstone-backenddbserver.database.windows.net;initial catalog=local_dbbm;user id=burgermania;password=5418873Jm;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\devop\\source\\repos\\backend_capstone\\capstone_backend\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='local_dbbmEntities1']/@connectionString" />
+  </parameter>
+</parameters>

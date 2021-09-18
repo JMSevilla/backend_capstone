@@ -10,8 +10,14 @@ namespace capstone_backend.Controllers.Stock_on_hand
     [RoutePrefix("api/sort-stocks")]
     public class sortingController : ApiController
     {
+<<<<<<< HEAD
         private local_dbbmEntities1 core;
        class dataManagement
+=======
+        //private local_dbbmEntities1 core;
+        private local_dbbmEntities1 core;
+        class dataManagement
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
         {
             public object bulk { get; set; }
             public string msg { get; set; }

@@ -1,9 +1,15 @@
 {
   "dependencies": {
     "mssql1": {
+<<<<<<< HEAD
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/capstone-backenddbserver/databases/capstone_backend_db",
       "type": "mssql.azure",
       "connectionId": "ConnectionStrings:burgermania",
+=======
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/capstone-backenddbserver/databases/local_dbbm",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:bmconnection",
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
       "secretStore": "AzureAppSettings"
     }
   }

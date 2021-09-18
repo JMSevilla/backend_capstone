@@ -13,6 +13,10 @@ namespace capstone_backend.Controllers.productReport
     [RoutePrefix("api/report-problem")]
     public class ProductReportController : ApiController
     {
+<<<<<<< HEAD
+=======
+        //private burgerdbEntities core;
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
         private local_dbbmEntities1 core;
         [Route("product-report"), HttpPost]
         public HttpResponseMessage reportproblem(int id, string supplieremail, string productname, string problem1, string problem2, string problem3, string problem4, string remarks, string supplier, string ponumber)
@@ -109,59 +113,80 @@ namespace capstone_backend.Controllers.productReport
             try
             {
 
-                string FilePath = "C:\\Users\\JM Sevilla\\source\\repos\\backend_capstone\\capstone_backend\\emailcontent\\emailtemplate.html";
-                
-                StreamReader str = new StreamReader(FilePath);
-                string MailText = str.ReadToEnd();
-                str.Close();
                 if (problem1 == "undefined")
                 {
-                    MailText = MailText.Replace("[problem1]", "");
-                    MailText = MailText.Replace("[problem2]", problem2);
-                    MailText = MailText.Replace("[problem3]", problem3);
-                    MailText = MailText.Replace("[problem4]", problem4);
+                    problem1 = "";
                 }
-                else if (problem2 == "undefined") {
-                    MailText = MailText.Replace("[problem1]", problem1);
-                    MailText = MailText.Replace("[problem2]", "");
-                    MailText = MailText.Replace("[problem3]", problem3);
-                    MailText = MailText.Replace("[problem4]", problem4);
+                 if (problem2 == "undefined") {
+                    problem2 = "";
                 }
-                else if (problem3 == "undefined")
+                 if (problem3 == "undefined")
                 {
-                    MailText = MailText.Replace("[problem1]", problem1);
-                    MailText = MailText.Replace("[problem2]", problem2);
-                    MailText = MailText.Replace("[problem3]", "");
-                    MailText = MailText.Replace("[problem4]", problem4);
+                    problem3 = "";
                 }
-                else if (problem4 == "undefined")
+                 if (problem4 == "undefined")
                 {
-                    MailText = MailText.Replace("[problem1]", problem1);
-                    MailText = MailText.Replace("[problem2]", problem2);
-                    MailText = MailText.Replace("[problem3]", problem3);
-                    MailText = MailText.Replace("[problem4]", "");
+                    problem4 = "";
+
                 }
-                else
-                {
-                    MailText = MailText.Replace("[problem1]", problem1);
-                    MailText = MailText.Replace("[problem2]", problem2);
-                    MailText = MailText.Replace("[problem3]", problem3);
-                    MailText = MailText.Replace("[problem4]", problem4);
-                    MailText = MailText.Replace("[remarks]", remarks);
-                }
-                MailText = MailText.Replace("[ProductName]", productname);
-                MailText = MailText.Replace("[DateCreated]", System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                 var message = new MailMessage();
-                message.To.Add(new MailAddress(supplier.ToString() + "<" + supplieremail.ToString() + ">"));
+                message.To.Add(new MailAddress("Burger Mania" + "<" + supplieremail.ToString() + ">"));
                 message.From = new MailAddress("Product Return <devopsbyte60@gmail.com>");
                 message.Subject = "Burger Mania Product Return";
-                message.Body = MailText;
+                message.Body += "<!DOCTYPE html>" +
+                    "<html>" +
+                    "<head>" +
+                    "<style>" +
+                    "table {" +
+                    "font-family: arial, sans-serif;" +
+                    "border-collapse: collapse;" +
+                    "width: 100%;" +
+                    "}" +
+                    "td, th {" +
+                    "border: 1px solid #dddddd;" +
+                    "text-align: left;" +
+                    "padding: 8px;}" +
+                    "tr:nth-child(even) {background-color: #dddddd;}" +
+                    ".button {border: none;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;margin: 4px 2px;cursor: pointer;}" +
+                    ".button2 {background-color: #008CBA;}" +
+                    "</style>" +
+                    "</head>";
+                message.Body += "<body>";
+                message.Body += "<center>";
+                message.Body += "<img src='https://cdn.dribbble.com/users/879147/screenshots/3630290/forgot_password.jpg?compress=1&resize=800x600' alt='No image' style='width: 50%; height: auto;' />'";
+                message.Body += "<h1>Product Returns</h1>";
+                message.Body += "<table>" +
+                    "<tr>" +
+                    "<th>Product Name</th>" +
+                    "<th>Issue 1</th>" +
+                    "<th>Issue 2</th>" +
+                    "<th>Issue 3</th>" +
+                    "<th>Issue 4</th>" +
+                    "<th>Remarks</th>" +
+                    "<th>Responsible</th>" +
+                    "<th>Created</th>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td>" + productname.ToString() + "</td>" +
+                    "<td>" + problem1.ToString() + "</td>" +
+                    "<td>" + problem2.ToString() + "</td>" +
+                    "<td>" + problem3.ToString() + "</td>" +
+                    "<td>" + problem4.ToString() + "</td>" +
+                    "<td>" + remarks.ToString() + "</td>" +
+                    "<td>" + supplier.ToString() + "</td>" +
+                    "<td>" + System.DateTime.Now.ToString("yyyy/MM/dd h:m:s") + "</td>" +
+                    "</table>";
+                message.Body += "</center>";
+                message.Body += "</body>";
+                message.Body += "</html>";
                 message.IsBodyHtml = true;
                 using (var smtp = new SmtpClient())
                 {
                     await smtp.SendMailAsync(message);
                     await Task.FromResult(0);
                 }
+
+
             }
             catch (Exception)
             {

@@ -11,6 +11,11 @@ namespace capstone_backend.Controllers.ProductFinalization
     [RoutePrefix("api/product-finalization")]
     public class productfinalizationController : ApiController
     {
+<<<<<<< HEAD
+=======
+        //private local_dbbmEntities1 core;
+        private local_dbbmEntities db = new local_dbbmEntities();
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
         private local_dbbmEntities1 core;
         [Route("product-add"), HttpPost]
         public HttpResponseMessage prodadd(string prodname, int prodquantity, string prodcategory, decimal prodprice, string prodcode)
@@ -33,7 +38,7 @@ namespace capstone_backend.Controllers.ProductFinalization
                         prodfinal.prodcategory = prodcategory;
                         prodfinal.prodprice = Convert.ToDecimal(prodprice);
                         prodfinal.prodtotal = Convert.ToDecimal(prodprice) * Convert.ToInt32(prodquantity);
-                        prodfinal.prodstatus = "0";
+                        prodfinal.prodstatus = "1";
                         prodfinal.productCode = prodcode;
                         prodfinal.prodimg = httprequest.Form["prodimg"];
                         prodfinal.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
@@ -205,9 +210,16 @@ namespace capstone_backend.Controllers.ProductFinalization
             {
                 using(core = new local_dbbmEntities1())
                 {
-                    
+                    if(core.product_inventory.Any(x => x.productCode == pcode))
+                    {
                         core.deductquantityfinal(pcode, quantity, 1);
-                    return Request.CreateResponse(HttpStatusCode.OK, "success");
+                        return Request.CreateResponse(HttpStatusCode.OK, "success");
+                    }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, "not exit pcode");
+                    }
+                        
                 }
             }
             catch (Exception)
@@ -424,6 +436,25 @@ namespace capstone_backend.Controllers.ProductFinalization
                 throw;
             }
         }
+        [Route("remove-product-raw-by-pcode"), HttpDelete]
+        public IHttpActionResult DeleteByCode(string pcode)
+        {
+            try
+            {
+                using(core = new local_dbbmEntities1())
+                {
+                    var remover = core.product_finalization_raw.Where(x => x.productCreatedCode == pcode).FirstOrDefault();
+                    core.Entry(remover).State = System.Data.Entity.EntityState.Deleted;
+                    core.SaveChanges();
+                    return Ok("success");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+        }
         [Route("product-finalization-raw-history"), HttpPost]
         public HttpResponseMessage product_raw_history(string createdpcode, string inventorycode)
         {
@@ -483,6 +514,23 @@ namespace capstone_backend.Controllers.ProductFinalization
                                where b.productInventoryCode == b.productInventoryCode && b.productCreatedCode == inventorycode select new { 
                                a.productCode, a.productName, a.productimgurl
                                }).Distinct().ToList();
+                    return Request.CreateResponse(HttpStatusCode.OK, obj);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("get-all-category-prodfinal"), HttpGet]
+        public HttpResponseMessage getprodfinalcateg()
+        {
+            try
+            {
+                using (db)
+                {
+                    var obj = db.tbcategoryfinals.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
                 }
             }

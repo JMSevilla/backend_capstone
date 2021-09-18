@@ -10,8 +10,13 @@ namespace capstone_backend.Controllers.ExpirationProduct
     [RoutePrefix("api/expired-notif")]
     public class productExpirationController : ApiController
     {
+<<<<<<< HEAD
         private local_dbbmEntities1 core; //localhost
         private dbbmEntities core1; //azure cloud computing
+=======
+        //private dbbmEntities core; //localhost
+        private local_dbbmEntities1 core; //azure cloud computing
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
         [Route("product-expired"), HttpGet]
         public HttpResponseMessage getexpired()
         {
@@ -66,9 +71,9 @@ namespace capstone_backend.Controllers.ExpirationProduct
                     }
                     else
                     {
-                        using (core1 = new dbbmEntities())
+                        using (core = new local_dbbmEntities1())
                         {
-                            var obj = core1.warning_expiration_10_days.ToList();
+                            var obj = core.warning_expiration_10_days.ToList();
                             respo.respObj = obj;
                             respo.message = "will expire after 10 days";
                             return Request.CreateResponse(HttpStatusCode.OK, respo);

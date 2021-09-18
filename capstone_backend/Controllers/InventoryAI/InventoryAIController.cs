@@ -15,6 +15,10 @@ namespace capstone_backend.Controllers.InventoryAI
     [RoutePrefix("api/inventory-ai")]
     public class InventoryAIController : ApiController
     {
+<<<<<<< HEAD
+=======
+        //private local_dbbmEntities core;
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
         private local_dbbmEntities1 core;
         //private dbbmEntities core;
         [Route("artificial-intel-auto-compute"), HttpPost]
@@ -54,6 +58,8 @@ namespace capstone_backend.Controllers.InventoryAI
                                 if (dsexcel != null && dsexcel.Tables.Count > 0)
                                 {
                                     DataTable inventorytable = dsexcel.Tables[0];
+                                    DataRow row = inventorytable.Rows[0];
+                                    inventorytable.Rows.Remove(row);
                                     for (int i = 0; i < inventorytable.Rows.Count; i++)
                                     {
                                         stock_on_hand aistocks = new stock_on_hand();

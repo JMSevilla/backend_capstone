@@ -10,7 +10,168 @@
     <Property Name="activityCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="createdAt" Type="DateTime" Precision="3" />
   </EntityType>
+<<<<<<< HEAD
+<<<<<<<< HEAD:capstone_backend/obj/Debug/edmxResourcesToEmbed/Models/bmdbbackend.csdl
   <EntityType Name="archive_users">
+========
+  <EntityContainer Name="local_dbbmEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="locations" EntityType="Self.location" />
+    <EntitySet Name="users" EntityType="local_dbbmModel.user" />
+    <FunctionImport Name="stored_user_registration">
+      <Parameter Name="firstname" Mode="In" Type="String" />
+      <Parameter Name="lastname" Mode="In" Type="String" />
+      <Parameter Name="municipality" Mode="In" Type="String" />
+      <Parameter Name="province" Mode="In" Type="String" />
+      <Parameter Name="address" Mode="In" Type="String" />
+      <Parameter Name="companyname" Mode="In" Type="String" />
+      <Parameter Name="address_type" Mode="In" Type="String" />
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+      <Parameter Name="mobileno" Mode="In" Type="Int32" />
+      <Parameter Name="istype" Mode="In" Type="String" />
+      <Parameter Name="isverified" Mode="In" Type="String" />
+      <Parameter Name="isstatus" Mode="In" Type="String" />
+      <Parameter Name="isgoogleverified" Mode="In" Type="String" />
+      <Parameter Name="state_action" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="code_verifications" EntityType="local_dbbmModel.code_verifications" />
+    <FunctionImport Name="update_sendAttempts">
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="code" Mode="In" Type="String" />
+      <Parameter Name="action" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="user_google_allow" EntityType="local_dbbmModel.user_google_allow" />
+    <EntitySet Name="sessionScans" EntityType="local_dbbmModel.sessionScan" />
+    <FunctionImport Name="update_session_stats">
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="action" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="user_status_updater">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="action" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="tbexceltests" EntityType="local_dbbmModel.tbexceltest" />
+    <EntitySet Name="excelStorages" EntityType="local_dbbmModel.excelStorage" />
+    <FunctionImport Name="update_product_status">
+      <Parameter Name="prodid" Mode="In" Type="Int32" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="product_inventory" EntityType="local_dbbmModel.product_inventory" />
+    <EntitySet Name="suppliers" EntityType="local_dbbmModel.supplier" />
+    <FunctionImport Name="stored_supplier">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="sfname" Mode="In" Type="String" />
+      <Parameter Name="slname" Mode="In" Type="String" />
+      <Parameter Name="sprimary" Mode="In" Type="String" />
+      <Parameter Name="ssecondary" Mode="In" Type="String" />
+      <Parameter Name="snumber" Mode="In" Type="String" />
+      <Parameter Name="semail" Mode="In" Type="String" />
+      <Parameter Name="simg" Mode="In" Type="String" />
+      <Parameter Name="isstatus" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="supplier_find_duplicate" EntityType="local_dbbmModel.supplier_find_duplicate" />
+    <EntitySet Name="tbcategories" EntityType="local_dbbmModel.tbcategory" />
+    <EntitySet Name="tbposettings" EntityType="local_dbbmModel.tbposetting" />
+    <FunctionImport Name="update_settings">
+      <Parameter Name="state" Mode="In" Type="Int32" />
+      <Parameter Name="enablePO" Mode="In" Type="String" />
+      <Parameter Name="enablepoinventry" Mode="In" Type="String" />
+      <Parameter Name="enablelistview" Mode="In" Type="String" />
+      <Parameter Name="viewentry" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="tbinventsettings" EntityType="local_dbbmModel.tbinventsetting" />
+    <FunctionImport Name="update_invent_settings">
+      <Parameter Name="state" Mode="In" Type="Int32" />
+      <Parameter Name="inventorysetting" Mode="In" Type="String" />
+      <Parameter Name="inventorysupplier" Mode="In" Type="String" />
+      <Parameter Name="inventexpiration" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="expirations" EntityType="local_dbbmModel.expiration" />
+    <FunctionImport Name="stored_view_expiration_date" ReturnType="Collection(local_dbbmModel.stored_view_expiration_date_Result)">
+      <Parameter Name="state" Mode="In" Type="Int32" />
+      <Parameter Name="pcode" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="warning_expiration_10_days" EntityType="local_dbbmModel.warning_expiration_10_days" />
+    <EntitySet Name="stock_on_hand" EntityType="local_dbbmModel.stock_on_hand" />
+    <FunctionImport Name="quantity_decrease_manager">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="quantity" Mode="In" Type="Int32" />
+      <Parameter Name="pcode" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="quantity_refill_increase_manager">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="quantity" Mode="In" Type="Int32" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="find_duplicates" ReturnType="Collection(local_dbbmModel.find_duplicates_Result)">
+      <Parameter Name="sid" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="selectedraws" EntityType="local_dbbmModel.selectedraw" />
+    <FunctionImport Name="deductquantityfinal">
+      <Parameter Name="pcode" Mode="In" Type="String" />
+      <Parameter Name="quantity" Mode="In" Type="Int32" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="clearselectedraw">
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="product_finalization_activator">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="product_finalization_raw" EntityType="local_dbbmModel.product_finalization_raw" />
+    <FunctionImport Name="sproc_get_products_fromInventory_via_code" ReturnType="Collection(local_dbbmModel.sproc_get_products_fromInventory_via_code_Result)">
+      <Parameter Name="state" Mode="In" Type="Int32" />
+      <Parameter Name="code" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="ascend_quantity">
+      <Parameter Name="pcode" Mode="In" Type="String" />
+      <Parameter Name="quantity" Mode="In" Type="Int32" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="forgotpassword_identifier" EntityType="local_dbbmModel.forgotpassword_identifier" />
+    <FunctionImport Name="sproc_update_isdone_forgotpassword">
+      <Parameter Name="forgotcode" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="change_password_changer">
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="login_history" EntityType="local_dbbmModel.login_history" />
+    <EntitySet Name="activity_log" EntityType="local_dbbmModel.activity_log" />
+    <FunctionImport Name="update_product_inventory">
+      <Parameter Name="productid" Mode="In" Type="Int32" />
+      <Parameter Name="productname" Mode="In" Type="String" />
+      <Parameter Name="productquantity" Mode="In" Type="Int32" />
+      <Parameter Name="productprice" Mode="In" Type="Decimal" />
+      <Parameter Name="producttotal" Mode="In" Type="Decimal" />
+      <Parameter Name="productsupplier" Mode="In" Type="String" />
+      <Parameter Name="productimg" Mode="In" Type="String" />
+      <Parameter Name="productcategory" Mode="In" Type="String" />
+      <Parameter Name="pcode" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="puchase_orders" EntityType="local_dbbmModel.puchase_orders" />
+    <EntitySet Name="archive_users" EntityType="local_dbbmModel.archive_users" />
+    <FunctionImport Name="stored_update_purchase_status">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="tbtestings" EntityType="local_dbbmModel.tbtesting" />
+    <EntitySet Name="productreports" EntityType="local_dbbmModel.productreport" />
+    <EntitySet Name="product_finalization" EntityType="local_dbbmModel.product_finalization" />
+    <EntitySet Name="tbcategoryfinals" EntityType="local_dbbmModel.tbcategoryfinal" />
+  </EntityContainer>
+  <EntityType Name="user">
+>>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400:capstone_backend/obj/Release/edmxResourcesToEmbed/Models/BMConnection.csdl
+=======
+  <EntityType Name="archive_users">
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
     <Key>
       <PropertyRef Name="id" />
     </Key>
@@ -242,6 +403,10 @@
     <Property Name="viewentry" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
     <Property Name="updatedAt" Type="DateTime" Precision="3" />
   </EntityType>
+<<<<<<< HEAD
+<<<<<<<< HEAD:capstone_backend/obj/Debug/edmxResourcesToEmbed/Models/bmdbbackend.csdl
+=======
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
   <EntityType Name="tbtesting">
     <Key>
       <PropertyRef Name="id" />
@@ -252,6 +417,12 @@
     <Property Name="createdAt" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="user_google_allow">
+<<<<<<< HEAD
+========
+  <EntityType Name="tbinventsetting">
+>>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400:capstone_backend/obj/Release/edmxResourcesToEmbed/Models/BMConnection.csdl
+=======
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
     <Key>
       <PropertyRef Name="id" />
     </Key>
@@ -316,6 +487,10 @@
     <Property Name="product_category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="Expr1" Type="DateTime" Precision="3" />
   </EntityType>
+<<<<<<< HEAD
+<<<<<<<< HEAD:capstone_backend/obj/Debug/edmxResourcesToEmbed/Models/bmdbbackend.csdl
+=======
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
   <EntityContainer Name="local_dbbmEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="activity_log" EntityType="Self.activity_log" />
     <EntitySet Name="archive_users" EntityType="Self.archive_users" />
@@ -467,7 +642,32 @@
       <Parameter Name="id" Mode="In" Type="Int32" />
       <Parameter Name="action" Mode="In" Type="Int32" />
     </FunctionImport>
+<<<<<<< HEAD
   </EntityContainer>
+========
+  <EntityType Name="stock_on_hand">
+    <Key>
+      <PropertyRef Name="stockID" />
+    </Key>
+    <Property Name="stockID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="stockNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="productname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="productquantity" Type="Int32" />
+    <Property Name="productprice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="productstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="productcreator" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="productsupplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="productimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="productcategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="product_total" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="expirationprod" Type="DateTime" Precision="3" />
+  </EntityType>
+>>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400:capstone_backend/obj/Release/edmxResourcesToEmbed/Models/BMConnection.csdl
+=======
+    <EntitySet Name="tbcategoryfinals" EntityType="local_dbbmModel1.tbcategoryfinal" />
+  </EntityContainer>
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
   <ComplexType Name="find_duplicates_Result">
     <Property Type="Int32" Name="id" Nullable="false" />
     <Property Type="String" Name="supplierIdentificationCode" Nullable="true" />
@@ -482,6 +682,31 @@
     <Property Type="String" Name="isstatus" Nullable="true" MaxLength="1" />
     <Property Type="String" Name="Expr1" Nullable="true" />
   </ComplexType>
+<<<<<<< HEAD
+<<<<<<<< HEAD:capstone_backend/obj/Debug/edmxResourcesToEmbed/Models/bmdbbackend.csdl
+========
+  <EntityType Name="selectedraw">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="prodimg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="prodname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="prodcode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="product_finalization_raw">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productCreatedCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="productInventoryCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+>>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400:capstone_backend/obj/Release/edmxResourcesToEmbed/Models/BMConnection.csdl
+=======
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
   <ComplexType Name="sproc_get_products_fromInventory_via_code_Result">
     <Property Type="Int32" Name="productID" Nullable="false" />
     <Property Type="String" Name="productCode" Nullable="true" />
@@ -497,6 +722,10 @@
     <Property Type="String" Name="product_category" Nullable="true" MaxLength="100" />
     <Property Type="DateTime" Name="expirationprod" Nullable="true" Precision="23" />
   </ComplexType>
+<<<<<<< HEAD
+<<<<<<<< HEAD:capstone_backend/obj/Debug/edmxResourcesToEmbed/Models/bmdbbackend.csdl
+=======
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
   <ComplexType Name="stored_view_expiration_date_Result">
     <Property Type="DateTime" Name="expirydate" Nullable="true" Precision="23" />
     <Property Type="Int32" Name="productID" Nullable="false" />
@@ -512,4 +741,115 @@
     <Property Type="String" Name="productimgurl" Nullable="true" />
     <Property Type="String" Name="product_category" Nullable="true" MaxLength="100" />
   </ComplexType>
+<<<<<<< HEAD
+========
+  <EntityType Name="forgotpassword_identifier">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="forgotcode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="isdone" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="login_history">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="loggedinstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="logindate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="activity_log">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="activitymessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="activtystatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="activityCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="puchase_orders">
+    <Key>
+      <PropertyRef Name="poid" />
+    </Key>
+    <Property Name="poid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ponumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="pname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="pquantity" Type="Int32" />
+    <Property Name="pprice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="ptotal" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="pcreator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="psupplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="archive_users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="archiveID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="lastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="usertype" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="archiveusermessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="archiveCreated" Type="DateTime" Precision="3" />
+    <Property Name="client_id" Type="Int32" />
+  </EntityType>
+  <EntityType Name="tbtesting">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="lastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="productreport">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="problem1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="problem2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="problem3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="problem4" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="responsible" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ponumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="product_finalization">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="prodname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="prodquantity" Type="Int32" />
+    <Property Name="prodprice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="prodcategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="prodtotal" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="prodstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="productCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="prodimg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+=======
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
+  <EntityType Name="tbcategoryfinal">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="categoryname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+<<<<<<< HEAD
+>>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400:capstone_backend/obj/Release/edmxResourcesToEmbed/Models/BMConnection.csdl
+=======
+>>>>>>> 9721cfa66296c4d6926767be1ac2f5f3bb89c400
 </Schema>
