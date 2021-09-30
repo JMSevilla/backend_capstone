@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web.Http;
+using capstone_backend.globalCON;
 using capstone_backend.Models;
 using SendGrid;
 using SendGrid.Helpers.Mail;
@@ -17,13 +18,13 @@ namespace capstone_backend.Controllers.ForgotPassword
     {
         APISecurity secure = new APISecurity();
         //private local_dbbmEntities core;
-        private local_dbbmEntities1 core;
+        private local_dbbmEntities2 core;
         [Route("email-finder"), HttpPost]
         public HttpResponseMessage email_finder(string email)
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     if(core.users.Any(x => x.email == email))
                     {
@@ -92,7 +93,7 @@ namespace capstone_backend.Controllers.ForgotPassword
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     forgotpassword_identifier forgot = new forgotpassword_identifier();
                     forgot.forgotcode = vcode;
@@ -114,7 +115,7 @@ namespace capstone_backend.Controllers.ForgotPassword
         {
             try
             {
-                using (core = new local_dbbmEntities1())
+                using (core = apiglobalcon.publico)
                 {
                     if (core.forgotpassword_identifier.Any(x => x.forgotcode == vcode && x.isdone == "0"))
                     {
@@ -139,7 +140,7 @@ namespace capstone_backend.Controllers.ForgotPassword
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     core.change_password_changer(email, secure.Encrypt(password), 1);
                     return Request.CreateResponse(HttpStatusCode.OK, "success change");

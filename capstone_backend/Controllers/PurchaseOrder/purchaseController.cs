@@ -6,13 +6,15 @@ using System.Net.Http;
 using System.Web.Http;
 using capstone_backend.Models;
 using System.Web;
+using capstone_backend.globalCON;
+
 namespace capstone_backend.Controllers.PurchaseOrder
 {
     [RoutePrefix("api/purchase-order")]
     public class purchaseController : ApiController
     {
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities1 core;
+        private local_dbbmEntities2 core;
         [Route("bulk-entry"), HttpPost]
         public HttpResponseMessage bulkentrypurchase()
         {
@@ -36,7 +38,7 @@ namespace capstone_backend.Controllers.PurchaseOrder
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     var obj = core.puchase_orders.Where(x => x.status == "0").ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);

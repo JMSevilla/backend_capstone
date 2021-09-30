@@ -6,13 +6,15 @@ using System.Net.Http;
 using System.Web.Http;
 using capstone_backend.Models;
 using System.Web;
+using capstone_backend.globalCON;
+
 namespace capstone_backend.Controllers.purchaseOrders
 {
     [RoutePrefix("api/purchase-order")]
     public class purchaseorderController : ApiController
     {
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities1 core;
+        private local_dbbmEntities2 core;
         class Response
         {
             public string message { get; set; }
@@ -25,7 +27,7 @@ namespace capstone_backend.Controllers.purchaseOrders
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     if(string.IsNullOrEmpty(pname)
                         || string.IsNullOrEmpty(supplier))
@@ -65,7 +67,7 @@ namespace capstone_backend.Controllers.purchaseOrders
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     puchase_orders orders = new puchase_orders();
                     orders.ponumber = httprequest.Form["ponumber"];
@@ -94,7 +96,7 @@ namespace capstone_backend.Controllers.purchaseOrders
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using (core = new local_dbbmEntities1())
+                using (core = apiglobalcon.publico)
                 {
                     expiration expire = new expiration();
                     expire.expirydate = expiry;
@@ -134,7 +136,7 @@ namespace capstone_backend.Controllers.purchaseOrders
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     var obj = core.puchase_orders.Where(x => x.ponumber == ponum).FirstOrDefault();
                     core.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
@@ -153,7 +155,7 @@ namespace capstone_backend.Controllers.purchaseOrders
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     var obj = core.suppliers.Where(x => x.supplierfirstname == supplier).ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);

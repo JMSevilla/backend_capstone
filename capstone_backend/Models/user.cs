@@ -32,5 +32,6 @@ namespace capstone_backend.Models
         public Nullable<System.DateTime> createdAt { get; set; }
         public string imageurl { get; set; }
         public string isarchive { get; set; }
+        public string istoken { get; set; }
     }
 }

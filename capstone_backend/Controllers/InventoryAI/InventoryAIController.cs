@@ -9,6 +9,7 @@ using ExcelDataReader;
 using System.Web;
 using System.Data;
 using System.IO;
+using capstone_backend.globalCON;
 
 namespace capstone_backend.Controllers.InventoryAI
 {
@@ -16,7 +17,7 @@ namespace capstone_backend.Controllers.InventoryAI
     public class InventoryAIController : ApiController
     {
         //private local_dbbmEntities core;
-        private local_dbbmEntities1 core;
+        private local_dbbmEntities2 core;
         //private dbbmEntities core;
         [Route("artificial-intel-auto-compute"), HttpPost]
         public HttpResponseMessage aicompute(bool valbool)
@@ -28,7 +29,7 @@ namespace capstone_backend.Controllers.InventoryAI
                 IExcelDataReader reader = null;
                 HttpPostedFile inputFile = null;
                 Stream FileStream = null;
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                    if(valbool == true)
                     {
@@ -177,7 +178,7 @@ namespace capstone_backend.Controllers.InventoryAI
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     var obj = core.excelStorages.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);

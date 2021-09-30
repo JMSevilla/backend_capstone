@@ -426,5 +426,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="testingtables">
+      <EntityTypeMapping TypeName="local_dbbmModel.testingtable">
+        <MappingFragment StoreEntitySet="testingtable">
+          <ScalarProperty Name="testname" ColumnName="testname" />
+          <ScalarProperty Name="testID" ColumnName="testID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

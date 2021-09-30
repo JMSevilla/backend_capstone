@@ -1,0 +1,557 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="local_dbbmModel2.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="activity_log">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="activitymessage" Type="text" />
+    <Property Name="activtystatus" Type="varchar(max)" />
+    <Property Name="activityCode" Type="varchar(max)" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="archive_users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="archiveID" Type="varchar(max)" />
+    <Property Name="firstname" Type="varchar" MaxLength="100" />
+    <Property Name="lastname" Type="varchar" MaxLength="100" />
+    <Property Name="usertype" Type="char" MaxLength="1" />
+    <Property Name="archiveusermessage" Type="text" />
+    <Property Name="archiveCreated" Type="datetime" />
+    <Property Name="client_id" Type="int" />
+  </EntityType>
+  <EntityType Name="code_verifications">
+    <Key>
+      <PropertyRef Name="codeID" />
+    </Key>
+    <Property Name="codeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="vcode" Type="varchar" MaxLength="100" />
+    <Property Name="isdone" Type="char" MaxLength="1" />
+    <Property Name="sendattempts" Type="char" MaxLength="1" />
+    <Property Name="g_email" Type="varchar" MaxLength="255" />
+    <Property Name="validatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="customer_Orders">
+    <Key>
+      <PropertyRef Name="orderID" />
+    </Key>
+    <Property Name="orderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="orderCode" Type="varchar(max)" />
+    <Property Name="orderName" Type="varchar(max)" />
+    <Property Name="orderBarcode" Type="varchar(max)" />
+    <Property Name="orderPrice" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="orderQuantity" Type="int" />
+    <Property Name="orderCategory" Type="varchar" MaxLength="100" />
+    <Property Name="orderTotalPrice" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="orderImage" Type="varchar(max)" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="customerBasicInformation">
+    <Key>
+      <PropertyRef Name="customerID" />
+    </Key>
+    <Property Name="customerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="customerName" Type="varchar" MaxLength="100" />
+    <Property Name="orderCodeIndicated" Type="varchar(max)" />
+    <Property Name="orderPaymentIndicated" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="orderTotalIndicated" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="excelStorage">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tname" Type="varchar" MaxLength="100" />
+    <Property Name="turl" Type="varchar(max)" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="expiration">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="pcode" Type="varchar" MaxLength="100" />
+    <Property Name="expirydate" Type="datetime" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="forgotpassword_identifier">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="forgotcode" Type="varchar(max)" />
+    <Property Name="isdone" Type="char" MaxLength="1" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="locations">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="municipality" Type="varchar" MaxLength="100" />
+    <Property Name="province" Type="varchar" MaxLength="100" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="login_history">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="100" />
+    <Property Name="loggedinstatus" Type="char" MaxLength="1" />
+    <Property Name="message" Type="text" />
+    <Property Name="logindate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="product_finalization">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="prodname" Type="varchar" MaxLength="100" />
+    <Property Name="prodquantity" Type="int" />
+    <Property Name="prodprice" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="prodcategory" Type="varchar" MaxLength="100" />
+    <Property Name="prodtotal" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="prodstatus" Type="char" MaxLength="1" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="productCode" Type="varchar" MaxLength="255" />
+    <Property Name="prodimg" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="product_finalization_raw">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="productCreatedCode" Type="varchar(max)" />
+    <Property Name="productInventoryCode" Type="varchar(max)" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="product_inventory">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="productCode" Type="varchar(max)" />
+    <Property Name="productName" Type="varchar" MaxLength="255" />
+    <Property Name="product_quantity" Type="int" />
+    <Property Name="product_price" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="product_total" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="product_status" Type="char" MaxLength="1" />
+    <Property Name="product_creator" Type="varchar" MaxLength="100" />
+    <Property Name="product_supplier" Type="varchar" MaxLength="100" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="productimgurl" Type="varchar(max)" />
+    <Property Name="product_category" Type="varchar" MaxLength="100" />
+    <Property Name="expirationprod" Type="datetime" />
+  </EntityType>
+  <EntityType Name="productreport">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="problem1" Type="varchar" MaxLength="100" />
+    <Property Name="problem2" Type="varchar" MaxLength="100" />
+    <Property Name="problem3" Type="varchar" MaxLength="100" />
+    <Property Name="problem4" Type="varchar" MaxLength="100" />
+    <Property Name="remarks" Type="varchar" MaxLength="255" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="responsible" Type="varchar" MaxLength="100" />
+    <Property Name="ponumber" Type="varchar(max)" />
+  </EntityType>
+  <EntityType Name="puchase_orders">
+    <Key>
+      <PropertyRef Name="poid" />
+    </Key>
+    <Property Name="poid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ponumber" Type="varchar" MaxLength="255" />
+    <Property Name="pname" Type="varchar" MaxLength="255" />
+    <Property Name="pquantity" Type="int" />
+    <Property Name="pprice" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="ptotal" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="pcreator" Type="varchar" MaxLength="100" />
+    <Property Name="psupplier" Type="varchar" MaxLength="100" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="status" Type="char" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="selectedraw">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="prodimg" Type="varchar(max)" />
+    <Property Name="prodname" Type="varchar" MaxLength="100" />
+    <Property Name="prodcode" Type="varchar" MaxLength="255" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="sessionScan">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="sessionID" Type="int" />
+    <Property Name="email" Type="varchar" MaxLength="255" />
+    <Property Name="isused" Type="char" MaxLength="1" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="stock_on_hand">
+    <Key>
+      <PropertyRef Name="stockID" />
+    </Key>
+    <Property Name="stockID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="stockNumber" Type="varchar(max)" />
+    <Property Name="productname" Type="varchar" MaxLength="255" />
+    <Property Name="productquantity" Type="int" />
+    <Property Name="productprice" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="productstatus" Type="char" MaxLength="1" />
+    <Property Name="productcreator" Type="varchar" MaxLength="50" />
+    <Property Name="productsupplier" Type="varchar" MaxLength="100" />
+    <Property Name="productimgurl" Type="varchar(max)" />
+    <Property Name="productcategory" Type="varchar" MaxLength="100" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="product_total" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="expirationprod" Type="datetime" />
+  </EntityType>
+  <EntityType Name="supplier">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="supplierIdentificationCode" Type="varchar(max)" />
+    <Property Name="supplierfirstname" Type="varchar" MaxLength="100" />
+    <Property Name="supplierlastname" Type="varchar" MaxLength="100" />
+    <Property Name="supplierprimaryaddress" Type="text" />
+    <Property Name="suppliersecondaryaddress" Type="text" />
+    <Property Name="suppliernumber" Type="varchar" MaxLength="100" />
+    <Property Name="supplieremail" Type="varchar" MaxLength="255" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="supplierimgurl" Type="varchar(max)" />
+    <Property Name="isstatus" Type="char" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="tbcategory">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="categoryname" Type="varchar" MaxLength="100" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbcategoryfinal">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="categoryname" Type="varchar" MaxLength="100" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbexceltest">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fname" Type="varchar" MaxLength="100" />
+    <Property Name="lname" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="tbinventsettings">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="enableinventform" Type="char" MaxLength="1" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="enablesupplier" Type="char" MaxLength="1" />
+    <Property Name="enableexpiration" Type="char" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="tbposettings">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="enablePO" Type="char" MaxLength="1" />
+    <Property Name="enablePOInventory" Type="char" MaxLength="1" />
+    <Property Name="enableListview" Type="char" MaxLength="1" />
+    <Property Name="viewentry" Type="char" MaxLength="1" />
+    <Property Name="updatedAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="tbtesting">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstname" Type="varchar" MaxLength="100" />
+    <Property Name="lastname" Type="varchar" MaxLength="100" />
+    <Property Name="createdAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="testingtable">
+    <Key>
+      <PropertyRef Name="testID" />
+    </Key>
+    <Property Name="testID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="testname" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="user_google_allow">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="g_email" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstname" Type="varchar" MaxLength="100" />
+    <Property Name="lastname" Type="varchar" MaxLength="100" />
+    <Property Name="municipality" Type="varchar" MaxLength="100" />
+    <Property Name="province" Type="varchar" MaxLength="100" />
+    <Property Name="address" Type="text" />
+    <Property Name="company_name" Type="varchar" MaxLength="100" />
+    <Property Name="address_type" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="255" />
+    <Property Name="password" Type="varchar(max)" />
+    <Property Name="mobile_no" Type="int" />
+    <Property Name="istype" Type="char" MaxLength="1" />
+    <Property Name="isverified" Type="char" MaxLength="1" />
+    <Property Name="isstatus" Type="char" MaxLength="1" />
+    <Property Name="is_google_verified" Type="char" MaxLength="1" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="imageurl" Type="varchar(max)" />
+    <Property Name="isarchive" Type="char" MaxLength="1" />
+    <Property Name="istoken" Type="varchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="supplier_find_duplicate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="supplierIdentificationCode" Type="varchar(max)" />
+    <Property Name="supplierfirstname" Type="varchar" MaxLength="100" />
+    <Property Name="supplierlastname" Type="varchar" MaxLength="100" />
+    <Property Name="supplierprimaryaddress" Type="text" />
+    <Property Name="suppliersecondaryaddress" Type="text" />
+    <Property Name="suppliernumber" Type="varchar" MaxLength="100" />
+    <Property Name="supplieremail" Type="varchar" MaxLength="255" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="supplierimgurl" Type="varchar(max)" />
+    <Property Name="isstatus" Type="char" MaxLength="1" />
+    <Property Name="Expr1" Type="varchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="warning_expiration_10_days">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="int" Nullable="false" />
+    <Property Name="productCode" Type="varchar(max)" />
+    <Property Name="productName" Type="varchar" MaxLength="255" />
+    <Property Name="product_quantity" Type="int" />
+    <Property Name="product_price" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="product_total" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="product_status" Type="char" MaxLength="1" />
+    <Property Name="product_creator" Type="varchar" MaxLength="100" />
+    <Property Name="product_supplier" Type="varchar" MaxLength="100" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="productimgurl" Type="varchar(max)" />
+    <Property Name="product_category" Type="varchar" MaxLength="100" />
+    <Property Name="Expr1" Type="datetime" />
+  </EntityType>
+  <Function Name="ascend_quantity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pcode" Type="varchar(max)" Mode="In" />
+    <Parameter Name="quantity" Type="int" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="change_password_changer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="password" Type="varchar" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="clearselectedraw" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="deductquantityfinal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pcode" Type="varchar(max)" Mode="In" />
+    <Parameter Name="quantity" Type="int" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="find_duplicates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="sid" Type="varchar(max)" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="istokenupdater" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="istoken" Type="varchar(max)" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="action" Type="int" Mode="In" />
+  </Function>
+  <Function Name="product_finalization_activator" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="quantity_decrease_manager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="quantity" Type="int" Mode="In" />
+    <Parameter Name="pcode" Type="varchar" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="quantity_refill_increase_manager" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="quantity" Type="int" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sproc_get_products_fromInventory_via_code" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="state" Type="int" Mode="In" />
+    <Parameter Name="code" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="sproc_update_isdone_forgotpassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="forgotcode" Type="varchar(max)" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="stored_supplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="sfname" Type="varchar" Mode="In" />
+    <Parameter Name="slname" Type="varchar" Mode="In" />
+    <Parameter Name="sprimary" Type="text" Mode="In" />
+    <Parameter Name="ssecondary" Type="text" Mode="In" />
+    <Parameter Name="snumber" Type="varchar" Mode="In" />
+    <Parameter Name="semail" Type="varchar" Mode="In" />
+    <Parameter Name="simg" Type="varchar(max)" Mode="In" />
+    <Parameter Name="isstatus" Type="char" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="stored_update_purchase_status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="stored_user_registration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="firstname" Type="varchar" Mode="In" />
+    <Parameter Name="lastname" Type="varchar" Mode="In" />
+    <Parameter Name="municipality" Type="varchar" Mode="In" />
+    <Parameter Name="province" Type="varchar" Mode="In" />
+    <Parameter Name="address" Type="text" Mode="In" />
+    <Parameter Name="companyname" Type="varchar" Mode="In" />
+    <Parameter Name="address_type" Type="varchar" Mode="In" />
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="password" Type="varchar(max)" Mode="In" />
+    <Parameter Name="mobileno" Type="int" Mode="In" />
+    <Parameter Name="istype" Type="char" Mode="In" />
+    <Parameter Name="isverified" Type="char" Mode="In" />
+    <Parameter Name="isstatus" Type="char" Mode="In" />
+    <Parameter Name="isgoogleverified" Type="char" Mode="In" />
+    <Parameter Name="state_action" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="stored_view_expiration_date" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="state" Type="int" Mode="In" />
+    <Parameter Name="pcode" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="update_invent_settings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="state" Type="int" Mode="In" />
+    <Parameter Name="inventorysetting" Type="char" Mode="In" />
+    <Parameter Name="inventorysupplier" Type="char" Mode="In" />
+    <Parameter Name="inventexpiration" Type="char" Mode="In" />
+  </Function>
+  <Function Name="update_product_inventory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="productid" Type="int" Mode="In" />
+    <Parameter Name="productname" Type="varchar" Mode="In" />
+    <Parameter Name="productquantity" Type="int" Mode="In" />
+    <Parameter Name="productprice" Type="decimal" Mode="In" />
+    <Parameter Name="producttotal" Type="decimal" Mode="In" />
+    <Parameter Name="productsupplier" Type="varchar" Mode="In" />
+    <Parameter Name="productimg" Type="varchar(max)" Mode="In" />
+    <Parameter Name="productcategory" Type="varchar" Mode="In" />
+    <Parameter Name="pcode" Type="varchar" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="update_product_status" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="prodid" Type="int" Mode="In" />
+    <Parameter Name="state" Type="int" Mode="In" />
+  </Function>
+  <Function Name="update_sendAttempts" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="code" Type="varchar" Mode="In" />
+    <Parameter Name="action" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="update_session_stats" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="email" Type="varchar" Mode="In" />
+    <Parameter Name="action" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="update_settings" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="state" Type="int" Mode="In" />
+    <Parameter Name="enablePO" Type="char" Mode="In" />
+    <Parameter Name="enablepoinventry" Type="char" Mode="In" />
+    <Parameter Name="enablelistview" Type="char" Mode="In" />
+    <Parameter Name="viewentry" Type="char" Mode="In" />
+  </Function>
+  <Function Name="user_status_updater" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="action" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="local_dbbmModel2StoreContainer">
+    <EntitySet Name="activity_log" EntityType="Self.activity_log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="archive_users" EntityType="Self.archive_users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="code_verifications" EntityType="Self.code_verifications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="customer_Orders" EntityType="Self.customer_Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="customerBasicInformation" EntityType="Self.customerBasicInformation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="excelStorage" EntityType="Self.excelStorage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="expiration" EntityType="Self.expiration" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="forgotpassword_identifier" EntityType="Self.forgotpassword_identifier" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="locations" EntityType="Self.locations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="login_history" EntityType="Self.login_history" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="product_finalization" EntityType="Self.product_finalization" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="product_finalization_raw" EntityType="Self.product_finalization_raw" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="product_inventory" EntityType="Self.product_inventory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="productreport" EntityType="Self.productreport" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="puchase_orders" EntityType="Self.puchase_orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="selectedraw" EntityType="Self.selectedraw" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sessionScan" EntityType="Self.sessionScan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="stock_on_hand" EntityType="Self.stock_on_hand" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbcategory" EntityType="Self.tbcategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbcategoryfinal" EntityType="Self.tbcategoryfinal" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbexceltest" EntityType="Self.tbexceltest" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbinventsettings" EntityType="Self.tbinventsettings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbposettings" EntityType="Self.tbposettings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tbtesting" EntityType="Self.tbtesting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="testingtable" EntityType="Self.testingtable" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_google_allow" EntityType="Self.user_google_allow" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="supplier_find_duplicate" EntityType="Self.supplier_find_duplicate" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [supplier_find_duplicate].[id] AS [id], 
+    [supplier_find_duplicate].[supplierIdentificationCode] AS [supplierIdentificationCode], 
+    [supplier_find_duplicate].[supplierfirstname] AS [supplierfirstname], 
+    [supplier_find_duplicate].[supplierlastname] AS [supplierlastname], 
+    [supplier_find_duplicate].[supplierprimaryaddress] AS [supplierprimaryaddress], 
+    [supplier_find_duplicate].[suppliersecondaryaddress] AS [suppliersecondaryaddress], 
+    [supplier_find_duplicate].[suppliernumber] AS [suppliernumber], 
+    [supplier_find_duplicate].[supplieremail] AS [supplieremail], 
+    [supplier_find_duplicate].[createdAt] AS [createdAt], 
+    [supplier_find_duplicate].[supplierimgurl] AS [supplierimgurl], 
+    [supplier_find_duplicate].[isstatus] AS [isstatus], 
+    [supplier_find_duplicate].[Expr1] AS [Expr1]
+    FROM [dbo].[supplier_find_duplicate] AS [supplier_find_duplicate]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="warning_expiration_10_days" EntityType="Self.warning_expiration_10_days" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [warning_expiration_10_days].[productID] AS [productID], 
+    [warning_expiration_10_days].[productCode] AS [productCode], 
+    [warning_expiration_10_days].[productName] AS [productName], 
+    [warning_expiration_10_days].[product_quantity] AS [product_quantity], 
+    [warning_expiration_10_days].[product_price] AS [product_price], 
+    [warning_expiration_10_days].[product_total] AS [product_total], 
+    [warning_expiration_10_days].[product_status] AS [product_status], 
+    [warning_expiration_10_days].[product_creator] AS [product_creator], 
+    [warning_expiration_10_days].[product_supplier] AS [product_supplier], 
+    [warning_expiration_10_days].[createdAt] AS [createdAt], 
+    [warning_expiration_10_days].[productimgurl] AS [productimgurl], 
+    [warning_expiration_10_days].[product_category] AS [product_category], 
+    [warning_expiration_10_days].[Expr1] AS [Expr1]
+    FROM [dbo].[warning_expiration_10_days] AS [warning_expiration_10_days]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

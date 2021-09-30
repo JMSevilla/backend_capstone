@@ -6,20 +6,22 @@ using System.Net.Http;
 using System.Web.Http;
 using capstone_backend.Models;
 using System.Web;
+using capstone_backend.globalCON;
+
 namespace capstone_backend.Controllers.suppliermanagement
 {
     [RoutePrefix("api/supplier-management")]
     public class suppliermanagementController : ApiController
     {
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities1 core;
+        private local_dbbmEntities2 core;
         [Route("adding-supplier"), HttpPost]
         public HttpResponseMessage addsupplier()
         {
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     if(string.IsNullOrEmpty(httprequest.Form["supplierIC"]) || string.IsNullOrEmpty(httprequest.Form["supplierfirstname"])
                         || string.IsNullOrEmpty(httprequest.Form["supplierlastname"]) || string.IsNullOrEmpty(httprequest.Form["supplierprimary"])
@@ -57,7 +59,7 @@ namespace capstone_backend.Controllers.suppliermanagement
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     var obj = core.suppliers.Where(x => x.isstatus == "0").ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -74,7 +76,7 @@ namespace capstone_backend.Controllers.suppliermanagement
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     if(id <= 0)
                     {
@@ -98,7 +100,7 @@ namespace capstone_backend.Controllers.suppliermanagement
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                    var obj = core.supplier_find_duplicate.Where(x => x.isstatus == "0").ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -113,7 +115,7 @@ namespace capstone_backend.Controllers.suppliermanagement
         [Route("modification-supplier"), HttpPost]
         public HttpResponseMessage modifysupp()
         {
-            using(core = new local_dbbmEntities1())
+            using(core = apiglobalcon.publico)
             {
                 var data = HttpContext.Current.Request;
                 if(string.IsNullOrEmpty(data.Form["fname"]) || string.IsNullOrEmpty(data.Form["lname"])

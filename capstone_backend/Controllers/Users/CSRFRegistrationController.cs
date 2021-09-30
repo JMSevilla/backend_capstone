@@ -9,6 +9,8 @@ using capstone_backend.Models;
 using System.IO;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using capstone_backend.globalCON;
+
 namespace capstone_backend.Controllers.Users
 {
     [RoutePrefix("api/registration")]
@@ -16,7 +18,7 @@ namespace capstone_backend.Controllers.Users
     {
         //connection
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities1 core;
+         local_dbbmEntities2 core;
         class Response
         {
             public string response { get; set; }
@@ -31,9 +33,9 @@ namespace capstone_backend.Controllers.Users
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
-                    local_dbbmEntities1 coredb = new local_dbbmEntities1();
+                    local_dbbmEntities2 coredb = apiglobalcon.publico;
                     //validate request here in backend
                     if(string.IsNullOrEmpty(httprequest.Form["firstname"]) || string.IsNullOrEmpty(httprequest.Form["lastname"]))
                     {
@@ -54,20 +56,21 @@ namespace capstone_backend.Controllers.Users
                             if (checker2)
                             {
                                 //customer registration insert
-                                customer(
-                                     httprequest.Form["firstname"], httprequest.Form["lastname"],
-                                     httprequest.Form["municipality"], httprequest.Form["province"],
-                                     httprequest.Form["address"], httprequest.Form["company_name"],
-                                     httprequest["address_type"], httprequest.Form["email"],
-                                     secure.Encrypt(httprequest.Form["password"]), Convert.ToInt32(httprequest.Form["mobileno"]),
-                                     Convert.ToChar("0"), Convert.ToChar("1"),
-                                     Convert.ToChar("1"), Convert.ToChar("1")
-                                     );
+                                admin(
+                                    httprequest.Form["firstname"], httprequest.Form["lastname"],
+                                    httprequest.Form["municipality"], httprequest.Form["province"],
+                                    httprequest.Form["address"], httprequest.Form["company_name"],
+                                    httprequest["address_type"], httprequest.Form["email"],
+                                    secure.Encrypt(httprequest.Form["password"]), Convert.ToInt32(httprequest.Form["mobileno"]),
+                                    Convert.ToChar("1"), Convert.ToChar("1"),
+                                    Convert.ToChar("1"), Convert.ToChar("1")
+                                    );
+                                coredb.update_sendAttempts(httprequest.Form["email"], null, "done_verified"); //done verified
                                 user_google_allow allow = new user_google_allow();
                                 allow.g_email = httprequest.Form["email"];
                                 coredb.user_google_allow.Add(allow);
                                 coredb.SaveChanges();
-                                return Request.CreateResponse(HttpStatusCode.OK, "customer");
+                                return Request.CreateResponse(HttpStatusCode.OK, "admin done");
                             }
                             else
                             {
@@ -105,7 +108,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     
                     core.stored_user_registration(data.firstname = firstname, data.lastname = lastname,
@@ -131,7 +134,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-                using (core = new local_dbbmEntities1())
+                using (core = apiglobalcon.publico)
                 {
                     string Upassword;
                     core.stored_user_registration(data.firstname = firstname, data.lastname = lastname,
@@ -157,7 +160,7 @@ namespace capstone_backend.Controllers.Users
             try
             {
                 var request_receiver = HttpContext.Current.Request;
-                using(local_dbbmEntities1 coredb = new local_dbbmEntities1())
+                using(local_dbbmEntities2 coredb = apiglobalcon.publico)
                 {
                     var checksend = coredb.code_verifications
                         .Any(y => y.isdone == "1" && y.g_email == email);
@@ -205,7 +208,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     code_verifications coda = new code_verifications();
                     coda.g_email = email;
@@ -255,7 +258,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     var check_code = core.code_verifications.Any(x => x.g_email == email && x.vcode == vcode);
                     if (check_code)

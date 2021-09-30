@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web.Http;
+using capstone_backend.globalCON;
 using capstone_backend.Models;
 namespace capstone_backend.Controllers.productReport
 {
@@ -14,13 +15,13 @@ namespace capstone_backend.Controllers.productReport
     public class ProductReportController : ApiController
     {
         //private burgerdbEntities core;
-        private local_dbbmEntities1 core;
+        private local_dbbmEntities2 core;
         [Route("product-report"), HttpPost]
         public HttpResponseMessage reportproblem(int id, string supplieremail, string productname, string problem1, string problem2, string problem3, string problem4, string remarks, string supplier, string ponumber)
         {
             try
             {
-                using (core = new local_dbbmEntities1())
+                using (core = apiglobalcon.publico)
                 {
                     productreport report = new productreport();
                     report.problem1 = problem1;
@@ -50,7 +51,7 @@ namespace capstone_backend.Controllers.productReport
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     var obj = core.productreports.ToList();
                     return Request.CreateResponse
@@ -74,7 +75,7 @@ namespace capstone_backend.Controllers.productReport
             }
             else
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     var remover = core.productreports
                         .Where(x => x.id == id).FirstOrDefault();
@@ -91,7 +92,7 @@ namespace capstone_backend.Controllers.productReport
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     var obj = core.puchase_orders
                         .Where(x => x.ponumber == ponumber).ToList();

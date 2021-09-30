@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Web.Http;
 using capstone_backend.Models;
 using System.Web;
+using capstone_backend.globalCON;
+
 namespace capstone_backend.Controllers.SystemHistory
 {
     [RoutePrefix("api/archive-users-management")]
@@ -13,7 +15,7 @@ namespace capstone_backend.Controllers.SystemHistory
     {
         archiveUsersClass archive = new archiveUsersClass();
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities1 core;
+        private local_dbbmEntities2 core;
         class Response
         {
             public string message { get; set; }
@@ -41,7 +43,7 @@ namespace capstone_backend.Controllers.SystemHistory
                 }
                 else
                 {
-                    using(core = new local_dbbmEntities1())
+                    using(core = apiglobalcon.publico)
                     {
                         archive_users arr = new archive_users();
                         arr.archiveID = archive.archiveID;
@@ -71,7 +73,7 @@ namespace capstone_backend.Controllers.SystemHistory
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     var obj = core.archive_users.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -97,7 +99,7 @@ namespace capstone_backend.Controllers.SystemHistory
                 }
                 else
                 {
-                    using(core = new local_dbbmEntities1())
+                    using(core = apiglobalcon.publico)
                     {
                         core.user_status_updater(clientid, 4);
                         var remover = core.archive_users.Where
