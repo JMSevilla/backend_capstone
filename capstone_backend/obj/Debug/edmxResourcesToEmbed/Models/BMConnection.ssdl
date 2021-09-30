@@ -259,6 +259,13 @@
     <Property Name="lastname" Type="varchar" MaxLength="100" />
     <Property Name="createdAt" Type="datetime" />
   </EntityType>
+  <EntityType Name="testingtable">
+    <Key>
+      <PropertyRef Name="testID" />
+    </Key>
+    <Property Name="testID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="testname" Type="varchar" MaxLength="100" />
+  </EntityType>
   <EntityType Name="user_google_allow">
     <Key>
       <PropertyRef Name="id" />
@@ -476,6 +483,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
     <EntitySet Name="tbinventsettings" EntityType="Self.tbinventsettings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbposettings" EntityType="Self.tbposettings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tbtesting" EntityType="Self.tbtesting" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="testingtable" EntityType="Self.testingtable" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_google_allow" EntityType="Self.user_google_allow" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="supplier_find_duplicate" EntityType="Self.supplier_find_duplicate" store:Type="Views" store:Schema="dbo">

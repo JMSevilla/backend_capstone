@@ -194,6 +194,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryAI\InventoryAIController.cs" />
     <Compile Include="Controllers\locations\locationController.cs" />
+    <Compile Include="Controllers\POS\OrderController.cs" />
+    <Compile Include="Controllers\POS\pos_productListController.cs" />
     <Compile Include="Controllers\ProductFinalization\productfinalizationController.cs" />
     <Compile Include="Controllers\ProductInventory\InventoryActivationController.cs" />
     <Compile Include="Controllers\ProductInventory\productInventoryController.cs" />
@@ -217,14 +219,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="globalCON\apiglobalcon.cs" />
     <Compile Include="Interfaces\dataInterface.cs" />
     <Compile Include="Models\ActivityLogClass.cs" />
     <Compile Include="Models\activity_log.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\archiveUsersClass.cs" />
     <Compile Include="Models\archive_users.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\bmcloud.Context.cs">
       <AutoGen>True</AutoGen>
@@ -271,22 +274,43 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>bmdbbackend.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\bmlocalhost.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>bmlocalhost.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\bmlocalhost.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\bmlocalhost.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>bmlocalhost.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\code_verifications.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CredentialsAuth.cs" />
+    <Compile Include="Models\customerBasicInformation.cs">
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\customer_Orders.cs">
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DatabaseManager.cs" />
     <Compile Include="Models\excelStorage.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\expiration.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\find_duplicates_Result.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\forgotpassword_identifier.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\InsertClass.cs" />
     <Compile Include="Models\LocalServerConnection.Context.cs">
@@ -305,78 +329,81 @@
       <DependentUpon>LocalServerConnection.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\location.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\loghistoryClass.cs" />
     <Compile Include="Models\login_history.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\productreport.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\product_finalization.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\product_finalization_raw.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\product_inventory.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\puchase_orders.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\selectedraw.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sessionScan.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sproc_get_products_fromInventory_via_code_Result.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\stock_on_hand.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\stored_view_expiration_date_Result.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\supplier.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\supplier_find_duplicate.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbcategory.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbcategoryfinal.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbexceltest.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbinformation.cs">
       <DependentUpon>LocalServerConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbinventsetting.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbposetting.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbtesting.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\testingtable.cs">
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user_data_management.cs" />
     <Compile Include="Models\user_google_allow.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\warning_expiration_10_days.cs">
-      <DependentUpon>bmdbbackend.tt</DependentUpon>
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -419,6 +446,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>bmdbbackend.edmx</DependentUpon>
       <LastGenOutput>bmdbbackend.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\bmlocalhost.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>bmlocalhost.edmx</DependentUpon>
+      <LastGenOutput>bmlocalhost.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\bmlocalhost.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>bmlocalhost.edmx</DependentUpon>
+      <LastGenOutput>bmlocalhost.cs</LastGenOutput>
     </Content>
     <Content Include="Models\LocalServerConnection.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -478,6 +515,13 @@
     </EntityDeploy>
     <Content Include="Models\bmdbbackend.edmx.diagram">
       <DependentUpon>bmdbbackend.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\bmlocalhost.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>bmlocalhost.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\bmlocalhost.edmx.diagram">
+      <DependentUpon>bmlocalhost.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\backendcapstone20210728232640 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\capstonebackend20210621232104 - Web Deploy.pubxml" />

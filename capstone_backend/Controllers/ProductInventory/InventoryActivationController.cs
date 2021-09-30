@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using capstone_backend.globalCON;
 using capstone_backend.Models;
 namespace capstone_backend.Controllers.ProductInventory
 {
@@ -11,13 +12,13 @@ namespace capstone_backend.Controllers.ProductInventory
     public class InventoryActivationController : ApiController
     {
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities1 core;
+        private local_dbbmEntities2 core;
         [Route("product-activation"), HttpPost]
         public HttpResponseMessage activate(int prodid)
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     var quantity = core.product_inventory.Where(x => x.productID == prodid).Select(y => new
                     {
@@ -45,7 +46,7 @@ namespace capstone_backend.Controllers.ProductInventory
         {
             try
             {
-                using (core = new local_dbbmEntities1())
+                using (core = apiglobalcon.publico)
                 {
                     core.update_product_status(prodid, 0);
                     return Request.CreateResponse(HttpStatusCode.OK, "update success");

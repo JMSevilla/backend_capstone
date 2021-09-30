@@ -60,5 +60,25 @@ namespace capstone_backend.Controllers.APIForTesting
                     (HttpStatusCode.BadRequest, ex.Message);
             }
         }
+
+        [Route("test-add"), HttpGet]
+        public IHttpActionResult getresults()
+        {
+            try
+            {
+               
+                using(core = new local_dbbmEntities())
+                {
+                   
+                    var getalldata = core.testingtables.ToList();
+                    return Ok(getalldata);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

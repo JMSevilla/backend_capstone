@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using capstone_backend.globalCON;
 using capstone_backend.Models;
 namespace capstone_backend.Controllers.Users
 {
@@ -12,7 +13,7 @@ namespace capstone_backend.Controllers.Users
     public class LoginController : ApiController
     {
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities1 core;
+        private local_dbbmEntities2 core;
         //private dbbmEntities core1;
         APISecurity secure = new APISecurity();
         class Response
@@ -26,7 +27,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-                using (core = new local_dbbmEntities1())
+                using (core = apiglobalcon.publico)
                 {
                     var checkemail = core.user_google_allow.Any(x => x.g_email == email);
                     var getusertype = core.users.Where(x => x.email == email).FirstOrDefault();
@@ -149,7 +150,7 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-                using (core = new local_dbbmEntities1())
+                using (core = apiglobalcon.publico)
                 {
                     var check = core.sessionScans.Any(x => x.email == email);
 
@@ -171,34 +172,7 @@ namespace capstone_backend.Controllers.Users
                         return Request.CreateResponse(HttpStatusCode.OK, "session added");
                     }
                 }
-                //if (core != null)
-                //{
-                    
-                //}
-                //else
-                //{
-                //    //using (core1 = new dbbmEntities())
-                //    //{
-                //    //    var check = core1.sessionScans.Any(x => x.email == email);
-                //    //    if (check)
-                //    //    {
-                //    //        //update isused equal to 1
-                //    //        core1.update_session_stats(email, "update_session");
-                //    //        return Request.CreateResponse(HttpStatusCode.OK, "update session");
-                //    //    }
-                //    //    else
-                //    //    {
-                //    //        sessionScan ses = new sessionScan();
-                //    //        ses.email = email;
-                //    //        ses.sessionID = sessionid;
-                //    //        ses.isused = "1";
-                //    //        ses.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
-                //    //        core.sessionScans.Add(ses);
-                //    //        core.SaveChanges();
-                //    //        return Request.CreateResponse(HttpStatusCode.OK, "session added");
-                //    //    }
-                //    //}
-                //}
+               
             }
             catch (Exception)
             {
@@ -212,11 +186,11 @@ namespace capstone_backend.Controllers.Users
             try
             {
 
-                using (core = new local_dbbmEntities1())
+                using (core = apiglobalcon.publico)
                 {
                     if (core != null)
                     {
-                        var session = core.sessionScans.Any(x => x.email == email && x.isused == "1");
+                        var session = core.users.Any(x => x.email == email && x.istoken != "");
                         if (session)
                         {
                             var userProfile = core.users.Where(y => y.email == email);
@@ -252,48 +226,7 @@ namespace capstone_backend.Controllers.Users
                             return Request.CreateResponse(HttpStatusCode.OK, "homepage");
                         }
                     }
-                    else
-                    {
-                        using (core = new local_dbbmEntities1())
-                        {
-                            var session = core.sessionScans.Any(x => x.email == email && x.isused == "1");
-                            if (session)
-                            {
-                                var userProfile = core.users.Where(y => y.email == email);
-                                if (userProfile.FirstOrDefault().istype == "1")
-                                {
-                                    if (userProfile.FirstOrDefault().isstatus == "1")
-                                    {
-                                        return Request.CreateResponse(HttpStatusCode.OK, "scan admin");
-                                    }
-                                    else
-                                    {
-                                        return Request.CreateResponse(HttpStatusCode.OK, "account disabled");
-                                    }
-                                }
-                                else if (userProfile.FirstOrDefault().istype == "0")
-                                {
-                                    if (userProfile.FirstOrDefault().isstatus == "1")
-                                    {
-                                        return Request.CreateResponse(HttpStatusCode.OK, "scan customer");
-                                    }
-                                    else
-                                    {
-                                        return Request.CreateResponse(HttpStatusCode.OK, "account disabled");
-                                    }
-                                }
-                                else
-                                {
-                                    return Request.CreateResponse(HttpStatusCode.OK, "not found");
-                                }
-                            }
-                            else
-                            {
-                                return Request.CreateResponse(HttpStatusCode.OK, "homepage");
-                            }
-                        }
-                    }
-                   
+                    return Request.CreateResponse(HttpStatusCode.OK);
                 }
                
             }
@@ -309,18 +242,18 @@ namespace capstone_backend.Controllers.Users
         {
             try
             {
-               using(core = new local_dbbmEntities1())
+               using(core = apiglobalcon.publico)
                 {
                     if(core != null)
                     {
-                        core.update_session_stats(email, "logout_session");
+                        core.istokenupdater("", email, 1);
                         return Request.CreateResponse(HttpStatusCode.OK, "logout");
                     }
                     else
                     {
-                        using (core = new local_dbbmEntities1())
+                        using (core = apiglobalcon.publico)
                         {
-                            core.update_session_stats(email, "logout_session");
+                            core.istokenupdater("", email, 1);
                             return Request.CreateResponse(HttpStatusCode.OK, "logout");
                         }
                     }
@@ -346,7 +279,7 @@ namespace capstone_backend.Controllers.Users
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using (core = new local_dbbmEntities1())
+                using (core = apiglobalcon.publico)
                 {
                     res.email = httprequest.Form["email"];
                     string pwd = secure.Encrypt(httprequest.Form["password"]);
@@ -382,10 +315,12 @@ namespace capstone_backend.Controllers.Users
                                             t.id,
                                             t.firstname,
                                             t.lastname,
-                                            t.istype
+                                            t.istype,
+                                            t.email
                                         }).ToList();
                                         res.databulk = fetchy.FirstOrDefault();
                                         res.message = "SUCCESS";
+                                        IServiceToken(res.email, Guid.NewGuid().ToString());
                                         return Request.CreateResponse(HttpStatusCode.OK, res);
                                     }
                                     else
@@ -396,10 +331,12 @@ namespace capstone_backend.Controllers.Users
                                             t.id,
                                             t.firstname,
                                             t.lastname,
-                                            t.istype
+                                            t.istype,
+                                            t.email
                                         }).ToList();
                                         res.databulk = cashier.FirstOrDefault();
                                         res.message = "SUCCESS CASHIER";
+                                        IServiceToken(res.email, Guid.NewGuid().ToString());
                                         return Request.CreateResponse(HttpStatusCode.OK, res);
                                     }
                                 }
@@ -426,6 +363,13 @@ namespace capstone_backend.Controllers.Users
             {
 
                 throw;
+            }
+        }
+        public void IServiceToken(string email, string token)
+        {
+            using (apiglobalcon.publico)
+            {
+                apiglobalcon.publico.istokenupdater(token, email, 1);
             }
         }
     }

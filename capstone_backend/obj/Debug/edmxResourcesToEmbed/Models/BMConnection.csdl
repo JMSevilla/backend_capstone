@@ -161,6 +161,7 @@
     <EntitySet Name="productreports" EntityType="local_dbbmModel.productreport" />
     <EntitySet Name="product_finalization" EntityType="local_dbbmModel.product_finalization" />
     <EntitySet Name="tbcategoryfinals" EntityType="local_dbbmModel.tbcategoryfinal" />
+    <EntitySet Name="testingtables" EntityType="local_dbbmModel.testingtable" />
   </EntityContainer>
   <EntityType Name="user">
     <Key>
@@ -520,5 +521,12 @@
     <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="categoryname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="testingtable">
+    <Key>
+      <PropertyRef Name="testID" />
+    </Key>
+    <Property Name="testID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="testname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

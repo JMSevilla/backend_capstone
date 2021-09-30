@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using capstone_backend.globalCON;
 using capstone_backend.Models;
 namespace capstone_backend.Controllers.locations
 {
@@ -12,14 +13,14 @@ namespace capstone_backend.Controllers.locations
     {
         //connection
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities1 core;
+        private local_dbbmEntities2 core;
         //get all municipalities
         [Route("municipalities"), HttpGet]
         public HttpResponseMessage getmunicipality()
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     var obj = core.locations.Select(x => new
                     {
@@ -41,7 +42,7 @@ namespace capstone_backend.Controllers.locations
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     var obj = core.locations.Where(x => x.municipality == municipality)
                         .Select(y => new

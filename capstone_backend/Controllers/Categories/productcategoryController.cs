@@ -6,20 +6,21 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web;
 using capstone_backend.Models;
+using capstone_backend.globalCON;
 namespace capstone_backend.Controllers.Categories
 {
     [RoutePrefix("api/product-category-management")]
     public class productcategoryController : ApiController
     {
         //private local_dbbmEntities core;
-        private local_dbbmEntities1 core;
+       
         //private local_dbbmEntities db = new local_dbbmEntities();
         [Route("add-category"), HttpPost]
         public HttpResponseMessage addcategory(string categoryname)
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(local_dbbmEntities2 core = apiglobalcon.publico)
                 {   
                     if (string.IsNullOrWhiteSpace(categoryname))
                     {
@@ -54,7 +55,7 @@ namespace capstone_backend.Controllers.Categories
         {
             try
             {
-                using (core = new local_dbbmEntities1())
+                using (local_dbbmEntities2 core = apiglobalcon.publico)
                 {
                     if (string.IsNullOrWhiteSpace(categoryname))
                     {
@@ -88,7 +89,7 @@ namespace capstone_backend.Controllers.Categories
         {
             try
             {
-                using (core = new local_dbbmEntities1())
+                using (local_dbbmEntities2 core = apiglobalcon.publico)
                 {
                     var obj = core.tbcategoryfinals.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -111,7 +112,7 @@ namespace capstone_backend.Controllers.Categories
                 }
                 else
                 {
-                    using (core = new local_dbbmEntities1())
+                    using (local_dbbmEntities2 core = apiglobalcon.publico)
                     {
                         var obj = core.tbcategoryfinals.Where(x => x.id == id).FirstOrDefault();
                         if (obj != null)
@@ -145,7 +146,7 @@ namespace capstone_backend.Controllers.Categories
                 }
                 else
                 {
-                    using(core = new local_dbbmEntities1())
+                    using(local_dbbmEntities2 core= apiglobalcon.publico)
                     {
                         var obj = core.tbcategories.Where(x => x.id == id).FirstOrDefault();
                         if (obj != null)
@@ -173,7 +174,7 @@ namespace capstone_backend.Controllers.Categories
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(local_dbbmEntities2 core = apiglobalcon.publico)
                 {
                     var obj = core.tbcategories.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -190,7 +191,7 @@ namespace capstone_backend.Controllers.Categories
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(local_dbbmEntities2 core = apiglobalcon.publico)
                 {
                     if(id <= 0)
                     {
@@ -216,7 +217,7 @@ namespace capstone_backend.Controllers.Categories
         {   
             try
             {
-                using (core = new local_dbbmEntities1())
+                using (local_dbbmEntities2 core = apiglobalcon.publico)
                 {
                     if (id <= 0)
                     {

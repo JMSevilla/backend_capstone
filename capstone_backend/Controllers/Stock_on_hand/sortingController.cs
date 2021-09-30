@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using capstone_backend.globalCON;
 using capstone_backend.Models;
 namespace capstone_backend.Controllers.Stock_on_hand
 {
@@ -11,7 +12,7 @@ namespace capstone_backend.Controllers.Stock_on_hand
     public class sortingController : ApiController
     {
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities1 core;
+        private local_dbbmEntities2 core;
         class dataManagement
         {
             public object bulk { get; set; }
@@ -23,7 +24,7 @@ namespace capstone_backend.Controllers.Stock_on_hand
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     if(valbool == true)
                     {

@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using capstone_backend.globalCON;
 using capstone_backend.Models;
 namespace capstone_backend.Controllers.user_management
 {
@@ -12,7 +13,7 @@ namespace capstone_backend.Controllers.user_management
     public class UserManagementController : ApiController
     {
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities1 core;
+        private local_dbbmEntities2 core;
         class Response
         {
             public string message { get; set; }
@@ -24,7 +25,7 @@ namespace capstone_backend.Controllers.user_management
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     var objs = core.users.Where(x => x.isarchive == "0")
                        .Select(x => new
@@ -61,7 +62,7 @@ namespace capstone_backend.Controllers.user_management
                 }
                 else
                 {
-                    using(core = new local_dbbmEntities1())
+                    using(core = apiglobalcon.publico)
                     {
                         var remover = core.users.Where(x => x.id == id).FirstOrDefault();
                         core.Entry(remover).State = System.Data.Entity.EntityState.Deleted;
@@ -81,7 +82,7 @@ namespace capstone_backend.Controllers.user_management
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     if(id <= 0)
                     {
@@ -113,7 +114,7 @@ namespace capstone_backend.Controllers.user_management
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     if (string.IsNullOrEmpty(value))
                     {
@@ -171,7 +172,7 @@ namespace capstone_backend.Controllers.user_management
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     if(id <= 0)
                     {
@@ -203,7 +204,7 @@ namespace capstone_backend.Controllers.user_management
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     if (indicator <= 0)
                     {
@@ -277,7 +278,7 @@ namespace capstone_backend.Controllers.user_management
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     user tbuser = new user();
                     tbuser.firstname = httprequest.Form["firstname"];
@@ -290,6 +291,7 @@ namespace capstone_backend.Controllers.user_management
                     tbuser.is_google_verified = httprequest.Form["is_google_verified"];
                     tbuser.imageurl = httprequest.Form["imageurl"];
                     tbuser.isarchive = "0";
+                    tbuser.istoken = "";
                     tbuser.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                     core.users.Add(tbuser);
                     core.SaveChanges();
@@ -315,7 +317,7 @@ namespace capstone_backend.Controllers.user_management
             try
             {
                 var httprequest = HttpContext.Current.Request;
-                using (core = new local_dbbmEntities1())
+                using (core = apiglobalcon.publico)
                 {
                     user tbuser = new user(); 
                     tbuser.firstname = httprequest.Form["firstname"];
@@ -328,6 +330,7 @@ namespace capstone_backend.Controllers.user_management
                     tbuser.is_google_verified = httprequest.Form["is_google_verified"];
                     tbuser.imageurl = httprequest.Form["imageurl"];
                     tbuser.isarchive = "0";
+                    tbuser.istoken = "";
                     tbuser.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                     core.users.Add(tbuser);
                     core.SaveChanges();

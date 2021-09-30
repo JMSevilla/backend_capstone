@@ -6,19 +6,21 @@ using System.Net.Http;
 using System.Web.Http;
 using capstone_backend.Models;
 using System.Web;
+using capstone_backend.globalCON;
+
 namespace capstone_backend.Controllers.Settings
 {
     [RoutePrefix("api/system-settings")]
     public class SystemSettingsController : ApiController
     {
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities1 core;
+        private local_dbbmEntities2 core;
         [Route("check-settings"), HttpPost]
         public HttpResponseMessage checksettings(string enableposettings)
         {
             try
             {
-               using(core = new local_dbbmEntities1())
+               using(core = apiglobalcon.publico)
                 {
                     
                     var httprequest = HttpContext.Current.Request;
@@ -73,7 +75,7 @@ namespace capstone_backend.Controllers.Settings
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     if(core.tbinventsettings.Any(x => x.enableinventform == enableinvent))
                     {
@@ -117,7 +119,7 @@ namespace capstone_backend.Controllers.Settings
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     var obj = core.tbinventsettings.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -134,7 +136,7 @@ namespace capstone_backend.Controllers.Settings
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     var obj = core.tbposettings.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);

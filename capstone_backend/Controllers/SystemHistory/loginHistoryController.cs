@@ -6,6 +6,8 @@ using System.Net.Http;
 using System.Web.Http;
 using capstone_backend.Models;
 using System.Web;
+using capstone_backend.globalCON;
+
 namespace capstone_backend.Controllers.SystemHistory
 {
     [RoutePrefix("api/login-history-management")]
@@ -17,7 +19,7 @@ namespace capstone_backend.Controllers.SystemHistory
             public string message { get; set; }
         }
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities1 core;
+        private local_dbbmEntities2 core;
         Response resp = new Response();
         [Route("add-login-history"), HttpPost]
         public HttpResponseMessage addhistorylogin()
@@ -36,7 +38,7 @@ namespace capstone_backend.Controllers.SystemHistory
                 }
                 else
                 {
-                    using(core = new local_dbbmEntities1())
+                    using(core = apiglobalcon.publico)
                     {
                         login_history login = new login_history();
                         login.email = logs.email;
@@ -73,7 +75,7 @@ namespace capstone_backend.Controllers.SystemHistory
                 }
                 else
                 {
-                    using (core = new local_dbbmEntities1())
+                    using (core = apiglobalcon.publico)
                     {
                         login_history login = new login_history();
                         login.email = logs.email;
@@ -98,7 +100,7 @@ namespace capstone_backend.Controllers.SystemHistory
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     var obj = core.login_history.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
@@ -115,7 +117,7 @@ namespace capstone_backend.Controllers.SystemHistory
         {
             try
             {
-                using(core = new local_dbbmEntities1())
+                using(core = apiglobalcon.publico)
                 {
                     if(id <= 0)
                     {

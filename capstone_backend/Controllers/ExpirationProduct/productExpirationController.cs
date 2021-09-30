@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using capstone_backend.globalCON;
 using capstone_backend.Models;
 namespace capstone_backend.Controllers.ExpirationProduct
 {
@@ -11,13 +12,13 @@ namespace capstone_backend.Controllers.ExpirationProduct
     public class productExpirationController : ApiController
     {
         //private dbbmEntities core; //localhost
-        private local_dbbmEntities1 core; //azure cloud computing
+        private local_dbbmEntities2 core; //azure cloud computing
         [Route("product-expired"), HttpGet]
         public HttpResponseMessage getexpired()
         {
             try
             {
-                using (core = new local_dbbmEntities1()) //localhost
+                using (core = apiglobalcon.publico) //localhost
                 {
                     DateTime curdate = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd"));
                     var obj1 = core.product_inventory.Any(x => x.expirationprod <= curdate);
@@ -55,7 +56,7 @@ namespace capstone_backend.Controllers.ExpirationProduct
         {
             try
             {
-                using (core = new local_dbbmEntities1())
+                using (core = apiglobalcon.publico)
                 {
                     if (core != null)
                     {
@@ -66,7 +67,7 @@ namespace capstone_backend.Controllers.ExpirationProduct
                     }
                     else
                     {
-                        using (core = new local_dbbmEntities1())
+                        using (core = apiglobalcon.publico)
                         {
                             var obj = core.warning_expiration_10_days.ToList();
                             respo.respObj = obj;

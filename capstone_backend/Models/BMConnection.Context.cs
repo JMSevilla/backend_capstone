@@ -54,6 +54,7 @@ namespace capstone_backend.Models
         public virtual DbSet<productreport> productreports { get; set; }
         public virtual DbSet<product_finalization> product_finalization { get; set; }
         public virtual DbSet<tbcategoryfinal> tbcategoryfinals { get; set; }
+        public virtual DbSet<testingtable> testingtables { get; set; }
     
         public virtual int stored_user_registration(string firstname, string lastname, string municipality, string province, string address, string companyname, string address_type, string email, string password, Nullable<int> mobileno, string istype, string isverified, string isstatus, string isgoogleverified, string state_action)
         {

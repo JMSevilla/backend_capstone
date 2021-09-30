@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Http;
 using capstone_backend.Models;
+using capstone_backend.globalCON;
 namespace capstone_backend.Controllers.excelTemplate
 {
     [RoutePrefix("api/save-excel")]
@@ -17,7 +18,7 @@ namespace capstone_backend.Controllers.excelTemplate
         public HttpResponseMessage saveexcel()
         {
             var httpreq = HttpContext.Current.Request;
-            using (core = new local_dbbmEntities1())
+            using (local_dbbmEntities2 core = apiglobalcon.publico)
             {
                 excelStorage data = new excelStorage();
                 data.tname = httpreq.Form["templatename"];

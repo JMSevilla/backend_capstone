@@ -264,6 +264,13 @@
           <Property Name="lastname" Type="varchar" MaxLength="100" />
           <Property Name="createdAt" Type="datetime" />
         </EntityType>
+        <EntityType Name="testingtable">
+          <Key>
+            <PropertyRef Name="testID" />
+          </Key>
+          <Property Name="testID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="testname" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="user_google_allow">
           <Key>
             <PropertyRef Name="id" />
@@ -481,6 +488,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <EntitySet Name="tbinventsettings" EntityType="Self.tbinventsettings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbposettings" EntityType="Self.tbposettings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbtesting" EntityType="Self.tbtesting" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="testingtable" EntityType="Self.testingtable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_google_allow" EntityType="Self.user_google_allow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="supplier_find_duplicate" EntityType="Self.supplier_find_duplicate" store:Type="Views" store:Schema="dbo">
@@ -682,6 +690,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <EntitySet Name="productreports" EntityType="local_dbbmModel.productreport" />
           <EntitySet Name="product_finalization" EntityType="local_dbbmModel.product_finalization" />
           <EntitySet Name="tbcategoryfinals" EntityType="local_dbbmModel.tbcategoryfinal" />
+          <EntitySet Name="testingtables" EntityType="local_dbbmModel.testingtable" />
         </EntityContainer>
         <EntityType Name="user">
           <Key>
@@ -1041,6 +1050,13 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="categoryname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="createdAt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="testingtable">
+          <Key>
+            <PropertyRef Name="testID" />
+          </Key>
+          <Property Name="testID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="testname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1470,6 +1486,14 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
                 <ScalarProperty Name="createdAt" ColumnName="createdAt" />
                 <ScalarProperty Name="categoryname" ColumnName="categoryname" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="testingtables">
+            <EntityTypeMapping TypeName="local_dbbmModel.testingtable">
+              <MappingFragment StoreEntitySet="testingtable">
+                <ScalarProperty Name="testname" ColumnName="testname" />
+                <ScalarProperty Name="testID" ColumnName="testID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
