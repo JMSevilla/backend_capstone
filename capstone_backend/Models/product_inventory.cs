@@ -27,5 +27,6 @@ namespace capstone_backend.Models
         public string productimgurl { get; set; }
         public string product_category { get; set; }
         public Nullable<System.DateTime> expirationprod { get; set; }
+        public string size { get; set; }
     }
 }

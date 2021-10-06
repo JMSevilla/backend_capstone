@@ -41,6 +41,7 @@ namespace capstone_backend.Controllers.ProductFinalization
                         prodfinal.productCode = prodcode;
                         prodfinal.prodimg = httprequest.Form["prodimg"];
                         prodfinal.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
+                        prodfinal.integratedRaws = httprequest.Form["ingredientsID"];
                         core.product_finalization.Add(prodfinal);
                         core.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK, "success");

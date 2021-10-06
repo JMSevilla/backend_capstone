@@ -28,6 +28,21 @@
           <Property Name="archiveCreated" Type="datetime" />
           <Property Name="client_id" Type="int" />
         </EntityType>
+        <EntityType Name="bundleProd">
+          <Key>
+            <PropertyRef Name="bundleID" />
+          </Key>
+          <Property Name="bundleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="bundleCode" Type="varchar(max)" />
+          <Property Name="bundleTitle" Type="varchar" MaxLength="255" />
+          <Property Name="bundleIntegratedProdFinal" Type="varchar" MaxLength="100" />
+          <Property Name="bundleIntegratedProdInvID" Type="varchar(max)" />
+          <Property Name="bundleQuantity" Type="int" />
+          <Property Name="prodPrice" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="prodImg" Type="varchar(max)" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="isvalidate" Type="char" MaxLength="1" />
+        </EntityType>
         <EntityType Name="code_verifications">
           <Key>
             <PropertyRef Name="codeID" />
@@ -125,6 +140,7 @@
           <Property Name="createdAt" Type="datetime" />
           <Property Name="productCode" Type="varchar" MaxLength="255" />
           <Property Name="prodimg" Type="varchar(max)" />
+          <Property Name="integratedRaws" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="product_finalization_raw">
           <Key>
@@ -152,6 +168,7 @@
           <Property Name="productimgurl" Type="varchar(max)" />
           <Property Name="product_category" Type="varchar" MaxLength="100" />
           <Property Name="expirationprod" Type="datetime" />
+          <Property Name="size" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="productreport">
           <Key>
@@ -219,6 +236,7 @@
           <Property Name="createdAt" Type="datetime" />
           <Property Name="product_total" Type="decimal" Precision="18" Scale="0" />
           <Property Name="expirationprod" Type="datetime" />
+          <Property Name="sizes" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="supplier">
           <Key>
@@ -499,6 +517,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
         <EntityContainer Name="local_dbbmModel2StoreContainer">
           <EntitySet Name="activity_log" EntityType="Self.activity_log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="archive_users" EntityType="Self.archive_users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bundleProd" EntityType="Self.bundleProd" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="code_verifications" EntityType="Self.code_verifications" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="customer_Orders" EntityType="Self.customer_Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="customerBasicInformation" EntityType="Self.customerBasicInformation" Schema="dbo" store:Type="Tables" />
@@ -657,6 +676,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Name="createdAt" Type="DateTime" Precision="3" />
           <Property Name="productCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="prodimg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="integratedRaws" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="product_finalization_raw">
           <Key>
@@ -684,6 +704,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Name="productimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="product_category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="expirationprod" Type="DateTime" Precision="3" />
+          <Property Name="size" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="productreport">
           <Key>
@@ -751,6 +772,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Name="createdAt" Type="DateTime" Precision="3" />
           <Property Name="product_total" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="expirationprod" Type="DateTime" Precision="3" />
+          <Property Name="sizes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="supplier">
           <Key>
@@ -1055,6 +1077,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           </FunctionImport>
           <EntitySet Name="customer_Orders" EntityType="local_dbbmModel2.customer_Orders" />
           <EntitySet Name="customerBasicInformations" EntityType="local_dbbmModel2.customerBasicInformation" />
+          <EntitySet Name="bundleProds" EntityType="local_dbbmModel2.bundleProd" />
         </EntityContainer>
         <ComplexType Name="find_duplicates_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -1125,6 +1148,21 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Name="orderPaymentIndicated" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="orderTotalIndicated" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="createdAt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="bundleProd">
+          <Key>
+            <PropertyRef Name="bundleID" />
+          </Key>
+          <Property Name="bundleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="bundleCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="bundleTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="bundleIntegratedProdFinal" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="bundleIntegratedProdInvID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="bundleQuantity" Type="Int32" />
+          <Property Name="prodPrice" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="prodImg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="isvalidate" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1223,6 +1261,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <EntitySetMapping Name="product_finalization">
             <EntityTypeMapping TypeName="local_dbbmModel2.product_finalization">
               <MappingFragment StoreEntitySet="product_finalization">
+                <ScalarProperty Name="integratedRaws" ColumnName="integratedRaws" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="prodname" ColumnName="prodname" />
                 <ScalarProperty Name="prodquantity" ColumnName="prodquantity" />
@@ -1249,6 +1288,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <EntitySetMapping Name="product_inventory">
             <EntityTypeMapping TypeName="local_dbbmModel2.product_inventory">
               <MappingFragment StoreEntitySet="product_inventory">
+                <ScalarProperty Name="size" ColumnName="size" />
                 <ScalarProperty Name="productID" ColumnName="productID" />
                 <ScalarProperty Name="productCode" ColumnName="productCode" />
                 <ScalarProperty Name="productName" ColumnName="productName" />
@@ -1321,6 +1361,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <EntitySetMapping Name="stock_on_hand">
             <EntityTypeMapping TypeName="local_dbbmModel2.stock_on_hand">
               <MappingFragment StoreEntitySet="stock_on_hand">
+                <ScalarProperty Name="sizes" ColumnName="sizes" />
                 <ScalarProperty Name="stockID" ColumnName="stockID" />
                 <ScalarProperty Name="stockNumber" ColumnName="stockNumber" />
                 <ScalarProperty Name="productname" ColumnName="productname" />
@@ -1592,6 +1633,22 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
                 <ScalarProperty Name="orderCodeIndicated" ColumnName="orderCodeIndicated" />
                 <ScalarProperty Name="customerName" ColumnName="customerName" />
                 <ScalarProperty Name="customerID" ColumnName="customerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bundleProds">
+            <EntityTypeMapping TypeName="local_dbbmModel2.bundleProd">
+              <MappingFragment StoreEntitySet="bundleProd">
+                <ScalarProperty Name="isvalidate" ColumnName="isvalidate" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="prodImg" ColumnName="prodImg" />
+                <ScalarProperty Name="prodPrice" ColumnName="prodPrice" />
+                <ScalarProperty Name="bundleQuantity" ColumnName="bundleQuantity" />
+                <ScalarProperty Name="bundleIntegratedProdInvID" ColumnName="bundleIntegratedProdInvID" />
+                <ScalarProperty Name="bundleIntegratedProdFinal" ColumnName="bundleIntegratedProdFinal" />
+                <ScalarProperty Name="bundleTitle" ColumnName="bundleTitle" />
+                <ScalarProperty Name="bundleCode" ColumnName="bundleCode" />
+                <ScalarProperty Name="bundleID" ColumnName="bundleID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

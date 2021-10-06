@@ -94,6 +94,7 @@
     <Property Name="createdAt" Type="DateTime" Precision="3" />
     <Property Name="productCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="prodimg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="integratedRaws" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="product_finalization_raw">
     <Key>
@@ -121,6 +122,7 @@
     <Property Name="productimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="product_category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="expirationprod" Type="DateTime" Precision="3" />
+    <Property Name="size" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="productreport">
     <Key>
@@ -188,6 +190,7 @@
     <Property Name="createdAt" Type="DateTime" Precision="3" />
     <Property Name="product_total" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="expirationprod" Type="DateTime" Precision="3" />
+    <Property Name="sizes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="supplier">
     <Key>
@@ -492,6 +495,7 @@
     </FunctionImport>
     <EntitySet Name="customer_Orders" EntityType="local_dbbmModel2.customer_Orders" />
     <EntitySet Name="customerBasicInformations" EntityType="local_dbbmModel2.customerBasicInformation" />
+    <EntitySet Name="bundleProds" EntityType="local_dbbmModel2.bundleProd" />
   </EntityContainer>
   <ComplexType Name="find_duplicates_Result">
     <Property Type="Int32" Name="id" Nullable="false" />
@@ -562,5 +566,20 @@
     <Property Name="orderPaymentIndicated" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="orderTotalIndicated" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="bundleProd">
+    <Key>
+      <PropertyRef Name="bundleID" />
+    </Key>
+    <Property Name="bundleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="bundleCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="bundleTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="bundleIntegratedProdFinal" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="bundleIntegratedProdInvID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="bundleQuantity" Type="Int32" />
+    <Property Name="prodPrice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="prodImg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="isvalidate" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
   </EntityType>
 </Schema>

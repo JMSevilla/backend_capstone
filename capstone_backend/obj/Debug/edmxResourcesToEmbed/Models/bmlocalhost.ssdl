@@ -23,6 +23,21 @@
     <Property Name="archiveCreated" Type="datetime" />
     <Property Name="client_id" Type="int" />
   </EntityType>
+  <EntityType Name="bundleProd">
+    <Key>
+      <PropertyRef Name="bundleID" />
+    </Key>
+    <Property Name="bundleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="bundleCode" Type="varchar(max)" />
+    <Property Name="bundleTitle" Type="varchar" MaxLength="255" />
+    <Property Name="bundleIntegratedProdFinal" Type="varchar" MaxLength="100" />
+    <Property Name="bundleIntegratedProdInvID" Type="varchar(max)" />
+    <Property Name="bundleQuantity" Type="int" />
+    <Property Name="prodPrice" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="prodImg" Type="varchar(max)" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="isvalidate" Type="char" MaxLength="1" />
+  </EntityType>
   <EntityType Name="code_verifications">
     <Key>
       <PropertyRef Name="codeID" />
@@ -120,6 +135,7 @@
     <Property Name="createdAt" Type="datetime" />
     <Property Name="productCode" Type="varchar" MaxLength="255" />
     <Property Name="prodimg" Type="varchar(max)" />
+    <Property Name="integratedRaws" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="product_finalization_raw">
     <Key>
@@ -147,6 +163,7 @@
     <Property Name="productimgurl" Type="varchar(max)" />
     <Property Name="product_category" Type="varchar" MaxLength="100" />
     <Property Name="expirationprod" Type="datetime" />
+    <Property Name="size" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="productreport">
     <Key>
@@ -214,6 +231,7 @@
     <Property Name="createdAt" Type="datetime" />
     <Property Name="product_total" Type="decimal" Precision="18" Scale="0" />
     <Property Name="expirationprod" Type="datetime" />
+    <Property Name="sizes" Type="varchar(max)" />
   </EntityType>
   <EntityType Name="supplier">
     <Key>
@@ -494,6 +512,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
   <EntityContainer Name="local_dbbmModel2StoreContainer">
     <EntitySet Name="activity_log" EntityType="Self.activity_log" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="archive_users" EntityType="Self.archive_users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="bundleProd" EntityType="Self.bundleProd" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="code_verifications" EntityType="Self.code_verifications" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="customer_Orders" EntityType="Self.customer_Orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="customerBasicInformation" EntityType="Self.customerBasicInformation" Schema="dbo" store:Type="Tables" />

@@ -35,6 +35,7 @@
         <EntityTypeShape EntityType="local_dbbmModel2.warning_expiration_10_days" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="local_dbbmModel2.customer_Orders" Width="1.5" PointX="5.75" PointY="14.75" />
         <EntityTypeShape EntityType="local_dbbmModel2.customerBasicInformation" Width="1.5" PointX="0.75" PointY="15.75" />
+        <EntityTypeShape EntityType="local_dbbmModel2.bundleProd" Width="1.5" PointX="15.375" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -92,6 +92,7 @@
     <EntitySetMapping Name="product_finalization">
       <EntityTypeMapping TypeName="local_dbbmModel2.product_finalization">
         <MappingFragment StoreEntitySet="product_finalization">
+          <ScalarProperty Name="integratedRaws" ColumnName="integratedRaws" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="prodname" ColumnName="prodname" />
           <ScalarProperty Name="prodquantity" ColumnName="prodquantity" />
@@ -118,6 +119,7 @@
     <EntitySetMapping Name="product_inventory">
       <EntityTypeMapping TypeName="local_dbbmModel2.product_inventory">
         <MappingFragment StoreEntitySet="product_inventory">
+          <ScalarProperty Name="size" ColumnName="size" />
           <ScalarProperty Name="productID" ColumnName="productID" />
           <ScalarProperty Name="productCode" ColumnName="productCode" />
           <ScalarProperty Name="productName" ColumnName="productName" />
@@ -190,6 +192,7 @@
     <EntitySetMapping Name="stock_on_hand">
       <EntityTypeMapping TypeName="local_dbbmModel2.stock_on_hand">
         <MappingFragment StoreEntitySet="stock_on_hand">
+          <ScalarProperty Name="sizes" ColumnName="sizes" />
           <ScalarProperty Name="stockID" ColumnName="stockID" />
           <ScalarProperty Name="stockNumber" ColumnName="stockNumber" />
           <ScalarProperty Name="productname" ColumnName="productname" />
@@ -461,6 +464,22 @@
           <ScalarProperty Name="orderCodeIndicated" ColumnName="orderCodeIndicated" />
           <ScalarProperty Name="customerName" ColumnName="customerName" />
           <ScalarProperty Name="customerID" ColumnName="customerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="bundleProds">
+      <EntityTypeMapping TypeName="local_dbbmModel2.bundleProd">
+        <MappingFragment StoreEntitySet="bundleProd">
+          <ScalarProperty Name="isvalidate" ColumnName="isvalidate" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="prodImg" ColumnName="prodImg" />
+          <ScalarProperty Name="prodPrice" ColumnName="prodPrice" />
+          <ScalarProperty Name="bundleQuantity" ColumnName="bundleQuantity" />
+          <ScalarProperty Name="bundleIntegratedProdInvID" ColumnName="bundleIntegratedProdInvID" />
+          <ScalarProperty Name="bundleIntegratedProdFinal" ColumnName="bundleIntegratedProdFinal" />
+          <ScalarProperty Name="bundleTitle" ColumnName="bundleTitle" />
+          <ScalarProperty Name="bundleCode" ColumnName="bundleCode" />
+          <ScalarProperty Name="bundleID" ColumnName="bundleID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
