@@ -186,6 +186,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\AddingController.cs" />
     <Compile Include="Controllers\APIForTesting\testinginsertController.cs" />
+    <Compile Include="Controllers\bundleProduct\bundleProdController.cs" />
     <Compile Include="Controllers\Categories\productcategoryController.cs" />
     <Compile Include="Controllers\excelTemplate\excelController.cs" />
     <Compile Include="Controllers\ExpirationProduct\productExpirationController.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryAI\InventoryAIController.cs" />
     <Compile Include="Controllers\locations\locationController.cs" />
+    <Compile Include="Controllers\POS\BundleAddOrderController.cs" />
     <Compile Include="Controllers\POS\OrderController.cs" />
     <Compile Include="Controllers\POS\pos_productListController.cs" />
     <Compile Include="Controllers\ProductFinalization\productfinalizationController.cs" />
@@ -288,6 +290,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>bmlocalhost.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\bundleProd.cs">
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\code_verifications.cs">
       <DependentUpon>bmlocalhost.tt</DependentUpon>

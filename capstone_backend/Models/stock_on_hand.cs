@@ -27,5 +27,6 @@ namespace capstone_backend.Models
         public Nullable<System.DateTime> createdAt { get; set; }
         public Nullable<decimal> product_total { get; set; }
         public Nullable<System.DateTime> expirationprod { get; set; }
+        public string sizes { get; set; }
     }
 }

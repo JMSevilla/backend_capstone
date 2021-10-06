@@ -209,6 +209,7 @@ namespace capstone_backend.Controllers.ProductInventory
                                 stock.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                                 stock.productcategory = httprequest.Form["productcategory"];
                                 stock.expirationprod = Convert.ToDateTime(httprequest.Form["productexpiration"]);
+                                stock.sizes = httprequest.Form["size"];
                                 core.stock_on_hand.Add(stock);
                                 core.SaveChanges();
                                 return Request.CreateResponse(HttpStatusCode.OK, "success product inventory");
@@ -227,6 +228,7 @@ namespace capstone_backend.Controllers.ProductInventory
                                 stock.productstatus = "1";
                                 stock.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                                 stock.productcategory = httprequest.Form["productcategory"];
+                                stock.sizes = httprequest.Form["size"];
                                 core.stock_on_hand.Add(stock);
                                 core.SaveChanges();
                                 return Request.CreateResponse(HttpStatusCode.OK, "success product inventory");
@@ -250,6 +252,7 @@ namespace capstone_backend.Controllers.ProductInventory
                                 prod.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                                 prod.product_category = httprequest.Form["productcategory"];
                                 prod.expirationprod = Convert.ToDateTime(httprequest.Form["productexpiration"]);
+                                prod.size = httprequest.Form["size"];
                                 core.product_inventory.Add(prod);
                                 core.SaveChanges();
                                 return Request.CreateResponse(HttpStatusCode.OK, "success product inventory");
@@ -268,6 +271,7 @@ namespace capstone_backend.Controllers.ProductInventory
                                 prod.product_status = httprequest.Form["isstatus"];
                                 prod.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                                 prod.product_category = httprequest.Form["productcategory"];
+                                prod.size = httprequest.Form["size"];
                                 core.product_inventory.Add(prod);
                                 core.SaveChanges();
                                 return Request.CreateResponse(HttpStatusCode.OK, "success product inventory");

@@ -12,18 +12,17 @@ namespace capstone_backend.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class product_finalization
+    public partial class bundleProd
     {
-        public int id { get; set; }
-        public string prodname { get; set; }
-        public Nullable<int> prodquantity { get; set; }
-        public Nullable<decimal> prodprice { get; set; }
-        public string prodcategory { get; set; }
-        public Nullable<decimal> prodtotal { get; set; }
-        public string prodstatus { get; set; }
+        public int bundleID { get; set; }
+        public string bundleCode { get; set; }
+        public string bundleTitle { get; set; }
+        public string bundleIntegratedProdFinal { get; set; }
+        public string bundleIntegratedProdInvID { get; set; }
+        public Nullable<int> bundleQuantity { get; set; }
+        public Nullable<decimal> prodPrice { get; set; }
+        public string prodImg { get; set; }
         public Nullable<System.DateTime> createdAt { get; set; }
-        public string productCode { get; set; }
-        public string prodimg { get; set; }
-        public string integratedRaws { get; set; }
+        public string isvalidate { get; set; }
     }
 }
