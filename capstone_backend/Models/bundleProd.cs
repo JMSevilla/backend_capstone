@@ -24,5 +24,6 @@ namespace capstone_backend.Models
         public string prodImg { get; set; }
         public Nullable<System.DateTime> createdAt { get; set; }
         public string isvalidate { get; set; }
+        public string isbundle { get; set; }
     }
 }

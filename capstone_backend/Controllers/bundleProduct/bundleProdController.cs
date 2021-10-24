@@ -51,6 +51,7 @@ namespace capstone_backend.Controllers.bundleProduct
                     bundle.bundleCode = Guid.NewGuid().ToString();
                     bundle.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM"));
                     bundle.isvalidate = "1";
+                    bundle.isbundle = "1";
                     core.bundleProds.Add(bundle);
                     core.SaveChanges();
                     return Ok("success bundle");

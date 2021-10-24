@@ -92,6 +92,7 @@
     <EntitySetMapping Name="product_finalization">
       <EntityTypeMapping TypeName="local_dbbmModel2.product_finalization">
         <MappingFragment StoreEntitySet="product_finalization">
+          <ScalarProperty Name="issolo" ColumnName="issolo" />
           <ScalarProperty Name="integratedRaws" ColumnName="integratedRaws" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="prodname" ColumnName="prodname" />
@@ -411,7 +412,6 @@
     <FunctionImportMapping FunctionImportName="sproc_update_isdone_forgotpassword" FunctionName="local_dbbmModel2.Store.sproc_update_isdone_forgotpassword" />
     <FunctionImportMapping FunctionImportName="stored_supplier" FunctionName="local_dbbmModel2.Store.stored_supplier" />
     <FunctionImportMapping FunctionImportName="stored_update_purchase_status" FunctionName="local_dbbmModel2.Store.stored_update_purchase_status" />
-    <FunctionImportMapping FunctionImportName="stored_user_registration" FunctionName="local_dbbmModel2.Store.stored_user_registration" />
     <FunctionImportMapping FunctionImportName="stored_view_expiration_date" FunctionName="local_dbbmModel2.Store.stored_view_expiration_date">
       <ResultMapping>
         <ComplexTypeMapping TypeName="local_dbbmModel2.stored_view_expiration_date_Result">
@@ -470,6 +470,7 @@
     <EntitySetMapping Name="bundleProds">
       <EntityTypeMapping TypeName="local_dbbmModel2.bundleProd">
         <MappingFragment StoreEntitySet="bundleProd">
+          <ScalarProperty Name="isbundle" ColumnName="isbundle" />
           <ScalarProperty Name="isvalidate" ColumnName="isvalidate" />
           <ScalarProperty Name="createdAt" ColumnName="createdAt" />
           <ScalarProperty Name="prodImg" ColumnName="prodImg" />
@@ -480,6 +481,26 @@
           <ScalarProperty Name="bundleTitle" ColumnName="bundleTitle" />
           <ScalarProperty Name="bundleCode" ColumnName="bundleCode" />
           <ScalarProperty Name="bundleID" ColumnName="bundleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="savedAdditionalQuantities">
+      <EntityTypeMapping TypeName="local_dbbmModel2.savedAdditionalQuantity">
+        <MappingFragment StoreEntitySet="savedAdditionalQuantity">
+          <ScalarProperty Name="prodInvID" ColumnName="prodInvID" />
+          <ScalarProperty Name="customJSON" ColumnName="customJSON" />
+          <ScalarProperty Name="additionalID" ColumnName="additionalID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="paymentDetails">
+      <EntityTypeMapping TypeName="local_dbbmModel2.paymentDetail">
+        <MappingFragment StoreEntitySet="paymentDetails">
+          <ScalarProperty Name="orderInfo" ColumnName="orderInfo" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="paymentStatus" ColumnName="paymentStatus" />
+          <ScalarProperty Name="paymentInfo" ColumnName="paymentInfo" />
+          <ScalarProperty Name="paymentID" ColumnName="paymentID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

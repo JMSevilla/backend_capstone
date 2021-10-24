@@ -37,6 +37,7 @@
     <Property Name="prodImg" Type="varchar(max)" />
     <Property Name="createdAt" Type="datetime" />
     <Property Name="isvalidate" Type="char" MaxLength="1" />
+    <Property Name="isbundle" Type="char" MaxLength="1" />
   </EntityType>
   <EntityType Name="code_verifications">
     <Key>
@@ -121,6 +122,16 @@
     <Property Name="message" Type="text" />
     <Property Name="logindate" Type="datetime" />
   </EntityType>
+  <EntityType Name="paymentDetails">
+    <Key>
+      <PropertyRef Name="paymentID" />
+    </Key>
+    <Property Name="paymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="paymentInfo" Type="varchar(max)" />
+    <Property Name="paymentStatus" Type="char" MaxLength="1" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="orderInfo" Type="varchar(max)" />
+  </EntityType>
   <EntityType Name="product_finalization">
     <Key>
       <PropertyRef Name="id" />
@@ -136,6 +147,7 @@
     <Property Name="productCode" Type="varchar" MaxLength="255" />
     <Property Name="prodimg" Type="varchar(max)" />
     <Property Name="integratedRaws" Type="varchar(max)" />
+    <Property Name="issolo" Type="char" MaxLength="1" />
   </EntityType>
   <EntityType Name="product_finalization_raw">
     <Key>
@@ -193,6 +205,14 @@
     <Property Name="psupplier" Type="varchar" MaxLength="100" />
     <Property Name="createdAt" Type="datetime" />
     <Property Name="status" Type="char" MaxLength="1" />
+  </EntityType>
+  <EntityType Name="savedAdditionalQuantity">
+    <Key>
+      <PropertyRef Name="additionalID" />
+    </Key>
+    <Property Name="additionalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="customJSON" Type="varchar(max)" />
+    <Property Name="prodInvID" Type="int" />
   </EntityType>
   <EntityType Name="selectedraw">
     <Key>
@@ -446,23 +466,6 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
     <Parameter Name="id" Type="int" Mode="In" />
     <Parameter Name="state" Type="int" Mode="In" />
   </Function>
-  <Function Name="stored_user_registration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="firstname" Type="varchar" Mode="In" />
-    <Parameter Name="lastname" Type="varchar" Mode="In" />
-    <Parameter Name="municipality" Type="varchar" Mode="In" />
-    <Parameter Name="province" Type="varchar" Mode="In" />
-    <Parameter Name="address" Type="text" Mode="In" />
-    <Parameter Name="companyname" Type="varchar" Mode="In" />
-    <Parameter Name="address_type" Type="varchar" Mode="In" />
-    <Parameter Name="email" Type="varchar" Mode="In" />
-    <Parameter Name="password" Type="varchar(max)" Mode="In" />
-    <Parameter Name="mobileno" Type="int" Mode="In" />
-    <Parameter Name="istype" Type="char" Mode="In" />
-    <Parameter Name="isverified" Type="char" Mode="In" />
-    <Parameter Name="isstatus" Type="char" Mode="In" />
-    <Parameter Name="isgoogleverified" Type="char" Mode="In" />
-    <Parameter Name="state_action" Type="varchar" Mode="In" />
-  </Function>
   <Function Name="stored_view_expiration_date" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="state" Type="int" Mode="In" />
     <Parameter Name="pcode" Type="varchar" Mode="In" />
@@ -521,11 +524,13 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
     <EntitySet Name="forgotpassword_identifier" EntityType="Self.forgotpassword_identifier" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="locations" EntityType="Self.locations" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="login_history" EntityType="Self.login_history" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="paymentDetails" EntityType="Self.paymentDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="product_finalization" EntityType="Self.product_finalization" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="product_finalization_raw" EntityType="Self.product_finalization_raw" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="product_inventory" EntityType="Self.product_inventory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="productreport" EntityType="Self.productreport" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="puchase_orders" EntityType="Self.puchase_orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="savedAdditionalQuantity" EntityType="Self.savedAdditionalQuantity" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="selectedraw" EntityType="Self.selectedraw" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sessionScan" EntityType="Self.sessionScan" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="stock_on_hand" EntityType="Self.stock_on_hand" Schema="dbo" store:Type="Tables" />

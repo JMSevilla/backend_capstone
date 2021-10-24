@@ -42,6 +42,7 @@
           <Property Name="prodImg" Type="varchar(max)" />
           <Property Name="createdAt" Type="datetime" />
           <Property Name="isvalidate" Type="char" MaxLength="1" />
+          <Property Name="isbundle" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="code_verifications">
           <Key>
@@ -126,6 +127,16 @@
           <Property Name="message" Type="text" />
           <Property Name="logindate" Type="datetime" />
         </EntityType>
+        <EntityType Name="paymentDetails">
+          <Key>
+            <PropertyRef Name="paymentID" />
+          </Key>
+          <Property Name="paymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="paymentInfo" Type="varchar(max)" />
+          <Property Name="paymentStatus" Type="char" MaxLength="1" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="orderInfo" Type="varchar(max)" />
+        </EntityType>
         <EntityType Name="product_finalization">
           <Key>
             <PropertyRef Name="id" />
@@ -141,6 +152,7 @@
           <Property Name="productCode" Type="varchar" MaxLength="255" />
           <Property Name="prodimg" Type="varchar(max)" />
           <Property Name="integratedRaws" Type="varchar(max)" />
+          <Property Name="issolo" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="product_finalization_raw">
           <Key>
@@ -198,6 +210,14 @@
           <Property Name="psupplier" Type="varchar" MaxLength="100" />
           <Property Name="createdAt" Type="datetime" />
           <Property Name="status" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="savedAdditionalQuantity">
+          <Key>
+            <PropertyRef Name="additionalID" />
+          </Key>
+          <Property Name="additionalID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="customJSON" Type="varchar(max)" />
+          <Property Name="prodInvID" Type="int" />
         </EntityType>
         <EntityType Name="selectedraw">
           <Key>
@@ -451,23 +471,6 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="state" Type="int" Mode="In" />
         </Function>
-        <Function Name="stored_user_registration" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="firstname" Type="varchar" Mode="In" />
-          <Parameter Name="lastname" Type="varchar" Mode="In" />
-          <Parameter Name="municipality" Type="varchar" Mode="In" />
-          <Parameter Name="province" Type="varchar" Mode="In" />
-          <Parameter Name="address" Type="text" Mode="In" />
-          <Parameter Name="companyname" Type="varchar" Mode="In" />
-          <Parameter Name="address_type" Type="varchar" Mode="In" />
-          <Parameter Name="email" Type="varchar" Mode="In" />
-          <Parameter Name="password" Type="varchar(max)" Mode="In" />
-          <Parameter Name="mobileno" Type="int" Mode="In" />
-          <Parameter Name="istype" Type="char" Mode="In" />
-          <Parameter Name="isverified" Type="char" Mode="In" />
-          <Parameter Name="isstatus" Type="char" Mode="In" />
-          <Parameter Name="isgoogleverified" Type="char" Mode="In" />
-          <Parameter Name="state_action" Type="varchar" Mode="In" />
-        </Function>
         <Function Name="stored_view_expiration_date" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="state" Type="int" Mode="In" />
           <Parameter Name="pcode" Type="varchar" Mode="In" />
@@ -526,11 +529,13 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <EntitySet Name="forgotpassword_identifier" EntityType="Self.forgotpassword_identifier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="locations" EntityType="Self.locations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="login_history" EntityType="Self.login_history" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="paymentDetails" EntityType="Self.paymentDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product_finalization" EntityType="Self.product_finalization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product_finalization_raw" EntityType="Self.product_finalization_raw" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product_inventory" EntityType="Self.product_inventory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="productreport" EntityType="Self.productreport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="puchase_orders" EntityType="Self.puchase_orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="savedAdditionalQuantity" EntityType="Self.savedAdditionalQuantity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="selectedraw" EntityType="Self.selectedraw" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sessionScan" EntityType="Self.sessionScan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="stock_on_hand" EntityType="Self.stock_on_hand" Schema="dbo" store:Type="Tables" />
@@ -677,6 +682,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Name="productCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="prodimg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="integratedRaws" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="issolo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="product_finalization_raw">
           <Key>
@@ -1078,6 +1084,8 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <EntitySet Name="customer_Orders" EntityType="local_dbbmModel2.customer_Orders" />
           <EntitySet Name="customerBasicInformations" EntityType="local_dbbmModel2.customerBasicInformation" />
           <EntitySet Name="bundleProds" EntityType="local_dbbmModel2.bundleProd" />
+          <EntitySet Name="savedAdditionalQuantities" EntityType="local_dbbmModel2.savedAdditionalQuantity" />
+          <EntitySet Name="paymentDetails" EntityType="local_dbbmModel2.paymentDetail" />
         </EntityContainer>
         <ComplexType Name="find_duplicates_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -1163,6 +1171,25 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Name="prodImg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="createdAt" Type="DateTime" Precision="3" />
           <Property Name="isvalidate" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="isbundle" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="savedAdditionalQuantity">
+          <Key>
+            <PropertyRef Name="additionalID" />
+          </Key>
+          <Property Name="additionalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="customJSON" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="prodInvID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="paymentDetail">
+          <Key>
+            <PropertyRef Name="paymentID" />
+          </Key>
+          <Property Name="paymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="paymentInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="paymentStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="orderInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1261,6 +1288,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <EntitySetMapping Name="product_finalization">
             <EntityTypeMapping TypeName="local_dbbmModel2.product_finalization">
               <MappingFragment StoreEntitySet="product_finalization">
+                <ScalarProperty Name="issolo" ColumnName="issolo" />
                 <ScalarProperty Name="integratedRaws" ColumnName="integratedRaws" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="prodname" ColumnName="prodname" />
@@ -1580,7 +1608,6 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <FunctionImportMapping FunctionImportName="sproc_update_isdone_forgotpassword" FunctionName="local_dbbmModel2.Store.sproc_update_isdone_forgotpassword" />
           <FunctionImportMapping FunctionImportName="stored_supplier" FunctionName="local_dbbmModel2.Store.stored_supplier" />
           <FunctionImportMapping FunctionImportName="stored_update_purchase_status" FunctionName="local_dbbmModel2.Store.stored_update_purchase_status" />
-          <FunctionImportMapping FunctionImportName="stored_user_registration" FunctionName="local_dbbmModel2.Store.stored_user_registration" />
           <FunctionImportMapping FunctionImportName="stored_view_expiration_date" FunctionName="local_dbbmModel2.Store.stored_view_expiration_date">
             <ResultMapping>
               <ComplexTypeMapping TypeName="local_dbbmModel2.stored_view_expiration_date_Result">
@@ -1639,6 +1666,7 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <EntitySetMapping Name="bundleProds">
             <EntityTypeMapping TypeName="local_dbbmModel2.bundleProd">
               <MappingFragment StoreEntitySet="bundleProd">
+                <ScalarProperty Name="isbundle" ColumnName="isbundle" />
                 <ScalarProperty Name="isvalidate" ColumnName="isvalidate" />
                 <ScalarProperty Name="createdAt" ColumnName="createdAt" />
                 <ScalarProperty Name="prodImg" ColumnName="prodImg" />
@@ -1649,6 +1677,26 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
                 <ScalarProperty Name="bundleTitle" ColumnName="bundleTitle" />
                 <ScalarProperty Name="bundleCode" ColumnName="bundleCode" />
                 <ScalarProperty Name="bundleID" ColumnName="bundleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="savedAdditionalQuantities">
+            <EntityTypeMapping TypeName="local_dbbmModel2.savedAdditionalQuantity">
+              <MappingFragment StoreEntitySet="savedAdditionalQuantity">
+                <ScalarProperty Name="prodInvID" ColumnName="prodInvID" />
+                <ScalarProperty Name="customJSON" ColumnName="customJSON" />
+                <ScalarProperty Name="additionalID" ColumnName="additionalID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="paymentDetails">
+            <EntityTypeMapping TypeName="local_dbbmModel2.paymentDetail">
+              <MappingFragment StoreEntitySet="paymentDetails">
+                <ScalarProperty Name="orderInfo" ColumnName="orderInfo" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="paymentStatus" ColumnName="paymentStatus" />
+                <ScalarProperty Name="paymentInfo" ColumnName="paymentInfo" />
+                <ScalarProperty Name="paymentID" ColumnName="paymentID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

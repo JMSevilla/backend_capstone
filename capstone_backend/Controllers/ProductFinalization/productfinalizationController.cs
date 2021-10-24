@@ -42,6 +42,7 @@ namespace capstone_backend.Controllers.ProductFinalization
                         prodfinal.prodimg = httprequest.Form["prodimg"];
                         prodfinal.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                         prodfinal.integratedRaws = httprequest.Form["ingredientsID"];
+                        prodfinal.issolo = "1";
                         core.product_finalization.Add(prodfinal);
                         core.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK, "success");
@@ -532,6 +533,77 @@ namespace capstone_backend.Controllers.ProductFinalization
                 {
                     var obj = core.tbcategoryfinals.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("update-custom-quantity"), HttpPost]
+        public IHttpActionResult addcustomquantity()
+        {
+            try
+            {
+                using (core = apiglobalcon.publico)
+                {
+                    var HTTP = HttpContext.Current.Request;
+                    savedAdditionalQuantity save = new savedAdditionalQuantity();
+                    save.customJSON = HTTP.Form["customJSON"];
+                    save.prodInvID = Convert.ToInt32(HTTP.Form["id"]);
+                    core.savedAdditionalQuantities.Add(save);
+                    core.SaveChanges();
+                    return Ok("success custom add");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("check-custom-quantity/{id}/updating"), HttpGet]
+        public IHttpActionResult updatecustomquantity(int id)
+        {
+            try
+            {
+                using (core = apiglobalcon.publico)
+                {
+                    var obj = core.savedAdditionalQuantities.Any(x => x.prodInvID == id);
+                    if (obj)
+                    {
+                        return Ok("exist");
+                    }
+                    else
+                    {
+                        return Ok("not exist");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("update-custom-quantity/{pid}/updating"), HttpPut]
+        public IHttpActionResult finalupdatecustomquantity(int pid)
+        {
+            try
+            {
+                using (core = apiglobalcon.publico)
+                {
+                    var HTTP = HttpContext.Current.Request;
+                    var obj = core.savedAdditionalQuantities.Where(x => x.prodInvID == pid).FirstOrDefault();
+                    if(obj != null)
+                    {
+                        obj.customJSON = HTTP.Form["datajson"];
+                        obj.prodInvID = pid;
+                        core.SaveChanges();
+                        return Ok("success update custom");
+                    }
+                    return Ok();
                 }
             }
             catch (Exception)

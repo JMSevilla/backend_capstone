@@ -266,6 +266,34 @@ namespace capstone_backend.Controllers.Users
                 throw;
             }
         }
+        [Route("cashier-account-logout"), HttpPost]
+        public HttpResponseMessage cashierdestroySession(string email)
+        {
+            try
+            {
+
+                using(core = apiglobalcon.publico)
+                {
+                    if(core != null)
+                    {
+                        core.istokenupdater("", email, 1);
+                        return Request.CreateResponse(HttpStatusCode.OK, "logout");
+                    }
+                    else
+                    {
+                        using (core = apiglobalcon.publico)
+                        {
+                            core.istokenupdater("", email, 1);
+                            return Request.CreateResponse(HttpStatusCode.OK, "logout");
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
         class LoginResponse
         {
             public string message { get; set; }
