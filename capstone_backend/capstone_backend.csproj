@@ -197,6 +197,7 @@
     <Compile Include="Controllers\locations\locationController.cs" />
     <Compile Include="Controllers\POS\BundleAddOrderController.cs" />
     <Compile Include="Controllers\POS\OrderController.cs" />
+    <Compile Include="Controllers\POS\paymentController.cs" />
     <Compile Include="Controllers\POS\pos_productListController.cs" />
     <Compile Include="Controllers\ProductFinalization\productfinalizationController.cs" />
     <Compile Include="Controllers\ProductInventory\InventoryActivationController.cs" />
@@ -340,6 +341,9 @@
     <Compile Include="Models\login_history.cs">
       <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\paymentDetail.cs">
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\productreport.cs">
       <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
@@ -353,6 +357,9 @@
       <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\puchase_orders.cs">
+      <DependentUpon>bmlocalhost.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\savedAdditionalQuantity.cs">
       <DependentUpon>bmlocalhost.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\selectedraw.cs">

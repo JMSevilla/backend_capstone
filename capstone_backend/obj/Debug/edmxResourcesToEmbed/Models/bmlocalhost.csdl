@@ -95,6 +95,7 @@
     <Property Name="productCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="prodimg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="integratedRaws" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="issolo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
   </EntityType>
   <EntityType Name="product_finalization_raw">
     <Key>
@@ -496,6 +497,8 @@
     <EntitySet Name="customer_Orders" EntityType="local_dbbmModel2.customer_Orders" />
     <EntitySet Name="customerBasicInformations" EntityType="local_dbbmModel2.customerBasicInformation" />
     <EntitySet Name="bundleProds" EntityType="local_dbbmModel2.bundleProd" />
+    <EntitySet Name="savedAdditionalQuantities" EntityType="local_dbbmModel2.savedAdditionalQuantity" />
+    <EntitySet Name="paymentDetails" EntityType="local_dbbmModel2.paymentDetail" />
   </EntityContainer>
   <ComplexType Name="find_duplicates_Result">
     <Property Type="Int32" Name="id" Nullable="false" />
@@ -581,5 +584,24 @@
     <Property Name="prodImg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="createdAt" Type="DateTime" Precision="3" />
     <Property Name="isvalidate" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="isbundle" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="savedAdditionalQuantity">
+    <Key>
+      <PropertyRef Name="additionalID" />
+    </Key>
+    <Property Name="additionalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="customJSON" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="prodInvID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="paymentDetail">
+    <Key>
+      <PropertyRef Name="paymentID" />
+    </Key>
+    <Property Name="paymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="paymentInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="paymentStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="orderInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

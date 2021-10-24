@@ -58,6 +58,8 @@ namespace capstone_backend.Models
         public virtual DbSet<customer_Orders> customer_Orders { get; set; }
         public virtual DbSet<customerBasicInformation> customerBasicInformations { get; set; }
         public virtual DbSet<bundleProd> bundleProds { get; set; }
+        public virtual DbSet<savedAdditionalQuantity> savedAdditionalQuantities { get; set; }
+        public virtual DbSet<paymentDetail> paymentDetails { get; set; }
     
         public virtual int ascend_quantity(string pcode, Nullable<int> quantity, Nullable<int> state)
         {
