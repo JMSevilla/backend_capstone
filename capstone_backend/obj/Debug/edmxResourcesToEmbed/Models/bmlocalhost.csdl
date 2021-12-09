@@ -300,6 +300,9 @@
     <Property Name="imageurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="isarchive" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
     <Property Name="istoken" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="isattemptCounter" Type="Int32" />
+    <Property Name="isattemptMinutes" Type="Int32" />
+    <Property Name="isattemptStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
   </EntityType>
   <EntityType Name="supplier_find_duplicate">
     <Key>

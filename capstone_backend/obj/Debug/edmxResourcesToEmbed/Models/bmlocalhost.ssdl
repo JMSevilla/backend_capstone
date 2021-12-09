@@ -360,6 +360,9 @@
     <Property Name="imageurl" Type="varchar(max)" />
     <Property Name="isarchive" Type="char" MaxLength="1" />
     <Property Name="istoken" Type="varchar(max)" />
+    <Property Name="isattemptCounter" Type="int" />
+    <Property Name="isattemptMinutes" Type="int" />
+    <Property Name="isattemptStatus" Type="char" MaxLength="1" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->

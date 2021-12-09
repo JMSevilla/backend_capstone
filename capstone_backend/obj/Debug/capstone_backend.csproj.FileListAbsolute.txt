@@ -389,7 +389,7 @@ C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\bin\System.Web.
 C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\bin\System.Web.WebPages.Razor.xml
 C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\bin\Antlr3.Runtime.pdb
 C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\obj\Debug\capstone_backend.csproj.AssemblyReference.cache
 C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\obj\Debug\capstone_backend.csproj.CoreCompileInputs.cache
 C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\obj\Debug\capstone_backend.dll
 C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\obj\Debug\capstone_backend.pdb
+C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\obj\Debug\capstone_backend.csproj.AssemblyReference.cache

@@ -306,6 +306,9 @@
     <EntitySetMapping Name="users">
       <EntityTypeMapping TypeName="local_dbbmModel2.user">
         <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="isattemptStatus" ColumnName="isattemptStatus" />
+          <ScalarProperty Name="isattemptMinutes" ColumnName="isattemptMinutes" />
+          <ScalarProperty Name="isattemptCounter" ColumnName="isattemptCounter" />
           <ScalarProperty Name="istoken" ColumnName="istoken" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="firstname" ColumnName="firstname" />
