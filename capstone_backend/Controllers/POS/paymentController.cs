@@ -83,16 +83,25 @@ namespace capstone_backend.Controllers.POS
                 throw;
             }
         }
-        [Route("approve-payment-update-to-receipt/{paymentID}"), HttpPut]
-        public IHttpActionResult paymentDone(int paymentID)
+        [Route("approve-payment-update-to-receipt/{paymentID}/{isbundle}"), HttpPut]
+        public IHttpActionResult paymentDone(int paymentID, bool isbundle)
         {
             try
             {
                 using(core = apiglobalcon.publico)
                 {
-                    var donepayment = "update paymentDetails set paymentStatus='2' where paymentID=@pid";
-                    core.Database.ExecuteSqlCommand(donepayment, new SqlParameter("@pid", paymentID));
-                    return Ok("done payment");
+                    if (isbundle)
+                    {
+                        var donepayment = "update paymentDetails set paymentStatus='3' where paymentID=@pid";
+                        core.Database.ExecuteSqlCommand(donepayment, new SqlParameter("@pid", paymentID));
+                        return Ok("done payment");
+                    }
+                    else
+                    {
+                        var donepayment = "update paymentDetails set paymentStatus='2' where paymentID=@pid";
+                        core.Database.ExecuteSqlCommand(donepayment, new SqlParameter("@pid", paymentID));
+                        return Ok("done payment");
+                    }
                 }
             }
            catch (Exception)

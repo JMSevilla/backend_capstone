@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -314,6 +315,7 @@ namespace capstone_backend.Controllers.Users
                     string encrypted = string.Empty;
                     string istype;
                     string isstatus;
+                    string isattempt;
                     var c1 = core.users.Any(x => x.email == res.email && x.isarchive != "1");
                     var c2 = core.users.Where(x => x.email == res.email).FirstOrDefault();
                     if (string.IsNullOrEmpty(res.email) || string.IsNullOrEmpty(pwd))
@@ -328,55 +330,65 @@ namespace capstone_backend.Controllers.Users
                             encrypted = c2 == null ? "" : c2.password;
                             istype = c2.istype;
                             isstatus = c2.isstatus;
+                            isattempt = c2.isattemptStatus;
                             string decryptoriginal = secure.Decrypt(pwd);
                             string decryptrequest = secure.Decrypt(encrypted);
-                            if (decryptrequest == decryptoriginal)
+                            if (isattempt == "1")
                             {
-                                if (isstatus == "1")
+                                return Request.CreateResponse(HttpStatusCode.OK, "attempt failed");
+                            }
+                            else
+                            {
+                                if (decryptrequest == decryptoriginal)
                                 {
-                                    if (istype == "1")
+                                    if (isstatus == "1")
                                     {
-                                        //admin
-
-                                        var fetchy = core.users.Where(x => x.email == res.email).Select(t => new
+                                        if (istype == "1")
                                         {
-                                            t.id,
-                                            t.firstname,
-                                            t.lastname,
-                                            t.istype,
-                                            t.email
-                                        }).ToList();
-                                        res.databulk = fetchy.FirstOrDefault();
-                                        res.message = "SUCCESS";
-                                        IServiceToken(res.email, Guid.NewGuid().ToString());
-                                        return Request.CreateResponse(HttpStatusCode.OK, res);
+                                            //admin
+
+                                            var fetchy = core.users.Where(x => x.email == res.email).Select(t => new
+                                            {
+                                                t.id,
+                                                t.firstname,
+                                                t.lastname,
+                                                t.istype,
+                                                t.email
+                                            }).ToList();
+                                            res.databulk = fetchy.FirstOrDefault();
+                                            res.message = "SUCCESS";
+                                            IServiceToken(res.email, Guid.NewGuid().ToString());
+                                            return Request.CreateResponse(HttpStatusCode.OK, res);
+                                        }
+                                        else
+                                        {
+                                            //cashier
+
+                                            var cashier = core.users.Where(x => x.email == res.email).Select(t => new
+                                            {
+                                                t.id,
+                                                t.firstname,
+                                                t.lastname,
+                                                t.istype,
+                                                t.email
+                                            }).ToList();
+                                            res.databulk = cashier.FirstOrDefault();
+                                            res.message = "SUCCESS CASHIER";
+                                            IServiceToken(res.email, Guid.NewGuid().ToString());
+                                            return Request.CreateResponse(HttpStatusCode.OK, res);
+                                        }
                                     }
                                     else
                                     {
-                                        //cashier
-                                        var cashier = core.users.Where(x => x.email == res.email).Select(t => new
-                                        {
-                                            t.id,
-                                            t.firstname,
-                                            t.lastname,
-                                            t.istype,
-                                            t.email
-                                        }).ToList();
-                                        res.databulk = cashier.FirstOrDefault();
-                                        res.message = "SUCCESS CASHIER";
-                                        IServiceToken(res.email, Guid.NewGuid().ToString());
-                                        return Request.CreateResponse(HttpStatusCode.OK, res);
+                                        return Request.CreateResponse(HttpStatusCode.OK, "disabled");
                                     }
                                 }
                                 else
                                 {
-                                    return Request.CreateResponse(HttpStatusCode.OK, "disabled");
+                                    return Request.CreateResponse(HttpStatusCode.OK, "invalid");
                                 }
                             }
-                            else
-                            {
-                                return Request.CreateResponse(HttpStatusCode.OK, "invalid");
-                            }
+                            
                         }
                         else
                         {
@@ -398,6 +410,108 @@ namespace capstone_backend.Controllers.Users
             using (apiglobalcon.publico)
             {
                 apiglobalcon.publico.istokenupdater(token, email, 1);
+            }
+        }
+        [Route("attemptUpdater"), HttpPut]
+        public IHttpActionResult isAttemptUpdater(string email, int receivedCount)
+        {
+            try
+            {
+                using (core = apiglobalcon.publico)
+                {
+
+                    var StringCounter = core.users.Where(x => x.email == email).FirstOrDefault();
+                    int counter = Convert.ToInt32(StringCounter.isattemptCounter);
+                    if (counter != 3)
+                    {
+                        //var handler = StringCounter.isattemptCounter = StringCounter.isattemptCounter + 1;
+                        var res = core.users.Where(x => x.email == email).FirstOrDefault();
+                        if(res != null)
+                        {
+                            res.isattemptCounter = receivedCount;
+                            core.SaveChanges();
+
+                        }
+                        return Ok("isattemptcount update");
+                    }
+                    else
+                    {
+                        string isattemptMinutes_Query = "update users set isattemptMinutes=@mins where email=@userEmail";
+                        string isattemptStatus_Query = "update users set isattemptStatus=@stats where email=@userEmail";
+                        core.Database.ExecuteSqlCommand(isattemptMinutes_Query, new SqlParameter("@mins", "5"), new SqlParameter("@userEmail", email));
+                        core.Database.ExecuteSqlCommand(isattemptStatus_Query, new SqlParameter("@stats", "1"), new SqlParameter("@userEmail", email));
+                        return Ok("success attempt update");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("get-attempts"), HttpGet]
+        public IHttpActionResult getattempts(string useremail)
+        {
+            try
+            {
+                using (core = apiglobalcon.publico)
+                {
+                    var obj = core.users.Where(x => x.email == useremail).FirstOrDefault();
+                    return Ok(obj.isattemptCounter);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("update-attempts-status"), HttpPut]
+        public IHttpActionResult updateAttempts(string email)
+        {
+            try
+            {
+                using (core = apiglobalcon.publico)
+                {
+                    var obj = core.users.Where(x => x.email == email).FirstOrDefault();
+                    if(obj != null)
+                    {
+                        obj.isattemptStatus = "1";
+                        core.SaveChanges();
+                        
+                    }
+                    return Ok("attempt status update");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("reset-attempts"), HttpPut]
+        public IHttpActionResult resetAttempts(string email)
+        {
+            try
+            {
+                using (core = apiglobalcon.publico)
+                {
+                    var obj = core.users.Where(x => x.email == email).FirstOrDefault();
+                    if (obj != null)
+                    {
+                        obj.isattemptStatus = "0";
+                        obj.isattemptCounter = 0;
+                        core.SaveChanges();
+
+                    }
+                    return Ok("reset attempt update");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

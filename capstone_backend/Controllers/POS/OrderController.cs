@@ -58,6 +58,32 @@ namespace capstone_backend.Controllers.POS
                 throw;
             }
         }
+        [Route("bundle-validate-cart/{qty}/{id}"), HttpGet]
+        public IHttpActionResult validateBundle(int qty, int id)
+        {
+            try
+            {
+                using (apiglobalcon.publico)
+                {
+                    var check = apiglobalcon.publico.product_finalization
+                        .Where(x => x.id == id).FirstOrDefault();
+                    if (check != null)
+                    {
+                        var getvalid = check.prodquantity;
+                        if (qty > getvalid)
+                        {
+                            return Ok("invalid qty");
+                        }
+                    }
+                    return Ok();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         [Route("order-solo"), HttpPost]
         public IHttpActionResult OrderSolo()
         {
@@ -87,6 +113,35 @@ namespace capstone_backend.Controllers.POS
                 throw;
             }
         }
+        [Route("order-bundle"), HttpPost]
+        public IHttpActionResult OrderBundle()
+        {
+            try
+            {
+                var HTTP = HttpContext.Current.Request;
+                using (core = apiglobalcon.publico)
+                {
+                    customer_Orders orders = new customer_Orders();
+                    orders.orderName = HTTP.Form["bundle_order_name"];
+                    orders.orderCode = Guid.NewGuid().ToString();
+                    orders.orderBarcode = HTTP.Form["bundle_order_code"];
+                    orders.orderPrice = Convert.ToDecimal(HTTP.Form["bundle_order_price"]);
+                    orders.orderQuantity = Convert.ToInt32(HTTP.Form["bundle_order_qty"]);
+                    orders.orderCategory = HTTP.Form["bundle_order_category"];
+                    orders.orderTotalPrice = Convert.ToDecimal(HTTP.Form["bundle_order_price"]) * Convert.ToInt32(HTTP.Form["bundle_order_qty"]);
+                    orders.orderImage = HTTP.Form["bundle_order_image"];
+                    orders.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM"));
+                    core.customer_Orders.Add(orders);
+                    core.SaveChanges();
+                    return Ok("success order");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         [Route("order-decrease-qty/{orderID}/{qty}"), HttpPut]
         public IHttpActionResult decreaseqty(int orderID, int qty)
         {
@@ -96,6 +151,29 @@ namespace capstone_backend.Controllers.POS
                 {
                     var check = core.product_finalization.Where(x => x.id == orderID).FirstOrDefault();
                     if(check != null)
+                    {
+                        check.prodquantity = check.prodquantity - qty;
+                        core.SaveChanges();
+                        return Ok("success decrease");
+                    }
+                    return Ok();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("order-decrease-qty-bundle/{orderID}/{qty}"), HttpPut]
+        public IHttpActionResult decreaseqtybundle(int orderID, int qty)
+        {
+            try
+            {
+                using (core = apiglobalcon.publico)
+                {
+                    var check = core.product_finalization.Where(x => x.id == orderID).FirstOrDefault();
+                    if (check != null)
                     {
                         check.prodquantity = check.prodquantity - qty;
                         core.SaveChanges();

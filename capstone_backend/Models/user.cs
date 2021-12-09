@@ -33,5 +33,8 @@ namespace capstone_backend.Models
         public string imageurl { get; set; }
         public string isarchive { get; set; }
         public string istoken { get; set; }
+        public Nullable<int> isattemptCounter { get; set; }
+        public Nullable<int> isattemptMinutes { get; set; }
+        public string isattemptStatus { get; set; }
     }
 }
