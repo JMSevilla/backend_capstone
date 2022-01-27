@@ -188,6 +188,7 @@
     <Compile Include="Controllers\APIForTesting\testinginsertController.cs" />
     <Compile Include="Controllers\bundleProduct\bundleProdController.cs" />
     <Compile Include="Controllers\Categories\productcategoryController.cs" />
+    <Compile Include="Controllers\Dashboard\DashboardController.cs" />
     <Compile Include="Controllers\excelTemplate\excelController.cs" />
     <Compile Include="Controllers\ExpirationProduct\productExpirationController.cs" />
     <Compile Include="Controllers\ExpirationProduct\p_inventory_view_expirationController.cs" />
@@ -336,6 +337,7 @@
     <Compile Include="Models\customer_Orders.cs">
       <DependentUpon>burgermania_database.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DashboardSummaryDto.cs" />
     <Compile Include="Models\DatabaseManager.cs" />
     <Compile Include="Models\database_firewall_rules.cs">
       <DependentUpon>burgermania_database.tt</DependentUpon>
@@ -639,6 +641,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\DashboardSummaryDto\" />
+    <Folder Include="Views\Dashboard\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

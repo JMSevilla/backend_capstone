@@ -612,5 +612,51 @@ namespace capstone_backend.Controllers.ProductFinalization
                 throw;
             }
         }
+
+        [Route("modify-finalize-product"), HttpPut]
+        public IHttpActionResult updateProductQuantity(int id, int quantity)
+        {
+            try
+            {
+                using (local_dbbmEntities2 core = apiglobalcon.publico)
+                {
+                    var obj = core.product_finalization.Where(x => x.id == id).FirstOrDefault();
+                    obj.prodquantity = obj.prodquantity + quantity;
+                    core.SaveChanges();
+                    return Ok("success refill");
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+    
+        [Route("remove-finalize-product"), HttpDelete]
+        public HttpResponseMessage removeProductFinal(int id)
+        {   
+            try
+            {
+                using (local_dbbmEntities2 core = apiglobalcon.publico)
+                {
+                    if (id <= 0)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, "invalid id");
+                    }
+                    else
+                    {
+                        var remove = core.product_finalization.Where(x => x.id == id).FirstOrDefault();
+                        core.Entry(remove).State = System.Data.Entity.EntityState.Deleted;
+                        core.SaveChanges();
+                        return Request.CreateResponse(HttpStatusCode.OK, "success delete");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+    
     }
 }

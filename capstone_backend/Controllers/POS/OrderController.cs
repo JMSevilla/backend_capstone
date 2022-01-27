@@ -9,6 +9,7 @@ using capstone_backend.Models;
 using capstone_backend.globalCON;
 using System.Web;
 using System.Data.SqlClient;
+using Newtonsoft.Json;
 
 namespace capstone_backend.Controllers.POS
 {
@@ -172,10 +173,23 @@ namespace capstone_backend.Controllers.POS
             {
                 using (core = apiglobalcon.publico)
                 {
-                    var check = core.product_finalization.Where(x => x.id == orderID).FirstOrDefault();
+                    var check = core.product_finalization.Where(x => x.id == orderID)
+                                                         .FirstOrDefault();
                     if (check != null)
                     {
+                        //subtract final product quantity
                         check.prodquantity = check.prodquantity - qty;
+                        
+                        //subtract ingredients quantity
+                        var ingredients = core.product_finalization_raw.Where(x => x.productCreatedCode == check.productCode)
+                                                                       .Select(x => x.productInventoryCode)
+                                                                       .ToList();
+                        foreach (var ingredient in ingredients)
+                        {
+                            var stock = core.stock_on_hand.Where(x => x.stockNumber == ingredient).FirstOrDefault();
+                            stock.productquantity = stock.productquantity - qty;
+                        }
+
                         core.SaveChanges();
                         return Ok("success decrease");
                     }
@@ -184,10 +198,10 @@ namespace capstone_backend.Controllers.POS
             }
             catch (Exception)
             {
-
                 throw;
             }
         }
+        
         SqlConnection cons;
         [Route("order-total-price"), HttpGet]
         public IHttpActionResult gettotal()
@@ -217,8 +231,23 @@ namespace capstone_backend.Controllers.POS
             {
                 using(core = apiglobalcon.publico)
                 {
-                    string voidQuery = "update product_finalization set prodquantity=prodquantity+@pqty where productCode=@pcode";
-                    core.Database.ExecuteSqlCommand(voidQuery, new SqlParameter("@pqty", qty), new SqlParameter("@pcode", code));
+                     //add voided quantity to product
+                    var product = core.product_finalization.Where(x => x.productCode == code)
+                                                           .FirstOrDefault();
+                    product.prodquantity = product.prodquantity + qty;
+                        
+                    //add voided quantity to ingredients
+                    var ingredients = core.product_finalization_raw.Where(x => x.productCreatedCode == product.productCode)
+                                                                   .Select(x => x.productInventoryCode)
+                                                                   .ToList();
+                    foreach (var ingredient in ingredients)
+                    {
+                        var stock = core.stock_on_hand.Where(x => x.stockNumber == ingredient).FirstOrDefault();
+                        stock.productquantity = stock.productquantity + qty;
+                    }
+
+                    core.SaveChanges();
+
                     string voidDeletion = "delete from customer_Orders where orderID=@ordid";
                     core.Database.ExecuteSqlCommand(voidDeletion, new SqlParameter("@ordid", orderid));
                     return Ok("success void");
