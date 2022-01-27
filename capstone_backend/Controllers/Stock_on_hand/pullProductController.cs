@@ -14,7 +14,7 @@ namespace capstone_backend.Controllers.Stock_on_hand
     public class pullProductController : ApiController
     {
         //private burgerdbEntities core;
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         [Route("sync-data-to-product-inventory"), HttpPost]
         public HttpResponseMessage syncdata(int id, string pname, string pcode, int pquantity, decimal pprice, string supplier, string category, string expiration)
         {

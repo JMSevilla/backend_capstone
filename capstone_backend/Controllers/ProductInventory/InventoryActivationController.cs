@@ -12,7 +12,7 @@ namespace capstone_backend.Controllers.ProductInventory
     public class InventoryActivationController : ApiController
     {
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         [Route("product-activation"), HttpPost]
         public HttpResponseMessage activate(int prodid)
         {

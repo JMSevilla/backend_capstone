@@ -14,7 +14,7 @@ namespace capstone_backend.Controllers.purchaseOrders
     public class purchaseorderController : ApiController
     {
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         class Response
         {
             public string message { get; set; }

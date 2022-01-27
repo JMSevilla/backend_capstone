@@ -12,7 +12,7 @@ namespace capstone_backend.Controllers.ExpirationProduct
     public class productExpirationController : ApiController
     {
         //private dbbmEntities core; //localhost
-        private local_dbbmEntities2 core; //azure cloud computing
+        private dbbmEntities core; //azure cloud computing
         [Route("product-expired"), HttpGet]
         public HttpResponseMessage getexpired()
         {

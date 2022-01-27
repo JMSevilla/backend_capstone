@@ -13,7 +13,7 @@ namespace capstone_backend.Controllers.locations
     {
         //connection
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         //get all municipalities
         [Route("municipalities"), HttpGet]
         public HttpResponseMessage getmunicipality()

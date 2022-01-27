@@ -1,0 +1,628 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="local_dbbmModel3" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="activity_log">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="activitymessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="activtystatus" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="activityCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="archive_users">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="archiveID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="lastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="usertype" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="archiveusermessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="archiveCreated" Type="DateTime" Precision="3" />
+    <Property Name="client_id" Type="Int32" />
+  </EntityType>
+  <EntityType Name="bundleProd">
+    <Key>
+      <PropertyRef Name="bundleID" />
+    </Key>
+    <Property Name="bundleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="bundleCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="bundleTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="bundleIntegratedProdFinal" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="bundleIntegratedProdInvID" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="bundleQuantity" Type="Int32" />
+    <Property Name="prodPrice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="prodImg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="isvalidate" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="isbundle" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="code_verifications">
+    <Key>
+      <PropertyRef Name="codeID" />
+    </Key>
+    <Property Name="codeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="vcode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="isdone" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="sendattempts" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="g_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="validatedAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="customer_Orders">
+    <Key>
+      <PropertyRef Name="orderID" />
+    </Key>
+    <Property Name="orderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="orderCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="orderName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="orderBarcode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="orderPrice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="orderQuantity" Type="Int32" />
+    <Property Name="orderCategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="orderTotalPrice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="orderImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="customerBasicInformation">
+    <Key>
+      <PropertyRef Name="customerID" />
+    </Key>
+    <Property Name="customerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="customerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="orderCodeIndicated" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="orderPaymentIndicated" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="orderTotalIndicated" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="excelStorage">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="tname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="turl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="expiration">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pcode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="expirydate" Type="DateTime" Precision="3" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="forgotpassword_identifier">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="forgotcode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="isdone" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="location">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="municipality" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="province" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="login_history">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="loggedinstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="logindate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="paymentDetail">
+    <Key>
+      <PropertyRef Name="paymentID" />
+    </Key>
+    <Property Name="paymentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="paymentInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="paymentStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="orderInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="product_finalization">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="prodname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="prodquantity" Type="Int32" />
+    <Property Name="prodprice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="prodcategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="prodtotal" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="prodstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="productCode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="prodimg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="integratedRaws" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="issolo" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="product_finalization_raw">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productCreatedCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="productInventoryCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="product_inventory">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="productName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="product_quantity" Type="Int32" />
+    <Property Name="product_price" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="product_total" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="product_status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="product_creator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="product_supplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="productimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="product_category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="expirationprod" Type="DateTime" Precision="3" />
+    <Property Name="size" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="productreport">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="problem1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="problem2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="problem3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="problem4" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="remarks" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="responsible" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ponumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="puchase_orders">
+    <Key>
+      <PropertyRef Name="poid" />
+    </Key>
+    <Property Name="poid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ponumber" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="pname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="pquantity" Type="Int32" />
+    <Property Name="pprice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="ptotal" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="pcreator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="psupplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="savedAdditionalQuantity">
+    <Key>
+      <PropertyRef Name="additionalID" />
+    </Key>
+    <Property Name="additionalID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="customJSON" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="prodInvID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="selectedraw">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="prodimg" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="prodname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="prodcode" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="sessionScan">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="sessionID" Type="Int32" />
+    <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="isused" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="stock_on_hand">
+    <Key>
+      <PropertyRef Name="stockID" />
+    </Key>
+    <Property Name="stockID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="stockNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="productname" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="productquantity" Type="Int32" />
+    <Property Name="productprice" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="productstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="productcreator" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="productsupplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="productimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="productcategory" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="product_total" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="expirationprod" Type="DateTime" Precision="3" />
+    <Property Name="sizes" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="supplier">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="supplierIdentificationCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="supplierfirstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="supplierlastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="supplierprimaryaddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="suppliersecondaryaddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="suppliernumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="supplieremail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="supplierimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="isstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbcategory">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="categoryname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tbcategoryfinal">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="categoryname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tbexceltest">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="fname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="lname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbinventsetting">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="enableinventform" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="enablesupplier" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="enableexpiration" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbposetting">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="enablePO" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="enablePOInventory" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="enableListview" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="viewentry" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="updatedAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="tbtesting">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="lastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="testingtable">
+    <Key>
+      <PropertyRef Name="testID" />
+    </Key>
+    <Property Name="testID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="testname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="user_google_allow">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="g_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="firstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="lastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="municipality" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="province" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="company_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="address_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="mobile_no" Type="Int32" />
+    <Property Name="istype" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="isverified" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="isstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="is_google_verified" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="imageurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="isarchive" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="istoken" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="isattemptCounter" Type="Int32" />
+    <Property Name="isattemptMinutes" Type="Int32" />
+    <Property Name="isattemptStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="supplier_find_duplicate">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="supplierIdentificationCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="supplierfirstname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="supplierlastname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="supplierprimaryaddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="suppliersecondaryaddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="suppliernumber" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="supplieremail" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="supplierimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="isstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="Expr1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="warning_expiration_10_days">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="Int32" Nullable="false" />
+    <Property Name="productCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="productName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="product_quantity" Type="Int32" />
+    <Property Name="product_price" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="product_total" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="product_status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="product_creator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="product_supplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="productimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="product_category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Expr1" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="database_firewall_rules">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ip_address" />
+      <PropertyRef Name="end_ip_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="ipv6_database_firewall_rules">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="name" />
+      <PropertyRef Name="start_ipv6_address" />
+      <PropertyRef Name="end_ipv6_address" />
+      <PropertyRef Name="create_date" />
+      <PropertyRef Name="modify_date" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="start_ipv6_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="end_ipv6_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityContainer Name="local_dbbmEntities3" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="activity_log" EntityType="Self.activity_log" />
+    <EntitySet Name="archive_users" EntityType="Self.archive_users" />
+    <EntitySet Name="bundleProds" EntityType="Self.bundleProd" />
+    <EntitySet Name="code_verifications" EntityType="Self.code_verifications" />
+    <EntitySet Name="customer_Orders" EntityType="Self.customer_Orders" />
+    <EntitySet Name="customerBasicInformations" EntityType="Self.customerBasicInformation" />
+    <EntitySet Name="excelStorages" EntityType="Self.excelStorage" />
+    <EntitySet Name="expirations" EntityType="Self.expiration" />
+    <EntitySet Name="forgotpassword_identifier" EntityType="Self.forgotpassword_identifier" />
+    <EntitySet Name="locations" EntityType="Self.location" />
+    <EntitySet Name="login_history" EntityType="Self.login_history" />
+    <EntitySet Name="paymentDetails" EntityType="Self.paymentDetail" />
+    <EntitySet Name="product_finalization" EntityType="Self.product_finalization" />
+    <EntitySet Name="product_finalization_raw" EntityType="Self.product_finalization_raw" />
+    <EntitySet Name="product_inventory" EntityType="Self.product_inventory" />
+    <EntitySet Name="productreports" EntityType="Self.productreport" />
+    <EntitySet Name="puchase_orders" EntityType="Self.puchase_orders" />
+    <EntitySet Name="savedAdditionalQuantities" EntityType="Self.savedAdditionalQuantity" />
+    <EntitySet Name="selectedraws" EntityType="Self.selectedraw" />
+    <EntitySet Name="sessionScans" EntityType="Self.sessionScan" />
+    <EntitySet Name="stock_on_hand" EntityType="Self.stock_on_hand" />
+    <EntitySet Name="suppliers" EntityType="Self.supplier" />
+    <EntitySet Name="tbcategories" EntityType="Self.tbcategory" />
+    <EntitySet Name="tbcategoryfinals" EntityType="Self.tbcategoryfinal" />
+    <EntitySet Name="tbexceltests" EntityType="Self.tbexceltest" />
+    <EntitySet Name="tbinventsettings" EntityType="Self.tbinventsetting" />
+    <EntitySet Name="tbposettings" EntityType="Self.tbposetting" />
+    <EntitySet Name="tbtestings" EntityType="Self.tbtesting" />
+    <EntitySet Name="testingtables" EntityType="Self.testingtable" />
+    <EntitySet Name="user_google_allow" EntityType="Self.user_google_allow" />
+    <EntitySet Name="users" EntityType="Self.user" />
+    <EntitySet Name="supplier_find_duplicate" EntityType="Self.supplier_find_duplicate" />
+    <EntitySet Name="warning_expiration_10_days" EntityType="Self.warning_expiration_10_days" />
+    <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
+    <EntitySet Name="ipv6_database_firewall_rules" EntityType="Self.ipv6_database_firewall_rules" />
+    <FunctionImport Name="ascend_quantity">
+      <Parameter Name="pcode" Mode="In" Type="String" />
+      <Parameter Name="quantity" Mode="In" Type="Int32" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="change_password_changer">
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="password" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="clearselectedraw">
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="deductquantityfinal">
+      <Parameter Name="pcode" Mode="In" Type="String" />
+      <Parameter Name="quantity" Mode="In" Type="Int32" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="find_duplicates" ReturnType="Collection(local_dbbmModel3.find_duplicates_Result)">
+      <Parameter Name="sid" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="istokenupdater">
+      <Parameter Name="istoken" Mode="In" Type="String" />
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="action" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="product_finalization_activator">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="quantity_decrease_manager">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="quantity" Mode="In" Type="Int32" />
+      <Parameter Name="pcode" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="quantity_refill_increase_manager">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="quantity" Mode="In" Type="Int32" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sproc_get_products_fromInventory_via_code" ReturnType="Collection(local_dbbmModel3.sproc_get_products_fromInventory_via_code_Result)">
+      <Parameter Name="state" Mode="In" Type="Int32" />
+      <Parameter Name="code" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sproc_update_isdone_forgotpassword">
+      <Parameter Name="forgotcode" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stored_supplier">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="sfname" Mode="In" Type="String" />
+      <Parameter Name="slname" Mode="In" Type="String" />
+      <Parameter Name="sprimary" Mode="In" Type="String" />
+      <Parameter Name="ssecondary" Mode="In" Type="String" />
+      <Parameter Name="snumber" Mode="In" Type="String" />
+      <Parameter Name="semail" Mode="In" Type="String" />
+      <Parameter Name="simg" Mode="In" Type="String" />
+      <Parameter Name="isstatus" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stored_update_purchase_status">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="stored_view_expiration_date" ReturnType="Collection(local_dbbmModel3.stored_view_expiration_date_Result)">
+      <Parameter Name="state" Mode="In" Type="Int32" />
+      <Parameter Name="pcode" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="update_invent_settings">
+      <Parameter Name="state" Mode="In" Type="Int32" />
+      <Parameter Name="inventorysetting" Mode="In" Type="String" />
+      <Parameter Name="inventorysupplier" Mode="In" Type="String" />
+      <Parameter Name="inventexpiration" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="update_product_inventory">
+      <Parameter Name="productid" Mode="In" Type="Int32" />
+      <Parameter Name="productname" Mode="In" Type="String" />
+      <Parameter Name="productquantity" Mode="In" Type="Int32" />
+      <Parameter Name="productprice" Mode="In" Type="Decimal" />
+      <Parameter Name="producttotal" Mode="In" Type="Decimal" />
+      <Parameter Name="productsupplier" Mode="In" Type="String" />
+      <Parameter Name="productimg" Mode="In" Type="String" />
+      <Parameter Name="productcategory" Mode="In" Type="String" />
+      <Parameter Name="pcode" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="update_product_status">
+      <Parameter Name="prodid" Mode="In" Type="Int32" />
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="update_sendAttempts">
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="code" Mode="In" Type="String" />
+      <Parameter Name="action" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="update_session_stats">
+      <Parameter Name="email" Mode="In" Type="String" />
+      <Parameter Name="action" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="update_settings">
+      <Parameter Name="state" Mode="In" Type="Int32" />
+      <Parameter Name="enablePO" Mode="In" Type="String" />
+      <Parameter Name="enablepoinventry" Mode="In" Type="String" />
+      <Parameter Name="enablelistview" Mode="In" Type="String" />
+      <Parameter Name="viewentry" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="user_status_updater">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="action" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="find_duplicates_Result">
+    <Property Type="Int32" Name="id" Nullable="false" />
+    <Property Type="String" Name="supplierIdentificationCode" Nullable="true" />
+    <Property Type="String" Name="supplierfirstname" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="supplierlastname" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="supplierprimaryaddress" Nullable="true" MaxLength="Max" />
+    <Property Type="String" Name="suppliersecondaryaddress" Nullable="true" MaxLength="Max" />
+    <Property Type="String" Name="suppliernumber" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="supplieremail" Nullable="true" MaxLength="255" />
+    <Property Type="DateTime" Name="createdAt" Nullable="true" Precision="23" />
+    <Property Type="String" Name="supplierimgurl" Nullable="true" />
+    <Property Type="String" Name="isstatus" Nullable="true" MaxLength="1" />
+    <Property Type="String" Name="Expr1" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sproc_get_products_fromInventory_via_code_Result">
+    <Property Type="Int32" Name="productID" Nullable="false" />
+    <Property Type="String" Name="productCode" Nullable="true" />
+    <Property Type="String" Name="productName" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="product_quantity" Nullable="true" />
+    <Property Type="Decimal" Name="product_price" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="product_total" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="String" Name="product_status" Nullable="true" MaxLength="1" />
+    <Property Type="String" Name="product_creator" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="product_supplier" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="createdAt" Nullable="true" Precision="23" />
+    <Property Type="String" Name="productimgurl" Nullable="true" />
+    <Property Type="String" Name="product_category" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="expirationprod" Nullable="true" Precision="23" />
+    <Property Type="String" Name="size" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="stored_view_expiration_date_Result">
+    <Property Type="DateTime" Name="expirydate" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="productID" Nullable="false" />
+    <Property Type="String" Name="productCode" Nullable="true" />
+    <Property Type="String" Name="productName" Nullable="true" MaxLength="255" />
+    <Property Type="Int32" Name="product_quantity" Nullable="true" />
+    <Property Type="Decimal" Name="product_price" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="Decimal" Name="product_total" Nullable="true" Precision="18" Scale="0" />
+    <Property Type="String" Name="product_status" Nullable="true" MaxLength="1" />
+    <Property Type="String" Name="product_creator" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="product_supplier" Nullable="true" MaxLength="100" />
+    <Property Type="DateTime" Name="createdAt" Nullable="true" Precision="23" />
+    <Property Type="String" Name="productimgurl" Nullable="true" />
+    <Property Type="String" Name="product_category" Nullable="true" MaxLength="100" />
+  </ComplexType>
+</Schema>

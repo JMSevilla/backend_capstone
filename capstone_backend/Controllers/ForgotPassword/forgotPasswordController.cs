@@ -18,7 +18,7 @@ namespace capstone_backend.Controllers.ForgotPassword
     {
         APISecurity secure = new APISecurity();
         //private local_dbbmEntities core;
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         [Route("email-finder"), HttpPost]
         public HttpResponseMessage email_finder(string email)
         {

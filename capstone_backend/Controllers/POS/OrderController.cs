@@ -15,7 +15,7 @@ namespace capstone_backend.Controllers.POS
     [RoutePrefix("api/orders")]
     public class OrderController : ApiController
     {
-        local_dbbmEntities2 core;
+        dbbmEntities core;
         [Route("order-list"), HttpGet]
         public async Task<IHttpActionResult> getorderlist()
         {

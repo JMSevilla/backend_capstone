@@ -12,7 +12,7 @@ namespace capstone_backend.Controllers.Stock_on_hand
     public class sortingController : ApiController
     {
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         class dataManagement
         {
             public object bulk { get; set; }

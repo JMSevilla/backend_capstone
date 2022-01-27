@@ -13,7 +13,7 @@ namespace capstone_backend.Controllers.ProductInventory
     public class productInventoryController : ApiController
     {
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         [Route("fetchinginventory"), HttpGet]
         public HttpResponseMessage getAllproducts()
         {

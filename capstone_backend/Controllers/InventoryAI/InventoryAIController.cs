@@ -17,7 +17,7 @@ namespace capstone_backend.Controllers.InventoryAI
     public class InventoryAIController : ApiController
     {
         //private local_dbbmEntities core;
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         //private dbbmEntities core;
         [Route("artificial-intel-auto-compute"), HttpPost]
         public HttpResponseMessage aicompute(bool valbool)

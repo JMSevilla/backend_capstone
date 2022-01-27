@@ -15,7 +15,7 @@ namespace capstone_backend.Controllers.productReport
     public class ProductReportController : ApiController
     {
         //private burgerdbEntities core;
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         [Route("product-report"), HttpPost]
         public HttpResponseMessage reportproblem(int id, string supplieremail, string productname, string problem1, string problem2, string problem3, string problem4, string remarks, string supplier, string ponumber)
         {

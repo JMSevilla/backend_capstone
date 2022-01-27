@@ -13,7 +13,7 @@ namespace capstone_backend.Controllers.bundleProduct
     [RoutePrefix("api/bundle")]
     public class bundleProdController : ApiController
     {
-        local_dbbmEntities2 core;
+        dbbmEntities core;
         [Route("fetchAll-prodfinal"), HttpGet]
         public async Task<IHttpActionResult> getall()
         {

@@ -12,7 +12,7 @@ namespace capstone_backend.Controllers.POS
     [RoutePrefix("api/bundle-order")]
     public class BundleAddOrderController : ApiController
     {
-        local_dbbmEntities2 core;
+        dbbmEntities core;
         [Route("add-to-cart"), HttpPost]
         public IHttpActionResult bundlecartadding()
         {

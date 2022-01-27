@@ -14,7 +14,7 @@ namespace capstone_backend.Controllers.Users
     public class LoginController : ApiController
     {
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         //private dbbmEntities core1;
         APISecurity secure = new APISecurity();
         class Response

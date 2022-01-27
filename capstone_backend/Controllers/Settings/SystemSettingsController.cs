@@ -14,7 +14,7 @@ namespace capstone_backend.Controllers.Settings
     public class SystemSettingsController : ApiController
     {
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         [Route("check-settings"), HttpPost]
         public HttpResponseMessage checksettings(string enableposettings)
         {
