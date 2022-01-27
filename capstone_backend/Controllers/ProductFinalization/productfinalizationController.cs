@@ -613,26 +613,18 @@ namespace capstone_backend.Controllers.ProductFinalization
             }
         }
 
-        [Route("modify-finalize-product/{id}/{quantity}")]
+        [Route("modify-finalize-product"), HttpPut]
         public IHttpActionResult updateProductQuantity(int id, int quantity)
         {
             try
             {
-                var obj = core.product_finalization.Where(x => x.id == id).FirstOrDefault();
-                    if(obj != null)
-                    {
-                        if (quantity > 0)
-                        {
-                            return Ok("invalid amount");
-                        }
-                        else
-                        {
-                            obj.prodquantity = obj.prodquantity + quantity;
-                            core.SaveChanges();
-                            return Ok("success update");
-                        }
-                    }
-                    return Ok();
+                using (local_dbbmEntities2 core = apiglobalcon.publico)
+                {
+                    var obj = core.product_finalization.Where(x => x.id == id).FirstOrDefault();
+                    obj.prodquantity = obj.prodquantity + quantity;
+                    core.SaveChanges();
+                    return Ok("success refill");
+                }
             }
             catch (Exception)
             {
@@ -640,7 +632,7 @@ namespace capstone_backend.Controllers.ProductFinalization
             }
         }
     
-        [Route("remove-finalize-product/{id}"), HttpDelete]
+        [Route("remove-finalize-product"), HttpDelete]
         public HttpResponseMessage removeProductFinal(int id)
         {   
             try
