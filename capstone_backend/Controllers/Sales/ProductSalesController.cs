@@ -14,7 +14,7 @@ namespace capstone_backend.Controllers.Sales
     [RoutePrefix("api/product-sales")]
     public class ProductSalesController : ApiController
     {
-        local_dbbmEntities2 core;
+        dbbmEntities core;
         //class Response
         //{
         //    public string message { get; set; }

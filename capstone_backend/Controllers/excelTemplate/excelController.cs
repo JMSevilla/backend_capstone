@@ -18,7 +18,7 @@ namespace capstone_backend.Controllers.excelTemplate
         public HttpResponseMessage saveexcel()
         {
             var httpreq = HttpContext.Current.Request;
-            using (local_dbbmEntities2 core = apiglobalcon.publico)
+            using (dbbmEntities core = apiglobalcon.publico)
             {
                 excelStorage data = new excelStorage();
                 data.tname = httpreq.Form["templatename"];

@@ -14,7 +14,7 @@ namespace capstone_backend.Controllers.PurchaseOrder
     public class purchaseController : ApiController
     {
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         [Route("bulk-entry"), HttpPost]
         public HttpResponseMessage bulkentrypurchase()
         {

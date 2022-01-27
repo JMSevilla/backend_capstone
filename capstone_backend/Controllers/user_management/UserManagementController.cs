@@ -13,7 +13,7 @@ namespace capstone_backend.Controllers.user_management
     public class UserManagementController : ApiController
     {
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         class Response
         {
             public string message { get; set; }

@@ -19,7 +19,7 @@ namespace capstone_backend.Controllers.SystemHistory
             public string message { get; set; }
         }
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         Response resp = new Response();
         [Route("add-login-history"), HttpPost]
         public HttpResponseMessage addhistorylogin()

@@ -14,7 +14,7 @@ namespace capstone_backend.Controllers.SystemHistory
     public class ActivityLogController : ApiController
     {
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         ActivityLogClass activity = new ActivityLogClass();
         class Response
         {

@@ -28,7 +28,7 @@
         <EntityTypeShape EntityType="local_dbbmModel1.tbposetting" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="local_dbbmModel1.tbtesting" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="local_dbbmModel1.user_google_allow" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="local_dbbmModel1.user" Width="1.5" PointX="12.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="local_dbbmModel1.user" Width="1.5" PointX="13.5" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="local_dbbmModel1.supplier_find_duplicate" Width="1.5" PointX="12.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="local_dbbmModel1.warning_expiration_10_days" Width="1.5" PointX="8.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="local_dbbmModel1.tbcategoryfinal" Width="1.5" PointX="5.375" PointY="14.75" />

@@ -15,7 +15,7 @@ namespace capstone_backend.Controllers.ProductFinalization
     {
         //private local_dbbmEntities1 core;
         
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         [Route("product-add"), HttpPost]
         public HttpResponseMessage prodadd(string prodname, int prodquantity, string prodcategory, decimal prodprice, string prodcode)
         {

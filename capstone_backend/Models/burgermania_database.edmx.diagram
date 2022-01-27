@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="eb8fa3d6666a480fa5c219548b2845bd" Name="Diagram1">
+        <EntityTypeShape EntityType="dbbmModel.activity_log" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.archive_users" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.bundleProd" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.code_verifications" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.customer_Orders" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.customerBasicInformation" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.excelStorage" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.expiration" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.forgotpassword_identifier" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.location" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.login_history" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.paymentDetail" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.product_finalization" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.product_finalization_raw" Width="1.5" PointX="8.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.product_inventory" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.productreport" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.puchase_orders" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.savedAdditionalQuantity" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.selectedraw" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.sessionScan" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.stock_on_hand" Width="1.5" PointX="8.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.supplier" Width="1.5" PointX="10.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.tbcategory" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.tbcategoryfinal" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.tbexceltest" Width="1.5" PointX="12.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.tbinventsetting" Width="1.5" PointX="12.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.tbposetting" Width="1.5" PointX="12.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.tbtesting" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.testingtable" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.user_google_allow" Width="1.5" PointX="2.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.user" Width="1.5" PointX="14.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.supplier_find_duplicate" Width="1.5" PointX="4.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.warning_expiration_10_days" Width="1.5" PointX="14.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.database_firewall_rules" Width="1.5" PointX="14.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.ipv6_database_firewall_rules" Width="1.5" PointX="10.75" PointY="15.75" IsExpanded="true" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

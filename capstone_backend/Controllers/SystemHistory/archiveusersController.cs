@@ -15,7 +15,7 @@ namespace capstone_backend.Controllers.SystemHistory
     {
         archiveUsersClass archive = new archiveUsersClass();
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         class Response
         {
             public string message { get; set; }

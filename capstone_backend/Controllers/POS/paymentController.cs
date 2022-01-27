@@ -14,7 +14,7 @@ namespace capstone_backend.Controllers.POS
     [RoutePrefix("api/payment")]
     public class paymentController : ApiController
     {
-        local_dbbmEntities2 core;
+        dbbmEntities core;
         class Response
         {
             public string message { get; set; }

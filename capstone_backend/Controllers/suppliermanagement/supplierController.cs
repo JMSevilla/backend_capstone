@@ -14,7 +14,7 @@ namespace capstone_backend.Controllers.suppliermanagement
     public class suppliermanagementController : ApiController
     {
         //private local_dbbmEntities1 core;
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         [Route("adding-supplier"), HttpPost]
         public HttpResponseMessage addsupplier()
         {

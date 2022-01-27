@@ -9,12 +9,12 @@ namespace capstone_backend.globalCON
 {
     public static class apiglobalcon
     {
-        private static local_dbbmEntities2 _pribado;
-        public static local_dbbmEntities2 publico
+        private static dbbmEntities _pribado;
+        public static dbbmEntities publico
         {
             get
             {
-                _pribado = new local_dbbmEntities2();
+                _pribado = new dbbmEntities();
                 return _pribado;
             }
         }
@@ -23,7 +23,7 @@ namespace capstone_backend.globalCON
         {
             get
             {
-                string constring = "Server=localhost;Database=local_dbbm;User Id=root;Password=;Trusted_Connection=True;Integrated Security=true;";
+                string constring = "Server=dbburgermania.database.windows.net;Database=local_dbbm;User Id=bmadmin;Password=5418873Jmsevilla!;Trusted_Connection=True;Integrated Security=true;";
                 _privatecon = new SqlConnection(constring);
                 return _privatecon;
             }

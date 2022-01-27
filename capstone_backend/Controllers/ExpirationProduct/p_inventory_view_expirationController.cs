@@ -12,7 +12,7 @@ namespace capstone_backend.Controllers.ExpirationProduct
     public class p_inventory_view_expirationController : ApiController
     {
         //private local_dbbmEntities core;
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
         [Route("view-expiration"), HttpGet]
         public HttpResponseMessage viewexpired(string pcode)
         {
