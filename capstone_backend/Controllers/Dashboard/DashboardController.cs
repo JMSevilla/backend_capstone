@@ -13,7 +13,7 @@ namespace capstone_backend.Controllers.Dashboard
     [RoutePrefix("api/dashboard")]
     public class DashboardController : ApiController
     {
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
 
         [Route("summary"), HttpGet]
         public HttpResponseMessage getDashboardSummary()
@@ -24,14 +24,16 @@ namespace capstone_backend.Controllers.Dashboard
                 {
                     DashboardSummaryDto dashboardSummary = new DashboardSummaryDto();
 
-                    dashboardSummary.TotalProducts = core.product_inventory.Select(x => x.productID)
-                                                                           .Count();
+                    dashboardSummary.TotalProducts = core.stock_on_hand.Select(x => x.stockID)
+                                                                       .Count();
                     dashboardSummary.SystemUsers = core.users.Select(x => x.id)
-                                                            .Count();
-                    dashboardSummary.SalesToday = core.product_inventory.Select(x => x.productID)
-                                                                        .Count();
-                    dashboardSummary.WarningProduct = core.stock_on_hand.Where(x => x.productquantity > 0 &&
-                                                                                    x.productquantity < 10)
+                                                             .Count();
+                    dashboardSummary.SalesToday = (int)core.customer_Orders.Where(x => x.createdAt == DateTime.Today)
+                                                                           .Select(x => x.orderQuantity)
+                                                                           .DefaultIfEmpty(0)
+                                                                           .Sum();
+                    dashboardSummary.WarningProduct = core.stock_on_hand.Where(x => x.productquantity >= 0 &&
+                                                                                    x.productquantity < 20)
                                                                         .Count();
 
                     return Request.CreateResponse(HttpStatusCode.OK, dashboardSummary);
