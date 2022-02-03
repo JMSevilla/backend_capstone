@@ -13,7 +13,7 @@ namespace capstone_backend.Controllers.Dashboard
     [RoutePrefix("api/dashboard")]
     public class DashboardController : ApiController
     {
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
 
         [Route("summary"), HttpGet]
         public HttpResponseMessage getDashboardSummary()

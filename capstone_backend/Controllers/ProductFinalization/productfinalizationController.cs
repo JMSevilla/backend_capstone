@@ -618,7 +618,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {
             try
             {
-                using (local_dbbmEntities2 core = apiglobalcon.publico)
+                using (core = apiglobalcon.publico)
                 {
                     var obj = core.product_finalization.Where(x => x.id == id).FirstOrDefault();
                     obj.prodquantity = obj.prodquantity + quantity;
@@ -637,7 +637,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         {   
             try
             {
-                using (local_dbbmEntities2 core = apiglobalcon.publico)
+                using (core = apiglobalcon.publico)
                 {
                     if (id <= 0)
                     {

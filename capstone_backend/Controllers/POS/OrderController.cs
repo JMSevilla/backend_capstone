@@ -208,13 +208,9 @@ namespace capstone_backend.Controllers.POS
         {
             try
             {
-                using(cons = apiglobalcon._publiccon)
+                using (core = apiglobalcon.publico)
                 {
-                    string query = "select sum(orderTotalPrice) from customer_Orders";
-                    SqlCommand command = new SqlCommand(query, cons);
-                    cons.Open();
-                    object total = command.ExecuteScalar();
-                    cons.Close();
+                    var total = core.customer_Orders.Sum(x => x.orderTotalPrice);
                     return Ok(total);
                 }
             }
@@ -264,14 +260,11 @@ namespace capstone_backend.Controllers.POS
         {
             try
             {
-                using(cons = apiglobalcon._publiccon)
+                using(core = apiglobalcon.publico)
                 {
-                    string countquery = "select count(paymentStatus) from paymentDetails where paymentStatus=1";
-                    SqlCommand command = new SqlCommand(countquery, cons);
-                    cons.Open();
-                    object total = command.ExecuteScalar();
-                    cons.Close();
-                    return Ok(total);
+                    var count = core.paymentDetails.Where(x => x.paymentStatus == "1")
+                                                   .Count();
+                    return Ok(count);
                 }
             }
             catch (Exception)
@@ -296,6 +289,46 @@ namespace capstone_backend.Controllers.POS
             catch (Exception)
             {
 
+                throw;
+            }
+        }
+
+        [Route("decline-payment/{paymentId}"), HttpPost]
+        public IHttpActionResult declinePayment(int paymentId)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var orderEntity = core.paymentDetails.Where(x => x.paymentID == paymentId)
+                                                         .FirstOrDefault();
+
+                    dynamic json = Newtonsoft.Json.JsonConvert.DeserializeObject(orderEntity.orderInfo);
+
+                    foreach (var item in json)
+                    {
+                        customer_Orders orders = new customer_Orders();
+                        orders.orderName = item.orderName;
+                        orders.orderCode = item.orderCode;
+                        orders.orderBarcode = item.orderBarcode;
+                        orders.orderPrice = Convert.ToDecimal(item.orderPrice);
+                        orders.orderQuantity = Convert.ToInt32(item.orderQuantity);
+                        orders.orderCategory = item.orderCategory;
+                        orders.orderTotalPrice = Convert.ToDecimal(item.orderPrice) * Convert.ToInt32(item.orderQuantity);
+                        orders.orderImage = item.orderImage;
+                        orders.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM"));
+                        core.customer_Orders.Add(orders);
+                    }
+
+                    orderEntity.paymentStatus = "0";
+                    
+                    core.SaveChanges();
+
+                    return Ok("success void");
+                }
+            }
+            catch (Exception)
+            {
                 throw;
             }
         }
