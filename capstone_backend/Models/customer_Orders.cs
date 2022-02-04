@@ -24,5 +24,6 @@ namespace capstone_backend.Models
         public Nullable<decimal> orderTotalPrice { get; set; }
         public string orderImage { get; set; }
         public Nullable<System.DateTime> createdAt { get; set; }
+        public string orderStatus { get; set; }
     }
 }

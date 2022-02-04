@@ -23,7 +23,7 @@ namespace capstone_backend.globalCON
         {
             get
             {
-                string constring = "Server=dbburgermania.database.windows.net;Database=local_dbbm;User Id=bmadmin;Password=5418873Jmsevilla!;Trusted_Connection=True;Integrated Security=true;";
+                string constring = "Server=dbburgermania.database.windows.net;Database=dbbm;User Id=bmadmin;Password=5418873Jmsevilla!;Trusted_Connection=False;Integrated Security=False;";
                 _privatecon = new SqlConnection(constring);
                 return _privatecon;
             }

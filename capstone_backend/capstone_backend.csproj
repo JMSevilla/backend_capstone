@@ -209,6 +209,7 @@
     <Compile Include="Controllers\Sales\ProductSalesController.cs" />
     <Compile Include="Controllers\Settings\SystemSettingsController.cs" />
     <Compile Include="Controllers\Stock_on_hand\categoryByFilterStocksController.cs" />
+    <Compile Include="Controllers\Stock_on_hand\ModifyStocksController.cs" />
     <Compile Include="Controllers\Stock_on_hand\pullProductController.cs" />
     <Compile Include="Controllers\Stock_on_hand\sortingController.cs" />
     <Compile Include="Controllers\suppliermanagement\supplierController.cs" />

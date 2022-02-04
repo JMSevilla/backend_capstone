@@ -19,5 +19,7 @@ namespace capstone_backend.Models
         public string loggedinstatus { get; set; }
         public string message { get; set; }
         public Nullable<System.DateTime> logindate { get; set; }
+        public string loggedoutstatus { get; set; }
+        public Nullable<System.DateTime> logoutdate { get; set; }
     }
 }

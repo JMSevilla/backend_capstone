@@ -64,6 +64,7 @@
     <Property Name="orderTotalPrice" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="orderImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="orderStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
   </EntityType>
   <EntityType Name="customerBasicInformation">
     <Key>
@@ -121,6 +122,8 @@
     <Property Name="loggedinstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
     <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="logindate" Type="DateTime" Precision="3" />
+    <Property Name="loggedoutstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="logoutdate" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="paymentDetail">
     <Key>
@@ -578,6 +581,13 @@
     <FunctionImport Name="user_status_updater">
       <Parameter Name="id" Mode="In" Type="Int32" />
       <Parameter Name="action" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="update_stocks_modification">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="prodname" Mode="In" Type="String" />
+      <Parameter Name="prodcateg" Mode="In" Type="String" />
+      <Parameter Name="prodexp" Mode="In" Type="DateTime" />
+      <Parameter Name="state" Mode="In" Type="String" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="find_duplicates_Result">
