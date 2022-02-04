@@ -27,7 +27,10 @@ namespace capstone_backend.Controllers.Sales
             {
                 using (core = apiglobalcon.publico)
                 {
-                    var obj = core.paymentDetails.Where(x => x.paymentStatus == "3" || x.paymentStatus == "2" || x.paymentStatus == "1")
+                    var obj = core.paymentDetails.Where(x => (x.paymentStatus == "3" ||
+                                                              x.paymentStatus == "2" ||
+                                                              x.paymentStatus == "1") &&
+                                                              x.createdAt == DateTime.Today)
                         .Select(y => new
                         {
                             y.orderInfo,

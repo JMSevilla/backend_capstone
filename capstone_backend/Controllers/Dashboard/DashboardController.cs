@@ -24,14 +24,16 @@ namespace capstone_backend.Controllers.Dashboard
                 {
                     DashboardSummaryDto dashboardSummary = new DashboardSummaryDto();
 
-                    dashboardSummary.TotalProducts = core.product_inventory.Select(x => x.productID)
-                                                                           .Count();
+                    dashboardSummary.TotalProducts = core.stock_on_hand.Select(x => x.stockID)
+                                                                       .Count();
                     dashboardSummary.SystemUsers = core.users.Select(x => x.id)
+
                                                             .Count();
                     dashboardSummary.SalesToday = core.paymentDetails.Where(x => x.paymentStatus == "3" || x.paymentStatus == "2" || x.paymentStatus == "1")
                                                                         .Count();
                     dashboardSummary.WarningProduct = core.stock_on_hand.Where(x => x.productquantity > 0 &&
                                                                                     x.productquantity < 10)
+
                                                                         .Count();
 
                     return Request.CreateResponse(HttpStatusCode.OK, dashboardSummary);
