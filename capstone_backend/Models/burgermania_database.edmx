@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="dbbmModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="dbbmModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="activity_log">
           <Key>
             <PropertyRef Name="id" />
@@ -69,6 +69,7 @@
           <Property Name="orderTotalPrice" Type="decimal" Precision="18" Scale="0" />
           <Property Name="orderImage" Type="varchar(max)" />
           <Property Name="createdAt" Type="datetime" />
+          <Property Name="orderStatus" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="customerBasicInformation">
           <Key>
@@ -126,6 +127,8 @@
           <Property Name="loggedinstatus" Type="char" MaxLength="1" />
           <Property Name="message" Type="text" />
           <Property Name="logindate" Type="datetime" />
+          <Property Name="loggedoutstatus" Type="char" MaxLength="1" />
+          <Property Name="logoutdate" Type="datetime" />
         </EntityType>
         <EntityType Name="paymentDetails">
           <Key>
@@ -552,6 +555,13 @@ warning 6002: The table/view 'dbbm.sys.ipv6_database_firewall_rules' does not ha
           <Parameter Name="enablelistview" Type="char" Mode="In" />
           <Parameter Name="viewentry" Type="char" Mode="In" />
         </Function>
+        <Function Name="update_stocks_modification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="prodname" Type="varchar" Mode="In" />
+          <Parameter Name="prodcateg" Type="varchar" Mode="In" />
+          <Parameter Name="prodexp" Type="datetime" Mode="In" />
+          <Parameter Name="state" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="user_status_updater" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="action" Type="int" Mode="In" />
@@ -642,8 +652,7 @@ warning 6002: The table/view 'dbbm.sys.ipv6_database_firewall_rules' does not ha
     FROM [sys].[ipv6_database_firewall_rules] AS [ipv6_database_firewall_rules]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbbmModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -711,6 +720,7 @@ warning 6002: The table/view 'dbbm.sys.ipv6_database_firewall_rules' does not ha
           <Property Name="orderTotalPrice" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="orderImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="orderStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="customerBasicInformation">
           <Key>
@@ -768,6 +778,8 @@ warning 6002: The table/view 'dbbm.sys.ipv6_database_firewall_rules' does not ha
           <Property Name="loggedinstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="logindate" Type="DateTime" Precision="3" />
+          <Property Name="loggedoutstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="logoutdate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="paymentDetail">
           <Key>
@@ -1125,7 +1137,7 @@ warning 6002: The table/view 'dbbm.sys.ipv6_database_firewall_rules' does not ha
             <Parameter Name="state" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="clearselectedraw">
-            <Parameter Name="state" Mode="In" Type="Int32" />
+          <Parameter Name="state" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="deductquantityfinal">
             <Parameter Name="pcode" Mode="In" Type="String" />
@@ -1225,6 +1237,13 @@ warning 6002: The table/view 'dbbm.sys.ipv6_database_firewall_rules' does not ha
           <FunctionImport Name="user_status_updater">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="action" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="update_stocks_modification">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="prodname" Mode="In" Type="String" />
+            <Parameter Name="prodcateg" Mode="In" Type="String" />
+            <Parameter Name="prodexp" Mode="In" Type="DateTime" />
+            <Parameter Name="state" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="find_duplicates_Result">
@@ -1335,6 +1354,7 @@ warning 6002: The table/view 'dbbm.sys.ipv6_database_firewall_rules' does not ha
           <EntitySetMapping Name="customer_Orders">
             <EntityTypeMapping TypeName="dbbmModel.customer_Orders">
               <MappingFragment StoreEntitySet="customer_Orders">
+                <ScalarProperty Name="orderStatus" ColumnName="orderStatus" />
                 <ScalarProperty Name="orderID" ColumnName="orderID" />
                 <ScalarProperty Name="orderCode" ColumnName="orderCode" />
                 <ScalarProperty Name="orderName" ColumnName="orderName" />
@@ -1403,6 +1423,8 @@ warning 6002: The table/view 'dbbm.sys.ipv6_database_firewall_rules' does not ha
           <EntitySetMapping Name="login_history">
             <EntityTypeMapping TypeName="dbbmModel.login_history">
               <MappingFragment StoreEntitySet="login_history">
+                <ScalarProperty Name="logoutdate" ColumnName="logoutdate" />
+                <ScalarProperty Name="loggedoutstatus" ColumnName="loggedoutstatus" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="loggedinstatus" ColumnName="loggedinstatus" />
@@ -1809,6 +1831,7 @@ warning 6002: The table/view 'dbbm.sys.ipv6_database_firewall_rules' does not ha
           <FunctionImportMapping FunctionImportName="update_session_stats" FunctionName="dbbmModel.Store.update_session_stats" />
           <FunctionImportMapping FunctionImportName="update_settings" FunctionName="dbbmModel.Store.update_settings" />
           <FunctionImportMapping FunctionImportName="user_status_updater" FunctionName="dbbmModel.Store.user_status_updater" />
+          <FunctionImportMapping FunctionImportName="update_stocks_modification" FunctionName="dbbmModel.Store.update_stocks_modification" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

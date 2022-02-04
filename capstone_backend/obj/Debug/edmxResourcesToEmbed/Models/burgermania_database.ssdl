@@ -64,6 +64,7 @@
     <Property Name="orderTotalPrice" Type="decimal" Precision="18" Scale="0" />
     <Property Name="orderImage" Type="varchar(max)" />
     <Property Name="createdAt" Type="datetime" />
+    <Property Name="orderStatus" Type="char" MaxLength="1" />
   </EntityType>
   <EntityType Name="customerBasicInformation">
     <Key>
@@ -121,6 +122,8 @@
     <Property Name="loggedinstatus" Type="char" MaxLength="1" />
     <Property Name="message" Type="text" />
     <Property Name="logindate" Type="datetime" />
+    <Property Name="loggedoutstatus" Type="char" MaxLength="1" />
+    <Property Name="logoutdate" Type="datetime" />
   </EntityType>
   <EntityType Name="paymentDetails">
     <Key>
@@ -546,6 +549,13 @@ warning 6002: The table/view 'dbbm.sys.ipv6_database_firewall_rules' does not ha
     <Parameter Name="enablepoinventry" Type="char" Mode="In" />
     <Parameter Name="enablelistview" Type="char" Mode="In" />
     <Parameter Name="viewentry" Type="char" Mode="In" />
+  </Function>
+  <Function Name="update_stocks_modification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="id" Type="int" Mode="In" />
+    <Parameter Name="prodname" Type="varchar" Mode="In" />
+    <Parameter Name="prodcateg" Type="varchar" Mode="In" />
+    <Parameter Name="prodexp" Type="datetime" Mode="In" />
+    <Parameter Name="state" Type="varchar" Mode="In" />
   </Function>
   <Function Name="user_status_updater" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="id" Type="int" Mode="In" />

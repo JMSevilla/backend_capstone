@@ -58,35 +58,23 @@ namespace capstone_backend.Controllers.SystemHistory
                 throw;
             }
         }
-        [Route("add-logout-history"), HttpPost]
+        [Route("add-logout-history"), HttpPut]
         public HttpResponseMessage addlogouthistory()
         {
             try
             {
-                var httprequest = HttpContext.Current.Request;
-                logs.email = httprequest.Form["email"];
-                logs.message = httprequest.Form["message"];
-                logs.loggedinstatus = Convert.ToChar(httprequest.Form["status"]);
-                logs.logindate = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
-                if (string.IsNullOrEmpty(logs.email))
+                using (core = apiglobalcon.publico)
                 {
-                    resp.message = "empty email";
-                    return Request.CreateResponse(HttpStatusCode.OK, resp);
-                }
-                else
-                {
-                    using (core = apiglobalcon.publico)
+                    var latestLogID = core.login_history.OrderByDescending(a => a.id).First();
+                    var checkLogout = core.login_history.Where(x => x.id == latestLogID.id).FirstOrDefault();
+                    if(checkLogout != null)
                     {
-                        login_history login = new login_history();
-                        login.email = logs.email;
-                        login.message = logs.message;
-                        login.loggedinstatus = Convert.ToString(logs.loggedinstatus);
-                        login.logindate = logs.logindate;
-                        core.login_history.Add(login);
+                        checkLogout.loggedoutstatus = "0";
+                        checkLogout.logoutdate = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                         core.SaveChanges();
-                        resp.message = "success";
-                        return Request.CreateResponse(HttpStatusCode.OK, resp);
+                        return Request.CreateResponse(HttpStatusCode.OK, "success_logout");
                     }
+                    return Request.CreateResponse(HttpStatusCode.OK);
                 }
             }
             catch (Exception)

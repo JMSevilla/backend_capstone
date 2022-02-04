@@ -238,5 +238,40 @@ namespace capstone_backend.Controllers.Categories
                 throw;
             }
         }
+        private dbbmEntities core;
+        [Route("get-categories-pos"), HttpGet]
+        public IHttpActionResult getPOSCategories()
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var obj = core.tbcategoryfinals.ToList();
+                    return Ok(obj);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("get-prod-final-by-categories"), HttpGet]
+        public IHttpActionResult getProductByCategories(string category)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var getObj = core.product_finalization.Where(x => x.prodcategory == category).ToList();
+                    return Ok(getObj);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }

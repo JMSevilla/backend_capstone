@@ -59,7 +59,8 @@ namespace capstone_backend.Controllers.POS
                 throw;
             }
         }
-        [Route("bundle-validate-cart/{qty}/{id}"), HttpGet]
+
+        [Route("bundle-validate-cart"), HttpGet]
         public IHttpActionResult validateBundle(int qty, int id)
         {
             try
@@ -85,6 +86,7 @@ namespace capstone_backend.Controllers.POS
                 throw;
             }
         }
+        
         [Route("order-solo"), HttpPost]
         public IHttpActionResult OrderSolo()
         {
@@ -93,19 +95,40 @@ namespace capstone_backend.Controllers.POS
                 var HTTP = HttpContext.Current.Request;
                 using (core = apiglobalcon.publico)
                 {
-                    customer_Orders orders = new customer_Orders();
-                    orders.orderName = HTTP.Form["solo_order_name"];
-                    orders.orderCode = Guid.NewGuid().ToString();
-                    orders.orderBarcode = HTTP.Form["solo_order_code"];
-                    orders.orderPrice = Convert.ToDecimal(HTTP.Form["solo_order_price"]);
-                    orders.orderQuantity = Convert.ToInt32(HTTP.Form["solo_order_qty"]);
-                    orders.orderCategory = HTTP.Form["solo_order_category"];
-                    orders.orderTotalPrice = Convert.ToDecimal(HTTP.Form["solo_order_price"]) * Convert.ToInt32(HTTP.Form["solo_order_qty"]);
-                    orders.orderImage = HTTP.Form["solo_order_image"];
-                    orders.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM"));
-                    core.customer_Orders.Add(orders);
-                    core.SaveChanges();
-                    return Ok("success order");
+                    if(HTTP.Form["isstatus"] == "buy1take1")
+                    {
+                        customer_Orders orders = new customer_Orders();
+                        orders.orderName = HTTP.Form["solo_order_name"];
+                        orders.orderCode = Guid.NewGuid().ToString();
+                        orders.orderBarcode = HTTP.Form["solo_order_code"];
+                        orders.orderPrice = Convert.ToDecimal(HTTP.Form["solo_order_price"]);
+                        orders.orderQuantity = Convert.ToInt32(HTTP.Form["solo_order_qty"]);
+                        orders.orderCategory = HTTP.Form["solo_order_category"];
+                        orders.orderTotalPrice = Convert.ToDecimal(HTTP.Form["solo_order_price"]) * Convert.ToInt32(HTTP.Form["solo_order_qty"]);
+                        orders.orderImage = HTTP.Form["solo_order_image"];
+                        orders.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM"));
+                        orders.orderStatus = "1";
+                        core.customer_Orders.Add(orders);
+                        core.SaveChanges();
+                        return Ok("success order");
+                    } 
+                    else 
+                    {
+                        customer_Orders orders = new customer_Orders();
+                        orders.orderName = HTTP.Form["solo_order_name"];
+                        orders.orderCode = Guid.NewGuid().ToString();
+                        orders.orderBarcode = HTTP.Form["solo_order_code"];
+                        orders.orderPrice = Convert.ToDecimal(HTTP.Form["solo_order_price"]);
+                        orders.orderQuantity = Convert.ToInt32(HTTP.Form["solo_order_qty"]);
+                        orders.orderCategory = HTTP.Form["solo_order_category"];
+                        orders.orderTotalPrice = Convert.ToDecimal(HTTP.Form["solo_order_price"]) * Convert.ToInt32(HTTP.Form["solo_order_qty"]);
+                        orders.orderImage = HTTP.Form["solo_order_image"];
+                        orders.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM"));
+                        orders.orderStatus = "2";
+                        core.customer_Orders.Add(orders);
+                        core.SaveChanges();
+                        return Ok("success order");
+                    }
                 }
             }
             catch (Exception)
@@ -132,6 +155,7 @@ namespace capstone_backend.Controllers.POS
                     orders.orderTotalPrice = Convert.ToDecimal(HTTP.Form["bundle_order_price"]) * Convert.ToInt32(HTTP.Form["bundle_order_qty"]);
                     orders.orderImage = HTTP.Form["bundle_order_image"];
                     orders.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM"));
+                    orders.orderStatus = "3";
                     core.customer_Orders.Add(orders);
                     core.SaveChanges();
                     return Ok("success order");
@@ -166,8 +190,8 @@ namespace capstone_backend.Controllers.POS
                 throw;
             }
         }
-        [Route("order-decrease-qty-bundle/{orderID}/{qty}"), HttpPut]
-        public IHttpActionResult decreaseqtybundle(int orderID, int qty)
+        [Route("order-decrease-qty-bundle/{orderID}/{qty}/{origqty}"), HttpPut]
+        public IHttpActionResult decreaseqtybundle(int orderID, int qty, int origqty)
         {
             try
             {
@@ -178,7 +202,7 @@ namespace capstone_backend.Controllers.POS
                     if (check != null)
                     {
                         //subtract final product quantity
-                        check.prodquantity = check.prodquantity - qty;
+                        check.prodquantity = check.prodquantity - origqty;
                         
                         //subtract ingredients quantity
                         var ingredients = core.product_finalization_raw.Where(x => x.productCreatedCode == check.productCode)
@@ -186,8 +210,8 @@ namespace capstone_backend.Controllers.POS
                                                                        .ToList();
                         foreach (var ingredient in ingredients)
                         {
-                            var stock = core.stock_on_hand.Where(x => x.stockNumber == ingredient).FirstOrDefault();
-                            stock.productquantity = stock.productquantity - qty;
+                            var stock = core.product_inventory.Where(x => x.productCode == ingredient).FirstOrDefault();
+                            stock.product_quantity = stock.product_quantity - qty;
                         }
 
                         core.SaveChanges();
@@ -201,7 +225,43 @@ namespace capstone_backend.Controllers.POS
                 throw;
             }
         }
-        
+
+        [Route("order-decrease-qty-buy1take1/{orderID}/{qty}/{origqty}"), HttpPut]
+        public IHttpActionResult decreaseqtybuy1take1(int orderID, int qty, int origqty)
+        {
+            try
+            {
+                using (core = apiglobalcon.publico)
+                {
+                    var check = core.product_finalization.Where(x => x.id == orderID)
+                                                         .FirstOrDefault();
+                    if (check != null)
+                    {
+                        //subtract final product quantity
+                        check.prodquantity = check.prodquantity - origqty;
+
+                        //subtract ingredients quantity
+                        var ingredients = core.product_finalization_raw.Where(x => x.productCreatedCode == check.productCode)
+                                                                       .Select(x => x.productInventoryCode)
+                                                                       .ToList();
+                        foreach (var ingredient in ingredients)
+                        {
+                            var stock = core.product_inventory.Where(x => x.productCode == ingredient).FirstOrDefault();
+                            stock.product_quantity = stock.product_quantity - qty;
+                        }
+
+                        core.SaveChanges();
+                        return Ok("success decrease");
+                    }
+                    return Ok();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         SqlConnection cons;
         [Route("order-total-price"), HttpGet]
         public IHttpActionResult gettotal()
@@ -224,8 +284,8 @@ namespace capstone_backend.Controllers.POS
                 throw;
             }
         }
-        [Route("void-item/{code}/{qty}/orderno/{orderid}"), HttpPut]
-        public IHttpActionResult voidItem(string code, int qty, int orderid)
+        [Route("void-item/{code}/{qty}/orderno/{orderid}/{statusItem}"), HttpPut]
+        public IHttpActionResult voidItem(string code, int qty, int orderid, string statusItem)
         {
             try
             {
@@ -237,13 +297,38 @@ namespace capstone_backend.Controllers.POS
                     product.prodquantity = product.prodquantity + qty;
                         
                     //add voided quantity to ingredients
-                    var ingredients = core.product_finalization_raw.Where(x => x.productCreatedCode == product.productCode)
+                    if(statusItem == "boxof6")
+                    {
+                        var ingredients = core.product_finalization_raw.Where(x => x.productCreatedCode == product.productCode)
                                                                    .Select(x => x.productInventoryCode)
                                                                    .ToList();
-                    foreach (var ingredient in ingredients)
+                        foreach (var ingredient in ingredients)
+                        {
+                            var stock = core.product_inventory.Where(x => x.productCode == ingredient).FirstOrDefault();
+                            stock.product_quantity = stock.product_quantity + 6;
+                        }
+                    }
+                    else if (statusItem == "buy1take1")
                     {
-                        var stock = core.stock_on_hand.Where(x => x.stockNumber == ingredient).FirstOrDefault();
-                        stock.productquantity = stock.productquantity + qty;
+                        var ingredients = core.product_finalization_raw.Where(x => x.productCreatedCode == product.productCode)
+                                                                   .Select(x => x.productInventoryCode)
+                                                                   .ToList();
+                        foreach (var ingredient in ingredients)
+                        {
+                            var stock = core.product_inventory.Where(x => x.productCode == ingredient).FirstOrDefault();
+                            stock.product_quantity = stock.product_quantity + 2;
+                        }
+                    }
+                    else
+                    {
+                        var ingredients = core.product_finalization_raw.Where(x => x.productCreatedCode == product.productCode)
+                                                                   .Select(x => x.productInventoryCode)
+                                                                   .ToList();
+                        foreach (var ingredient in ingredients)
+                        {
+                            var stock = core.product_inventory.Where(x => x.productCode == ingredient).FirstOrDefault();
+                            stock.product_quantity = stock.product_quantity + qty;
+                        }
                     }
 
                     core.SaveChanges();

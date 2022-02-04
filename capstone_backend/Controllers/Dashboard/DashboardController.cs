@@ -13,7 +13,7 @@ namespace capstone_backend.Controllers.Dashboard
     [RoutePrefix("api/dashboard")]
     public class DashboardController : ApiController
     {
-        private local_dbbmEntities2 core;
+        private dbbmEntities core;
 
         [Route("summary"), HttpGet]
         public HttpResponseMessage getDashboardSummary()
@@ -28,7 +28,7 @@ namespace capstone_backend.Controllers.Dashboard
                                                                            .Count();
                     dashboardSummary.SystemUsers = core.users.Select(x => x.id)
                                                             .Count();
-                    dashboardSummary.SalesToday = core.product_inventory.Select(x => x.productID)
+                    dashboardSummary.SalesToday = core.paymentDetails.Where(x => x.paymentStatus == "3" || x.paymentStatus == "2" || x.paymentStatus == "1")
                                                                         .Count();
                     dashboardSummary.WarningProduct = core.stock_on_hand.Where(x => x.productquantity > 0 &&
                                                                                     x.productquantity < 10)

@@ -447,5 +447,30 @@ namespace capstone_backend.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_status_updater", idParameter, actionParameter);
         }
+    
+        public virtual int update_stocks_modification(Nullable<int> id, string prodname, string prodcateg, Nullable<System.DateTime> prodexp, string state)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var prodnameParameter = prodname != null ?
+                new ObjectParameter("prodname", prodname) :
+                new ObjectParameter("prodname", typeof(string));
+    
+            var prodcategParameter = prodcateg != null ?
+                new ObjectParameter("prodcateg", prodcateg) :
+                new ObjectParameter("prodcateg", typeof(string));
+    
+            var prodexpParameter = prodexp.HasValue ?
+                new ObjectParameter("prodexp", prodexp) :
+                new ObjectParameter("prodexp", typeof(System.DateTime));
+    
+            var stateParameter = state != null ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_stocks_modification", idParameter, prodnameParameter, prodcategParameter, prodexpParameter, stateParameter);
+        }
     }
 }
