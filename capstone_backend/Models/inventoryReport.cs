@@ -12,19 +12,15 @@ namespace capstone_backend.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class customer_Orders
+    public partial class inventoryReport
     {
-        public int orderID { get; set; }
-        public string orderCode { get; set; }
-        public string orderName { get; set; }
-        public string orderBarcode { get; set; }
-        public Nullable<decimal> orderPrice { get; set; }
-        public Nullable<int> orderQuantity { get; set; }
-        public string orderCategory { get; set; }
-        public Nullable<decimal> orderTotalPrice { get; set; }
-        public string orderImage { get; set; }
+        public int invID { get; set; }
+        public string productName { get; set; }
+        public Nullable<long> beg_qty { get; set; }
+        public string available { get; set; }
+        public Nullable<long> end_qty { get; set; }
         public Nullable<System.DateTime> createdAt { get; set; }
-        public string orderStatus { get; set; }
-        public string discountIsApplied { get; set; }
+        public Nullable<int> refId { get; set; }
+        public string refstatus { get; set; }
     }
 }

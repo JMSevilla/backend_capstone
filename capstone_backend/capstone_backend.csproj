@@ -195,6 +195,7 @@
     <Compile Include="Controllers\ForgotPassword\forgotPasswordController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryAI\InventoryAIController.cs" />
+    <Compile Include="Controllers\InventoryReports\InventoryReportsController.cs" />
     <Compile Include="Controllers\locations\locationController.cs" />
     <Compile Include="Controllers\POS\BundleAddOrderController.cs" />
     <Compile Include="Controllers\POS\OrderController.cs" />
@@ -356,6 +357,9 @@
       <DependentUpon>burgermania_database.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\InsertClass.cs" />
+    <Compile Include="Models\inventoryReport.cs">
+      <DependentUpon>burgermania_database.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ipv6_database_firewall_rules.cs">
       <DependentUpon>burgermania_database.tt</DependentUpon>
     </Compile>
