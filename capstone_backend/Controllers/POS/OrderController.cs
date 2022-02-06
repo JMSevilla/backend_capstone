@@ -59,7 +59,106 @@ namespace capstone_backend.Controllers.POS
                 throw;
             }
         }
+        [Route("get-prod-finalization-price"), HttpGet]
+        public IHttpActionResult getprodprice(string barcode)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var getprodprice = core.product_finalization.Where(x => x.productCode == barcode).Select(y => new
+                    {
+                        y.prodprice
+                    }).ToList();
+                    return Ok(getprodprice);
+                }
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+        }
+        [Route("update-discount"), HttpPut]
+        public IHttpActionResult updateDiscountStatus(int id, int newAmount)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var checkSomething = core.customer_Orders.Where(x => x.discountIsApplied == "1").FirstOrDefault();
+                    if(checkSomething != null)
+                    {
+                        return Ok("exist discount");
+                    }
+                    else
+                    {
+                        string updateStatus = "update customer_Orders set discountIsApplied=@discount, orderPrice=@orderprice, orderTotalPrice=@ordertotal where orderID=@id";
+                        core.Database.ExecuteSqlCommand(updateStatus, new SqlParameter("@discount", "1"), new SqlParameter("@id", id), new SqlParameter("@orderprice", newAmount),
+                            new SqlParameter("@ordertotal", newAmount));
+                        return Ok("success discount");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("check-update-discount"), HttpGet]
+        public IHttpActionResult CheckupdateDiscountStatus()
+        {
+            try
+            {
+                using (core = apiglobalcon.publico)
+                {
+                    var checkSomething = core.customer_Orders.Where(x => x.discountIsApplied == "1").FirstOrDefault();
+                    if (checkSomething != null)
+                    {
+                        return Ok("exist discount");
+                    }
+                    else
+                    {
+                        
+                        return Ok("not exist discount");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("cancel-discount"), HttpPut]
+        public IHttpActionResult OnCancelDiscount(int id, string barcode)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var checkOrder = core.customer_Orders.Where(x => x.orderID == id).FirstOrDefault();
+                    if (checkOrder != null)
+                    {
+                        checkOrder.discountIsApplied = "0";
+                        var getOriginalProductPrice = core.product_finalization.Where(x => x.productCode == barcode).FirstOrDefault();
+                        string retrieveOriginalPrice = "update customer_Orders set orderPrice=@orderprice, orderTotalPrice=@ordertotal where orderID=@id";
+                        core.Database.ExecuteSqlCommand(retrieveOriginalPrice, new SqlParameter("@orderprice", getOriginalProductPrice.prodprice), new SqlParameter("@ordertotal", getOriginalProductPrice.prodprice),
+                            new SqlParameter("@id", id));
+                        core.SaveChanges();
+                        return Ok("success cancellation");
+                    }
+                    return Ok();
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         [Route("bundle-validate-cart"), HttpGet]
         public IHttpActionResult validateBundle(int qty, int id)
         {
@@ -108,6 +207,7 @@ namespace capstone_backend.Controllers.POS
                         orders.orderImage = HTTP.Form["solo_order_image"];
                         orders.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM"));
                         orders.orderStatus = "1";
+                        orders.discountIsApplied = "0";
                         core.customer_Orders.Add(orders);
                         core.SaveChanges();
                         return Ok("success order");
@@ -125,6 +225,7 @@ namespace capstone_backend.Controllers.POS
                         orders.orderImage = HTTP.Form["solo_order_image"];
                         orders.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM"));
                         orders.orderStatus = "2";
+                        orders.discountIsApplied = "0";
                         core.customer_Orders.Add(orders);
                         core.SaveChanges();
                         return Ok("success order");
@@ -156,6 +257,7 @@ namespace capstone_backend.Controllers.POS
                     orders.orderImage = HTTP.Form["bundle_order_image"];
                     orders.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM"));
                     orders.orderStatus = "3";
+                    orders.discountIsApplied = "0";
                     core.customer_Orders.Add(orders);
                     core.SaveChanges();
                     return Ok("success order");
@@ -270,7 +372,7 @@ namespace capstone_backend.Controllers.POS
             {
                 using(cons = apiglobalcon._publiccon)
                 {
-                    string query = "select sum(orderTotalPrice) from customer_Orders";
+                    string query = "select sum(orderTotalPrice) * orderQuantity from customer_Orders group by orderQuantity";
                     SqlCommand command = new SqlCommand(query, cons);
                     cons.Open();
                     object total = command.ExecuteScalar();
@@ -384,6 +486,28 @@ namespace capstone_backend.Controllers.POS
                 throw;
             }
         }
+        [Route("update-qty-cart"), HttpPut]
+        public IHttpActionResult updateQTY(int id, int qty)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var checkID = core.customer_Orders.Where(x => x.orderID == id).FirstOrDefault();
+                    if(checkID != null)
+                    {
+                        checkID.orderQuantity = checkID.orderQuantity + qty;
+                        core.SaveChanges();
+                        return Ok("success update qty");
+                    }
+                    return Ok();
+                }
+            }
+            catch (Exception)
+            {
 
+                throw;
+            }
+        }
     }
 }

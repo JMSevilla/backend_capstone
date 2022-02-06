@@ -40,6 +40,7 @@
         <EntityTypeShape EntityType="dbbmModel.warning_expiration_10_days" Width="1.5" PointX="14.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbbmModel.database_firewall_rules" Width="1.5" PointX="14.75" PointY="14.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbbmModel.ipv6_database_firewall_rules" Width="1.5" PointX="10.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbbmModel.inventoryReport" Width="1.5" PointX="7.375" PointY="16.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

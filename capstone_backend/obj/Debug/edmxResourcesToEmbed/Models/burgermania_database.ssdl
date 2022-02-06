@@ -65,6 +65,7 @@
     <Property Name="orderImage" Type="varchar(max)" />
     <Property Name="createdAt" Type="datetime" />
     <Property Name="orderStatus" Type="char" MaxLength="1" />
+    <Property Name="discountIsApplied" Type="char" MaxLength="1" />
   </EntityType>
   <EntityType Name="customerBasicInformation">
     <Key>
@@ -103,6 +104,19 @@
     <Property Name="forgotcode" Type="varchar(max)" />
     <Property Name="isdone" Type="char" MaxLength="1" />
     <Property Name="createdAt" Type="datetime" />
+  </EntityType>
+  <EntityType Name="inventoryReports">
+    <Key>
+      <PropertyRef Name="invID" />
+    </Key>
+    <Property Name="invID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="productName" Type="varchar" MaxLength="255" />
+    <Property Name="beg_qty" Type="bigint" />
+    <Property Name="available" Type="varchar" MaxLength="255" />
+    <Property Name="end_qty" Type="bigint" />
+    <Property Name="createdAt" Type="datetime" />
+    <Property Name="refId" Type="int" />
+    <Property Name="refstatus" Type="char" MaxLength="1" />
   </EntityType>
   <EntityType Name="locations">
     <Key>
@@ -571,6 +585,7 @@ warning 6002: The table/view 'dbbm.sys.ipv6_database_firewall_rules' does not ha
     <EntitySet Name="excelStorage" EntityType="Self.excelStorage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="expiration" EntityType="Self.expiration" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="forgotpassword_identifier" EntityType="Self.forgotpassword_identifier" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="inventoryReports" EntityType="Self.inventoryReports" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="locations" EntityType="Self.locations" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="login_history" EntityType="Self.login_history" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="paymentDetails" EntityType="Self.paymentDetails" Schema="dbo" store:Type="Tables" />

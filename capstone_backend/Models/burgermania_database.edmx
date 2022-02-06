@@ -70,6 +70,7 @@
           <Property Name="orderImage" Type="varchar(max)" />
           <Property Name="createdAt" Type="datetime" />
           <Property Name="orderStatus" Type="char" MaxLength="1" />
+          <Property Name="discountIsApplied" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="customerBasicInformation">
           <Key>
@@ -108,6 +109,19 @@
           <Property Name="forgotcode" Type="varchar(max)" />
           <Property Name="isdone" Type="char" MaxLength="1" />
           <Property Name="createdAt" Type="datetime" />
+        </EntityType>
+        <EntityType Name="inventoryReports">
+          <Key>
+            <PropertyRef Name="invID" />
+          </Key>
+          <Property Name="invID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productName" Type="varchar" MaxLength="255" />
+          <Property Name="beg_qty" Type="bigint" />
+          <Property Name="available" Type="varchar" MaxLength="255" />
+          <Property Name="end_qty" Type="bigint" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="refId" Type="int" />
+          <Property Name="refstatus" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="locations">
           <Key>
@@ -576,6 +590,7 @@ warning 6002: The table/view 'dbbm.sys.ipv6_database_firewall_rules' does not ha
           <EntitySet Name="excelStorage" EntityType="Self.excelStorage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="expiration" EntityType="Self.expiration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="forgotpassword_identifier" EntityType="Self.forgotpassword_identifier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="inventoryReports" EntityType="Self.inventoryReports" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="locations" EntityType="Self.locations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="login_history" EntityType="Self.login_history" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="paymentDetails" EntityType="Self.paymentDetails" Schema="dbo" store:Type="Tables" />
@@ -721,6 +736,7 @@ warning 6002: The table/view 'dbbm.sys.ipv6_database_firewall_rules' does not ha
           <Property Name="orderImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="createdAt" Type="DateTime" Precision="3" />
           <Property Name="orderStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="discountIsApplied" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="customerBasicInformation">
           <Key>
@@ -1245,6 +1261,7 @@ warning 6002: The table/view 'dbbm.sys.ipv6_database_firewall_rules' does not ha
             <Parameter Name="prodexp" Mode="In" Type="DateTime" />
             <Parameter Name="state" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="inventoryReports" EntityType="dbbmModel.inventoryReport" />
         </EntityContainer>
         <ComplexType Name="find_duplicates_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -1291,6 +1308,19 @@ warning 6002: The table/view 'dbbm.sys.ipv6_database_firewall_rules' does not ha
           <Property Type="String" Name="productimgurl" Nullable="true" />
           <Property Type="String" Name="product_category" Nullable="true" MaxLength="100" />
         </ComplexType>
+        <EntityType Name="inventoryReport">
+          <Key>
+            <PropertyRef Name="invID" />
+          </Key>
+          <Property Name="invID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="beg_qty" Type="Int64" />
+          <Property Name="available" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="end_qty" Type="Int64" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="refId" Type="Int32" />
+          <Property Name="refstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1354,6 +1384,7 @@ warning 6002: The table/view 'dbbm.sys.ipv6_database_firewall_rules' does not ha
           <EntitySetMapping Name="customer_Orders">
             <EntityTypeMapping TypeName="dbbmModel.customer_Orders">
               <MappingFragment StoreEntitySet="customer_Orders">
+                <ScalarProperty Name="discountIsApplied" ColumnName="discountIsApplied" />
                 <ScalarProperty Name="orderStatus" ColumnName="orderStatus" />
                 <ScalarProperty Name="orderID" ColumnName="orderID" />
                 <ScalarProperty Name="orderCode" ColumnName="orderCode" />
@@ -1832,6 +1863,20 @@ warning 6002: The table/view 'dbbm.sys.ipv6_database_firewall_rules' does not ha
           <FunctionImportMapping FunctionImportName="update_settings" FunctionName="dbbmModel.Store.update_settings" />
           <FunctionImportMapping FunctionImportName="user_status_updater" FunctionName="dbbmModel.Store.user_status_updater" />
           <FunctionImportMapping FunctionImportName="update_stocks_modification" FunctionName="dbbmModel.Store.update_stocks_modification" />
+          <EntitySetMapping Name="inventoryReports">
+            <EntityTypeMapping TypeName="dbbmModel.inventoryReport">
+              <MappingFragment StoreEntitySet="inventoryReports">
+                <ScalarProperty Name="refstatus" ColumnName="refstatus" />
+                <ScalarProperty Name="refId" ColumnName="refId" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="end_qty" ColumnName="end_qty" />
+                <ScalarProperty Name="available" ColumnName="available" />
+                <ScalarProperty Name="beg_qty" ColumnName="beg_qty" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="invID" ColumnName="invID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

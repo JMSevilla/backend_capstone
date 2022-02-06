@@ -65,6 +65,7 @@
     <Property Name="orderImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="createdAt" Type="DateTime" Precision="3" />
     <Property Name="orderStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="discountIsApplied" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
   </EntityType>
   <EntityType Name="customerBasicInformation">
     <Key>
@@ -589,6 +590,7 @@
       <Parameter Name="prodexp" Mode="In" Type="DateTime" />
       <Parameter Name="state" Mode="In" Type="String" />
     </FunctionImport>
+    <EntitySet Name="inventoryReports" EntityType="dbbmModel.inventoryReport" />
   </EntityContainer>
   <ComplexType Name="find_duplicates_Result">
     <Property Type="Int32" Name="id" Nullable="false" />
@@ -635,4 +637,17 @@
     <Property Type="String" Name="productimgurl" Nullable="true" />
     <Property Type="String" Name="product_category" Nullable="true" MaxLength="100" />
   </ComplexType>
+  <EntityType Name="inventoryReport">
+    <Key>
+      <PropertyRef Name="invID" />
+    </Key>
+    <Property Name="invID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="beg_qty" Type="Int64" />
+    <Property Name="available" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="end_qty" Type="Int64" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="refId" Type="Int32" />
+    <Property Name="refstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
 </Schema>

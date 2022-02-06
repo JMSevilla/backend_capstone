@@ -58,6 +58,8 @@
     <EntitySetMapping Name="customer_Orders">
       <EntityTypeMapping TypeName="dbbmModel.customer_Orders">
         <MappingFragment StoreEntitySet="customer_Orders">
+          <ScalarProperty Name="discountIsApplied" ColumnName="discountIsApplied" />
+          <ScalarProperty Name="orderStatus" ColumnName="orderStatus" />
           <ScalarProperty Name="orderID" ColumnName="orderID" />
           <ScalarProperty Name="orderCode" ColumnName="orderCode" />
           <ScalarProperty Name="orderName" ColumnName="orderName" />
@@ -126,6 +128,8 @@
     <EntitySetMapping Name="login_history">
       <EntityTypeMapping TypeName="dbbmModel.login_history">
         <MappingFragment StoreEntitySet="login_history">
+          <ScalarProperty Name="logoutdate" ColumnName="logoutdate" />
+          <ScalarProperty Name="loggedoutstatus" ColumnName="loggedoutstatus" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="email" ColumnName="email" />
           <ScalarProperty Name="loggedinstatus" ColumnName="loggedinstatus" />
@@ -532,5 +536,20 @@
     <FunctionImportMapping FunctionImportName="update_session_stats" FunctionName="dbbmModel.Store.update_session_stats" />
     <FunctionImportMapping FunctionImportName="update_settings" FunctionName="dbbmModel.Store.update_settings" />
     <FunctionImportMapping FunctionImportName="user_status_updater" FunctionName="dbbmModel.Store.user_status_updater" />
+    <FunctionImportMapping FunctionImportName="update_stocks_modification" FunctionName="dbbmModel.Store.update_stocks_modification" />
+    <EntitySetMapping Name="inventoryReports">
+      <EntityTypeMapping TypeName="dbbmModel.inventoryReport">
+        <MappingFragment StoreEntitySet="inventoryReports">
+          <ScalarProperty Name="refstatus" ColumnName="refstatus" />
+          <ScalarProperty Name="refId" ColumnName="refId" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="end_qty" ColumnName="end_qty" />
+          <ScalarProperty Name="available" ColumnName="available" />
+          <ScalarProperty Name="beg_qty" ColumnName="beg_qty" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="invID" ColumnName="invID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>
