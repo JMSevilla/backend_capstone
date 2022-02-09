@@ -392,6 +392,6 @@ C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\bin\Microsoft.C
 C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\obj\Debug\capstone_backend.Properties.Resources.resources
 C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\obj\Debug\capstone_backend.csproj.GenerateResource.cache
 C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\obj\Debug\capstone_backend.csproj.CoreCompileInputs.cache
-C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\obj\Debug\capstone_backend.csproj.CopyComplete
 C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\obj\Debug\capstone_backend.dll
 C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\obj\Debug\capstone_backend.pdb
+C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\obj\Debug\capstone_backend.csproj.AssemblyReference.cache
