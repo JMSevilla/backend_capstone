@@ -27,6 +27,7 @@ namespace capstone_backend.Controllers.Sales
             {
                 using (core = apiglobalcon.publico)
                 {
+
                     DateTime today = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd"));
                     var obj = core.product_sales.Where(x => x.createdAt == today).ToList().OrderByDescending(x => x.salesID);
                     return Ok(obj);
@@ -54,6 +55,7 @@ namespace capstone_backend.Controllers.Sales
                                    filterdata.salesInfo,
                                    filterdata.createdAt
                                }).ToList();
+
                     return Ok(obj);
                 }
             }
