@@ -396,6 +396,27 @@
           <Property Name="isattemptStatus" Type="char" MaxLength="1" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'dbbm.dbo.getBeforeExpiration' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="getBeforeExpiration">
+          <Key>
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="productID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productCode" Type="varchar(max)" />
+          <Property Name="productName" Type="varchar" MaxLength="255" />
+          <Property Name="product_quantity" Type="int" />
+          <Property Name="product_price" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="product_total" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="product_status" Type="char" MaxLength="1" />
+          <Property Name="product_creator" Type="varchar" MaxLength="100" />
+          <Property Name="product_supplier" Type="varchar" MaxLength="100" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="productimgurl" Type="varchar(max)" />
+          <Property Name="product_category" Type="varchar" MaxLength="100" />
+          <Property Name="expirationprod" Type="datetime" />
+          <Property Name="size" Type="varchar(max)" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'dbbm.dbo.supplier_find_duplicate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="supplier_find_duplicate">
           <Key>
@@ -590,6 +611,24 @@ warning 6002: The table/view 'dbbm.dbo.warning_expiration_10_days' does not have
           <EntitySet Name="testingtable" EntityType="Self.testingtable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="user_google_allow" EntityType="Self.user_google_allow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="getBeforeExpiration" EntityType="Self.getBeforeExpiration" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [getBeforeExpiration].[productID] AS [productID], 
+    [getBeforeExpiration].[productCode] AS [productCode], 
+    [getBeforeExpiration].[productName] AS [productName], 
+    [getBeforeExpiration].[product_quantity] AS [product_quantity], 
+    [getBeforeExpiration].[product_price] AS [product_price], 
+    [getBeforeExpiration].[product_total] AS [product_total], 
+    [getBeforeExpiration].[product_status] AS [product_status], 
+    [getBeforeExpiration].[product_creator] AS [product_creator], 
+    [getBeforeExpiration].[product_supplier] AS [product_supplier], 
+    [getBeforeExpiration].[createdAt] AS [createdAt], 
+    [getBeforeExpiration].[productimgurl] AS [productimgurl], 
+    [getBeforeExpiration].[product_category] AS [product_category], 
+    [getBeforeExpiration].[expirationprod] AS [expirationprod], 
+    [getBeforeExpiration].[size] AS [size]
+    FROM [dbo].[getBeforeExpiration] AS [getBeforeExpiration]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="supplier_find_duplicate" EntityType="Self.supplier_find_duplicate" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [supplier_find_duplicate].[id] AS [id], 
@@ -1192,6 +1231,7 @@ warning 6002: The table/view 'dbbm.dbo.warning_expiration_10_days' does not have
           </FunctionImport>
           <EntitySet Name="product_sales" EntityType="dbbmModel2.product_sales" />
           <EntitySet Name="code_verifications" EntityType="dbbmModel2.code_verifications" />
+          <EntitySet Name="getBeforeExpirations" EntityType="dbbmModel2.getBeforeExpiration" />
         </EntityContainer>
         <ComplexType Name="find_duplicates_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -1256,6 +1296,25 @@ warning 6002: The table/view 'dbbm.dbo.warning_expiration_10_days' does not have
           <Property Name="sendattempts" Type="Int32" />
           <Property Name="g_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="validatedAt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="getBeforeExpiration">
+          <Key>
+            <PropertyRef Name="productID" />
+          </Key>
+          <Property Name="productID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="productName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="product_quantity" Type="Int32" />
+          <Property Name="product_price" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="product_total" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="product_status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="product_creator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="product_supplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="productimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="product_category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="expirationprod" Type="DateTime" Precision="3" />
+          <Property Name="size" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1797,6 +1856,26 @@ warning 6002: The table/view 'dbbm.dbo.warning_expiration_10_days' does not have
                 <ScalarProperty Name="isdone" ColumnName="isdone" />
                 <ScalarProperty Name="vcode" ColumnName="vcode" />
                 <ScalarProperty Name="codeID" ColumnName="codeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="getBeforeExpirations">
+            <EntityTypeMapping TypeName="dbbmModel2.getBeforeExpiration">
+              <MappingFragment StoreEntitySet="getBeforeExpiration">
+                <ScalarProperty Name="size" ColumnName="size" />
+                <ScalarProperty Name="expirationprod" ColumnName="expirationprod" />
+                <ScalarProperty Name="product_category" ColumnName="product_category" />
+                <ScalarProperty Name="productimgurl" ColumnName="productimgurl" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="product_supplier" ColumnName="product_supplier" />
+                <ScalarProperty Name="product_creator" ColumnName="product_creator" />
+                <ScalarProperty Name="product_status" ColumnName="product_status" />
+                <ScalarProperty Name="product_total" ColumnName="product_total" />
+                <ScalarProperty Name="product_price" ColumnName="product_price" />
+                <ScalarProperty Name="product_quantity" ColumnName="product_quantity" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="productCode" ColumnName="productCode" />
+                <ScalarProperty Name="productID" ColumnName="productID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

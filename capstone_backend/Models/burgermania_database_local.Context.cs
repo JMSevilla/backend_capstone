@@ -62,6 +62,7 @@ namespace capstone_backend.Models
         public virtual DbSet<warning_expiration_10_days> warning_expiration_10_days { get; set; }
         public virtual DbSet<product_sales> product_sales { get; set; }
         public virtual DbSet<code_verifications> code_verifications { get; set; }
+        public virtual DbSet<getBeforeExpiration> getBeforeExpirations { get; set; }
     
         public virtual int ascend_quantity(string pcode, Nullable<int> quantity, Nullable<int> state)
         {

@@ -564,6 +564,7 @@
     </FunctionImport>
     <EntitySet Name="product_sales" EntityType="dbbmModel2.product_sales" />
     <EntitySet Name="code_verifications" EntityType="dbbmModel2.code_verifications" />
+    <EntitySet Name="getBeforeExpirations" EntityType="dbbmModel2.getBeforeExpiration" />
   </EntityContainer>
   <ComplexType Name="find_duplicates_Result">
     <Property Type="Int32" Name="id" Nullable="false" />
@@ -628,5 +629,24 @@
     <Property Name="sendattempts" Type="Int32" />
     <Property Name="g_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="validatedAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="getBeforeExpiration">
+    <Key>
+      <PropertyRef Name="productID" />
+    </Key>
+    <Property Name="productID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="productName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="product_quantity" Type="Int32" />
+    <Property Name="product_price" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="product_total" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="product_status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="product_creator" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="product_supplier" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="productimgurl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="product_category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="expirationprod" Type="DateTime" Precision="3" />
+    <Property Name="size" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>
