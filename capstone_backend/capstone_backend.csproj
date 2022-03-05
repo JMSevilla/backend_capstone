@@ -338,6 +338,9 @@
     <Compile Include="Models\forgotpassword_identifier.cs">
       <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\getBeforeExpiration.cs">
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\InsertClass.cs" />
     <Compile Include="Models\inventoryReport.cs">
       <DependentUpon>burgermania_database_local.tt</DependentUpon>

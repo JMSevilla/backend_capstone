@@ -488,7 +488,14 @@ namespace capstone_backend.Controllers.Users
                     else
                     {
                         var obj = core.users.Where(x => x.email == useremail).FirstOrDefault();
-                        return Ok(obj.isattemptCounter);
+                        if(obj != null)
+                        {
+                            return Ok(obj.isattemptCounter);
+                        }
+                        else
+                        {
+                            return Ok(0);
+                        }
                     }
                 }
             }

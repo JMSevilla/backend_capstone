@@ -21,11 +21,11 @@ namespace capstone_backend.Controllers.ExpirationProduct
                 using (core = apiglobalcon.publico) //localhost
                 {
                     DateTime curdate = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd"));
-                    var obj1 = core.product_inventory.Any(x => x.expirationprod <= curdate);
+                    var obj1 = core.product_inventory.Any(x => curdate >= x.expirationprod);
                     if (obj1)
                     {
                         //exist expiration
-                        var obj2 = core.product_inventory.Where(x => x.expirationprod <= curdate).ToList();
+                        var obj2 = core.product_inventory.Where(x => curdate >= x.expirationprod).ToList();
                         return Request.CreateResponse(HttpStatusCode.OK, obj2);
                     }
                     else
@@ -52,32 +52,16 @@ namespace capstone_backend.Controllers.ExpirationProduct
         }
         ExpirationResponse respo = new ExpirationResponse();
         [Route("check-10-days-before-expiration"), HttpGet]
-        public HttpResponseMessage checkbeforeexpired()
+        public IHttpActionResult checkbeforeexpired()
         {
             try
             {
                 using (core = apiglobalcon.publico)
                 {
-                    if (core != null)
-                    {
-                        var obj = core.warning_expiration_10_days.ToList();
-                        respo.respObj = obj;
-                        respo.message = "will expire after 10 days";
-                        return Request.CreateResponse(HttpStatusCode.OK, respo);
-                    }
-                    else
-                    {
-                        using (core = apiglobalcon.publico)
-                        {
-                            var obj = core.warning_expiration_10_days.ToList();
-                            respo.respObj = obj;
-                            respo.message = "will expire after 10 days";
-                            return Request.CreateResponse(HttpStatusCode.OK, respo);
-                        }
-                    }
+
+                    var obj = core.getBeforeExpirations.ToList();
+                    return Ok(obj);
                 }
-                
-               
             }
             catch (Exception)
             {
