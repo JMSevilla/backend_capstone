@@ -230,11 +230,11 @@
     <Compile Include="Interfaces\dataInterface.cs" />
     <Compile Include="Models\ActivityLogClass.cs" />
     <Compile Include="Models\activity_log.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\archiveUsersClass.cs" />
     <Compile Include="Models\archive_users.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\bmcloud.Context.cs">
       <AutoGen>True</AutoGen>
@@ -297,71 +297,50 @@
       <DependentUpon>bmlocalhost.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\bundleProd.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BurgerManiaCloud.Context.cs">
+    <Compile Include="Models\burgermania_database_local.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BurgerManiaCloud.Context.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BurgerManiaCloud.cs">
+    <Compile Include="Models\burgermania_database_local.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BurgerManiaCloud.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\BurgerManiaCloud.Designer.cs">
+    <Compile Include="Models\burgermania_database_local.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>BurgerManiaCloud.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\burgermania_database.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>burgermania_database.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\burgermania_database.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>burgermania_database.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\burgermania_database.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>burgermania_database.edmx</DependentUpon>
+      <DependentUpon>burgermania_database_local.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\code_verifications.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CredentialsAuth.cs" />
     <Compile Include="Models\customerBasicInformation.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\customer_Orders.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DashboardSummaryDto.cs" />
     <Compile Include="Models\DatabaseManager.cs" />
-    <Compile Include="Models\database_firewall_rules.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\excelStorage.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\expiration.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\find_duplicates_Result.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\forgotpassword_identifier.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\InsertClass.cs" />
     <Compile Include="Models\inventoryReport.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ipv6_database_firewall_rules.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\LocalServerConnection.Context.cs">
       <AutoGen>True</AutoGen>
@@ -379,87 +358,90 @@
       <DependentUpon>LocalServerConnection.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\location.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\loghistoryClass.cs" />
     <Compile Include="Models\login_history.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\paymentDetail.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\productreport.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\product_finalization.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\product_finalization_raw.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\product_inventory.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\product_sales.cs">
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\puchase_orders.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\savedAdditionalQuantity.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\selectedraw.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sessionScan.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sproc_get_products_fromInventory_via_code_Result.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\stock_on_hand.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\stored_view_expiration_date_Result.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\supplier.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\supplier_find_duplicate.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbcategory.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbcategoryfinal.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbexceltest.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbinformation.cs">
       <DependentUpon>LocalServerConnection.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbinventsetting.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbposetting.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\tbtesting.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\testingtable.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\user_data_management.cs" />
     <Compile Include="Models\user_google_allow.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\warning_expiration_10_days.cs">
-      <DependentUpon>burgermania_database.tt</DependentUpon>
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -518,25 +500,15 @@
       <DependentUpon>bmlocalhost.edmx</DependentUpon>
       <LastGenOutput>bmlocalhost.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\BurgerManiaCloud.Context.tt">
+    <Content Include="Models\burgermania_database_local.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BurgerManiaCloud.edmx</DependentUpon>
-      <LastGenOutput>BurgerManiaCloud.Context.cs</LastGenOutput>
+      <DependentUpon>burgermania_database_local.edmx</DependentUpon>
+      <LastGenOutput>burgermania_database_local.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\BurgerManiaCloud.tt">
+    <Content Include="Models\burgermania_database_local.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BurgerManiaCloud.edmx</DependentUpon>
-      <LastGenOutput>BurgerManiaCloud.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\burgermania_database.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>burgermania_database.edmx</DependentUpon>
-      <LastGenOutput>burgermania_database.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\burgermania_database.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>burgermania_database.edmx</DependentUpon>
-      <LastGenOutput>burgermania_database.cs</LastGenOutput>
+      <DependentUpon>burgermania_database_local.edmx</DependentUpon>
+      <LastGenOutput>burgermania_database_local.cs</LastGenOutput>
     </Content>
     <Content Include="Models\LocalServerConnection.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -604,19 +576,12 @@
     <Content Include="Models\bmlocalhost.edmx.diagram">
       <DependentUpon>bmlocalhost.edmx</DependentUpon>
     </Content>
-    <EntityDeploy Include="Models\BurgerManiaCloud.edmx">
+    <EntityDeploy Include="Models\burgermania_database_local.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BurgerManiaCloud.Designer.cs</LastGenOutput>
+      <LastGenOutput>burgermania_database_local.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\BurgerManiaCloud.edmx.diagram">
-      <DependentUpon>BurgerManiaCloud.edmx</DependentUpon>
-    </Content>
-    <EntityDeploy Include="Models\burgermania_database.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>burgermania_database.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\burgermania_database.edmx.diagram">
-      <DependentUpon>burgermania_database.edmx</DependentUpon>
+    <Content Include="Models\burgermania_database_local.edmx.diagram">
+      <DependentUpon>burgermania_database_local.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\backendcapstone20210728232640 - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\burgermaniacapstone - Web Deploy.pubxml" />

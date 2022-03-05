@@ -17,7 +17,7 @@ namespace capstone_backend.Models
         public int codeID { get; set; }
         public string vcode { get; set; }
         public string isdone { get; set; }
-        public string sendattempts { get; set; }
+        public Nullable<int> sendattempts { get; set; }
         public string g_email { get; set; }
         public Nullable<System.DateTime> validatedAt { get; set; }
     }

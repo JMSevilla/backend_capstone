@@ -30,12 +30,12 @@ namespace capstone_backend.Models
         public virtual DbSet<activity_log> activity_log { get; set; }
         public virtual DbSet<archive_users> archive_users { get; set; }
         public virtual DbSet<bundleProd> bundleProds { get; set; }
-        public virtual DbSet<code_verifications> code_verifications { get; set; }
         public virtual DbSet<customer_Orders> customer_Orders { get; set; }
         public virtual DbSet<customerBasicInformation> customerBasicInformations { get; set; }
         public virtual DbSet<excelStorage> excelStorages { get; set; }
         public virtual DbSet<expiration> expirations { get; set; }
         public virtual DbSet<forgotpassword_identifier> forgotpassword_identifier { get; set; }
+        public virtual DbSet<inventoryReport> inventoryReports { get; set; }
         public virtual DbSet<location> locations { get; set; }
         public virtual DbSet<login_history> login_history { get; set; }
         public virtual DbSet<paymentDetail> paymentDetails { get; set; }
@@ -60,9 +60,8 @@ namespace capstone_backend.Models
         public virtual DbSet<user> users { get; set; }
         public virtual DbSet<supplier_find_duplicate> supplier_find_duplicate { get; set; }
         public virtual DbSet<warning_expiration_10_days> warning_expiration_10_days { get; set; }
-        public virtual DbSet<database_firewall_rules> database_firewall_rules { get; set; }
-        public virtual DbSet<ipv6_database_firewall_rules> ipv6_database_firewall_rules { get; set; }
-        public virtual DbSet<inventoryReport> inventoryReports { get; set; }
+        public virtual DbSet<product_sales> product_sales { get; set; }
+        public virtual DbSet<code_verifications> code_verifications { get; set; }
     
         public virtual int ascend_quantity(string pcode, Nullable<int> quantity, Nullable<int> state)
         {
@@ -436,19 +435,6 @@ namespace capstone_backend.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_settings", stateParameter, enablePOParameter, enablepoinventryParameter, enablelistviewParameter, viewentryParameter);
         }
     
-        public virtual int user_status_updater(Nullable<int> id, Nullable<int> action)
-        {
-            var idParameter = id.HasValue ?
-                new ObjectParameter("id", id) :
-                new ObjectParameter("id", typeof(int));
-    
-            var actionParameter = action.HasValue ?
-                new ObjectParameter("action", action) :
-                new ObjectParameter("action", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_status_updater", idParameter, actionParameter);
-        }
-    
         public virtual int update_stocks_modification(Nullable<int> id, string prodname, string prodcateg, Nullable<System.DateTime> prodexp, string state)
         {
             var idParameter = id.HasValue ?
@@ -472,6 +458,28 @@ namespace capstone_backend.Models
                 new ObjectParameter("state", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_stocks_modification", idParameter, prodnameParameter, prodcategParameter, prodexpParameter, stateParameter);
+        }
+    
+        public virtual int user_status_updater(Nullable<int> id, Nullable<int> action)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var actionParameter = action.HasValue ?
+                new ObjectParameter("action", action) :
+                new ObjectParameter("action", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("user_status_updater", idParameter, actionParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<decimal>> store_gettotalprice(Nullable<int> state)
+        {
+            var stateParameter = state.HasValue ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("store_gettotalprice", stateParameter);
         }
     }
 }

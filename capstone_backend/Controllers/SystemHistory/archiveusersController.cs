@@ -7,6 +7,7 @@ using System.Web.Http;
 using capstone_backend.Models;
 using System.Web;
 using capstone_backend.globalCON;
+using System.Data.SqlClient;
 
 namespace capstone_backend.Controllers.SystemHistory
 {
@@ -75,7 +76,7 @@ namespace capstone_backend.Controllers.SystemHistory
             {
                 using(core = apiglobalcon.publico)
                 {
-                    var obj = core.archive_users.ToList();
+                    var obj = core.archive_users.ToList().OrderByDescending(x => x.archiveID);
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
                 }
             }
@@ -117,6 +118,42 @@ namespace capstone_backend.Controllers.SystemHistory
 
                 return Request.CreateErrorResponse
                     (HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+        /* Product Archives List and Automatic Deletion */
+        [Route("product-archive-list"), HttpGet]
+        public IHttpActionResult getArchiveListProducts()
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var obj = core.stock_on_hand.Where(x => x.productstatus == "3").ToList();
+                    return Ok(obj);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("auto-deletion-after-1-week"), HttpDelete]
+        public IHttpActionResult deletionAutomatic()
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    string deletionStatus = "delete from stock_on_hand where createdAt < DATEADD(day, -7, GETDATE()) and productstatus=@status";
+                    core.Database.ExecuteSqlCommand(deletionStatus, new SqlParameter("@status", "3"));
+                    return Ok("success deletion");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
         }
     }

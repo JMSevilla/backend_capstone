@@ -23,7 +23,7 @@ namespace capstone_backend.Controllers.POS
             try
             {
                 IHttpActionResult result = null;
-                var obj = apiglobalcon.publico.customer_Orders.ToList().Distinct();
+                var obj = apiglobalcon.publico.customer_Orders.ToList();
                 result = Ok(obj);
                 return await Task.FromResult(result);
             }
@@ -33,6 +33,7 @@ namespace capstone_backend.Controllers.POS
                 throw;
             }
         }
+        
         [Route("solo-validate-cart/{qty}/{id}"), HttpGet]
         public IHttpActionResult validateSolo(int qty, int id)
         {
@@ -48,6 +49,9 @@ namespace capstone_backend.Controllers.POS
                         if(qty > getvalid)
                         {
                             return Ok("invalid qty");
+                        }else
+                        {
+                            return Ok("valid qty");
                         }
                     }
                     return Ok();
@@ -196,21 +200,34 @@ namespace capstone_backend.Controllers.POS
                 {
                     if(HTTP.Form["isstatus"] == "buy1take1")
                     {
-                        customer_Orders orders = new customer_Orders();
-                        orders.orderName = HTTP.Form["solo_order_name"];
-                        orders.orderCode = Guid.NewGuid().ToString();
-                        orders.orderBarcode = HTTP.Form["solo_order_code"];
-                        orders.orderPrice = Convert.ToDecimal(HTTP.Form["solo_order_price"]);
-                        orders.orderQuantity = Convert.ToInt32(HTTP.Form["solo_order_qty"]);
-                        orders.orderCategory = HTTP.Form["solo_order_category"];
-                        orders.orderTotalPrice = Convert.ToDecimal(HTTP.Form["solo_order_price"]) * Convert.ToInt32(HTTP.Form["solo_order_qty"]);
-                        orders.orderImage = HTTP.Form["solo_order_image"];
-                        orders.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM"));
-                        orders.orderStatus = "1";
-                        orders.discountIsApplied = "0";
-                        core.customer_Orders.Add(orders);
-                        core.SaveChanges();
-                        return Ok("success order");
+                        var code = HTTP.Form["buy1take1ProdCode"];
+                        var checkifExist = core.customer_Orders.Where(x => x.orderCode == code).FirstOrDefault();
+                        if(checkifExist != null)
+                        {
+                            checkifExist.orderQuantity = checkifExist.orderQuantity + Convert.ToInt32(HTTP.Form["buy1take1Quantity"]);
+                            core.SaveChanges();
+                            return Ok("success order");
+                        }
+                        else
+                        {
+                            customer_Orders orders = new customer_Orders();
+                            orders.orderName = HTTP.Form["buy1take1Prodname"];
+                            orders.orderCode = Guid.NewGuid().ToString();
+                            orders.orderBarcode = HTTP.Form["buy1take1ProdCode"];
+                            orders.orderPrice = Convert.ToDecimal(HTTP.Form["buy1take1Prodprice"]);
+                            orders.orderQuantity = Convert.ToInt32(HTTP.Form["buy1take1Quantity"]);
+                            orders.orderCategory = HTTP.Form["buy1take1ProdCategory"];
+                            orders.orderTotalPrice = Convert.ToDecimal(HTTP.Form["buy1take1Prodprice"]) * Convert.ToInt32(HTTP.Form["buy1take1Quantity"]);
+                            orders.orderImage = HTTP.Form["buy1take1Prodimage"];
+                            orders.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM"));
+                            orders.orderStatus = "1";
+                            orders.discountIsApplied = "0";
+                            orders.retainedQty = Convert.ToInt32(HTTP.Form["buy1take1Quantity"]);
+                            core.customer_Orders.Add(orders);
+                            core.SaveChanges();
+                            return Ok("success order");
+                        }
+                       
                     } 
                     else 
                     {
@@ -226,6 +243,7 @@ namespace capstone_backend.Controllers.POS
                         orders.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM"));
                         orders.orderStatus = "2";
                         orders.discountIsApplied = "0";
+                        orders.retainedQty = Convert.ToInt32(HTTP.Form["solo_order_qty"]);
                         core.customer_Orders.Add(orders);
                         core.SaveChanges();
                         return Ok("success order");
@@ -258,6 +276,7 @@ namespace capstone_backend.Controllers.POS
                     orders.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM"));
                     orders.orderStatus = "3";
                     orders.discountIsApplied = "0";
+                    orders.retainedQty = 6;
                     core.customer_Orders.Add(orders);
                     core.SaveChanges();
                     return Ok("success order");
@@ -269,19 +288,34 @@ namespace capstone_backend.Controllers.POS
                 throw;
             }
         }
-        [Route("order-decrease-qty/{orderID}/{qty}"), HttpPut]
-        public IHttpActionResult decreaseqty(int orderID, int qty)
+        [Route("order-decrease-qty-prod"), HttpPut]
+        public IHttpActionResult decreaseqty(int orderID, int qty, string code)
         {
             try
             {
                 using (core = apiglobalcon.publico)
                 {
-                    var check = core.product_finalization.Where(x => x.id == orderID).FirstOrDefault();
-                    if(check != null)
+                    var check = core.product_finalization.Where(x => x.id == orderID)
+                                                         .FirstOrDefault();
+                    var cart = core.customer_Orders.Where(x => x.orderBarcode == code).FirstOrDefault();
+                    if (check != null)
                     {
+                        //subtract final product quantity
                         check.prodquantity = check.prodquantity - qty;
+                        //cart.retainedQty = cart.retainedQty + qty;
+
+                        //subtract ingredients quantity
+                        var ingredients = core.product_finalization_raw.Where(x => x.productCreatedCode == check.productCode)
+                                                                       .Select(x => x.productInventoryCode)
+                                                                       .ToList();
+                        foreach (var ingredient in ingredients)
+                        {
+                            var stock = core.product_inventory.Where(x => x.productCode == ingredient).FirstOrDefault();
+                            stock.product_quantity = stock.product_quantity - qty;
+                        }
+
                         core.SaveChanges();
-                        return Ok("success decrease");
+                        return Ok("success_decrease");
                     }
                     return Ok();
                 }
@@ -292,7 +326,45 @@ namespace capstone_backend.Controllers.POS
                 throw;
             }
         }
-        [Route("order-decrease-qty-bundle/{orderID}/{qty}/{origqty}"), HttpPut]
+        [Route("order-decrease-qty-solo"), HttpPut]
+        public IHttpActionResult decreaseqtysolo(int orderID, int qty, int cartID)
+        {
+            try
+            {
+                using (core = apiglobalcon.publico)
+                {
+                    var check = core.product_finalization.Where(x => x.id == orderID)
+                                                         .FirstOrDefault();
+                    var cart = core.customer_Orders.Where(x => x.orderID == cartID).FirstOrDefault();
+                    if (check != null)
+                    {
+                        //subtract final product quantity
+                        check.prodquantity = check.prodquantity - qty;
+                        cart.retainedQty = cart.retainedQty + 6;
+
+                        //subtract ingredients quantity
+                        var ingredients = core.product_finalization_raw.Where(x => x.productCreatedCode == check.productCode)
+                                                                       .Select(x => x.productInventoryCode)
+                                                                       .ToList();
+                        foreach (var ingredient in ingredients)
+                        {
+                            var stock = core.product_inventory.Where(x => x.productCode == ingredient).FirstOrDefault();
+                            stock.product_quantity = stock.product_quantity - qty;
+                        }
+
+                        core.SaveChanges();
+                        return Ok("success_decrease");
+                    }
+                    return Ok();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("order-decrease-qty-bundle"), HttpPut]
         public IHttpActionResult decreaseqtybundle(int orderID, int qty, int origqty)
         {
             try
@@ -328,7 +400,7 @@ namespace capstone_backend.Controllers.POS
             }
         }
 
-        [Route("order-decrease-qty-buy1take1/{orderID}/{qty}/{origqty}"), HttpPut]
+        [Route("order-decrease-qty-buy1take1"), HttpPut]
         public IHttpActionResult decreaseqtybuy1take1(int orderID, int qty, int origqty)
         {
             try
@@ -353,7 +425,7 @@ namespace capstone_backend.Controllers.POS
                         }
 
                         core.SaveChanges();
-                        return Ok("success decrease");
+                        return Ok("success_decrease");
                     }
                     return Ok();
                 }
@@ -370,13 +442,12 @@ namespace capstone_backend.Controllers.POS
         {
             try
             {
-                using(cons = apiglobalcon._publiccon)
+                using (core = apiglobalcon.publico)
                 {
-                    string query = "select sum(orderTotalPrice) * orderQuantity from customer_Orders group by orderQuantity";
-                    SqlCommand command = new SqlCommand(query, cons);
-                    cons.Open();
-                    object total = command.ExecuteScalar();
-                    cons.Close();
+                    var total = core.customer_Orders.Select(x => new
+                    {
+                        x.orderTotalPrice
+                    }).Sum(i => i.orderTotalPrice);
                     return Ok(total);
                 }
             }
@@ -404,10 +475,11 @@ namespace capstone_backend.Controllers.POS
                         var ingredients = core.product_finalization_raw.Where(x => x.productCreatedCode == product.productCode)
                                                                    .Select(x => x.productInventoryCode)
                                                                    .ToList();
+                        var getRetainedQuantity = core.customer_Orders.Where(x => x.orderBarcode == code).FirstOrDefault();
                         foreach (var ingredient in ingredients)
                         {
                             var stock = core.product_inventory.Where(x => x.productCode == ingredient).FirstOrDefault();
-                            stock.product_quantity = stock.product_quantity + 6;
+                            stock.product_quantity = stock.product_quantity + Convert.ToInt32(getRetainedQuantity.retainedQty);
                         }
                     }
                     else if (statusItem == "buy1take1")
@@ -415,10 +487,11 @@ namespace capstone_backend.Controllers.POS
                         var ingredients = core.product_finalization_raw.Where(x => x.productCreatedCode == product.productCode)
                                                                    .Select(x => x.productInventoryCode)
                                                                    .ToList();
+                        var getRetainedQuantity = core.customer_Orders.Where(x => x.orderBarcode == code).FirstOrDefault();
                         foreach (var ingredient in ingredients)
                         {
                             var stock = core.product_inventory.Where(x => x.productCode == ingredient).FirstOrDefault();
-                            stock.product_quantity = stock.product_quantity + 2;
+                            stock.product_quantity = stock.product_quantity + Convert.ToInt32(getRetainedQuantity.retainedQty);
                         }
                     }
                     else
@@ -451,13 +524,10 @@ namespace capstone_backend.Controllers.POS
         {
             try
             {
-                using(cons = apiglobalcon._publiccon)
+                using(core = apiglobalcon.publico)
                 {
-                    string countquery = "select count(paymentStatus) from paymentDetails where paymentStatus=1";
-                    SqlCommand command = new SqlCommand(countquery, cons);
-                    cons.Open();
-                    object total = command.ExecuteScalar();
-                    cons.Close();
+                    string intotal = "select count(paymentStatus) from paymentDetails where paymentStatus=1";
+                    object total = core.Database.ExecuteSqlCommand(intotal);
                     return Ok(total);
                 }
             }
@@ -497,10 +567,104 @@ namespace capstone_backend.Controllers.POS
                     if(checkID != null)
                     {
                         checkID.orderQuantity = checkID.orderQuantity + qty;
+                        var gettotal = checkID.orderPrice * checkID.orderQuantity;
+                        checkID.orderTotalPrice = gettotal;
                         core.SaveChanges();
                         return Ok("success update qty");
                     }
                     return Ok();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("update-qty-cart-boxof6"), HttpPut]
+        public IHttpActionResult updateBoxof6QTY(int id, int qty)
+        {
+            try
+            {
+                using (core = apiglobalcon.publico)
+                {
+                    var checkID = core.customer_Orders.Where(x => x.orderID == id).FirstOrDefault();
+                    if (checkID != null)
+                    {
+                        checkID.orderQuantity = checkID.orderQuantity + qty;
+                        checkID.retainedQty = checkID.retainedQty + 6;
+                        var gettotal = checkID.orderPrice * checkID.orderQuantity;
+                        checkID.orderTotalPrice = gettotal;
+                        core.SaveChanges();
+                        return Ok("success update qty");
+                    }
+                    return Ok();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("update-qty-cart-b1t1"), HttpPut]
+        public IHttpActionResult updateb1t1QTY(int id, int qty)
+        {
+            try
+            {
+                using (core = apiglobalcon.publico)
+                {
+                    var checkID = core.customer_Orders.Where(x => x.orderID == id).FirstOrDefault();
+                    if (checkID != null)
+                    {
+                        checkID.orderQuantity = checkID.orderQuantity + qty;
+                        checkID.retainedQty = checkID.retainedQty + 2;
+                        var gettotal = checkID.orderPrice * checkID.orderQuantity;
+                        checkID.orderTotalPrice = gettotal;
+                        core.SaveChanges();
+                        return Ok("success update qty");
+                    }
+                    return Ok();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("sales-entry"), HttpPost]
+        public IHttpActionResult salesEntry()
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var HTTP = HttpContext.Current.Request;
+                    product_sales sales = new product_sales();
+                    sales.salesInfo = HTTP.Form["orderInfo"];
+                    sales.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd"));
+                    core.product_sales.Add(sales);
+                    core.SaveChanges();
+                    return Ok("success sales entry");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("ready-payment-deletion"), HttpDelete]
+        public IHttpActionResult paymentDetailsDeletion()
+        {
+            try
+            {
+                using (core = apiglobalcon.publico)
+                {
+                    string deleteStatus = "delete from paymentDetails";
+                    core.Database.ExecuteSqlCommand(deleteStatus);
+                    return Ok("success delete");
                 }
             }
             catch (Exception)

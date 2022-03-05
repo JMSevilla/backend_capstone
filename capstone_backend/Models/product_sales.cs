@@ -12,13 +12,10 @@ namespace capstone_backend.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class ipv6_database_firewall_rules
+    public partial class product_sales
     {
-        public int id { get; set; }
-        public string name { get; set; }
-        public string start_ipv6_address { get; set; }
-        public string end_ipv6_address { get; set; }
-        public System.DateTime create_date { get; set; }
-        public System.DateTime modify_date { get; set; }
+        public int salesID { get; set; }
+        public string salesInfo { get; set; }
+        public Nullable<System.DateTime> createdAt { get; set; }
     }
 }

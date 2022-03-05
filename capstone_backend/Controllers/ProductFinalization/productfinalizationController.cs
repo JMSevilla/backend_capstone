@@ -253,7 +253,7 @@ namespace capstone_backend.Controllers.ProductFinalization
             {
                 using(core = apiglobalcon.publico)
                 {
-                    var obj = core.product_finalization.ToList();
+                    var obj = core.product_finalization.ToList().OrderByDescending(x => x.id);
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
                 }
             }

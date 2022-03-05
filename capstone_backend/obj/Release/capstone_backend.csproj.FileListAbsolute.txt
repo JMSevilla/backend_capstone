@@ -300,3 +300,4 @@ C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\bin\Antlr3.Runt
 C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\obj\Release\capstone_backend.Properties.Resources.resources
 C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\obj\Release\capstone_backend.csproj.GenerateResource.cache
+C:\Users\devop\source\repos\BM\backend_capstone\capstone_backend\obj\Release\capstone_backend.csproj.CopyComplete

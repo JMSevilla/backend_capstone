@@ -148,7 +148,7 @@ namespace capstone_backend.Controllers.Stock_on_hand
             {
                 using(core = apiglobalcon.publico)
                 {
-                    var obj = core.stock_on_hand.ToList();
+                    var obj = core.stock_on_hand.Where(x => x.productstatus == "1").ToList().OrderByDescending(x => x.stockID);
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
                 }
             }
@@ -200,6 +200,28 @@ namespace capstone_backend.Controllers.Stock_on_hand
                         core.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK, "success remove");
                     }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("stock-to-archive"), HttpPut]
+        public IHttpActionResult stocktoArchive(int stockid)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var check = core.stock_on_hand.Where(x => x.stockID == stockid).FirstOrDefault();
+                    if(check != null)
+                    {
+                        check.productstatus = "3";
+                        core.SaveChanges();
+                    }
+                    return Ok("success");
                 }
             }
             catch (Exception)

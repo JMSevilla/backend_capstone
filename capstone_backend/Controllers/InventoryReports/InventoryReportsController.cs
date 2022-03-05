@@ -38,7 +38,7 @@ namespace capstone_backend.Controllers.InventoryReports
                 throw;
             }
         }
-        [Route("inventory-report-entry"), HttpPost]
+        
         public IHttpActionResult invreportEntry(string prodname, int beg, int refId)
         {
             try
@@ -73,6 +73,36 @@ namespace capstone_backend.Controllers.InventoryReports
                 {
                     DateTime today = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd"));
                     var obj = core.inventoryReports.Where(x => x.createdAt == today).ToList();
+                    return Ok(obj);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("filter-inventory-reports"), HttpGet]
+        public IHttpActionResult filterSales(DateTime datefrom, DateTime dateto)
+        {
+            try
+            {
+                using (core = apiglobalcon.publico)
+                {
+                    var obj = (from filterdata in core.inventoryReports
+                               where (filterdata.createdAt >= datefrom && filterdata.createdAt <= dateto)
+                               orderby filterdata.invID descending
+                               select new
+                               {
+                                   filterdata.invID,
+                                   filterdata.productName,
+                                   filterdata.beg_qty,
+                                   filterdata.available,
+                                   filterdata.end_qty,
+                                   filterdata.createdAt,
+                                   filterdata.refId,
+                                   filterdata.refstatus,
+                               }).ToList();
                     return Ok(obj);
                 }
             }
@@ -148,5 +178,35 @@ namespace capstone_backend.Controllers.InventoryReports
                 throw;
             }
         }
+        [Route("check-inventory-reports-exists"), HttpPut]
+        public IHttpActionResult checkReports(string prodname, int beg, int refId)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    DateTime today = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd"));
+                    var checkObj = core.inventoryReports.Where(x => x.refstatus == "1" && x.refId == refId && x.createdAt == today).FirstOrDefault();
+                    if (checkObj != null)
+                    {
+                        checkObj.beg_qty = checkObj.beg_qty + beg;
+                        core.SaveChanges();
+                        return Ok("success update");
+                        
+                    }
+                    else
+                    {
+                        invreportEntry(prodname, beg, refId);
+                        return Ok("success entry");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+       
     }
 }
