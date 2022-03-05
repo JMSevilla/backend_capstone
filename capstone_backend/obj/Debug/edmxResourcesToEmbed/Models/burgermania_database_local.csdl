@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="dbbmModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="dbbmModel2" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="activity_log">
     <Key>
       <PropertyRef Name="id" />
@@ -38,17 +38,6 @@
     <Property Name="createdAt" Type="DateTime" Precision="3" />
     <Property Name="isvalidate" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
     <Property Name="isbundle" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-  </EntityType>
-  <EntityType Name="code_verifications">
-    <Key>
-      <PropertyRef Name="codeID" />
-    </Key>
-    <Property Name="codeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="vcode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="isdone" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-    <Property Name="sendattempts" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-    <Property Name="g_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="validatedAt" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="customer_Orders">
     <Key>
@@ -105,6 +94,19 @@
     <Property Name="forgotcode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="isdone" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
     <Property Name="createdAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="inventoryReport">
+    <Key>
+      <PropertyRef Name="invID" />
+    </Key>
+    <Property Name="invID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="productName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="beg_qty" Type="Int64" />
+    <Property Name="available" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="end_qty" Type="Int64" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="refId" Type="Int32" />
+    <Property Name="refstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
   </EntityType>
   <EntityType Name="location">
     <Key>
@@ -404,48 +406,16 @@
     <Property Name="product_category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="Expr1" Type="DateTime" Precision="3" />
   </EntityType>
-  <EntityType Name="database_firewall_rules">
-    <Key>
-      <PropertyRef Name="id" />
-      <PropertyRef Name="name" />
-      <PropertyRef Name="start_ip_address" />
-      <PropertyRef Name="end_ip_address" />
-      <PropertyRef Name="create_date" />
-      <PropertyRef Name="modify_date" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
-  </EntityType>
-  <EntityType Name="ipv6_database_firewall_rules">
-    <Key>
-      <PropertyRef Name="id" />
-      <PropertyRef Name="name" />
-      <PropertyRef Name="start_ipv6_address" />
-      <PropertyRef Name="end_ipv6_address" />
-      <PropertyRef Name="create_date" />
-      <PropertyRef Name="modify_date" />
-    </Key>
-    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="start_ipv6_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="end_ipv6_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
-  </EntityType>
   <EntityContainer Name="dbbmEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="activity_log" EntityType="Self.activity_log" />
     <EntitySet Name="archive_users" EntityType="Self.archive_users" />
     <EntitySet Name="bundleProds" EntityType="Self.bundleProd" />
-    <EntitySet Name="code_verifications" EntityType="Self.code_verifications" />
     <EntitySet Name="customer_Orders" EntityType="Self.customer_Orders" />
     <EntitySet Name="customerBasicInformations" EntityType="Self.customerBasicInformation" />
     <EntitySet Name="excelStorages" EntityType="Self.excelStorage" />
     <EntitySet Name="expirations" EntityType="Self.expiration" />
     <EntitySet Name="forgotpassword_identifier" EntityType="Self.forgotpassword_identifier" />
+    <EntitySet Name="inventoryReports" EntityType="Self.inventoryReport" />
     <EntitySet Name="locations" EntityType="Self.location" />
     <EntitySet Name="login_history" EntityType="Self.login_history" />
     <EntitySet Name="paymentDetails" EntityType="Self.paymentDetail" />
@@ -470,8 +440,6 @@
     <EntitySet Name="users" EntityType="Self.user" />
     <EntitySet Name="supplier_find_duplicate" EntityType="Self.supplier_find_duplicate" />
     <EntitySet Name="warning_expiration_10_days" EntityType="Self.warning_expiration_10_days" />
-    <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
-    <EntitySet Name="ipv6_database_firewall_rules" EntityType="Self.ipv6_database_firewall_rules" />
     <FunctionImport Name="ascend_quantity">
       <Parameter Name="pcode" Mode="In" Type="String" />
       <Parameter Name="quantity" Mode="In" Type="Int32" />
@@ -490,7 +458,7 @@
       <Parameter Name="quantity" Mode="In" Type="Int32" />
       <Parameter Name="state" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="find_duplicates" ReturnType="Collection(dbbmModel.find_duplicates_Result)">
+    <FunctionImport Name="find_duplicates" ReturnType="Collection(dbbmModel2.find_duplicates_Result)">
       <Parameter Name="sid" Mode="In" Type="String" />
       <Parameter Name="state" Mode="In" Type="Int32" />
     </FunctionImport>
@@ -514,7 +482,7 @@
       <Parameter Name="quantity" Mode="In" Type="Int32" />
       <Parameter Name="state" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="sproc_get_products_fromInventory_via_code" ReturnType="Collection(dbbmModel.sproc_get_products_fromInventory_via_code_Result)">
+    <FunctionImport Name="sproc_get_products_fromInventory_via_code" ReturnType="Collection(dbbmModel2.sproc_get_products_fromInventory_via_code_Result)">
       <Parameter Name="state" Mode="In" Type="Int32" />
       <Parameter Name="code" Mode="In" Type="String" />
     </FunctionImport>
@@ -538,7 +506,7 @@
       <Parameter Name="id" Mode="In" Type="Int32" />
       <Parameter Name="state" Mode="In" Type="Int32" />
     </FunctionImport>
-    <FunctionImport Name="stored_view_expiration_date" ReturnType="Collection(dbbmModel.stored_view_expiration_date_Result)">
+    <FunctionImport Name="stored_view_expiration_date" ReturnType="Collection(dbbmModel2.stored_view_expiration_date_Result)">
       <Parameter Name="state" Mode="In" Type="Int32" />
       <Parameter Name="pcode" Mode="In" Type="String" />
     </FunctionImport>
@@ -580,10 +548,6 @@
       <Parameter Name="enablelistview" Mode="In" Type="String" />
       <Parameter Name="viewentry" Mode="In" Type="String" />
     </FunctionImport>
-    <FunctionImport Name="user_status_updater">
-      <Parameter Name="id" Mode="In" Type="Int32" />
-      <Parameter Name="action" Mode="In" Type="Int32" />
-    </FunctionImport>
     <FunctionImport Name="update_stocks_modification">
       <Parameter Name="id" Mode="In" Type="Int32" />
       <Parameter Name="prodname" Mode="In" Type="String" />
@@ -591,7 +555,15 @@
       <Parameter Name="prodexp" Mode="In" Type="DateTime" />
       <Parameter Name="state" Mode="In" Type="String" />
     </FunctionImport>
-    <EntitySet Name="inventoryReports" EntityType="dbbmModel.inventoryReport" />
+    <FunctionImport Name="user_status_updater">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+      <Parameter Name="action" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="store_gettotalprice" ReturnType="Collection(Decimal)">
+      <Parameter Name="state" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="product_sales" EntityType="dbbmModel2.product_sales" />
+    <EntitySet Name="code_verifications" EntityType="dbbmModel2.code_verifications" />
   </EntityContainer>
   <ComplexType Name="find_duplicates_Result">
     <Property Type="Int32" Name="id" Nullable="false" />
@@ -638,17 +610,23 @@
     <Property Type="String" Name="productimgurl" Nullable="true" />
     <Property Type="String" Name="product_category" Nullable="true" MaxLength="100" />
   </ComplexType>
-  <EntityType Name="inventoryReport">
+  <EntityType Name="product_sales">
     <Key>
-      <PropertyRef Name="invID" />
+      <PropertyRef Name="salesID" />
     </Key>
-    <Property Name="invID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="productName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="beg_qty" Type="Int64" />
-    <Property Name="available" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-    <Property Name="end_qty" Type="Int64" />
+    <Property Name="salesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="salesInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="createdAt" Type="DateTime" Precision="3" />
-    <Property Name="refId" Type="Int32" />
-    <Property Name="refstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="code_verifications">
+    <Key>
+      <PropertyRef Name="codeID" />
+    </Key>
+    <Property Name="codeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="vcode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="isdone" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="sendattempts" Type="Int32" />
+    <Property Name="g_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="validatedAt" Type="DateTime" Precision="3" />
   </EntityType>
 </Schema>

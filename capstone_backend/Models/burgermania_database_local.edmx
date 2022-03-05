@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="local_dbbmModel3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="dbbmModel2.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="activity_log">
           <Key>
             <PropertyRef Name="id" />
@@ -51,7 +51,7 @@
           <Property Name="codeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="vcode" Type="varchar" MaxLength="100" />
           <Property Name="isdone" Type="char" MaxLength="1" />
-          <Property Name="sendattempts" Type="char" MaxLength="1" />
+          <Property Name="sendattempts" Type="int" />
           <Property Name="g_email" Type="varchar" MaxLength="255" />
           <Property Name="validatedAt" Type="datetime" />
         </EntityType>
@@ -69,6 +69,9 @@
           <Property Name="orderTotalPrice" Type="decimal" Precision="18" Scale="0" />
           <Property Name="orderImage" Type="varchar(max)" />
           <Property Name="createdAt" Type="datetime" />
+          <Property Name="orderStatus" Type="char" MaxLength="1" />
+          <Property Name="discountIsApplied" Type="char" MaxLength="1" />
+          <Property Name="retainedQty" Type="bigint" />
         </EntityType>
         <EntityType Name="customerBasicInformation">
           <Key>
@@ -108,6 +111,19 @@
           <Property Name="isdone" Type="char" MaxLength="1" />
           <Property Name="createdAt" Type="datetime" />
         </EntityType>
+        <EntityType Name="inventoryReports">
+          <Key>
+            <PropertyRef Name="invID" />
+          </Key>
+          <Property Name="invID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="productName" Type="varchar" MaxLength="255" />
+          <Property Name="beg_qty" Type="bigint" />
+          <Property Name="available" Type="varchar" MaxLength="255" />
+          <Property Name="end_qty" Type="bigint" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="refId" Type="int" />
+          <Property Name="refstatus" Type="char" MaxLength="1" />
+        </EntityType>
         <EntityType Name="locations">
           <Key>
             <PropertyRef Name="id" />
@@ -126,6 +142,8 @@
           <Property Name="loggedinstatus" Type="char" MaxLength="1" />
           <Property Name="message" Type="text" />
           <Property Name="logindate" Type="datetime" />
+          <Property Name="loggedoutstatus" Type="char" MaxLength="1" />
+          <Property Name="logoutdate" Type="datetime" />
         </EntityType>
         <EntityType Name="paymentDetails">
           <Key>
@@ -181,6 +199,14 @@
           <Property Name="product_category" Type="varchar" MaxLength="100" />
           <Property Name="expirationprod" Type="datetime" />
           <Property Name="size" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="product_sales">
+          <Key>
+            <PropertyRef Name="salesID" />
+          </Key>
+          <Property Name="salesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="salesInfo" Type="varchar(max)" />
+          <Property Name="createdAt" Type="datetime" />
         </EntityType>
         <EntityType Name="productreport">
           <Key>
@@ -370,7 +396,7 @@
           <Property Name="isattemptStatus" Type="char" MaxLength="1" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'dbbm.dbo.supplier_find_duplicate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="supplier_find_duplicate">
           <Key>
             <PropertyRef Name="id" />
@@ -389,7 +415,7 @@ warning 6002: The table/view 'local_dbbm.dbo.supplier_find_duplicate' does not h
           <Property Name="Expr1" Type="varchar(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'dbbm.dbo.warning_expiration_10_days' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="warning_expiration_10_days">
           <Key>
             <PropertyRef Name="productID" />
@@ -407,42 +433,6 @@ warning 6002: The table/view 'local_dbbm.dbo.warning_expiration_10_days' does no
           <Property Name="productimgurl" Type="varchar(max)" />
           <Property Name="product_category" Type="varchar" MaxLength="100" />
           <Property Name="Expr1" Type="datetime" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'local_dbbm.sys.database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="database_firewall_rules">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="start_ip_address" />
-            <PropertyRef Name="end_ip_address" />
-            <PropertyRef Name="create_date" />
-            <PropertyRef Name="modify_date" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="start_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="end_ip_address" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="create_date" Type="datetime" Nullable="false" />
-          <Property Name="modify_date" Type="datetime" Nullable="false" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="ipv6_database_firewall_rules">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="start_ipv6_address" />
-            <PropertyRef Name="end_ipv6_address" />
-            <PropertyRef Name="create_date" />
-            <PropertyRef Name="modify_date" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="start_ipv6_address" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="end_ipv6_address" Type="varchar" MaxLength="45" Nullable="false" />
-          <Property Name="create_date" Type="datetime" Nullable="false" />
-          <Property Name="modify_date" Type="datetime" Nullable="false" />
         </EntityType>
         <Function Name="ascend_quantity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pcode" Type="varchar(max)" Mode="In" />
@@ -492,6 +482,9 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
         </Function>
         <Function Name="sproc_update_isdone_forgotpassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="forgotcode" Type="varchar(max)" Mode="In" />
+          <Parameter Name="state" Type="int" Mode="In" />
+        </Function>
+        <Function Name="store_gettotalprice" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="state" Type="int" Mode="In" />
         </Function>
         <Function Name="stored_supplier" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -552,11 +545,18 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
           <Parameter Name="enablelistview" Type="char" Mode="In" />
           <Parameter Name="viewentry" Type="char" Mode="In" />
         </Function>
+        <Function Name="update_stocks_modification" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="prodname" Type="varchar" Mode="In" />
+          <Parameter Name="prodcateg" Type="varchar" Mode="In" />
+          <Parameter Name="prodexp" Type="datetime" Mode="In" />
+          <Parameter Name="state" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="user_status_updater" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="id" Type="int" Mode="In" />
           <Parameter Name="action" Type="int" Mode="In" />
         </Function>
-        <EntityContainer Name="local_dbbmModel3StoreContainer">
+        <EntityContainer Name="dbbmModel2StoreContainer">
           <EntitySet Name="activity_log" EntityType="Self.activity_log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="archive_users" EntityType="Self.archive_users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="bundleProd" EntityType="Self.bundleProd" Schema="dbo" store:Type="Tables" />
@@ -566,12 +566,14 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
           <EntitySet Name="excelStorage" EntityType="Self.excelStorage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="expiration" EntityType="Self.expiration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="forgotpassword_identifier" EntityType="Self.forgotpassword_identifier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="inventoryReports" EntityType="Self.inventoryReports" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="locations" EntityType="Self.locations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="login_history" EntityType="Self.login_history" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="paymentDetails" EntityType="Self.paymentDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product_finalization" EntityType="Self.product_finalization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product_finalization_raw" EntityType="Self.product_finalization_raw" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="product_inventory" EntityType="Self.product_inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="product_sales" EntityType="Self.product_sales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="productreport" EntityType="Self.productreport" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="puchase_orders" EntityType="Self.puchase_orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="savedAdditionalQuantity" EntityType="Self.savedAdditionalQuantity" Schema="dbo" store:Type="Tables" />
@@ -621,32 +623,11 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
     [warning_expiration_10_days].[Expr1] AS [Expr1]
     FROM [dbo].[warning_expiration_10_days] AS [warning_expiration_10_days]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" store:Type="Views" store:Schema="sys">
-            <DefiningQuery>SELECT 
-    [database_firewall_rules].[id] AS [id], 
-    [database_firewall_rules].[name] AS [name], 
-    [database_firewall_rules].[start_ip_address] AS [start_ip_address], 
-    [database_firewall_rules].[end_ip_address] AS [end_ip_address], 
-    [database_firewall_rules].[create_date] AS [create_date], 
-    [database_firewall_rules].[modify_date] AS [modify_date]
-    FROM [sys].[database_firewall_rules] AS [database_firewall_rules]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="ipv6_database_firewall_rules" EntityType="Self.ipv6_database_firewall_rules" store:Type="Views" store:Schema="sys">
-            <DefiningQuery>SELECT 
-    [ipv6_database_firewall_rules].[id] AS [id], 
-    [ipv6_database_firewall_rules].[name] AS [name], 
-    [ipv6_database_firewall_rules].[start_ipv6_address] AS [start_ipv6_address], 
-    [ipv6_database_firewall_rules].[end_ipv6_address] AS [end_ipv6_address], 
-    [ipv6_database_firewall_rules].[create_date] AS [create_date], 
-    [ipv6_database_firewall_rules].[modify_date] AS [modify_date]
-    FROM [sys].[ipv6_database_firewall_rules] AS [ipv6_database_firewall_rules]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="local_dbbmModel3" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="dbbmModel2" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="activity_log">
           <Key>
             <PropertyRef Name="id" />
@@ -686,17 +667,6 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
           <Property Name="isvalidate" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="isbundle" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
-        <EntityType Name="code_verifications">
-          <Key>
-            <PropertyRef Name="codeID" />
-          </Key>
-          <Property Name="codeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="vcode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="isdone" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="sendattempts" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
-          <Property Name="g_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="validatedAt" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="customer_Orders">
           <Key>
             <PropertyRef Name="orderID" />
@@ -711,6 +681,9 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
           <Property Name="orderTotalPrice" Type="Decimal" Precision="18" Scale="0" />
           <Property Name="orderImage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="orderStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="discountIsApplied" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="retainedQty" Type="Int64" />
         </EntityType>
         <EntityType Name="customerBasicInformation">
           <Key>
@@ -750,6 +723,19 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
           <Property Name="isdone" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="createdAt" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="inventoryReport">
+          <Key>
+            <PropertyRef Name="invID" />
+          </Key>
+          <Property Name="invID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="productName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="beg_qty" Type="Int64" />
+          <Property Name="available" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="end_qty" Type="Int64" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="refId" Type="Int32" />
+          <Property Name="refstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
         <EntityType Name="location">
           <Key>
             <PropertyRef Name="id" />
@@ -768,6 +754,8 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
           <Property Name="loggedinstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="logindate" Type="DateTime" Precision="3" />
+          <Property Name="loggedoutstatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="logoutdate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="paymentDetail">
           <Key>
@@ -1046,48 +1034,16 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
           <Property Name="product_category" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Expr1" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="database_firewall_rules">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="start_ip_address" />
-            <PropertyRef Name="end_ip_address" />
-            <PropertyRef Name="create_date" />
-            <PropertyRef Name="modify_date" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="start_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="end_ip_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityType Name="ipv6_database_firewall_rules">
-          <Key>
-            <PropertyRef Name="id" />
-            <PropertyRef Name="name" />
-            <PropertyRef Name="start_ipv6_address" />
-            <PropertyRef Name="end_ipv6_address" />
-            <PropertyRef Name="create_date" />
-            <PropertyRef Name="modify_date" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="start_ipv6_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="end_ipv6_address" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="create_date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="modify_date" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <EntityContainer Name="local_dbbmEntities3" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="dbbmEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="activity_log" EntityType="Self.activity_log" />
           <EntitySet Name="archive_users" EntityType="Self.archive_users" />
           <EntitySet Name="bundleProds" EntityType="Self.bundleProd" />
-          <EntitySet Name="code_verifications" EntityType="Self.code_verifications" />
           <EntitySet Name="customer_Orders" EntityType="Self.customer_Orders" />
           <EntitySet Name="customerBasicInformations" EntityType="Self.customerBasicInformation" />
           <EntitySet Name="excelStorages" EntityType="Self.excelStorage" />
           <EntitySet Name="expirations" EntityType="Self.expiration" />
           <EntitySet Name="forgotpassword_identifier" EntityType="Self.forgotpassword_identifier" />
+          <EntitySet Name="inventoryReports" EntityType="Self.inventoryReport" />
           <EntitySet Name="locations" EntityType="Self.location" />
           <EntitySet Name="login_history" EntityType="Self.login_history" />
           <EntitySet Name="paymentDetails" EntityType="Self.paymentDetail" />
@@ -1112,8 +1068,6 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
           <EntitySet Name="users" EntityType="Self.user" />
           <EntitySet Name="supplier_find_duplicate" EntityType="Self.supplier_find_duplicate" />
           <EntitySet Name="warning_expiration_10_days" EntityType="Self.warning_expiration_10_days" />
-          <EntitySet Name="database_firewall_rules" EntityType="Self.database_firewall_rules" />
-          <EntitySet Name="ipv6_database_firewall_rules" EntityType="Self.ipv6_database_firewall_rules" />
           <FunctionImport Name="ascend_quantity">
             <Parameter Name="pcode" Mode="In" Type="String" />
             <Parameter Name="quantity" Mode="In" Type="Int32" />
@@ -1125,14 +1079,14 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             <Parameter Name="state" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="clearselectedraw">
-            <Parameter Name="state" Mode="In" Type="Int32" />
+          <Parameter Name="state" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="deductquantityfinal">
             <Parameter Name="pcode" Mode="In" Type="String" />
             <Parameter Name="quantity" Mode="In" Type="Int32" />
             <Parameter Name="state" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="find_duplicates" ReturnType="Collection(local_dbbmModel3.find_duplicates_Result)">
+          <FunctionImport Name="find_duplicates" ReturnType="Collection(dbbmModel2.find_duplicates_Result)">
             <Parameter Name="sid" Mode="In" Type="String" />
             <Parameter Name="state" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1156,7 +1110,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             <Parameter Name="quantity" Mode="In" Type="Int32" />
             <Parameter Name="state" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sproc_get_products_fromInventory_via_code" ReturnType="Collection(local_dbbmModel3.sproc_get_products_fromInventory_via_code_Result)">
+          <FunctionImport Name="sproc_get_products_fromInventory_via_code" ReturnType="Collection(dbbmModel2.sproc_get_products_fromInventory_via_code_Result)">
             <Parameter Name="state" Mode="In" Type="Int32" />
             <Parameter Name="code" Mode="In" Type="String" />
           </FunctionImport>
@@ -1180,7 +1134,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="state" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="stored_view_expiration_date" ReturnType="Collection(local_dbbmModel3.stored_view_expiration_date_Result)">
+          <FunctionImport Name="stored_view_expiration_date" ReturnType="Collection(dbbmModel2.stored_view_expiration_date_Result)">
             <Parameter Name="state" Mode="In" Type="Int32" />
             <Parameter Name="pcode" Mode="In" Type="String" />
           </FunctionImport>
@@ -1222,10 +1176,22 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             <Parameter Name="enablelistview" Mode="In" Type="String" />
             <Parameter Name="viewentry" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="update_stocks_modification">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="prodname" Mode="In" Type="String" />
+            <Parameter Name="prodcateg" Mode="In" Type="String" />
+            <Parameter Name="prodexp" Mode="In" Type="DateTime" />
+            <Parameter Name="state" Mode="In" Type="String" />
+          </FunctionImport>
           <FunctionImport Name="user_status_updater">
             <Parameter Name="id" Mode="In" Type="Int32" />
             <Parameter Name="action" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="store_gettotalprice" ReturnType="Collection(Decimal)">
+          <Parameter Name="state" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="product_sales" EntityType="dbbmModel2.product_sales" />
+          <EntitySet Name="code_verifications" EntityType="dbbmModel2.code_verifications" />
         </EntityContainer>
         <ComplexType Name="find_duplicates_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -1272,14 +1238,33 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
           <Property Type="String" Name="productimgurl" Nullable="true" />
           <Property Type="String" Name="product_category" Nullable="true" MaxLength="100" />
         </ComplexType>
+        <EntityType Name="product_sales">
+          <Key>
+            <PropertyRef Name="salesID" />
+          </Key>
+          <Property Name="salesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="salesInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="code_verifications">
+          <Key>
+            <PropertyRef Name="codeID" />
+          </Key>
+          <Property Name="codeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="vcode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="isdone" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="sendattempts" Type="Int32" />
+          <Property Name="g_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="validatedAt" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="local_dbbmModel3StoreContainer" CdmEntityContainer="local_dbbmEntities3">
+        <EntityContainerMapping StorageEntityContainer="dbbmModel2StoreContainer" CdmEntityContainer="dbbmEntities">
           <EntitySetMapping Name="activity_log">
-            <EntityTypeMapping TypeName="local_dbbmModel3.activity_log">
+            <EntityTypeMapping TypeName="dbbmModel2.activity_log">
               <MappingFragment StoreEntitySet="activity_log">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="activitymessage" ColumnName="activitymessage" />
@@ -1290,7 +1275,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="archive_users">
-            <EntityTypeMapping TypeName="local_dbbmModel3.archive_users">
+            <EntityTypeMapping TypeName="dbbmModel2.archive_users">
               <MappingFragment StoreEntitySet="archive_users">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="archiveID" ColumnName="archiveID" />
@@ -1304,7 +1289,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="bundleProds">
-            <EntityTypeMapping TypeName="local_dbbmModel3.bundleProd">
+            <EntityTypeMapping TypeName="dbbmModel2.bundleProd">
               <MappingFragment StoreEntitySet="bundleProd">
                 <ScalarProperty Name="bundleID" ColumnName="bundleID" />
                 <ScalarProperty Name="bundleCode" ColumnName="bundleCode" />
@@ -1320,20 +1305,8 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="code_verifications">
-            <EntityTypeMapping TypeName="local_dbbmModel3.code_verifications">
-              <MappingFragment StoreEntitySet="code_verifications">
-                <ScalarProperty Name="codeID" ColumnName="codeID" />
-                <ScalarProperty Name="vcode" ColumnName="vcode" />
-                <ScalarProperty Name="isdone" ColumnName="isdone" />
-                <ScalarProperty Name="sendattempts" ColumnName="sendattempts" />
-                <ScalarProperty Name="g_email" ColumnName="g_email" />
-                <ScalarProperty Name="validatedAt" ColumnName="validatedAt" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="customer_Orders">
-            <EntityTypeMapping TypeName="local_dbbmModel3.customer_Orders">
+            <EntityTypeMapping TypeName="dbbmModel2.customer_Orders">
               <MappingFragment StoreEntitySet="customer_Orders">
                 <ScalarProperty Name="orderID" ColumnName="orderID" />
                 <ScalarProperty Name="orderCode" ColumnName="orderCode" />
@@ -1345,11 +1318,14 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
                 <ScalarProperty Name="orderTotalPrice" ColumnName="orderTotalPrice" />
                 <ScalarProperty Name="orderImage" ColumnName="orderImage" />
                 <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="orderStatus" ColumnName="orderStatus" />
+                <ScalarProperty Name="discountIsApplied" ColumnName="discountIsApplied" />
+                <ScalarProperty Name="retainedQty" ColumnName="retainedQty" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="customerBasicInformations">
-            <EntityTypeMapping TypeName="local_dbbmModel3.customerBasicInformation">
+            <EntityTypeMapping TypeName="dbbmModel2.customerBasicInformation">
               <MappingFragment StoreEntitySet="customerBasicInformation">
                 <ScalarProperty Name="customerID" ColumnName="customerID" />
                 <ScalarProperty Name="customerName" ColumnName="customerName" />
@@ -1361,7 +1337,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="excelStorages">
-            <EntityTypeMapping TypeName="local_dbbmModel3.excelStorage">
+            <EntityTypeMapping TypeName="dbbmModel2.excelStorage">
               <MappingFragment StoreEntitySet="excelStorage">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="tname" ColumnName="tname" />
@@ -1371,7 +1347,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="expirations">
-            <EntityTypeMapping TypeName="local_dbbmModel3.expiration">
+            <EntityTypeMapping TypeName="dbbmModel2.expiration">
               <MappingFragment StoreEntitySet="expiration">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="pcode" ColumnName="pcode" />
@@ -1381,7 +1357,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="forgotpassword_identifier">
-            <EntityTypeMapping TypeName="local_dbbmModel3.forgotpassword_identifier">
+            <EntityTypeMapping TypeName="dbbmModel2.forgotpassword_identifier">
               <MappingFragment StoreEntitySet="forgotpassword_identifier">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="forgotcode" ColumnName="forgotcode" />
@@ -1390,8 +1366,22 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="inventoryReports">
+            <EntityTypeMapping TypeName="dbbmModel2.inventoryReport">
+              <MappingFragment StoreEntitySet="inventoryReports">
+                <ScalarProperty Name="invID" ColumnName="invID" />
+                <ScalarProperty Name="productName" ColumnName="productName" />
+                <ScalarProperty Name="beg_qty" ColumnName="beg_qty" />
+                <ScalarProperty Name="available" ColumnName="available" />
+                <ScalarProperty Name="end_qty" ColumnName="end_qty" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="refId" ColumnName="refId" />
+                <ScalarProperty Name="refstatus" ColumnName="refstatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="locations">
-            <EntityTypeMapping TypeName="local_dbbmModel3.location">
+            <EntityTypeMapping TypeName="dbbmModel2.location">
               <MappingFragment StoreEntitySet="locations">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="municipality" ColumnName="municipality" />
@@ -1401,18 +1391,20 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="login_history">
-            <EntityTypeMapping TypeName="local_dbbmModel3.login_history">
+            <EntityTypeMapping TypeName="dbbmModel2.login_history">
               <MappingFragment StoreEntitySet="login_history">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="loggedinstatus" ColumnName="loggedinstatus" />
                 <ScalarProperty Name="message" ColumnName="message" />
                 <ScalarProperty Name="logindate" ColumnName="logindate" />
+                <ScalarProperty Name="loggedoutstatus" ColumnName="loggedoutstatus" />
+                <ScalarProperty Name="logoutdate" ColumnName="logoutdate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="paymentDetails">
-            <EntityTypeMapping TypeName="local_dbbmModel3.paymentDetail">
+            <EntityTypeMapping TypeName="dbbmModel2.paymentDetail">
               <MappingFragment StoreEntitySet="paymentDetails">
                 <ScalarProperty Name="paymentID" ColumnName="paymentID" />
                 <ScalarProperty Name="paymentInfo" ColumnName="paymentInfo" />
@@ -1423,7 +1415,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="product_finalization">
-            <EntityTypeMapping TypeName="local_dbbmModel3.product_finalization">
+            <EntityTypeMapping TypeName="dbbmModel2.product_finalization">
               <MappingFragment StoreEntitySet="product_finalization">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="prodname" ColumnName="prodname" />
@@ -1441,7 +1433,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="product_finalization_raw">
-            <EntityTypeMapping TypeName="local_dbbmModel3.product_finalization_raw">
+            <EntityTypeMapping TypeName="dbbmModel2.product_finalization_raw">
               <MappingFragment StoreEntitySet="product_finalization_raw">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="productCreatedCode" ColumnName="productCreatedCode" />
@@ -1451,7 +1443,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="product_inventory">
-            <EntityTypeMapping TypeName="local_dbbmModel3.product_inventory">
+            <EntityTypeMapping TypeName="dbbmModel2.product_inventory">
               <MappingFragment StoreEntitySet="product_inventory">
                 <ScalarProperty Name="productID" ColumnName="productID" />
                 <ScalarProperty Name="productCode" ColumnName="productCode" />
@@ -1471,7 +1463,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="productreports">
-            <EntityTypeMapping TypeName="local_dbbmModel3.productreport">
+            <EntityTypeMapping TypeName="dbbmModel2.productreport">
               <MappingFragment StoreEntitySet="productreport">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="problem1" ColumnName="problem1" />
@@ -1486,7 +1478,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="puchase_orders">
-            <EntityTypeMapping TypeName="local_dbbmModel3.puchase_orders">
+            <EntityTypeMapping TypeName="dbbmModel2.puchase_orders">
               <MappingFragment StoreEntitySet="puchase_orders">
                 <ScalarProperty Name="poid" ColumnName="poid" />
                 <ScalarProperty Name="ponumber" ColumnName="ponumber" />
@@ -1502,7 +1494,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="savedAdditionalQuantities">
-            <EntityTypeMapping TypeName="local_dbbmModel3.savedAdditionalQuantity">
+            <EntityTypeMapping TypeName="dbbmModel2.savedAdditionalQuantity">
               <MappingFragment StoreEntitySet="savedAdditionalQuantity">
                 <ScalarProperty Name="additionalID" ColumnName="additionalID" />
                 <ScalarProperty Name="customJSON" ColumnName="customJSON" />
@@ -1511,7 +1503,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="selectedraws">
-            <EntityTypeMapping TypeName="local_dbbmModel3.selectedraw">
+            <EntityTypeMapping TypeName="dbbmModel2.selectedraw">
               <MappingFragment StoreEntitySet="selectedraw">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="prodimg" ColumnName="prodimg" />
@@ -1522,7 +1514,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sessionScans">
-            <EntityTypeMapping TypeName="local_dbbmModel3.sessionScan">
+            <EntityTypeMapping TypeName="dbbmModel2.sessionScan">
               <MappingFragment StoreEntitySet="sessionScan">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="sessionID" ColumnName="sessionID" />
@@ -1533,7 +1525,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="stock_on_hand">
-            <EntityTypeMapping TypeName="local_dbbmModel3.stock_on_hand">
+            <EntityTypeMapping TypeName="dbbmModel2.stock_on_hand">
               <MappingFragment StoreEntitySet="stock_on_hand">
                 <ScalarProperty Name="stockID" ColumnName="stockID" />
                 <ScalarProperty Name="stockNumber" ColumnName="stockNumber" />
@@ -1553,7 +1545,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="suppliers">
-            <EntityTypeMapping TypeName="local_dbbmModel3.supplier">
+            <EntityTypeMapping TypeName="dbbmModel2.supplier">
               <MappingFragment StoreEntitySet="supplier">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="supplierIdentificationCode" ColumnName="supplierIdentificationCode" />
@@ -1570,7 +1562,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbcategories">
-            <EntityTypeMapping TypeName="local_dbbmModel3.tbcategory">
+            <EntityTypeMapping TypeName="dbbmModel2.tbcategory">
               <MappingFragment StoreEntitySet="tbcategory">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="categoryname" ColumnName="categoryname" />
@@ -1579,7 +1571,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbcategoryfinals">
-            <EntityTypeMapping TypeName="local_dbbmModel3.tbcategoryfinal">
+            <EntityTypeMapping TypeName="dbbmModel2.tbcategoryfinal">
               <MappingFragment StoreEntitySet="tbcategoryfinal">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="categoryname" ColumnName="categoryname" />
@@ -1588,7 +1580,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbexceltests">
-            <EntityTypeMapping TypeName="local_dbbmModel3.tbexceltest">
+            <EntityTypeMapping TypeName="dbbmModel2.tbexceltest">
               <MappingFragment StoreEntitySet="tbexceltest">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="fname" ColumnName="fname" />
@@ -1597,7 +1589,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbinventsettings">
-            <EntityTypeMapping TypeName="local_dbbmModel3.tbinventsetting">
+            <EntityTypeMapping TypeName="dbbmModel2.tbinventsetting">
               <MappingFragment StoreEntitySet="tbinventsettings">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="enableinventform" ColumnName="enableinventform" />
@@ -1608,7 +1600,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbposettings">
-            <EntityTypeMapping TypeName="local_dbbmModel3.tbposetting">
+            <EntityTypeMapping TypeName="dbbmModel2.tbposetting">
               <MappingFragment StoreEntitySet="tbposettings">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="enablePO" ColumnName="enablePO" />
@@ -1620,7 +1612,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tbtestings">
-            <EntityTypeMapping TypeName="local_dbbmModel3.tbtesting">
+            <EntityTypeMapping TypeName="dbbmModel2.tbtesting">
               <MappingFragment StoreEntitySet="tbtesting">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="firstname" ColumnName="firstname" />
@@ -1630,7 +1622,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="testingtables">
-            <EntityTypeMapping TypeName="local_dbbmModel3.testingtable">
+            <EntityTypeMapping TypeName="dbbmModel2.testingtable">
               <MappingFragment StoreEntitySet="testingtable">
                 <ScalarProperty Name="testID" ColumnName="testID" />
                 <ScalarProperty Name="testname" ColumnName="testname" />
@@ -1638,7 +1630,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="user_google_allow">
-            <EntityTypeMapping TypeName="local_dbbmModel3.user_google_allow">
+            <EntityTypeMapping TypeName="dbbmModel2.user_google_allow">
               <MappingFragment StoreEntitySet="user_google_allow">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="g_email" ColumnName="g_email" />
@@ -1646,7 +1638,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="users">
-            <EntityTypeMapping TypeName="local_dbbmModel3.user">
+            <EntityTypeMapping TypeName="dbbmModel2.user">
               <MappingFragment StoreEntitySet="users">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="firstname" ColumnName="firstname" />
@@ -1674,7 +1666,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="supplier_find_duplicate">
-            <EntityTypeMapping TypeName="local_dbbmModel3.supplier_find_duplicate">
+            <EntityTypeMapping TypeName="dbbmModel2.supplier_find_duplicate">
               <MappingFragment StoreEntitySet="supplier_find_duplicate">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="supplierIdentificationCode" ColumnName="supplierIdentificationCode" />
@@ -1692,7 +1684,7 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="warning_expiration_10_days">
-            <EntityTypeMapping TypeName="local_dbbmModel3.warning_expiration_10_days">
+            <EntityTypeMapping TypeName="dbbmModel2.warning_expiration_10_days">
               <MappingFragment StoreEntitySet="warning_expiration_10_days">
                 <ScalarProperty Name="productID" ColumnName="productID" />
                 <ScalarProperty Name="productCode" ColumnName="productCode" />
@@ -1710,37 +1702,13 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="database_firewall_rules">
-            <EntityTypeMapping TypeName="local_dbbmModel3.database_firewall_rules">
-              <MappingFragment StoreEntitySet="database_firewall_rules">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
-                <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ipv6_database_firewall_rules">
-            <EntityTypeMapping TypeName="local_dbbmModel3.ipv6_database_firewall_rules">
-              <MappingFragment StoreEntitySet="ipv6_database_firewall_rules">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="start_ipv6_address" ColumnName="start_ipv6_address" />
-                <ScalarProperty Name="end_ipv6_address" ColumnName="end_ipv6_address" />
-                <ScalarProperty Name="create_date" ColumnName="create_date" />
-                <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="ascend_quantity" FunctionName="local_dbbmModel3.Store.ascend_quantity" />
-          <FunctionImportMapping FunctionImportName="change_password_changer" FunctionName="local_dbbmModel3.Store.change_password_changer" />
-          <FunctionImportMapping FunctionImportName="clearselectedraw" FunctionName="local_dbbmModel3.Store.clearselectedraw" />
-          <FunctionImportMapping FunctionImportName="deductquantityfinal" FunctionName="local_dbbmModel3.Store.deductquantityfinal" />
-          <FunctionImportMapping FunctionImportName="find_duplicates" FunctionName="local_dbbmModel3.Store.find_duplicates">
+          <FunctionImportMapping FunctionImportName="ascend_quantity" FunctionName="dbbmModel2.Store.ascend_quantity" />
+          <FunctionImportMapping FunctionImportName="change_password_changer" FunctionName="dbbmModel2.Store.change_password_changer" />
+          <FunctionImportMapping FunctionImportName="clearselectedraw" FunctionName="dbbmModel2.Store.clearselectedraw" />
+          <FunctionImportMapping FunctionImportName="deductquantityfinal" FunctionName="dbbmModel2.Store.deductquantityfinal" />
+          <FunctionImportMapping FunctionImportName="find_duplicates" FunctionName="dbbmModel2.Store.find_duplicates">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="local_dbbmModel3.find_duplicates_Result">
+              <ComplexTypeMapping TypeName="dbbmModel2.find_duplicates_Result">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="supplierIdentificationCode" ColumnName="supplierIdentificationCode" />
                 <ScalarProperty Name="supplierfirstname" ColumnName="supplierfirstname" />
@@ -1756,13 +1724,13 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="istokenupdater" FunctionName="local_dbbmModel3.Store.istokenupdater" />
-          <FunctionImportMapping FunctionImportName="product_finalization_activator" FunctionName="local_dbbmModel3.Store.product_finalization_activator" />
-          <FunctionImportMapping FunctionImportName="quantity_decrease_manager" FunctionName="local_dbbmModel3.Store.quantity_decrease_manager" />
-          <FunctionImportMapping FunctionImportName="quantity_refill_increase_manager" FunctionName="local_dbbmModel3.Store.quantity_refill_increase_manager" />
-          <FunctionImportMapping FunctionImportName="sproc_get_products_fromInventory_via_code" FunctionName="local_dbbmModel3.Store.sproc_get_products_fromInventory_via_code">
+          <FunctionImportMapping FunctionImportName="istokenupdater" FunctionName="dbbmModel2.Store.istokenupdater" />
+          <FunctionImportMapping FunctionImportName="product_finalization_activator" FunctionName="dbbmModel2.Store.product_finalization_activator" />
+          <FunctionImportMapping FunctionImportName="quantity_decrease_manager" FunctionName="dbbmModel2.Store.quantity_decrease_manager" />
+          <FunctionImportMapping FunctionImportName="quantity_refill_increase_manager" FunctionName="dbbmModel2.Store.quantity_refill_increase_manager" />
+          <FunctionImportMapping FunctionImportName="sproc_get_products_fromInventory_via_code" FunctionName="dbbmModel2.Store.sproc_get_products_fromInventory_via_code">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="local_dbbmModel3.sproc_get_products_fromInventory_via_code_Result">
+              <ComplexTypeMapping TypeName="dbbmModel2.sproc_get_products_fromInventory_via_code_Result">
                 <ScalarProperty Name="productID" ColumnName="productID" />
                 <ScalarProperty Name="productCode" ColumnName="productCode" />
                 <ScalarProperty Name="productName" ColumnName="productName" />
@@ -1780,12 +1748,12 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sproc_update_isdone_forgotpassword" FunctionName="local_dbbmModel3.Store.sproc_update_isdone_forgotpassword" />
-          <FunctionImportMapping FunctionImportName="stored_supplier" FunctionName="local_dbbmModel3.Store.stored_supplier" />
-          <FunctionImportMapping FunctionImportName="stored_update_purchase_status" FunctionName="local_dbbmModel3.Store.stored_update_purchase_status" />
-          <FunctionImportMapping FunctionImportName="stored_view_expiration_date" FunctionName="local_dbbmModel3.Store.stored_view_expiration_date">
+          <FunctionImportMapping FunctionImportName="sproc_update_isdone_forgotpassword" FunctionName="dbbmModel2.Store.sproc_update_isdone_forgotpassword" />
+          <FunctionImportMapping FunctionImportName="stored_supplier" FunctionName="dbbmModel2.Store.stored_supplier" />
+          <FunctionImportMapping FunctionImportName="stored_update_purchase_status" FunctionName="dbbmModel2.Store.stored_update_purchase_status" />
+          <FunctionImportMapping FunctionImportName="stored_view_expiration_date" FunctionName="dbbmModel2.Store.stored_view_expiration_date">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="local_dbbmModel3.stored_view_expiration_date_Result">
+              <ComplexTypeMapping TypeName="dbbmModel2.stored_view_expiration_date_Result">
                 <ScalarProperty Name="expirydate" ColumnName="expirydate" />
                 <ScalarProperty Name="productID" ColumnName="productID" />
                 <ScalarProperty Name="productCode" ColumnName="productCode" />
@@ -1802,13 +1770,36 @@ warning 6002: The table/view 'local_dbbm.sys.ipv6_database_firewall_rules' does 
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="update_invent_settings" FunctionName="local_dbbmModel3.Store.update_invent_settings" />
-          <FunctionImportMapping FunctionImportName="update_product_inventory" FunctionName="local_dbbmModel3.Store.update_product_inventory" />
-          <FunctionImportMapping FunctionImportName="update_product_status" FunctionName="local_dbbmModel3.Store.update_product_status" />
-          <FunctionImportMapping FunctionImportName="update_sendAttempts" FunctionName="local_dbbmModel3.Store.update_sendAttempts" />
-          <FunctionImportMapping FunctionImportName="update_session_stats" FunctionName="local_dbbmModel3.Store.update_session_stats" />
-          <FunctionImportMapping FunctionImportName="update_settings" FunctionName="local_dbbmModel3.Store.update_settings" />
-          <FunctionImportMapping FunctionImportName="user_status_updater" FunctionName="local_dbbmModel3.Store.user_status_updater" />
+          <FunctionImportMapping FunctionImportName="update_invent_settings" FunctionName="dbbmModel2.Store.update_invent_settings" />
+          <FunctionImportMapping FunctionImportName="update_product_inventory" FunctionName="dbbmModel2.Store.update_product_inventory" />
+          <FunctionImportMapping FunctionImportName="update_product_status" FunctionName="dbbmModel2.Store.update_product_status" />
+          <FunctionImportMapping FunctionImportName="update_sendAttempts" FunctionName="dbbmModel2.Store.update_sendAttempts" />
+          <FunctionImportMapping FunctionImportName="update_session_stats" FunctionName="dbbmModel2.Store.update_session_stats" />
+          <FunctionImportMapping FunctionImportName="update_settings" FunctionName="dbbmModel2.Store.update_settings" />
+          <FunctionImportMapping FunctionImportName="update_stocks_modification" FunctionName="dbbmModel2.Store.update_stocks_modification" />
+          <FunctionImportMapping FunctionImportName="user_status_updater" FunctionName="dbbmModel2.Store.user_status_updater" />
+          <FunctionImportMapping FunctionImportName="store_gettotalprice" FunctionName="dbbmModel2.Store.store_gettotalprice" />
+          <EntitySetMapping Name="product_sales">
+            <EntityTypeMapping TypeName="dbbmModel2.product_sales">
+              <MappingFragment StoreEntitySet="product_sales">
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="salesInfo" ColumnName="salesInfo" />
+                <ScalarProperty Name="salesID" ColumnName="salesID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="code_verifications">
+            <EntityTypeMapping TypeName="dbbmModel2.code_verifications">
+              <MappingFragment StoreEntitySet="code_verifications">
+                <ScalarProperty Name="validatedAt" ColumnName="validatedAt" />
+                <ScalarProperty Name="g_email" ColumnName="g_email" />
+                <ScalarProperty Name="sendattempts" ColumnName="sendattempts" />
+                <ScalarProperty Name="isdone" ColumnName="isdone" />
+                <ScalarProperty Name="vcode" ColumnName="vcode" />
+                <ScalarProperty Name="codeID" ColumnName="codeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

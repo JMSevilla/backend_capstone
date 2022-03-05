@@ -26,5 +26,6 @@ namespace capstone_backend.Models
         public Nullable<System.DateTime> createdAt { get; set; }
         public string orderStatus { get; set; }
         public string discountIsApplied { get; set; }
+        public Nullable<long> retainedQty { get; set; }
     }
 }

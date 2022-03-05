@@ -27,18 +27,35 @@ namespace capstone_backend.Controllers.Sales
             {
                 using (core = apiglobalcon.publico)
                 {
-                    var obj = core.paymentDetails.Where(x => (x.paymentStatus == "3" ||
-                                                              x.paymentStatus == "2" ||
-                                                              x.paymentStatus == "1") &&
-                                                              x.createdAt == DateTime.Today)
-                        .Select(y => new
-                        {
-                            y.orderInfo,
-                            y.paymentInfo,
-                            y.paymentID,
-                            y.createdAt,
-                            y.paymentStatus
-                        }).ToList().Distinct();
+
+                    DateTime today = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd"));
+                    var obj = core.product_sales.Where(x => x.createdAt == today).ToList().OrderByDescending(x => x.salesID);
+                    return Ok(obj);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("filter-sales"), HttpGet]
+        public IHttpActionResult filterSales(DateTime datefrom , DateTime dateto)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var obj = (from filterdata in core.product_sales
+                               where (filterdata.createdAt >= datefrom && filterdata.createdAt <= dateto)
+                               orderby filterdata.salesID descending
+                               select new
+                               {
+                                   filterdata.salesID,
+                                   filterdata.salesInfo,
+                                   filterdata.createdAt
+                               }).ToList();
+
                     return Ok(obj);
                 }
             }
@@ -69,5 +86,14 @@ namespace capstone_backend.Controllers.Sales
                 throw;
             }
         }
+        //[Route("compute-sales-today"), HttpGet]
+        //public IHttpActionResult salesTodayComputation()
+        //{
+        //    DateTime today = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd"));
+        //    string updateStatus = "select sum()";
+        //    core.Database.ExecuteSqlCommand(updateStatus, new SqlParameter("@discount", "1"), new SqlParameter("@id", id), new SqlParameter("@orderprice", newAmount),
+        //        new SqlParameter("@ordertotal", newAmount));
+        //    return Ok("success discount");
+        //}
     }
 }

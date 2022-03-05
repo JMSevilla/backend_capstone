@@ -15,7 +15,7 @@ namespace capstone_backend.Controllers.Users
     [RoutePrefix("api/get-details-profile")]
     public class profileController : ApiController
     {
-        private local_dbbmEntities2 db = new local_dbbmEntities2();
+        private dbbmEntities db = new dbbmEntities();
 
         // GET: api/profile
         public IQueryable<user> Getusers()

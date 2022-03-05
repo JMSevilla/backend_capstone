@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="dbbmModelStoreContainer" CdmEntityContainer="dbbmEntities">
+  <EntityContainerMapping StorageEntityContainer="dbbmModel1StoreContainer" CdmEntityContainer="dbbmEntities">
     <EntitySetMapping Name="activity_log">
-      <EntityTypeMapping TypeName="dbbmModel.activity_log">
+      <EntityTypeMapping TypeName="dbbmModel1.activity_log">
         <MappingFragment StoreEntitySet="activity_log">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="activitymessage" ColumnName="activitymessage" />
@@ -13,7 +13,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="archive_users">
-      <EntityTypeMapping TypeName="dbbmModel.archive_users">
+      <EntityTypeMapping TypeName="dbbmModel1.archive_users">
         <MappingFragment StoreEntitySet="archive_users">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="archiveID" ColumnName="archiveID" />
@@ -27,7 +27,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="bundleProds">
-      <EntityTypeMapping TypeName="dbbmModel.bundleProd">
+      <EntityTypeMapping TypeName="dbbmModel1.bundleProd">
         <MappingFragment StoreEntitySet="bundleProd">
           <ScalarProperty Name="bundleID" ColumnName="bundleID" />
           <ScalarProperty Name="bundleCode" ColumnName="bundleCode" />
@@ -44,7 +44,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="code_verifications">
-      <EntityTypeMapping TypeName="dbbmModel.code_verifications">
+      <EntityTypeMapping TypeName="dbbmModel1.code_verifications">
         <MappingFragment StoreEntitySet="code_verifications">
           <ScalarProperty Name="codeID" ColumnName="codeID" />
           <ScalarProperty Name="vcode" ColumnName="vcode" />
@@ -56,11 +56,8 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="customer_Orders">
-      <EntityTypeMapping TypeName="dbbmModel.customer_Orders">
+      <EntityTypeMapping TypeName="dbbmModel1.customer_Orders">
         <MappingFragment StoreEntitySet="customer_Orders">
-          <ScalarProperty Name="retainedQty" ColumnName="retainedQty" />
-          <ScalarProperty Name="discountIsApplied" ColumnName="discountIsApplied" />
-          <ScalarProperty Name="orderStatus" ColumnName="orderStatus" />
           <ScalarProperty Name="orderID" ColumnName="orderID" />
           <ScalarProperty Name="orderCode" ColumnName="orderCode" />
           <ScalarProperty Name="orderName" ColumnName="orderName" />
@@ -71,11 +68,14 @@
           <ScalarProperty Name="orderTotalPrice" ColumnName="orderTotalPrice" />
           <ScalarProperty Name="orderImage" ColumnName="orderImage" />
           <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="orderStatus" ColumnName="orderStatus" />
+          <ScalarProperty Name="discountIsApplied" ColumnName="discountIsApplied" />
+          <ScalarProperty Name="retainedQty" ColumnName="retainedQty" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="customerBasicInformations">
-      <EntityTypeMapping TypeName="dbbmModel.customerBasicInformation">
+      <EntityTypeMapping TypeName="dbbmModel1.customerBasicInformation">
         <MappingFragment StoreEntitySet="customerBasicInformation">
           <ScalarProperty Name="customerID" ColumnName="customerID" />
           <ScalarProperty Name="customerName" ColumnName="customerName" />
@@ -87,7 +87,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="excelStorages">
-      <EntityTypeMapping TypeName="dbbmModel.excelStorage">
+      <EntityTypeMapping TypeName="dbbmModel1.excelStorage">
         <MappingFragment StoreEntitySet="excelStorage">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="tname" ColumnName="tname" />
@@ -97,7 +97,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="expirations">
-      <EntityTypeMapping TypeName="dbbmModel.expiration">
+      <EntityTypeMapping TypeName="dbbmModel1.expiration">
         <MappingFragment StoreEntitySet="expiration">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="pcode" ColumnName="pcode" />
@@ -107,7 +107,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="forgotpassword_identifier">
-      <EntityTypeMapping TypeName="dbbmModel.forgotpassword_identifier">
+      <EntityTypeMapping TypeName="dbbmModel1.forgotpassword_identifier">
         <MappingFragment StoreEntitySet="forgotpassword_identifier">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="forgotcode" ColumnName="forgotcode" />
@@ -116,8 +116,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="inventoryReports">
+      <EntityTypeMapping TypeName="dbbmModel1.inventoryReport">
+        <MappingFragment StoreEntitySet="inventoryReports">
+          <ScalarProperty Name="invID" ColumnName="invID" />
+          <ScalarProperty Name="productName" ColumnName="productName" />
+          <ScalarProperty Name="beg_qty" ColumnName="beg_qty" />
+          <ScalarProperty Name="available" ColumnName="available" />
+          <ScalarProperty Name="end_qty" ColumnName="end_qty" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="refId" ColumnName="refId" />
+          <ScalarProperty Name="refstatus" ColumnName="refstatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="locations">
-      <EntityTypeMapping TypeName="dbbmModel.location">
+      <EntityTypeMapping TypeName="dbbmModel1.location">
         <MappingFragment StoreEntitySet="locations">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="municipality" ColumnName="municipality" />
@@ -127,20 +141,20 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="login_history">
-      <EntityTypeMapping TypeName="dbbmModel.login_history">
+      <EntityTypeMapping TypeName="dbbmModel1.login_history">
         <MappingFragment StoreEntitySet="login_history">
-          <ScalarProperty Name="logoutdate" ColumnName="logoutdate" />
-          <ScalarProperty Name="loggedoutstatus" ColumnName="loggedoutstatus" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="email" ColumnName="email" />
           <ScalarProperty Name="loggedinstatus" ColumnName="loggedinstatus" />
           <ScalarProperty Name="message" ColumnName="message" />
           <ScalarProperty Name="logindate" ColumnName="logindate" />
+          <ScalarProperty Name="loggedoutstatus" ColumnName="loggedoutstatus" />
+          <ScalarProperty Name="logoutdate" ColumnName="logoutdate" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="paymentDetails">
-      <EntityTypeMapping TypeName="dbbmModel.paymentDetail">
+      <EntityTypeMapping TypeName="dbbmModel1.paymentDetail">
         <MappingFragment StoreEntitySet="paymentDetails">
           <ScalarProperty Name="paymentID" ColumnName="paymentID" />
           <ScalarProperty Name="paymentInfo" ColumnName="paymentInfo" />
@@ -151,7 +165,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="product_finalization">
-      <EntityTypeMapping TypeName="dbbmModel.product_finalization">
+      <EntityTypeMapping TypeName="dbbmModel1.product_finalization">
         <MappingFragment StoreEntitySet="product_finalization">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="prodname" ColumnName="prodname" />
@@ -169,7 +183,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="product_finalization_raw">
-      <EntityTypeMapping TypeName="dbbmModel.product_finalization_raw">
+      <EntityTypeMapping TypeName="dbbmModel1.product_finalization_raw">
         <MappingFragment StoreEntitySet="product_finalization_raw">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="productCreatedCode" ColumnName="productCreatedCode" />
@@ -179,7 +193,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="product_inventory">
-      <EntityTypeMapping TypeName="dbbmModel.product_inventory">
+      <EntityTypeMapping TypeName="dbbmModel1.product_inventory">
         <MappingFragment StoreEntitySet="product_inventory">
           <ScalarProperty Name="productID" ColumnName="productID" />
           <ScalarProperty Name="productCode" ColumnName="productCode" />
@@ -199,7 +213,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="productreports">
-      <EntityTypeMapping TypeName="dbbmModel.productreport">
+      <EntityTypeMapping TypeName="dbbmModel1.productreport">
         <MappingFragment StoreEntitySet="productreport">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="problem1" ColumnName="problem1" />
@@ -214,7 +228,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="puchase_orders">
-      <EntityTypeMapping TypeName="dbbmModel.puchase_orders">
+      <EntityTypeMapping TypeName="dbbmModel1.puchase_orders">
         <MappingFragment StoreEntitySet="puchase_orders">
           <ScalarProperty Name="poid" ColumnName="poid" />
           <ScalarProperty Name="ponumber" ColumnName="ponumber" />
@@ -230,7 +244,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="savedAdditionalQuantities">
-      <EntityTypeMapping TypeName="dbbmModel.savedAdditionalQuantity">
+      <EntityTypeMapping TypeName="dbbmModel1.savedAdditionalQuantity">
         <MappingFragment StoreEntitySet="savedAdditionalQuantity">
           <ScalarProperty Name="additionalID" ColumnName="additionalID" />
           <ScalarProperty Name="customJSON" ColumnName="customJSON" />
@@ -239,7 +253,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="selectedraws">
-      <EntityTypeMapping TypeName="dbbmModel.selectedraw">
+      <EntityTypeMapping TypeName="dbbmModel1.selectedraw">
         <MappingFragment StoreEntitySet="selectedraw">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="prodimg" ColumnName="prodimg" />
@@ -250,7 +264,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="sessionScans">
-      <EntityTypeMapping TypeName="dbbmModel.sessionScan">
+      <EntityTypeMapping TypeName="dbbmModel1.sessionScan">
         <MappingFragment StoreEntitySet="sessionScan">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="sessionID" ColumnName="sessionID" />
@@ -261,7 +275,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="stock_on_hand">
-      <EntityTypeMapping TypeName="dbbmModel.stock_on_hand">
+      <EntityTypeMapping TypeName="dbbmModel1.stock_on_hand">
         <MappingFragment StoreEntitySet="stock_on_hand">
           <ScalarProperty Name="stockID" ColumnName="stockID" />
           <ScalarProperty Name="stockNumber" ColumnName="stockNumber" />
@@ -281,7 +295,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="suppliers">
-      <EntityTypeMapping TypeName="dbbmModel.supplier">
+      <EntityTypeMapping TypeName="dbbmModel1.supplier">
         <MappingFragment StoreEntitySet="supplier">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="supplierIdentificationCode" ColumnName="supplierIdentificationCode" />
@@ -298,7 +312,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbcategories">
-      <EntityTypeMapping TypeName="dbbmModel.tbcategory">
+      <EntityTypeMapping TypeName="dbbmModel1.tbcategory">
         <MappingFragment StoreEntitySet="tbcategory">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="categoryname" ColumnName="categoryname" />
@@ -307,7 +321,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbcategoryfinals">
-      <EntityTypeMapping TypeName="dbbmModel.tbcategoryfinal">
+      <EntityTypeMapping TypeName="dbbmModel1.tbcategoryfinal">
         <MappingFragment StoreEntitySet="tbcategoryfinal">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="categoryname" ColumnName="categoryname" />
@@ -316,7 +330,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbexceltests">
-      <EntityTypeMapping TypeName="dbbmModel.tbexceltest">
+      <EntityTypeMapping TypeName="dbbmModel1.tbexceltest">
         <MappingFragment StoreEntitySet="tbexceltest">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="fname" ColumnName="fname" />
@@ -325,7 +339,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbinventsettings">
-      <EntityTypeMapping TypeName="dbbmModel.tbinventsetting">
+      <EntityTypeMapping TypeName="dbbmModel1.tbinventsetting">
         <MappingFragment StoreEntitySet="tbinventsettings">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="enableinventform" ColumnName="enableinventform" />
@@ -336,7 +350,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbposettings">
-      <EntityTypeMapping TypeName="dbbmModel.tbposetting">
+      <EntityTypeMapping TypeName="dbbmModel1.tbposetting">
         <MappingFragment StoreEntitySet="tbposettings">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="enablePO" ColumnName="enablePO" />
@@ -348,7 +362,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="tbtestings">
-      <EntityTypeMapping TypeName="dbbmModel.tbtesting">
+      <EntityTypeMapping TypeName="dbbmModel1.tbtesting">
         <MappingFragment StoreEntitySet="tbtesting">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="firstname" ColumnName="firstname" />
@@ -358,7 +372,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="testingtables">
-      <EntityTypeMapping TypeName="dbbmModel.testingtable">
+      <EntityTypeMapping TypeName="dbbmModel1.testingtable">
         <MappingFragment StoreEntitySet="testingtable">
           <ScalarProperty Name="testID" ColumnName="testID" />
           <ScalarProperty Name="testname" ColumnName="testname" />
@@ -366,7 +380,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="user_google_allow">
-      <EntityTypeMapping TypeName="dbbmModel.user_google_allow">
+      <EntityTypeMapping TypeName="dbbmModel1.user_google_allow">
         <MappingFragment StoreEntitySet="user_google_allow">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="g_email" ColumnName="g_email" />
@@ -374,7 +388,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="users">
-      <EntityTypeMapping TypeName="dbbmModel.user">
+      <EntityTypeMapping TypeName="dbbmModel1.user">
         <MappingFragment StoreEntitySet="users">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="firstname" ColumnName="firstname" />
@@ -402,7 +416,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="supplier_find_duplicate">
-      <EntityTypeMapping TypeName="dbbmModel.supplier_find_duplicate">
+      <EntityTypeMapping TypeName="dbbmModel1.supplier_find_duplicate">
         <MappingFragment StoreEntitySet="supplier_find_duplicate">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="supplierIdentificationCode" ColumnName="supplierIdentificationCode" />
@@ -420,7 +434,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="warning_expiration_10_days">
-      <EntityTypeMapping TypeName="dbbmModel.warning_expiration_10_days">
+      <EntityTypeMapping TypeName="dbbmModel1.warning_expiration_10_days">
         <MappingFragment StoreEntitySet="warning_expiration_10_days">
           <ScalarProperty Name="productID" ColumnName="productID" />
           <ScalarProperty Name="productCode" ColumnName="productCode" />
@@ -438,37 +452,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="database_firewall_rules">
-      <EntityTypeMapping TypeName="dbbmModel.database_firewall_rules">
-        <MappingFragment StoreEntitySet="database_firewall_rules">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="start_ip_address" ColumnName="start_ip_address" />
-          <ScalarProperty Name="end_ip_address" ColumnName="end_ip_address" />
-          <ScalarProperty Name="create_date" ColumnName="create_date" />
-          <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="ipv6_database_firewall_rules">
-      <EntityTypeMapping TypeName="dbbmModel.ipv6_database_firewall_rules">
-        <MappingFragment StoreEntitySet="ipv6_database_firewall_rules">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="name" ColumnName="name" />
-          <ScalarProperty Name="start_ipv6_address" ColumnName="start_ipv6_address" />
-          <ScalarProperty Name="end_ipv6_address" ColumnName="end_ipv6_address" />
-          <ScalarProperty Name="create_date" ColumnName="create_date" />
-          <ScalarProperty Name="modify_date" ColumnName="modify_date" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <FunctionImportMapping FunctionImportName="ascend_quantity" FunctionName="dbbmModel.Store.ascend_quantity" />
-    <FunctionImportMapping FunctionImportName="change_password_changer" FunctionName="dbbmModel.Store.change_password_changer" />
-    <FunctionImportMapping FunctionImportName="clearselectedraw" FunctionName="dbbmModel.Store.clearselectedraw" />
-    <FunctionImportMapping FunctionImportName="deductquantityfinal" FunctionName="dbbmModel.Store.deductquantityfinal" />
-    <FunctionImportMapping FunctionImportName="find_duplicates" FunctionName="dbbmModel.Store.find_duplicates">
+    <FunctionImportMapping FunctionImportName="ascend_quantity" FunctionName="dbbmModel1.Store.ascend_quantity" />
+    <FunctionImportMapping FunctionImportName="change_password_changer" FunctionName="dbbmModel1.Store.change_password_changer" />
+    <FunctionImportMapping FunctionImportName="clearselectedraw" FunctionName="dbbmModel1.Store.clearselectedraw" />
+    <FunctionImportMapping FunctionImportName="deductquantityfinal" FunctionName="dbbmModel1.Store.deductquantityfinal" />
+    <FunctionImportMapping FunctionImportName="find_duplicates" FunctionName="dbbmModel1.Store.find_duplicates">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="dbbmModel.find_duplicates_Result">
+        <ComplexTypeMapping TypeName="dbbmModel1.find_duplicates_Result">
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="supplierIdentificationCode" ColumnName="supplierIdentificationCode" />
           <ScalarProperty Name="supplierfirstname" ColumnName="supplierfirstname" />
@@ -484,13 +474,13 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="istokenupdater" FunctionName="dbbmModel.Store.istokenupdater" />
-    <FunctionImportMapping FunctionImportName="product_finalization_activator" FunctionName="dbbmModel.Store.product_finalization_activator" />
-    <FunctionImportMapping FunctionImportName="quantity_decrease_manager" FunctionName="dbbmModel.Store.quantity_decrease_manager" />
-    <FunctionImportMapping FunctionImportName="quantity_refill_increase_manager" FunctionName="dbbmModel.Store.quantity_refill_increase_manager" />
-    <FunctionImportMapping FunctionImportName="sproc_get_products_fromInventory_via_code" FunctionName="dbbmModel.Store.sproc_get_products_fromInventory_via_code">
+    <FunctionImportMapping FunctionImportName="istokenupdater" FunctionName="dbbmModel1.Store.istokenupdater" />
+    <FunctionImportMapping FunctionImportName="product_finalization_activator" FunctionName="dbbmModel1.Store.product_finalization_activator" />
+    <FunctionImportMapping FunctionImportName="quantity_decrease_manager" FunctionName="dbbmModel1.Store.quantity_decrease_manager" />
+    <FunctionImportMapping FunctionImportName="quantity_refill_increase_manager" FunctionName="dbbmModel1.Store.quantity_refill_increase_manager" />
+    <FunctionImportMapping FunctionImportName="sproc_get_products_fromInventory_via_code" FunctionName="dbbmModel1.Store.sproc_get_products_fromInventory_via_code">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="dbbmModel.sproc_get_products_fromInventory_via_code_Result">
+        <ComplexTypeMapping TypeName="dbbmModel1.sproc_get_products_fromInventory_via_code_Result">
           <ScalarProperty Name="productID" ColumnName="productID" />
           <ScalarProperty Name="productCode" ColumnName="productCode" />
           <ScalarProperty Name="productName" ColumnName="productName" />
@@ -508,12 +498,12 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="sproc_update_isdone_forgotpassword" FunctionName="dbbmModel.Store.sproc_update_isdone_forgotpassword" />
-    <FunctionImportMapping FunctionImportName="stored_supplier" FunctionName="dbbmModel.Store.stored_supplier" />
-    <FunctionImportMapping FunctionImportName="stored_update_purchase_status" FunctionName="dbbmModel.Store.stored_update_purchase_status" />
-    <FunctionImportMapping FunctionImportName="stored_view_expiration_date" FunctionName="dbbmModel.Store.stored_view_expiration_date">
+    <FunctionImportMapping FunctionImportName="sproc_update_isdone_forgotpassword" FunctionName="dbbmModel1.Store.sproc_update_isdone_forgotpassword" />
+    <FunctionImportMapping FunctionImportName="stored_supplier" FunctionName="dbbmModel1.Store.stored_supplier" />
+    <FunctionImportMapping FunctionImportName="stored_update_purchase_status" FunctionName="dbbmModel1.Store.stored_update_purchase_status" />
+    <FunctionImportMapping FunctionImportName="stored_view_expiration_date" FunctionName="dbbmModel1.Store.stored_view_expiration_date">
       <ResultMapping>
-        <ComplexTypeMapping TypeName="dbbmModel.stored_view_expiration_date_Result">
+        <ComplexTypeMapping TypeName="dbbmModel1.stored_view_expiration_date_Result">
           <ScalarProperty Name="expirydate" ColumnName="expirydate" />
           <ScalarProperty Name="productID" ColumnName="productID" />
           <ScalarProperty Name="productCode" ColumnName="productCode" />
@@ -530,27 +520,13 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="update_invent_settings" FunctionName="dbbmModel.Store.update_invent_settings" />
-    <FunctionImportMapping FunctionImportName="update_product_inventory" FunctionName="dbbmModel.Store.update_product_inventory" />
-    <FunctionImportMapping FunctionImportName="update_product_status" FunctionName="dbbmModel.Store.update_product_status" />
-    <FunctionImportMapping FunctionImportName="update_sendAttempts" FunctionName="dbbmModel.Store.update_sendAttempts" />
-    <FunctionImportMapping FunctionImportName="update_session_stats" FunctionName="dbbmModel.Store.update_session_stats" />
-    <FunctionImportMapping FunctionImportName="update_settings" FunctionName="dbbmModel.Store.update_settings" />
-    <FunctionImportMapping FunctionImportName="user_status_updater" FunctionName="dbbmModel.Store.user_status_updater" />
-    <FunctionImportMapping FunctionImportName="update_stocks_modification" FunctionName="dbbmModel.Store.update_stocks_modification" />
-    <EntitySetMapping Name="inventoryReports">
-      <EntityTypeMapping TypeName="dbbmModel.inventoryReport">
-        <MappingFragment StoreEntitySet="inventoryReports">
-          <ScalarProperty Name="refstatus" ColumnName="refstatus" />
-          <ScalarProperty Name="refId" ColumnName="refId" />
-          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
-          <ScalarProperty Name="end_qty" ColumnName="end_qty" />
-          <ScalarProperty Name="available" ColumnName="available" />
-          <ScalarProperty Name="beg_qty" ColumnName="beg_qty" />
-          <ScalarProperty Name="productName" ColumnName="productName" />
-          <ScalarProperty Name="invID" ColumnName="invID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="update_invent_settings" FunctionName="dbbmModel1.Store.update_invent_settings" />
+    <FunctionImportMapping FunctionImportName="update_product_inventory" FunctionName="dbbmModel1.Store.update_product_inventory" />
+    <FunctionImportMapping FunctionImportName="update_product_status" FunctionName="dbbmModel1.Store.update_product_status" />
+    <FunctionImportMapping FunctionImportName="update_sendAttempts" FunctionName="dbbmModel1.Store.update_sendAttempts" />
+    <FunctionImportMapping FunctionImportName="update_session_stats" FunctionName="dbbmModel1.Store.update_session_stats" />
+    <FunctionImportMapping FunctionImportName="update_settings" FunctionName="dbbmModel1.Store.update_settings" />
+    <FunctionImportMapping FunctionImportName="update_stocks_modification" FunctionName="dbbmModel1.Store.update_stocks_modification" />
+    <FunctionImportMapping FunctionImportName="user_status_updater" FunctionName="dbbmModel1.Store.user_status_updater" />
   </EntityContainerMapping>
 </Mapping>

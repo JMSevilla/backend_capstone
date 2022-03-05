@@ -13,7 +13,7 @@ namespace capstone_backend.Controllers.Users
     [RoutePrefix("api/csrf-login")]
     public class LoginController : ApiController
     {
-        //private local_dbbmEntities1 core;
+        //private local_dbbmEntities1 core;attemptUpdater
         private dbbmEntities core;
         //private dbbmEntities core1;
         APISecurity secure = new APISecurity();
@@ -422,7 +422,7 @@ namespace capstone_backend.Controllers.Users
 
                     var StringCounter = core.users.Where(x => x.email == email).FirstOrDefault();
                     int counter = Convert.ToInt32(StringCounter.isattemptCounter);
-                    if (counter != 3)
+                    if (counter != 5)
                     {
                         //var handler = StringCounter.isattemptCounter = StringCounter.isattemptCounter + 1;
                         var res = core.users.Where(x => x.email == email).FirstOrDefault();
@@ -436,12 +436,36 @@ namespace capstone_backend.Controllers.Users
                     }
                     else
                     {
-                        string isattemptMinutes_Query = "update users set isattemptMinutes=@mins where email=@userEmail";
-                        string isattemptStatus_Query = "update users set isattemptStatus=@stats where email=@userEmail";
-                        core.Database.ExecuteSqlCommand(isattemptMinutes_Query, new SqlParameter("@mins", "5"), new SqlParameter("@userEmail", email));
-                        core.Database.ExecuteSqlCommand(isattemptStatus_Query, new SqlParameter("@stats", "1"), new SqlParameter("@userEmail", email));
+                        var updater = core.users.Where(x => x.email == email).FirstOrDefault();
+                        if(updater != null)
+                        {
+                            updater.isattemptStatus = "3";
+                            core.SaveChanges();
+                        }
                         return Ok("success attempt update");
                     }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("lock-account"), HttpPut]
+        public IHttpActionResult accountLock(string email)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var updater = core.users.Where(x => x.email == email).FirstOrDefault();
+                    if (updater != null)
+                    {
+                        updater.isattemptStatus = "3";
+                        core.SaveChanges();
+                    }
+                    return Ok("success attempt update");
                 }
             }
             catch (Exception)
@@ -457,8 +481,15 @@ namespace capstone_backend.Controllers.Users
             {
                 using (core = apiglobalcon.publico)
                 {
-                    var obj = core.users.Where(x => x.email == useremail).FirstOrDefault();
-                    return Ok(obj.isattemptCounter);
+                    if(useremail == null)
+                    {
+                        return Ok("empty attempts");
+                    }
+                    else
+                    {
+                        var obj = core.users.Where(x => x.email == useremail).FirstOrDefault();
+                        return Ok(obj.isattemptCounter);
+                    }
                 }
             }
             catch (Exception)
