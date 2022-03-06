@@ -500,3 +500,4 @@ C:\Users\JM Sevilla\source\repos\backenddev_burgermania\capstone_backend\obj\Deb
 C:\Users\JM Sevilla\source\repos\backenddev_burgermania\capstone_backend\obj\Debug\capstone_backend.csproj.CopyComplete
 C:\Users\JM Sevilla\source\repos\backenddev_burgermania\capstone_backend\obj\Debug\capstone_backend.dll
 C:\Users\JM Sevilla\source\repos\backenddev_burgermania\capstone_backend\obj\Debug\capstone_backend.pdb
+C:\Users\JM Sevilla\source\repos\backenddev_burgermania\capstone_backend\obj\Debug\capstone_backend.csproj.AssemblyReference.cache
