@@ -349,5 +349,31 @@ namespace capstone_backend.Controllers.user_management
                 throw;
             }
         }
+        [Route("change-password"), HttpPut]
+        public IHttpActionResult changePassword(int userid, string password)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var check = core.users.Where(x => x.id == userid).FirstOrDefault();
+                    if (check != null)
+                    {
+                        check.password = cashiersecurity.Encrypt(password);
+                        core.SaveChanges();
+                        return Ok("success change password");
+                    }
+                    else
+                    {
+                        return Ok("no user found");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
