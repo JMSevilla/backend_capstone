@@ -280,28 +280,37 @@ namespace capstone_backend.Controllers.user_management
                 var httprequest = HttpContext.Current.Request;
                 using(core = apiglobalcon.publico)
                 {
-                    user tbuser = new user();
-                    tbuser.firstname = httprequest.Form["firstname"];
-                    tbuser.lastname = httprequest.Form["lastname"];
-                    tbuser.email = httprequest.Form["email"];
-                    tbuser.password = security.Encrypt(httprequest.Form["password"]);
-                    tbuser.istype = httprequest.Form["istype"];
-                    tbuser.isverified = httprequest.Form["isverified"];
-                    tbuser.isstatus = httprequest.Form["isstatus"];
-                    tbuser.is_google_verified = httprequest.Form["is_google_verified"];
-                    tbuser.imageurl = httprequest.Form["imageurl"];
-                    tbuser.isarchive = "0";
-                    tbuser.istoken = "";
-                    tbuser.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
-                    core.users.Add(tbuser);
-                    core.SaveChanges();
-                    //google table
+                    var emailHandler = httprequest.Form["email"];
+                    var checkUser = core.users.Where(x => x.email == emailHandler).FirstOrDefault();
+                    if(checkUser != null)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, "email exist admin");
+                    }
+                    else
+                    {
+                        user tbuser = new user();
+                        tbuser.firstname = httprequest.Form["firstname"];
+                        tbuser.lastname = httprequest.Form["lastname"];
+                        tbuser.email = httprequest.Form["email"];
+                        tbuser.password = security.Encrypt(httprequest.Form["password"]);
+                        tbuser.istype = httprequest.Form["istype"];
+                        tbuser.isverified = httprequest.Form["isverified"];
+                        tbuser.isstatus = httprequest.Form["isstatus"];
+                        tbuser.is_google_verified = httprequest.Form["is_google_verified"];
+                        tbuser.imageurl = httprequest.Form["imageurl"];
+                        tbuser.isarchive = "0";
+                        tbuser.istoken = "";
+                        tbuser.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
+                        core.users.Add(tbuser);
+                        core.SaveChanges();
+                        //google table
 
-                    user_google_allow google = new user_google_allow();
-                    google.g_email = httprequest.Form["email"];
-                    core.user_google_allow.Add(google);
-                    core.SaveChanges();
-                    return Request.CreateResponse(HttpStatusCode.OK, "success");
+                        user_google_allow google = new user_google_allow();
+                        google.g_email = httprequest.Form["email"];
+                        core.user_google_allow.Add(google);
+                        core.SaveChanges();
+                        return Request.CreateResponse(HttpStatusCode.OK, "success");
+                    }
                 }
             }
             catch (Exception)
@@ -319,28 +328,37 @@ namespace capstone_backend.Controllers.user_management
                 var httprequest = HttpContext.Current.Request;
                 using (core = apiglobalcon.publico)
                 {
-                    user tbuser = new user(); 
-                    tbuser.firstname = httprequest.Form["firstname"];
-                    tbuser.lastname = httprequest.Form["lastname"];
-                    tbuser.email = httprequest.Form["email"];
-                    tbuser.password = cashiersecurity.Encrypt(httprequest.Form["password"]);
-                    tbuser.istype = httprequest.Form["istype"];
-                    tbuser.isverified = httprequest.Form["isverified"];
-                    tbuser.isstatus = httprequest.Form["isstatus"];
-                    tbuser.is_google_verified = httprequest.Form["is_google_verified"];
-                    tbuser.imageurl = httprequest.Form["imageurl"];
-                    tbuser.isarchive = "0";
-                    tbuser.istoken = "";
-                    tbuser.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
-                    core.users.Add(tbuser);
-                    core.SaveChanges();
-                    //google table
+                    var emailHandler = httprequest.Form["email"];
+                    var checkUser = core.users.Where(x => x.email == emailHandler).FirstOrDefault();
+                    if(checkUser != null)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, "email exist cashier");
+                    }
+                    else
+                    {
+                        user tbuser = new user();
+                        tbuser.firstname = httprequest.Form["firstname"];
+                        tbuser.lastname = httprequest.Form["lastname"];
+                        tbuser.email = httprequest.Form["email"];
+                        tbuser.password = cashiersecurity.Encrypt(httprequest.Form["password"]);
+                        tbuser.istype = httprequest.Form["istype"];
+                        tbuser.isverified = httprequest.Form["isverified"];
+                        tbuser.isstatus = httprequest.Form["isstatus"];
+                        tbuser.is_google_verified = httprequest.Form["is_google_verified"];
+                        tbuser.imageurl = httprequest.Form["imageurl"];
+                        tbuser.isarchive = "0";
+                        tbuser.istoken = "";
+                        tbuser.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
+                        core.users.Add(tbuser);
+                        core.SaveChanges();
+                        //google table
 
-                    user_google_allow google = new user_google_allow();
-                    google.g_email = httprequest.Form["email"];
-                    core.user_google_allow.Add(google);
-                    core.SaveChanges();
-                    return Request.CreateResponse(HttpStatusCode.OK, "success");
+                        user_google_allow google = new user_google_allow();
+                        google.g_email = httprequest.Form["email"];
+                        core.user_google_allow.Add(google);
+                        core.SaveChanges();
+                        return Request.CreateResponse(HttpStatusCode.OK, "success");
+                    }
                 }
             }
             catch (Exception)

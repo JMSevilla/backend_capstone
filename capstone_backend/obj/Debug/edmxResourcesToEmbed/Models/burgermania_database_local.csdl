@@ -56,6 +56,7 @@
     <Property Name="orderStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
     <Property Name="discountIsApplied" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
     <Property Name="retainedQty" Type="Int64" />
+    <Property Name="indicator" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
   </EntityType>
   <EntityType Name="customerBasicInformation">
     <Key>
@@ -564,6 +565,25 @@
     </FunctionImport>
     <EntitySet Name="product_sales" EntityType="dbbmModel2.product_sales" />
     <EntitySet Name="code_verifications" EntityType="dbbmModel2.code_verifications" />
+    <FunctionImport Name="deletion_json">
+      <Parameter Name="pf_id" Mode="In" Type="Int32" />
+      <Parameter Name="json_prodid" Mode="In" Type="Int64" />
+      <Parameter Name="json_prodcode" Mode="In" Type="String" />
+      <Parameter Name="json_prodname" Mode="In" Type="String" />
+      <Parameter Name="json_prodqty" Mode="In" Type="Int32" />
+      <Parameter Name="json_prodprice" Mode="In" Type="Decimal" />
+      <Parameter Name="json_prodtotal" Mode="In" Type="Int32" />
+      <Parameter Name="json_prodstatus" Mode="In" Type="String" />
+      <Parameter Name="json_prodcreator" Mode="In" Type="String" />
+      <Parameter Name="json_prodsupplier" Mode="In" Type="String" />
+      <Parameter Name="json_createdat" Mode="In" Type="DateTime" />
+      <Parameter Name="json_prodimage" Mode="In" Type="String" />
+      <Parameter Name="json_prodcategory" Mode="In" Type="String" />
+      <Parameter Name="json_expiration" Mode="In" Type="DateTime" />
+      <Parameter Name="json_size" Mode="In" Type="String" />
+      <Parameter Name="state" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="stocks_on_hand_dump" EntityType="dbbmModel2.stocks_on_hand_dump" />
   </EntityContainer>
   <ComplexType Name="find_duplicates_Result">
     <Property Type="Int32" Name="id" Nullable="false" />
@@ -628,5 +648,18 @@
     <Property Name="sendattempts" Type="Int32" />
     <Property Name="g_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
     <Property Name="validatedAt" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="stocks_on_hand_dump">
+    <Key>
+      <PropertyRef Name="dumpId" />
+    </Key>
+    <Property Name="dumpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="stockDumpName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="stockDumpId" Type="Int32" />
+    <Property Name="stockDumpNumber" Type="Int64" />
+    <Property Name="dumpQuantity" Type="Int32" />
+    <Property Name="dumpExpiration" Type="DateTime" Precision="3" />
+    <Property Name="createdAt" Type="DateTime" Precision="3" />
+    <Property Name="dumpReceived" Type="DateTime" Precision="3" />
   </EntityType>
 </Schema>

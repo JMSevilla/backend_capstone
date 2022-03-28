@@ -397,6 +397,9 @@
     <Compile Include="Models\sproc_get_products_fromInventory_via_code_Result.cs">
       <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\stocks_on_hand_dump.cs">
+      <DependentUpon>burgermania_database_local.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\stock_on_hand.cs">
       <DependentUpon>burgermania_database_local.tt</DependentUpon>
     </Compile>

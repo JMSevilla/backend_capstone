@@ -46,6 +46,7 @@
     <EntitySetMapping Name="customer_Orders">
       <EntityTypeMapping TypeName="dbbmModel2.customer_Orders">
         <MappingFragment StoreEntitySet="customer_Orders">
+          <ScalarProperty Name="indicator" ColumnName="indicator" />
           <ScalarProperty Name="orderID" ColumnName="orderID" />
           <ScalarProperty Name="orderCode" ColumnName="orderCode" />
           <ScalarProperty Name="orderName" ColumnName="orderName" />
@@ -535,6 +536,21 @@
           <ScalarProperty Name="isdone" ColumnName="isdone" />
           <ScalarProperty Name="vcode" ColumnName="vcode" />
           <ScalarProperty Name="codeID" ColumnName="codeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="deletion_json" FunctionName="dbbmModel2.Store.deletion_json" />
+    <EntitySetMapping Name="stocks_on_hand_dump">
+      <EntityTypeMapping TypeName="dbbmModel2.stocks_on_hand_dump">
+        <MappingFragment StoreEntitySet="stocks_on_hand_dump">
+          <ScalarProperty Name="dumpReceived" ColumnName="dumpReceived" />
+          <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+          <ScalarProperty Name="dumpExpiration" ColumnName="dumpExpiration" />
+          <ScalarProperty Name="dumpQuantity" ColumnName="dumpQuantity" />
+          <ScalarProperty Name="stockDumpNumber" ColumnName="stockDumpNumber" />
+          <ScalarProperty Name="stockDumpId" ColumnName="stockDumpId" />
+          <ScalarProperty Name="stockDumpName" ColumnName="stockDumpName" />
+          <ScalarProperty Name="dumpId" ColumnName="dumpId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

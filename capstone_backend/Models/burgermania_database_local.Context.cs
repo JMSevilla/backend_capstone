@@ -62,6 +62,7 @@ namespace capstone_backend.Models
         public virtual DbSet<warning_expiration_10_days> warning_expiration_10_days { get; set; }
         public virtual DbSet<product_sales> product_sales { get; set; }
         public virtual DbSet<code_verifications> code_verifications { get; set; }
+        public virtual DbSet<stocks_on_hand_dump> stocks_on_hand_dump { get; set; }
     
         public virtual int ascend_quantity(string pcode, Nullable<int> quantity, Nullable<int> state)
         {
@@ -480,6 +481,75 @@ namespace capstone_backend.Models
                 new ObjectParameter("state", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<decimal>>("store_gettotalprice", stateParameter);
+        }
+    
+        public virtual int deletion_json(Nullable<int> pf_id, Nullable<long> json_prodid, string json_prodcode, string json_prodname, Nullable<int> json_prodqty, Nullable<decimal> json_prodprice, Nullable<int> json_prodtotal, string json_prodstatus, string json_prodcreator, string json_prodsupplier, Nullable<System.DateTime> json_createdat, string json_prodimage, string json_prodcategory, Nullable<System.DateTime> json_expiration, string json_size, string state)
+        {
+            var pf_idParameter = pf_id.HasValue ?
+                new ObjectParameter("pf_id", pf_id) :
+                new ObjectParameter("pf_id", typeof(int));
+    
+            var json_prodidParameter = json_prodid.HasValue ?
+                new ObjectParameter("json_prodid", json_prodid) :
+                new ObjectParameter("json_prodid", typeof(long));
+    
+            var json_prodcodeParameter = json_prodcode != null ?
+                new ObjectParameter("json_prodcode", json_prodcode) :
+                new ObjectParameter("json_prodcode", typeof(string));
+    
+            var json_prodnameParameter = json_prodname != null ?
+                new ObjectParameter("json_prodname", json_prodname) :
+                new ObjectParameter("json_prodname", typeof(string));
+    
+            var json_prodqtyParameter = json_prodqty.HasValue ?
+                new ObjectParameter("json_prodqty", json_prodqty) :
+                new ObjectParameter("json_prodqty", typeof(int));
+    
+            var json_prodpriceParameter = json_prodprice.HasValue ?
+                new ObjectParameter("json_prodprice", json_prodprice) :
+                new ObjectParameter("json_prodprice", typeof(decimal));
+    
+            var json_prodtotalParameter = json_prodtotal.HasValue ?
+                new ObjectParameter("json_prodtotal", json_prodtotal) :
+                new ObjectParameter("json_prodtotal", typeof(int));
+    
+            var json_prodstatusParameter = json_prodstatus != null ?
+                new ObjectParameter("json_prodstatus", json_prodstatus) :
+                new ObjectParameter("json_prodstatus", typeof(string));
+    
+            var json_prodcreatorParameter = json_prodcreator != null ?
+                new ObjectParameter("json_prodcreator", json_prodcreator) :
+                new ObjectParameter("json_prodcreator", typeof(string));
+    
+            var json_prodsupplierParameter = json_prodsupplier != null ?
+                new ObjectParameter("json_prodsupplier", json_prodsupplier) :
+                new ObjectParameter("json_prodsupplier", typeof(string));
+    
+            var json_createdatParameter = json_createdat.HasValue ?
+                new ObjectParameter("json_createdat", json_createdat) :
+                new ObjectParameter("json_createdat", typeof(System.DateTime));
+    
+            var json_prodimageParameter = json_prodimage != null ?
+                new ObjectParameter("json_prodimage", json_prodimage) :
+                new ObjectParameter("json_prodimage", typeof(string));
+    
+            var json_prodcategoryParameter = json_prodcategory != null ?
+                new ObjectParameter("json_prodcategory", json_prodcategory) :
+                new ObjectParameter("json_prodcategory", typeof(string));
+    
+            var json_expirationParameter = json_expiration.HasValue ?
+                new ObjectParameter("json_expiration", json_expiration) :
+                new ObjectParameter("json_expiration", typeof(System.DateTime));
+    
+            var json_sizeParameter = json_size != null ?
+                new ObjectParameter("json_size", json_size) :
+                new ObjectParameter("json_size", typeof(string));
+    
+            var stateParameter = state != null ?
+                new ObjectParameter("state", state) :
+                new ObjectParameter("state", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("deletion_json", pf_idParameter, json_prodidParameter, json_prodcodeParameter, json_prodnameParameter, json_prodqtyParameter, json_prodpriceParameter, json_prodtotalParameter, json_prodstatusParameter, json_prodcreatorParameter, json_prodsupplierParameter, json_createdatParameter, json_prodimageParameter, json_prodcategoryParameter, json_expirationParameter, json_sizeParameter, stateParameter);
         }
     }
 }

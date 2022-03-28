@@ -17,7 +17,7 @@ namespace capstone_backend.Controllers.ProductFinalization
         
         private dbbmEntities core;
         [Route("product-add"), HttpPost]
-        public HttpResponseMessage prodadd(string prodname, int prodquantity, string prodcategory, decimal prodprice, string prodcode)
+        public HttpResponseMessage prodadd(string prodname, int prodquantity, string prodcategory, decimal prodprice, string prodcode , string indicator)
         {
             try
             {
@@ -42,13 +42,35 @@ namespace capstone_backend.Controllers.ProductFinalization
                         prodfinal.prodimg = httprequest.Form["prodimg"];
                         prodfinal.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                         prodfinal.integratedRaws = httprequest.Form["ingredientsID"];
-                        prodfinal.issolo = "1";
+                        prodfinal.issolo = indicator;
                         core.product_finalization.Add(prodfinal);
                         core.SaveChanges();
                         return Request.CreateResponse(HttpStatusCode.OK, "success");
                         //add product finalize
 
                     }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("refill-product"), HttpPut]
+        public IHttpActionResult refillProduct(int id, int qty)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var check = core.product_finalization.Where(x => x.id == id).FirstOrDefault();
+                    if(check != null)
+                    {
+                        check.prodquantity = check.prodquantity + qty;
+                        core.SaveChanges();
+                    }
+                    return Ok("success refill");
                 }
             }
             catch (Exception)
@@ -81,8 +103,46 @@ namespace capstone_backend.Controllers.ProductFinalization
             {
                 using(core = apiglobalcon.publico)
                 {
-                    var obj = core.product_inventory.Where(x => x.product_quantity != 0 && x.product_status == "1").ToList();
+                    var obj = core.product_inventory.Where(x => x.product_quantity != 0 && x.product_status == "1").ToList().OrderByDescending(x => x.productID);
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("list-integrated-ingredients"), HttpGet]
+        public IHttpActionResult getIngredients(int id)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var obj = core.product_finalization.Where(x => x.id == id)
+                        .Select(y => new
+                        {
+                            y.integratedRaws
+                        }).ToList();
+                    return Ok(obj);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("get-product-inventory-integrated"), HttpGet]
+        public IHttpActionResult getIntegratedProductInventory(string prodcode)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var getItems = core.product_inventory.Where(x => x.productCode == prodcode).ToList();
+                    return Ok(getItems);
                 }
             }
             catch (Exception)
@@ -358,7 +418,7 @@ namespace capstone_backend.Controllers.ProductFinalization
             {
                 using (core = apiglobalcon.publico)
                 {
-                    var obj = core.product_finalization.Where(x => x.prodstatus == "0").ToList();
+                    var obj = core.product_finalization.ToList();
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
                 }
             }

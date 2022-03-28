@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using capstone_backend.globalCON;
@@ -43,7 +44,7 @@ namespace capstone_backend.Controllers.ProductInventory
                 using(core = apiglobalcon.publico)
                 {
                     var obj = core.stock_on_hand
-                        .ToList();
+                        .ToList().OrderByDescending(x => x.stockID);
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
                 }
             }
@@ -209,7 +210,7 @@ namespace capstone_backend.Controllers.ProductInventory
                                 stock.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                                 stock.productcategory = httprequest.Form["productcategory"];
                                 stock.expirationprod = Convert.ToDateTime(httprequest.Form["productexpiration"]);
-                                stock.sizes = httprequest.Form["size"];
+                                stock.sizes = "None";
                                 core.stock_on_hand.Add(stock);
                                 core.SaveChanges();
                                 return Request.CreateResponse(HttpStatusCode.OK, "success product inventory");
@@ -228,7 +229,7 @@ namespace capstone_backend.Controllers.ProductInventory
                                 stock.productstatus = "1";
                                 stock.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                                 stock.productcategory = httprequest.Form["productcategory"];
-                                stock.sizes = httprequest.Form["size"];
+                                stock.sizes = "None";
                                 core.stock_on_hand.Add(stock);
                                 core.SaveChanges();
                                 return Request.CreateResponse(HttpStatusCode.OK, "success product inventory");
@@ -252,7 +253,7 @@ namespace capstone_backend.Controllers.ProductInventory
                                 prod.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                                 prod.product_category = httprequest.Form["productcategory"];
                                 prod.expirationprod = Convert.ToDateTime(httprequest.Form["productexpiration"]);
-                                prod.size = httprequest.Form["size"];
+                                prod.size = "None";
                                 core.product_inventory.Add(prod);
                                 core.SaveChanges();
                                 return Request.CreateResponse(HttpStatusCode.OK, "success product inventory");
@@ -271,7 +272,7 @@ namespace capstone_backend.Controllers.ProductInventory
                                 prod.product_status = httprequest.Form["isstatus"];
                                 prod.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                                 prod.product_category = httprequest.Form["productcategory"];
-                                prod.size = httprequest.Form["size"];
+                                prod.size = "None";
                                 core.product_inventory.Add(prod);
                                 core.SaveChanges();
                                 return Request.CreateResponse(HttpStatusCode.OK, "success product inventory");
@@ -400,6 +401,96 @@ namespace capstone_backend.Controllers.ProductInventory
             {
 
                 throw;
+            }
+        }
+        [Route("checking-json-product-inventory"), HttpGet]
+        public IHttpActionResult JSONChecker(
+            string pcode
+            )
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var obj = core.product_finalization.Where(x => x.productCode == pcode)
+                        .Select(y => new
+                        {
+                            y.integratedRaws
+                        }).ToList();
+                    return Ok(obj);
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("validate-product-inventory"), HttpGet]
+        public IHttpActionResult validateInventory(string prodcode)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var check = core.product_inventory.Where(x => x.productCode == prodcode).FirstOrDefault();
+                    if(check != null)
+                    {
+                        return Ok("exist");
+                    }
+                    else
+                    {
+                        return Ok("not exist");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("deletion-json"), HttpPost]
+        public Task<IHttpActionResult> deletionjson(
+            int prodid, DateTime created, DateTime exp, string pcode
+            )
+        {
+            using (core = apiglobalcon.publico)
+            {
+                var HTTP = HttpContext.Current.Request;
+                var secondChecker = core.product_finalization.Any(x => x.id == prodid);
+                var PIChecker = core.product_inventory.Any(x => x.productCode == pcode);
+                IHttpActionResult result = null;
+                
+                if (secondChecker)
+                {
+                    if (PIChecker)
+                    {
+                        result = Ok("pi exist");
+                        return Task.FromResult(result);
+                    }
+                    else
+                    {
+                        //algo
+                        core.deletion_json(
+                            prodid, Convert.ToInt32(HTTP.Form["productID"]), HTTP.Form["productCode"],
+                            HTTP.Form["productName"], Convert.ToInt32(HTTP.Form["product_quantity"]),
+                            Convert.ToDecimal(HTTP.Form["product_price"]), Convert.ToInt32(HTTP.Form["product_total"]),
+                            HTTP.Form["product_status"], HTTP.Form["product_creator"], HTTP.Form["product_supplier"],
+                            created, HTTP.Form["product_image"], HTTP.Form["product_category"],
+                            exp, HTTP.Form["size"], "deletion_ingredients_json"
+                            );
+                        result = Ok("done");
+                        return Task.FromResult(result);
+
+                    }
+                }
+                else
+                {
+                    result = Ok("pf not exist");
+                    return Task.FromResult(result);
+                }
             }
         }
     }

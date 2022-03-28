@@ -198,36 +198,26 @@ namespace capstone_backend.Controllers.POS
                 var HTTP = HttpContext.Current.Request;
                 using (core = apiglobalcon.publico)
                 {
-                    if(HTTP.Form["isstatus"] == "buy1take1")
+                    if(HTTP.Form["buy1take1Indicator"] == "2")
                     {
-                        var code = HTTP.Form["buy1take1ProdCode"];
-                        var checkifExist = core.customer_Orders.Where(x => x.orderCode == code).FirstOrDefault();
-                        if(checkifExist != null)
-                        {
-                            checkifExist.orderQuantity = checkifExist.orderQuantity + Convert.ToInt32(HTTP.Form["buy1take1Quantity"]);
-                            core.SaveChanges();
-                            return Ok("success order");
-                        }
-                        else
-                        {
-                            customer_Orders orders = new customer_Orders();
-                            orders.orderName = HTTP.Form["buy1take1Prodname"];
-                            orders.orderCode = Guid.NewGuid().ToString();
-                            orders.orderBarcode = HTTP.Form["buy1take1ProdCode"];
-                            orders.orderPrice = Convert.ToDecimal(HTTP.Form["buy1take1Prodprice"]);
-                            orders.orderQuantity = Convert.ToInt32(HTTP.Form["buy1take1Quantity"]);
-                            orders.orderCategory = HTTP.Form["buy1take1ProdCategory"];
-                            orders.orderTotalPrice = Convert.ToDecimal(HTTP.Form["buy1take1Prodprice"]) * Convert.ToInt32(HTTP.Form["buy1take1Quantity"]);
-                            orders.orderImage = HTTP.Form["buy1take1Prodimage"];
-                            orders.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM"));
-                            orders.orderStatus = "1";
-                            orders.discountIsApplied = "0";
-                            orders.retainedQty = Convert.ToInt32(HTTP.Form["buy1take1Quantity"]);
-                            core.customer_Orders.Add(orders);
-                            core.SaveChanges();
-                            return Ok("success order");
-                        }
-                       
+                        customer_Orders orders = new customer_Orders();
+                        orders.orderName = HTTP.Form["buy1take1Prodname"];
+                        orders.orderCode = Guid.NewGuid().ToString();
+                        orders.orderBarcode = HTTP.Form["buy1take1ProdCode"];
+                        orders.orderPrice = Convert.ToDecimal(HTTP.Form["buy1take1Prodprice"]);
+                        orders.orderQuantity = Convert.ToInt32(HTTP.Form["buy1take1Quantity"]);
+                        orders.orderCategory = HTTP.Form["buy1take1ProdCategory"];
+                        orders.orderTotalPrice = Convert.ToDecimal(HTTP.Form["buy1take1Prodprice"]) * Convert.ToInt32(HTTP.Form["buy1take1Quantity"]);
+                        orders.orderImage = HTTP.Form["buy1take1Prodimage"];
+                        orders.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM"));
+                        orders.orderStatus = "1";
+                        orders.discountIsApplied = "0";
+                        orders.retainedQty = 2 * Convert.ToInt32(HTTP.Form["buy1take1Quantity"]);
+                        orders.indicator = HTTP.Form["buy1take1Indicator"];
+                        core.customer_Orders.Add(orders);
+                        core.SaveChanges();
+                        return Ok("success order");
+
                     } 
                     else 
                     {
@@ -243,6 +233,7 @@ namespace capstone_backend.Controllers.POS
                         orders.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM"));
                         orders.orderStatus = "2";
                         orders.discountIsApplied = "0";
+                        orders.indicator = HTTP.Form["solo_order_indicator"];
                         orders.retainedQty = Convert.ToInt32(HTTP.Form["solo_order_qty"]);
                         core.customer_Orders.Add(orders);
                         core.SaveChanges();
@@ -276,7 +267,8 @@ namespace capstone_backend.Controllers.POS
                     orders.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM"));
                     orders.orderStatus = "3";
                     orders.discountIsApplied = "0";
-                    orders.retainedQty = 6;
+                    orders.retainedQty = 6 * Convert.ToInt32(HTTP.Form["bundle_order_qty"]);
+                    orders.indicator = HTTP.Form["bundle_indicator"];
                     core.customer_Orders.Add(orders);
                     core.SaveChanges();
                     return Ok("success order");
@@ -340,8 +332,7 @@ namespace capstone_backend.Controllers.POS
                     {
                         //subtract final product quantity
                         check.prodquantity = check.prodquantity - qty;
-                        cart.retainedQty = cart.retainedQty + 6;
-
+                        cart.retainedQty = cart.retainedQty + qty;
                         //subtract ingredients quantity
                         var ingredients = core.product_finalization_raw.Where(x => x.productCreatedCode == check.productCode)
                                                                        .Select(x => x.productInventoryCode)
@@ -377,7 +368,7 @@ namespace capstone_backend.Controllers.POS
                     {
                         //subtract final product quantity
                         check.prodquantity = check.prodquantity - origqty;
-                        
+                        int total = qty * origqty;
                         //subtract ingredients quantity
                         var ingredients = core.product_finalization_raw.Where(x => x.productCreatedCode == check.productCode)
                                                                        .Select(x => x.productInventoryCode)
@@ -385,7 +376,7 @@ namespace capstone_backend.Controllers.POS
                         foreach (var ingredient in ingredients)
                         {
                             var stock = core.product_inventory.Where(x => x.productCode == ingredient).FirstOrDefault();
-                            stock.product_quantity = stock.product_quantity - qty;
+                            stock.product_quantity = stock.product_quantity - total;
                         }
 
                         core.SaveChanges();
@@ -413,7 +404,7 @@ namespace capstone_backend.Controllers.POS
                     {
                         //subtract final product quantity
                         check.prodquantity = check.prodquantity - origqty;
-
+                        int total = qty * origqty;
                         //subtract ingredients quantity
                         var ingredients = core.product_finalization_raw.Where(x => x.productCreatedCode == check.productCode)
                                                                        .Select(x => x.productInventoryCode)
@@ -421,7 +412,7 @@ namespace capstone_backend.Controllers.POS
                         foreach (var ingredient in ingredients)
                         {
                             var stock = core.product_inventory.Where(x => x.productCode == ingredient).FirstOrDefault();
-                            stock.product_quantity = stock.product_quantity - qty;
+                            stock.product_quantity = stock.product_quantity - total;
                         }
 
                         core.SaveChanges();
@@ -592,7 +583,7 @@ namespace capstone_backend.Controllers.POS
                     if (checkID != null)
                     {
                         checkID.orderQuantity = checkID.orderQuantity + qty;
-                        checkID.retainedQty = checkID.retainedQty + 6;
+                        checkID.retainedQty = checkID.retainedQty + 6 * qty;
                         var gettotal = checkID.orderPrice * checkID.orderQuantity;
                         checkID.orderTotalPrice = gettotal;
                         core.SaveChanges();
@@ -618,7 +609,7 @@ namespace capstone_backend.Controllers.POS
                     if (checkID != null)
                     {
                         checkID.orderQuantity = checkID.orderQuantity + qty;
-                        checkID.retainedQty = checkID.retainedQty + 2;
+                        checkID.retainedQty = checkID.retainedQty + 2 * qty;
                         var gettotal = checkID.orderPrice * checkID.orderQuantity;
                         checkID.orderTotalPrice = gettotal;
                         core.SaveChanges();
@@ -665,6 +656,126 @@ namespace capstone_backend.Controllers.POS
                     string deleteStatus = "delete from paymentDetails";
                     core.Database.ExecuteSqlCommand(deleteStatus);
                     return Ok("success delete");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("inventory-detection-get-integratedraws"), HttpGet]
+        public IHttpActionResult getDetectionInventory(int id, int indicator)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    //b1t1
+                    if(indicator == 2)
+                    {
+                        var checkExceedingQty = core.product_finalization.Where(x => x.id == id)
+                            .Select(y => new
+                            {
+                                y.integratedRaws
+                            }).ToList();
+                        return Ok(checkExceedingQty);
+                    }
+                    //box of 6
+                    else if(indicator == 3)
+                    {
+                        var checkExceedingQty = core.product_finalization.Where(x => x.id == id)
+                            .Select(y => new
+                            {
+                                y.integratedRaws
+                            }).ToList();
+                        return Ok(checkExceedingQty);
+                    }
+                    // solo
+                    else
+                    {
+                        var checkExceedingQty = core.product_finalization.Where(x => x.id == id)
+                            .Select(y => new
+                            {
+                                y.integratedRaws
+                            }).ToList();
+                        return Ok(checkExceedingQty);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("get-product-final-integration"), HttpGet]
+        public IHttpActionResult getIntegRaws(string barcode)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var getRaws = core.product_finalization.Where(x => x.productCode == barcode).Select(y => new
+                    {
+                        y.integratedRaws
+                    }).ToList();
+                    return Ok(getRaws);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("check-detection-product-invetory-quantity"), HttpGet]
+        public IHttpActionResult detectIfExceed(int quantity, int indicator, string prodcode)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    if (indicator == 3)
+                    {
+                        var checkBoxOf6 = core.product_inventory.Where(x => x.productCode == prodcode).FirstOrDefault();
+                        int result = 6 * quantity; 
+                        if (checkBoxOf6.product_quantity < result)
+                        {
+                            return Ok("exceed box of 6");
+                        }
+                        else
+                        {
+                            return Ok("accept box of 6");
+                        }
+                    }
+                    //b1t1
+                    else if (indicator == 2)
+                    {
+                        var checkb1t1 = core.product_inventory.Where(x => x.productCode == prodcode).FirstOrDefault();
+                        int result = 2 * quantity;
+                        if (checkb1t1.product_quantity < result)
+                        {
+                            return Ok("exceed b1t1");
+                        }
+                        else
+                        {
+                            return Ok("accept b1t1");
+                        }
+                    }
+                    //solo
+                    else
+                    {
+                        var checksolo = core.product_inventory.Where(x => x.productCode == prodcode).FirstOrDefault();
+                        if (checksolo.product_quantity < 1)
+                        {
+                            return Ok("exceed solo");
+                        }
+                        else
+                        {
+                            return Ok("accept solo");
+                        }
+                    }
                 }
             }
             catch (Exception)

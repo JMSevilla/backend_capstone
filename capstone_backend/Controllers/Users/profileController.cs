@@ -65,31 +65,40 @@ namespace capstone_backend.Controllers.Users
                     using (db)
                     {
                         var obj = db.users.Where(x => x.id == id).FirstOrDefault();
-                        if(obj != null)
+                        var emailHandler = http.Form["email"];
+                        var checkUser = db.users.Where(x => x.email == emailHandler).FirstOrDefault();
+                        if(checkUser != null)
                         {
-                            if (string.IsNullOrEmpty(http.Form["password"]))
-                            {
-                                obj.firstname = http.Form["firstname"];
-                                obj.lastname = http.Form["lastname"];
-                                obj.email = http.Form["email"];
-                                obj.imageurl = http.Form["image"];
-                                db.SaveChanges();
-                                return Ok("success");
-                            }
-                            else
-                            {
-                                obj.firstname = http.Form["firstname"];
-                                obj.lastname = http.Form["lastname"];
-                                obj.email = http.Form["email"];
-                                obj.imageurl = http.Form["image"];
-                                obj.password = apisecure.Encrypt(http.Form["password"]);
-                                db.SaveChanges();
-                                return Ok("success");
-                            }
+                            return Ok("email exist");
                         }
                         else
                         {
-                            return Ok("invalid id not found");
+                            if (obj != null)
+                            {
+                                if (string.IsNullOrEmpty(http.Form["password"]))
+                                {
+                                    obj.firstname = http.Form["firstname"];
+                                    obj.lastname = http.Form["lastname"];
+                                    obj.email = http.Form["email"];
+                                    obj.imageurl = http.Form["image"];
+                                    db.SaveChanges();
+                                    return Ok("success");
+                                }
+                                else
+                                {
+                                    obj.firstname = http.Form["firstname"];
+                                    obj.lastname = http.Form["lastname"];
+                                    obj.email = http.Form["email"];
+                                    obj.imageurl = http.Form["image"];
+                                    obj.password = apisecure.Encrypt(http.Form["password"]);
+                                    db.SaveChanges();
+                                    return Ok("success");
+                                }
+                            }
+                            else
+                            {
+                                return Ok("invalid id not found");
+                            }
                         }
                     }
                 }

@@ -13,15 +13,13 @@ namespace capstone_backend.Controllers.POS
     public class pos_productListController : ApiController
     {
         [Route("products/get-all"), HttpGet]
-        public async Task<IHttpActionResult> getallprods()
+        public IHttpActionResult getallprods()
         {
             try
             {
-                IHttpActionResult result = null;
-                var obj = apiglobalcon.publico.product_finalization
-                    .Where(x => x.prodstatus == "1").ToList().Distinct();
-                result = Ok(obj);
-                return await Task.FromResult(result);
+               
+                var obj = apiglobalcon.publico.product_finalization.ToList().OrderByDescending(x => x.id);
+                return Ok(obj);
             }
             catch (Exception)
             {

@@ -21,6 +21,48 @@ namespace capstone_backend.Controllers.SystemHistory
             public string message { get; set; }
         }
         Response resp = new Response();
+        [Route("recover-product-archive"), HttpPut]
+        public IHttpActionResult recoverProduct(int stockID)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var check = core.stock_on_hand.Where(x => x.stockID == stockID).FirstOrDefault();
+                    if(check != null)
+                    {
+                        check.productstatus = "1";
+                        core.SaveChanges();
+                        
+                    }
+                    return Ok("success recover");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("remove-product-archive"), HttpDelete]
+        public IHttpActionResult removeProductArchive(int stockID)
+        {
+            try
+            {
+                using (core = apiglobalcon.publico)
+                {
+                    var check = core.stock_on_hand.Where(x => x.stockID == stockID).FirstOrDefault();
+                    core.Entry(check).State = System.Data.Entity.EntityState.Deleted;
+                    core.SaveChanges();
+                    return Ok("success deleted");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
         [Route("add-activity-log-user-management"), HttpPost]
         public HttpResponseMessage activitylog_user_management()
         {
@@ -57,7 +99,7 @@ namespace capstone_backend.Controllers.SystemHistory
             {
                 using(core = apiglobalcon.publico)
                 {
-                    var obj = core.activity_log.Where(x => x.activtystatus == "User Management").ToList();
+                    var obj = core.activity_log.Where(x => x.activtystatus == "User Management").ToList().OrderByDescending(y => y.id);
                     return Request.CreateResponse(HttpStatusCode.OK, obj);
                 }
             }

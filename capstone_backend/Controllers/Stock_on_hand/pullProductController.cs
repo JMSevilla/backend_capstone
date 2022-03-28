@@ -7,6 +7,7 @@ using System.Web.Http;
 using capstone_backend.Models;
 using System.Web;
 using capstone_backend.globalCON;
+using System.Data.SqlClient;
 
 namespace capstone_backend.Controllers.Stock_on_hand
 {
@@ -58,6 +59,7 @@ namespace capstone_backend.Controllers.Stock_on_hand
                                 prod.product_status = "1";
                                 prod.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                                 prod.product_category = category;
+                                prod.size = "None";
                                 core.product_inventory.Add(prod);
                                 core.SaveChanges();
 
@@ -80,6 +82,7 @@ namespace capstone_backend.Controllers.Stock_on_hand
                                 prod.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd h:m:s"));
                                 prod.product_category = category;
                                 prod.expirationprod = Convert.ToDateTime(expiration);
+                                prod.size = "None";
                                 core.product_inventory.Add(prod);
                                 core.SaveChanges();
 
@@ -222,6 +225,118 @@ namespace capstone_backend.Controllers.Stock_on_hand
                         core.SaveChanges();
                     }
                     return Ok("success");
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("refill-entry"), HttpPost]
+        public IHttpActionResult refillEntry(
+            string dumpprodname, int dumpid, long dumpNumber, int qty, DateTime exp, DateTime received
+            )
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                   if(core.stocks_on_hand_dump.Any(x => x.dumpExpiration == exp))
+                    {
+                        var check = core.stocks_on_hand_dump.Where(x => x.dumpExpiration == exp).FirstOrDefault();
+                        if (check.dumpExpiration == exp)
+                        {
+                            var Updater = core.stocks_on_hand_dump.Where(x => x.dumpExpiration == exp).FirstOrDefault();
+                            if(Updater!= null)
+                            {
+                                Updater.dumpQuantity = Updater.dumpQuantity + qty;
+                                core.SaveChanges();
+                            }
+                            return Ok("success refill update");
+                        }
+                        else
+                        {
+                            stocks_on_hand_dump stonk = new stocks_on_hand_dump();
+                            stonk.stockDumpName = dumpprodname;
+                            stonk.stockDumpId = dumpid;
+                            stonk.stockDumpNumber = dumpNumber;
+                            stonk.dumpQuantity = qty;
+                            stonk.dumpExpiration = exp;
+                            stonk.dumpReceived = received;
+                            stonk.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd"));
+                            core.stocks_on_hand_dump.Add(stonk);
+                            core.SaveChanges();
+                            return Ok("success refill");
+                        }
+                    }
+                    else
+                    {
+                        stocks_on_hand_dump stonk = new stocks_on_hand_dump();
+                        stonk.stockDumpName = dumpprodname;
+                        stonk.stockDumpId = dumpid;
+                        stonk.stockDumpNumber = dumpNumber;
+                        stonk.dumpQuantity = qty;
+                        stonk.dumpExpiration = exp;
+                        stonk.dumpReceived = received;
+                        stonk.createdAt = Convert.ToDateTime(System.DateTime.Now.ToString("yyyy/MM/dd"));
+                        core.stocks_on_hand_dump.Add(stonk);
+                        core.SaveChanges();
+                        return Ok("success refill");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("refill-list"), HttpGet]
+        public IHttpActionResult getRefillList(int stockDumpId)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var obj = core.stocks_on_hand_dump.Where(x => x.stockDumpId == stockDumpId).ToList();
+                    return Ok(obj);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [Route("stocks-refill"), HttpPut]
+        public IHttpActionResult stocksRefill(int dumpid, DateTime currExp, int qty, int genid)
+        {
+            try
+            {
+                using(core = apiglobalcon.publico)
+                {
+                    var getExp = core.stock_on_hand.Where(x => x.stockID == dumpid).FirstOrDefault();
+                    var helper = core.stock_on_hand.Where(y => y.stockID == dumpid).FirstOrDefault();
+                    var deletionGuide = core.stocks_on_hand_dump.Where(a => a.dumpId == dumpid).FirstOrDefault();
+                    if(getExp.expirationprod > currExp)
+                    {
+                        return Ok("invalid pull");
+                    }
+                    else
+                    {
+                        if(helper != null)
+                        {
+                            helper.productquantity = helper.productquantity + qty;
+                            helper.expirationprod = currExp;
+                            core.SaveChanges();
+
+                            // deletion of stocks refill product
+                            string deleteStatus = "delete from stocks_on_hand_dump where dumpId=@id";
+                            core.Database.ExecuteSqlCommand(deleteStatus, new SqlParameter("@id", genid));
+                        }
+                        return Ok("success refill");
+                    }
                 }
             }
             catch (Exception)

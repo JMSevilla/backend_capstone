@@ -72,6 +72,7 @@
           <Property Name="orderStatus" Type="char" MaxLength="1" />
           <Property Name="discountIsApplied" Type="char" MaxLength="1" />
           <Property Name="retainedQty" Type="bigint" />
+          <Property Name="indicator" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="customerBasicInformation">
           <Key>
@@ -284,6 +285,19 @@
           <Property Name="expirationprod" Type="datetime" />
           <Property Name="sizes" Type="varchar(max)" />
         </EntityType>
+        <EntityType Name="stocks_on_hand_dump">
+          <Key>
+            <PropertyRef Name="dumpId" />
+          </Key>
+          <Property Name="dumpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stockDumpName" Type="varchar" MaxLength="255" />
+          <Property Name="stockDumpId" Type="int" />
+          <Property Name="stockDumpNumber" Type="bigint" />
+          <Property Name="dumpQuantity" Type="int" />
+          <Property Name="dumpExpiration" Type="datetime" />
+          <Property Name="createdAt" Type="datetime" />
+          <Property Name="dumpReceived" Type="datetime" />
+        </EntityType>
         <EntityType Name="supplier">
           <Key>
             <PropertyRef Name="id" />
@@ -452,6 +466,24 @@ warning 6002: The table/view 'dbbm.dbo.warning_expiration_10_days' does not have
           <Parameter Name="quantity" Type="int" Mode="In" />
           <Parameter Name="state" Type="int" Mode="In" />
         </Function>
+        <Function Name="deletion_json" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pf_id" Type="int" Mode="In" />
+          <Parameter Name="json_prodid" Type="bigint" Mode="In" />
+          <Parameter Name="json_prodcode" Type="varchar" Mode="In" />
+          <Parameter Name="json_prodname" Type="varchar" Mode="In" />
+          <Parameter Name="json_prodqty" Type="int" Mode="In" />
+          <Parameter Name="json_prodprice" Type="decimal" Mode="In" />
+          <Parameter Name="json_prodtotal" Type="int" Mode="In" />
+          <Parameter Name="json_prodstatus" Type="char" Mode="In" />
+          <Parameter Name="json_prodcreator" Type="varchar" Mode="In" />
+          <Parameter Name="json_prodsupplier" Type="varchar" Mode="In" />
+          <Parameter Name="json_createdat" Type="datetime" Mode="In" />
+          <Parameter Name="json_prodimage" Type="varchar(max)" Mode="In" />
+          <Parameter Name="json_prodcategory" Type="varchar" Mode="In" />
+          <Parameter Name="json_expiration" Type="datetime" Mode="In" />
+          <Parameter Name="json_size" Type="varchar(max)" Mode="In" />
+          <Parameter Name="state" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="find_duplicates" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="sid" Type="varchar(max)" Mode="In" />
           <Parameter Name="state" Type="int" Mode="In" />
@@ -580,6 +612,7 @@ warning 6002: The table/view 'dbbm.dbo.warning_expiration_10_days' does not have
           <EntitySet Name="selectedraw" EntityType="Self.selectedraw" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sessionScan" EntityType="Self.sessionScan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="stock_on_hand" EntityType="Self.stock_on_hand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="stocks_on_hand_dump" EntityType="Self.stocks_on_hand_dump" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="supplier" EntityType="Self.supplier" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbcategory" EntityType="Self.tbcategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tbcategoryfinal" EntityType="Self.tbcategoryfinal" Schema="dbo" store:Type="Tables" />
@@ -684,6 +717,7 @@ warning 6002: The table/view 'dbbm.dbo.warning_expiration_10_days' does not have
           <Property Name="orderStatus" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="discountIsApplied" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="retainedQty" Type="Int64" />
+          <Property Name="indicator" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="customerBasicInformation">
           <Key>
@@ -1192,6 +1226,25 @@ warning 6002: The table/view 'dbbm.dbo.warning_expiration_10_days' does not have
           </FunctionImport>
           <EntitySet Name="product_sales" EntityType="dbbmModel2.product_sales" />
           <EntitySet Name="code_verifications" EntityType="dbbmModel2.code_verifications" />
+          <FunctionImport Name="deletion_json">
+            <Parameter Name="pf_id" Mode="In" Type="Int32" />
+            <Parameter Name="json_prodid" Mode="In" Type="Int64" />
+            <Parameter Name="json_prodcode" Mode="In" Type="String" />
+            <Parameter Name="json_prodname" Mode="In" Type="String" />
+            <Parameter Name="json_prodqty" Mode="In" Type="Int32" />
+            <Parameter Name="json_prodprice" Mode="In" Type="Decimal" />
+            <Parameter Name="json_prodtotal" Mode="In" Type="Int32" />
+            <Parameter Name="json_prodstatus" Mode="In" Type="String" />
+            <Parameter Name="json_prodcreator" Mode="In" Type="String" />
+            <Parameter Name="json_prodsupplier" Mode="In" Type="String" />
+            <Parameter Name="json_createdat" Mode="In" Type="DateTime" />
+            <Parameter Name="json_prodimage" Mode="In" Type="String" />
+            <Parameter Name="json_prodcategory" Mode="In" Type="String" />
+            <Parameter Name="json_expiration" Mode="In" Type="DateTime" />
+            <Parameter Name="json_size" Mode="In" Type="String" />
+            <Parameter Name="state" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="stocks_on_hand_dump" EntityType="dbbmModel2.stocks_on_hand_dump" />
         </EntityContainer>
         <ComplexType Name="find_duplicates_Result">
           <Property Type="Int32" Name="id" Nullable="false" />
@@ -1257,6 +1310,19 @@ warning 6002: The table/view 'dbbm.dbo.warning_expiration_10_days' does not have
           <Property Name="g_email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="validatedAt" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="stocks_on_hand_dump">
+          <Key>
+            <PropertyRef Name="dumpId" />
+          </Key>
+          <Property Name="dumpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stockDumpName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="stockDumpId" Type="Int32" />
+          <Property Name="stockDumpNumber" Type="Int64" />
+          <Property Name="dumpQuantity" Type="Int32" />
+          <Property Name="dumpExpiration" Type="DateTime" Precision="3" />
+          <Property Name="createdAt" Type="DateTime" Precision="3" />
+          <Property Name="dumpReceived" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1308,6 +1374,7 @@ warning 6002: The table/view 'dbbm.dbo.warning_expiration_10_days' does not have
           <EntitySetMapping Name="customer_Orders">
             <EntityTypeMapping TypeName="dbbmModel2.customer_Orders">
               <MappingFragment StoreEntitySet="customer_Orders">
+                <ScalarProperty Name="indicator" ColumnName="indicator" />
                 <ScalarProperty Name="orderID" ColumnName="orderID" />
                 <ScalarProperty Name="orderCode" ColumnName="orderCode" />
                 <ScalarProperty Name="orderName" ColumnName="orderName" />
@@ -1797,6 +1864,21 @@ warning 6002: The table/view 'dbbm.dbo.warning_expiration_10_days' does not have
                 <ScalarProperty Name="isdone" ColumnName="isdone" />
                 <ScalarProperty Name="vcode" ColumnName="vcode" />
                 <ScalarProperty Name="codeID" ColumnName="codeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="deletion_json" FunctionName="dbbmModel2.Store.deletion_json" />
+          <EntitySetMapping Name="stocks_on_hand_dump">
+            <EntityTypeMapping TypeName="dbbmModel2.stocks_on_hand_dump">
+              <MappingFragment StoreEntitySet="stocks_on_hand_dump">
+                <ScalarProperty Name="dumpReceived" ColumnName="dumpReceived" />
+                <ScalarProperty Name="createdAt" ColumnName="createdAt" />
+                <ScalarProperty Name="dumpExpiration" ColumnName="dumpExpiration" />
+                <ScalarProperty Name="dumpQuantity" ColumnName="dumpQuantity" />
+                <ScalarProperty Name="stockDumpNumber" ColumnName="stockDumpNumber" />
+                <ScalarProperty Name="stockDumpId" ColumnName="stockDumpId" />
+                <ScalarProperty Name="stockDumpName" ColumnName="stockDumpName" />
+                <ScalarProperty Name="dumpId" ColumnName="dumpId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

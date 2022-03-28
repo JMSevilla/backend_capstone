@@ -145,7 +145,7 @@ namespace capstone_backend.Controllers.SystemHistory
             {
                 using(core = apiglobalcon.publico)
                 {
-                    string deletionStatus = "delete from stock_on_hand where createdAt < DATEADD(day, -7, GETDATE()) and productstatus=@status";
+                    string deletionStatus = "delete from stock_on_hand where createdAt < DATEADD(day, -30, GETDATE()) and productstatus=@status";
                     core.Database.ExecuteSqlCommand(deletionStatus, new SqlParameter("@status", "3"));
                     return Ok("success deletion");
                 }
